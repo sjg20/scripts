@@ -62,6 +62,68 @@ re_copyright = re.compile('\+ \* Copyright \(c\) 2011, Google Inc. '
 
 
 
+class Color(object):
+  """Conditionally wraps text in ANSI color escape sequences."""
+  BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
+  BOLD = -1
+  COLOR_START = '\033[1;%dm'
+  BOLD_START = '\033[1m'
+  RESET = '\033[0m'
+
+  def __init__(self, enabled=True):
+    """Create a new Color object, optionally disabling color output.
+
+    Args:
+      enabled: True if color output should be enabled. If False then this
+        class will not add color codes at all.
+    """
+    self._enabled = enabled
+
+  def Start(self, color):
+    """Returns a start color code.
+
+    Args:
+      color: Color to use, .e.g BLACK, RED, etc.
+
+    Returns:
+      If color is enabled, returns an ANSI sequence to start the given color,
+      otherwise returns empty string
+    """
+    if self._enabled:
+      return self.COLOR_START % (color + 30)
+    return ''
+
+  def Stop(self):
+    """Retruns a stop color code.
+
+    Returns:
+      If color is enabled, returns an ANSI color reset sequence, otherwise
+      returns empty string
+    """
+    if self._enabled:
+      return self.RESET
+    return ''
+
+  def Color(self, color, text):
+    """Returns text with conditionally added color escape sequences.
+
+    Keyword arguments:
+      color: Text color -- one of the color constants defined in this class.
+      text: The text to color.
+
+    Returns:
+      If self._enabled is False, returns the original text. If it's True,
+      returns text with color escape sequences based on the value of color.
+    """
+    if not self._enabled:
+      return text
+    if color == self.BOLD:
+      start = self.BOLD_START
+    else:
+      start = self.COLOR_START % (color + 30)
+    return start + text + self.RESET
+
+
 class Command(object):
   """Shell command ease-ups for Python."""
 
@@ -111,111 +173,140 @@ class Command(object):
     return self.RunPipe([cmd], **kwargs)
 
 
-def FixPatchStream(infd, outfd, series):
-    """Copy a stream from infd to outfd, filtering out unwanting things.
+class PatchStream:
+    def __init__(self, series={}, is_log=False):
+        self.skip_blank = False          # True to skip a single blank line
+        self.found_test = False          # Found a TEST= line
+        self.lines_after_test = 0        # MNumber of lines found after TEST=
+        self.patch_started = False       # Have we see a '---' line yet?
+        self.warn = []                   # List of warnings we have collected
+        self.linenum = 1                 # Output line number we are up to
+        self.in_cover = False            # True if we are in the cover letter
+        self.cover = None                # The cover letter contents
+        self.series = series             # Info about the patch series
+        self.is_log = is_log             # True if indent like git log
 
-    Args:
-        infd: Input stream
-        outfd: Output stream
-        series: Dictionary to hold patch series information
-    Returns:
-        List of warnings, or [] if none.
-        Updated series dictionary"""
-    skip_blank = False          # True to skip a single blank line
-    found_test = False          # Found a TEST= line
-    lines_after_test = 0        # MNumber of lines found after TEST=
-    patch_started = False       # Have we see a '---' line yet?
-    warn = []                   # List of warnings we have collected
-    linenum = 1                 # Output line number we are up to
-    in_cover = False            # True if we are in the cover letter
-    cover = None                # The cover letter contents
-    while True:
-        line = infd.readline()
-        if not line:
-            break
+        # Set up 'cc' which must a list
+        if not self.series.get('cc'):
+            self.series['cc'] = []
 
+    def ProcessLine(self, line):
+        """Process a single line of a patch file or commit log
+
+        Args:
+            line: text line to process
+
+        Returns:
+            output line, or None if nothing should be output"""
+        out = None
         line = line.rstrip('\n')
-        #print '.%s.' % line
-
-        # TODO: fix up this code
+        if self.is_log:
+            if line[:4] == '    ':
+                line = line[4:]
         series_match = re_series.match(line)
         if re_prog.match(line):
-            skip_blank = True
+            self.skip_blank = True
             if line.startswith('TEST='):
-                found_test = True
-        elif skip_blank and not line.strip():
-            skip_blank = False
+                self.found_test = True
+        elif self.skip_blank and not line.strip():
+            self.skip_blank = False
         elif re_cover.match(line):
-            in_cover = True
-            cover = []
-        elif in_cover:
+            self.in_cover = True
+            self.cover = []
+        elif self.in_cover:
             if line == 'END':
-                in_cover = False
-                skip_blank = True
+                self.in_cover = False
+                self.skip_blank = True
             else:
-                cover.append(line)
+                self.cover.append(line)
         elif re_copyright.match(line):
-            outfd.write('+ * Copyright (c) 2011 The Chromium OS Authors.\n')
-            warn.append("Changed copyright from '%s'" % line)
+            out = '+ * Copyright (c) 2011 The Chromium OS Authors.\n'
+            self.warn.append("Changed copyright from '%s'" % line)
         elif series_match:
             name = series_match.group(1)
             value = series_match.group(2)
-            if name in series:
-                series[name].append(value)
+            if name in self.series:
+                self.series[name].append(value)
             else:
-                series[name] = value
-            skip_blank = True
+                self.series[name] = value
+            self.skip_blank = True
         else:
             pos = 1
             for ch in line:
                 if ord(ch) > 0x80:
-                    warn.append('Line %d/%d has funny ascii character' %
+                    self.warn.append('Line %d/%d has funny ascii character' %
                         (linenum, pos))
                 pos += 1
 
-            outfd.write(line)
-            outfd.write('\n')
-            linenum += 1
-            skip_blank = False
-            if patch_started:
+            out = line + '\n'
+            self.linenum += 1
+            self.skip_blank = False
+            if self.patch_started:
                 pass
             elif line.startswith('---'):
-                patch_started = True
-            elif found_test:
+                self.patch_started = True
+            elif self.found_test:
                 if not re_allowed_after_test.match(line):
-                    lines_after_test += 1
-    if lines_after_test:
-        warn.append('Found %d lines after TEST=' % lines_after_test)
-    if cover:
-        series['cover'] = cover
-    return warn
+                    self.lines_after_test += 1
+        return out
+
+    def Finalize(self):
+        if self.lines_after_test:
+            warn.append('Found %d lines after TEST=' % lines_after_test)
+        if self.cover:
+            self.series['cover'] = self.cover
+
+    def ProcessStream(self, infd, outfd):
+        """Copy a stream from infd to outfd, filtering out unwanting things.
+
+        Args:
+            infd: Input stream
+            outfd: Output stream"""
+        while True:
+            line = infd.readline()
+            if not line:
+                break
+            out = self.ProcessLine(line)
+            if out:
+                outfd.write(out)
+        self.Finalize()
+
 
 def GetMetaData(count):
     """Reads out patch series metadata from the commits"""
     cmd = Command()
     pipe = [['git', 'log', '-n%d' % count]]
-    stdout = cmd.RunPipe(pipe, capture=True).splitlines()
+    stdout = cmd.RunPipe(pipe, capture=True)
+    ps = PatchStream(is_log=True)
+    for line in stdout.splitlines():
+        ps.ProcessLine(line)
+    return ps.series
 
 def FixPatch(backup_dir, fname, series):
     """Fix up a patch file, putting a backup in back_dir (if not None).
 
     Returns a list of errors, or [] if all ok."""
     handle, tmpname = tempfile.mkstemp()
-    out = os.fdopen(handle, 'w')
-    fd = open(fname, 'r')
-    result = FixPatchStream(fd, out, series)
-    fd.close()
-    out.close()
+    outfd = os.fdopen(handle, 'w')
+    infd = open(fname, 'r')
+    ps = PatchStream(series)
+    ps.ProcessStream(infd, outfd)
+    infd.close()
+    outfd.close()
+
+    # Create a backup file if required
     if backup_dir:
         shutil.copy(fname, os.path.join(backup_dir, os.path.basename(fname)))
     shutil.move(tmpname, fname)
-    return result
+    return ps.warn
 
 def FixPatches(fnames):
-    """Fix up a list of patches identified by filename"""
+    """Fix up a list of patches identified by filename
+    TODO: Tidy this up by integrating properly with checkpatch
+    """
     backup_dir = tempfile.mkdtemp('clean-patch')
     count = 0
-    series = {'cc' : []}
+    series = {}
     for fname in fnames:
         result = FixPatch(backup_dir, fname, series)
         if result:
@@ -227,7 +318,19 @@ def FixPatches(fnames):
     print 'Cleaned %d patches' % count
     return series
 
-def CreatePatches(count):
+def GetPatchPrefix(series):
+    # Get version string
+    version = ''
+    if series.get('version'):
+        version = ' v%s' % series['version']
+
+    # Get patch name prefix
+    prefix = ''
+    if series.get('prefix'):
+        prefix = '%s ' % series['prefix']
+    return '%sPATCH%s' % (prefix, version)
+
+def CreatePatches(count, series):
     """Create a series of patches from the top of the current branch.
 
     Args:
@@ -235,8 +338,12 @@ def CreatePatches(count):
     Returns:
         Filename of cover letter
         List of filenames of patch files"""
-    cmd = ['git', 'format-patch', '--signoff', '--cover-letter',
-        'HEAD~%d' % count]
+    if series.get('version'):
+        version = '%s ' % series['version']
+    cmd = ['git', 'format-patch', '--signoff', '--cover-letter']
+    if series.get('version'):
+        cmd += ['--subject-prefix=%s' % GetPatchPrefix(series)]
+    cmd += ['HEAD~%d' % count]
 
     pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     stdout, stderr = pipe.communicate()
@@ -261,14 +368,17 @@ def CheckPatch(fname):
     Returns:
         4-tuple containing:
             result: None = checkpatch broken, False=failure, True=ok
-            errors: Number of errors
-            warnings: Number of warnings
+            problems: List of problems, each a dict:
+                'type'; error or warning
+                'msg': text message
+                'file' : filename
+                'line': line number
             lines: Number of lines'''
     result = None
     error_count, warning_count, lines = 0, 0, 0
-    warnings = []
-    errors = []
+    problems = []
     chk = FindCheckPatch()
+    item = {}
     if chk:
         cmd = [chk, fname]
         pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -280,6 +390,7 @@ def CheckPatch(fname):
         re_bad = re.compile('.*has style problems, please review')
         re_error = re.compile('ERROR: (.*)')
         re_warning = re.compile('WARNING: (.*)')
+        re_file = re.compile('#\d+: FILE: ([^:]*):(\d+):')
 
         for line in stdout.splitlines():
             match = re_stats.match(line)
@@ -293,29 +404,54 @@ def CheckPatch(fname):
                 result = False
             match = re_error.match(line)
             if match:
-                errors.append(match.group(1))
+                item['msg'] = match.group(1)
+                item['type'] = 'error'
             match = re_warning.match(line)
             if match:
-                warnings.append(match.group(1))
-    return result, errors, warnings, lines, stdout
+                item['msg'] = match.group(1)
+                item['type'] = 'warning'
+            match = re_file.match(line)
+            if match:
+                item['file'] = match.group(1)
+                item['line'] = int(match.group(2))
+
+                # We consider this message complete now
+                # Record it and start the next one
+                problems.append(item)
+                item = {}
+    return result, problems, error_count, warning_count, lines, stdout
 
 def CheckPatches(args):
     '''Run the checkpatch.pl script on each patch'''
     error_count = 0
     warning_count = 0
+    col = Color()
     for fname in args:
-        ok, errors, warnings, lines, stdout = CheckPatch(fname)
+        ok, problems, errors, warnings, lines, stdout = CheckPatch(fname)
         if not ok:
-            error_count += len(errors)
-            warning_count += len(warnings)
-            print '%d errors, %d warnings for %s:' % (len(errors),
-                    len(warnings), fname)
-            for line in errors + warnings:
-                print line
-            print stdout
+            error_count += errors
+            warning_count += warnings
+            print '%d errors, %d warnings for %s:' % (errors,
+                    warnings, fname)
+            for item in problems:
+                type_str = item['type']
+                if type_str == 'warning':
+                    type_str = col.Color(col.YELLOW, type_str)
+                elif type_str == 'error':
+                    type_str = col.Color(col.RED, type_str)
+                str = '%s: %s,%d: %s' % (type_str, item['file'],
+                        item['line'], item['msg'])
+                print str
+            #print stdout
     if error_count != 0 or warning_count != 0:
-        print 'checkpatch.pl found %d error(s), %d warning(s)' % (
+        str = 'checkpatch.pl found %d error(s), %d warning(s)' % (
             error_count, warning_count)
+        color = col.GREEN
+        if warning_count:
+            color = col.YELLOW
+        if error_count:
+            color = col.RED
+        print col.Color(color, str)
         return False
     return True
 
@@ -331,21 +467,10 @@ def InsertCoverLetter(fname, series, count):
 
     fd = open(fname, 'w')
     text = series['cover']
-
-    # Get version string
-    version = ''
-    if series.get('version'):
-        version = ' v%s' % series['version']
-
-    # Get patch name prefix
-    prefix = ''
-    if series.get('prefix'):
-        prefix = '%s ' % series['prefix']
-
+    prefix = GetPatchPrefix(series)
     for line in lines:
         if line.startswith('Subject:'):
-            line = 'Subject: [%sPATCH 0/%d%s] %s\n' % (prefix, count,
-                    version, text[0])
+            line = 'Subject: [%s 0/%d] %s\n' % (prefix, count, text[0])
         elif line.startswith('*** BLURB HERE ***'):
             line = '\n'.join(text[1:])
         fd.write(line)
@@ -666,8 +791,8 @@ else:
 
     if options.count:
         # Read the metadata
-        seies = GetMetaData(options.count)
-        cover_fname, args = CreatePatches(options.count)
+        series = GetMetaData(options.count)
+        cover_fname, args = CreatePatches(options.count, series)
     series = FixPatches(args)
     if series and cover_fname:
         InsertCoverLetter(cover_fname, series, options.count)

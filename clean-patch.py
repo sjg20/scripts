@@ -28,6 +28,9 @@ Patch can be sent to people mentioned in the commits:
 Series-to: u-boot
 Series-cc: Simon Schwarz <simonschwarzcor@googlemail.com>
 Series-cc: Detlev Zundel <dzu@denx.de>
+Series-changes: 2
+- Changed macros so that all code is compiled even if DEBUG is disabled
+      (blank line)
 
 (for u-boot it looks up ~/.config/clean-patch for lines like:
 u-boot: "U-Boot Mailing List" <u-boot@lists.denx.de>
@@ -45,7 +48,8 @@ import unittest
 
 
 re_prog = re.compile('^BUG=|^TEST=|^Change-Id:|^Review URL:'
-    '|Reviewed-on:|Reviewed-by:|Tested-by:')
+    '|Reviewed-on:|Reviewed-by:')
+#|Tested-by:
 
 # Lines which are allowed after a TEST= line
 re_allowed_after_test = re.compile('^Signed-off-by:')
@@ -173,6 +177,23 @@ class Command(object):
     return self.RunPipe([cmd], **kwargs)
 
 
+def MakeChangeLog(changes):
+    final = []
+    need_blank = False
+    for change in sorted(changes):
+        out = []
+        if need_blank:
+            out.append('')
+        out.append('Changes in v%d:' % change)
+        for item in changes[change]:
+            if item not in out:
+                out.append(item)
+        need_blank = True
+        final += out
+    if changes:
+        final.append('')
+    return final
+
 class PatchStream:
     def __init__(self, series={}, is_log=False):
         self.skip_blank = False          # True to skip a single blank line
@@ -185,10 +206,23 @@ class PatchStream:
         self.cover = None                # The cover letter contents
         self.series = series             # Info about the patch series
         self.is_log = is_log             # True if indent like git log
+        self.in_change = 0               # Non-zero if we are in a change list
+        self.changes = {}                # List of changelogs
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
             self.series['cc'] = []
+
+    def AddToSeries(self, name, value):
+        if name in self.series:
+            values = value.split(',')
+            values = [str.strip() for str in values]
+            if type(self.series[name]) != type([]):
+                print "Cannot add another value '%s' to series '%s'" % (
+                    values, self.series[name])
+            self.series[name] += values
+        else:
+            self.series[name] = value
 
     def ProcessLine(self, line):
         """Process a single line of a patch file or commit log
@@ -197,8 +231,8 @@ class PatchStream:
             line: text line to process
 
         Returns:
-            output line, or None if nothing should be output"""
-        out = None
+            list of output lines, or [] if nothing should be output"""
+        out = []
         line = line.rstrip('\n')
         if self.is_log:
             if line[:4] == '    ':
@@ -213,46 +247,63 @@ class PatchStream:
         elif re_cover.match(line):
             self.in_cover = True
             self.cover = []
+            self.skip_blank = False
         elif self.in_cover:
             if line == 'END':
                 self.in_cover = False
                 self.skip_blank = True
             else:
                 self.cover.append(line)
+        elif self.in_change:
+            if line.strip():
+                self.changes[self.in_change].append(line)
+            else:
+                # Blank line ends this change list
+                self.in_change = 0
         elif re_copyright.match(line):
-            out = '+ * Copyright (c) 2011 The Chromium OS Authors.\n'
+            out = ['+ * Copyright (c) 2011 The Chromium OS Authors.']
             self.warn.append("Changed copyright from '%s'" % line)
+            self.skip_blank = False
         elif series_match:
             name = series_match.group(1)
             value = series_match.group(2)
-            if name in self.series:
-                self.series[name].append(value)
+            if name == 'changes':
+                # value is the version number: e.g. 1, or 2
+                value = int(value)
+                if not self.changes.get(value):
+                    self.changes[value] = []
+                self.in_change = int(value)
             else:
-                self.series[name] = value
-            self.skip_blank = True
+                self.AddToSeries(name, value)
+                self.skip_blank = True
         else:
             pos = 1
             for ch in line:
                 if ord(ch) > 0x80:
                     self.warn.append('Line %d/%d has funny ascii character' %
-                        (linenum, pos))
+                        (self.linenum, pos))
                 pos += 1
 
-            out = line + '\n'
+            out = [line]
             self.linenum += 1
             self.skip_blank = False
             if self.patch_started:
                 pass
             elif line.startswith('---'):
                 self.patch_started = True
+
+                # Output the change list
+                out += MakeChangeLog(self.changes)
             elif self.found_test:
                 if not re_allowed_after_test.match(line):
                     self.lines_after_test += 1
+        #print line, out
         return out
 
     def Finalize(self):
         if self.lines_after_test:
-            warn.append('Found %d lines after TEST=' % lines_after_test)
+            self.warn.append('Found %d lines after TEST=' %
+                    self.lines_after_test)
         if self.cover:
             self.series['cover'] = self.cover
 
@@ -267,8 +318,8 @@ class PatchStream:
             if not line:
                 break
             out = self.ProcessLine(line)
-            if out:
-                outfd.write(out)
+            for line in out:
+                outfd.write(line + '\n')
         self.Finalize()
 
 
@@ -280,7 +331,8 @@ def GetMetaData(count):
     ps = PatchStream(is_log=True)
     for line in stdout.splitlines():
         ps.ProcessLine(line)
-    return ps.series
+    ps.Finalize()
+    return ps.series, ps.changes
 
 def FixPatch(backup_dir, fname, series):
     """Fix up a patch file, putting a backup in back_dir (if not None).
@@ -340,7 +392,9 @@ def CreatePatches(count, series):
         List of filenames of patch files"""
     if series.get('version'):
         version = '%s ' % series['version']
-    cmd = ['git', 'format-patch', '--signoff', '--cover-letter']
+    cmd = ['git', 'format-patch', '--signoff']
+    if series.get('cover'):
+        cmd.append('--cover-letter')
     if series.get('version'):
         cmd += ['--subject-prefix=%s' % GetPatchPrefix(series)]
     cmd += ['HEAD~%d' % count]
@@ -349,7 +403,10 @@ def CreatePatches(count, series):
     stdout, stderr = pipe.communicate()
     files = stdout.splitlines()
     #print '%d files' % len(files)
-    return files[0], files[1:]
+    if series.get('cover'):
+       return files[0], files[1:]
+    else:
+       return None, files
 
 def FindCheckPatch():
     path = os.getcwd()
@@ -362,7 +419,7 @@ def FindCheckPatch():
     print 'Could not find checkpatch.pl'
     return None
 
-def CheckPatch(fname):
+def CheckPatch(verbose, fname):
     '''Run checkpatch.pl on a file.
 
     Returns:
@@ -393,6 +450,8 @@ def CheckPatch(fname):
         re_file = re.compile('#\d+: FILE: ([^:]*):(\d+):')
 
         for line in stdout.splitlines():
+            if verbose:
+                print line
             match = re_stats.match(line)
             if match:
                 error_count = int(match.group(1))
@@ -421,18 +480,22 @@ def CheckPatch(fname):
                 item = {}
     return result, problems, error_count, warning_count, lines, stdout
 
-def CheckPatches(args):
+def CheckPatches(verbose, args):
     '''Run the checkpatch.pl script on each patch'''
     error_count = 0
     warning_count = 0
     col = Color()
+
     for fname in args:
-        ok, problems, errors, warnings, lines, stdout = CheckPatch(fname)
+        ok, problems, errors, warnings, lines, stdout = CheckPatch(verbose,
+                    fname)
         if not ok:
             error_count += errors
             warning_count += warnings
             print '%d errors, %d warnings for %s:' % (errors,
                     warnings, fname)
+            if len(problems) != error_count + warning_count:
+                print "Internal error: some problems lost"
             for item in problems:
                 type_str = item['type']
                 if type_str == 'warning':
@@ -455,7 +518,7 @@ def CheckPatches(args):
         return False
     return True
 
-def InsertCoverLetter(fname, series, count):
+def InsertCoverLetter(fname, series, changes, count):
     """Insert the given text into the cover letter"""
     #script = '-e s|Subject:.*|Subject: [PATCH 0/%d] %s|' % (count, text[0])
     #cmd = 'sed -i "%s" %s' % (script, fname)
@@ -472,7 +535,12 @@ def InsertCoverLetter(fname, series, count):
         if line.startswith('Subject:'):
             line = 'Subject: [%s 0/%d] %s\n' % (prefix, count, text[0])
         elif line.startswith('*** BLURB HERE ***'):
-            line = '\n'.join(text[1:])
+            # First the blurb test
+            line = '\n'.join(text[1:]) + '\n'
+
+            # Now the change list
+            out = MakeChangeLog(changes)
+            line += '\n' + '\n'.join(out)
         fd.write(line)
     fd.close()
 
@@ -519,18 +587,21 @@ def EmailPatches(series, cover_fname, args, dry_run):
         cover_fname: filename of cover letter
         args: list of filenames of patch files
         dry_run: True to just email to yourself as a test"""
-    if not series.get('to'):
-        print ('No destination, please add Series-to: '
-            'Fred Bloggs <f.blogs@napier.co.nz> to a commit')
-    to = LookupEmail(series['to'])
+    dest = series.get('to')
+    if not dest:
+        print ("No recipient, please add something like this to a commit\n"
+            "Series-to: Fred Bloggs <f.blogs@napier.co.nz>")
+        return
+    to = LookupEmail(dest)
     cc = ''
     if series.get('cc'):
-        cc = ''.join(['-cc "%s" ' % LookupEmail(name) for name in series['cc']])
+        cc = ''.join(['-cc "%s" ' % LookupEmail(name)
+                    for name in series['cc']])
     if dry_run:
         to = os.getenv('USER')
         cc = ''
-    cmd = 'git send-email --annotate --to "%s" %s%s %s' % (to, cc, cover_fname,
-        ' '.join(args))
+    cmd = 'git send-email --annotate --to "%s" %s%s %s' % (to, cc,
+        cover_fname and cover_fname or '', ' '.join(args))
     #print cmd
     os.system(cmd)
 
@@ -767,6 +838,25 @@ index 0000000..2234c87
         self.assertEqual(lines, 67)
         os.remove(inname)
 
+def ShowActions(series, args):
+    """Show what actions we will perform"""
+    print 'Dry run, so not doing much. But I would do this:'
+    print
+    print 'Send a total of %d patches with %scover letter.' % (
+            len(args), series.get('cover') and 'a ' or 'no ')
+    for arg in args:
+        print '   %s' % arg
+    print
+    email = series.get('to')
+    print 'To: ', LookupEmail(email) if email else '<none>'
+    if series.get('cc'):
+        for item in series.get('cc'):
+            print 'Cc: ', LookupEmail(item)
+    print 'Version: ', series.get('version')
+    print 'Prefix: ', series.get('prefix')
+    if series.get('cover'):
+        print 'Cover: %d lines' % len(series.get('cover'))
+
 
 parser = OptionParser()
 parser.add_option('-t', '--test', action='store_true', dest='test',
@@ -778,6 +868,8 @@ parser.add_option('-n', '--dry-run', action='store_true', dest='dry_run',
 parser.add_option('-i', '--ignore-errors', action='store_true',
        dest='ignore_errors', default=False,
        help='Send patches email even if patch errors are found')
+parser.add_option('-v', '--verbose', action='store_true', dest='verbose',
+       default=False, help='Verbose output of errors and warnings')
 
 (options, args) = parser.parse_args()
 
@@ -791,12 +883,30 @@ else:
 
     if options.count:
         # Read the metadata
-        series = GetMetaData(options.count)
+        series, changes = GetMetaData(options.count)
         cover_fname, args = CreatePatches(options.count, series)
     series = FixPatches(args)
-    if series and cover_fname:
-        InsertCoverLetter(cover_fname, series, options.count)
-    if CheckPatches(args) or options.ignore_errors:
-        EmailPatches(series, cover_fname, args, options.dry_run)
-        pass
+    if series and cover_fname and series.get('cover'):
+        InsertCoverLetter(cover_fname, series, changes, options.count)
+
+    # Check that each version has a change log
+    if series.get('version'):
+        col = Color()
+        changes_copy = dict(changes)
+        for version in range(2, int(series['version']) + 1):
+            if changes.get(version):
+                del changes_copy[version]
+            else:
+                str = 'Change log missing for v%d' % version
+                print col.Color(col.RED, str)
+        for version in changes_copy:
+            str = 'Change log for unknown version v%d' % version
+            print col.Color(col.RED, str)
+
+    if CheckPatches(options.verbose, args) or options.ignore_errors:
+        if not options.dry_run:
+            EmailPatches(series, cover_fname, args, options.dry_run)
+
+    if options.dry_run:
+        ShowActions(series, args)
 

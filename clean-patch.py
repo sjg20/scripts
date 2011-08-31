@@ -395,8 +395,9 @@ def CreatePatches(count, series):
     cmd = ['git', 'format-patch', '--signoff']
     if series.get('cover'):
         cmd.append('--cover-letter')
-    if series.get('version'):
-        cmd += ['--subject-prefix=%s' % GetPatchPrefix(series)]
+    prefix = GetPatchPrefix(series)
+    if prefix:
+        cmd += ['--subject-prefix=%s' % prefix]
     cmd += ['HEAD~%d' % count]
 
     pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)

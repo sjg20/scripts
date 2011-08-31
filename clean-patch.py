@@ -208,6 +208,7 @@ class PatchStream:
         self.is_log = is_log             # True if indent like git log
         self.in_change = 0               # Non-zero if we are in a change list
         self.changes = {}                # List of changelogs
+        self.blank_count = 0             # Number of blank lines stored up
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
@@ -313,13 +314,32 @@ class PatchStream:
         Args:
             infd: Input stream
             outfd: Output stream"""
+
+        # Extract the filename from each diff, for nice warnings
+        fname = None
+        last_fname = None
+        re_fname = re.compile('diff --git a/(.*) b/.*')
         while True:
             line = infd.readline()
             if not line:
                 break
             out = self.ProcessLine(line)
             for line in out:
-                outfd.write(line + '\n')
+                # Swallow blank lines at end of file;
+                # git format-patch 1.7.3.1 creates these for unknown reasons.
+                match = re_fname.match(line)
+                if match:
+                    last_fname = fname
+                    fname = match.group(1)
+                if line == '+':
+                    self.blank_count += 1
+                else:
+                    if self.blank_count and (line == '-- ' or match):
+                        self.warn.append("Found possible blank lines at"
+                                "end of file '%s'" % last_fname)
+                    outfd.write('+\n' * self.blank_count)
+                    outfd.write(line + '\n')
+                    self.blank_count = 0
         self.Finalize()
 
 
@@ -412,7 +432,7 @@ def CreatePatches(count, series):
 def FindCheckPatch():
     path = os.getcwd()
     while not os.path.ismount(path):
-        fname = os.path.join(path, 'src', 'third_party', 'kernel-next',
+        fname = os.path.join(path, 'src', 'third_party', 'kernel', 'files',
                 'scripts', 'checkpatch.pl')
         if os.path.isfile(fname):
             return fname

@@ -208,6 +208,7 @@ class PatchStream:
         self.is_log = is_log             # True if indent like git log
         self.in_change = 0               # Non-zero if we are in a change list
         self.changes = {}                # List of changelogs
+        self.blank_count = 0             # Number of blank lines stored up
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
@@ -319,7 +320,14 @@ class PatchStream:
                 break
             out = self.ProcessLine(line)
             for line in out:
-                outfd.write(line + '\n')
+                # Swallow blank lines at end of file;
+                # git format-patch 1.7.3.1 creates these for unknown reasons.
+                if line:
+                    outfd.write('\n' * self.blank_count)
+                    outfd.write(line + '\n')
+                    self.blank_count = 0
+                else:
+                    self.blank_count += 1
         self.Finalize()
 
 

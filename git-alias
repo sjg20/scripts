@@ -1,17 +1,33 @@
+get_branch() {
+	#local branch=$(git symbolic-ref HEAD)
+	local branch=$(git name-rev --name-only HEAD)
+	local remote=$(git config -l | \
+		sed -n "s/branch.${branch}.remote=\(.*\)/\1/p")
+	local merge=$(git config -l | \
+		sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
+
+	echo ${remote}/${merge}
+}
+
+
 # show changed made in top commit (useful when working through a rebase -i)
 alias dh='git diff HEAD~'
 
 # move to next commit during a rebase
 alias rc='git rebase --continue'
+alias rs='git rebase --skip'
 
 # add all changed files
 alias au='git add -u'
 
 # show short list of commits in this branch
-alias ol='git log --oneline m/master..'
+alias ol='git log --oneline $(get_branch)..'
 
 # show stat log of commits in this branch
-alias sl='git log --stat m/master..'
+alias sl='git log --stat $(get_branch)..'
+
+# commit
+alias gc='git commit'
 
 # amend - useful during rebase also
 alias am='git commit --amend'
@@ -31,7 +47,7 @@ alias gba='git branch -a'
 function interactive_rebase()
 {
 	if [ -z "$1" ]; then
-		git rebase -i m/master
+		git rebase -i $(get_branch)
 	else
 		git rebase -i HEAD~$1
 	fi
@@ -76,7 +92,6 @@ function diff_branch()
 alias db='diff_branch'
 
 alias rhard='git reset --hard HEAD'
-alias rs='git rebase --skip'
 alias gp='git cherry-pick'
 
 function show_commit()

@@ -1,0 +1,87 @@
+# show changed made in top commit (useful when working through a rebase -i)
+alias dh='git diff HEAD~'
+
+# move to next commit during a rebase
+alias rc='git rebase --continue'
+
+# add all changed files
+alias au='git add -u'
+
+# show short list of commits in this branch
+alias ol='git log --oneline m/master..'
+
+# show stat log of commits in this branch
+alias sl='git log --stat m/master..'
+
+# amend - useful during rebase also
+alias am='git commit --amend'
+
+# type this a lot
+alias g='git status'
+
+# for looking at a commit
+alias gs='git show'
+
+# show stat
+alias ss='git show --stat'
+
+alias gb='git branch'
+alias gba='git branch -a'
+
+function interactive_rebase()
+{
+	if [ -z "$1" ]; then
+		git rebase -i m/master
+	else
+		git rebase -i HEAD~$1
+	fi
+}
+
+alias gr='interactive_rebase'
+
+function next_commit_changes()
+{
+	out=$(git log --numstat --pretty=format: -n1 | tail -n+2)
+	echo "$out" | awk '{printf("%s ", $3)}'
+}
+
+function diff_branch()
+{
+	echo "Changes in this commit:"
+	echo
+	git log --stat --oneline -n1
+
+	echo
+	echo "Now performing diff against branch on those files only"
+
+	# print a stat list first
+	echo $(next_commit_changes)
+	git diff $1 --stat -- $(next_commit_changes)
+
+	# now run meld on each diff
+	git diff $1 -- $(next_commit_changes)
+}
+
+# db <branch>
+
+# this is for splitting a large commit into multiple ones
+
+# Usage:
+# git checkout mmc2
+# git rebase -i HEAD~4
+# on a commit use:
+# db mmc2
+# this will print a list of changes to the files used by THIS commit
+# which have been made at mmc2
+alias db='diff_branch'
+
+alias rhard='git reset --hard HEAD'
+alias rs='git rebase --skip'
+alias gp='git cherry-pick'
+
+function show_commit()
+{
+	git diff $1~..$1
+}
+alias gd='show_commit'
+alias gc='git commit'

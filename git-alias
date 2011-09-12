@@ -1,12 +1,24 @@
 get_branch() {
-	#local branch=$(git symbolic-ref HEAD)
-	local branch=$(git name-rev --name-only HEAD)
-	local remote=$(git config -l | \
-		sed -n "s/branch.${branch}.remote=\(.*\)/\1/p")
-	local merge=$(git config -l | \
-		sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
-
-	echo ${remote}/${merge}
+	local branch=$(git symbolic-ref HEAD |awk -F / '{print $3}')
+	#local branch=$(git name-rev --name-only HEAD)
+	if [ -z "${branch}" ]; then
+		git name-rev @{-1} --name-only;
+		branch=$(git name-rev @{-1} --name-only);
+		echo "Warning: Using branch ${branch}" >/dev/stderr
+		echo $branch
+	else
+		local remote=$(git config -l | \
+			sed -n "s#branch.${branch}.remote=\(.*\)#\1#p")
+		local merge=$(git config -l | \
+			sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
+		[ -n "${remote}${merge}" ] || (
+			echo "Error: No tracking branch" >/dev/stderr;
+			echo "Use 'git branch --set-upstream ${branch} upstream/foo'" \
+				>/dev/stderr;
+			echo >/dev/stderr;
+			return 1)
+		echo ${remote}/${merge}
+	fi
 }
 
 
@@ -21,7 +33,7 @@ alias rs='git rebase --skip'
 alias au='git add -u'
 
 # show short list of commits in this branch
-alias ol='git log --oneline $(get_branch)..'
+alias ol='git log --oneline --decorate $(get_branch)..'
 
 # show stat log of commits in this branch
 alias sl='git log --stat $(get_branch)..'
@@ -33,7 +45,7 @@ alias gc='git commit'
 alias am='git commit --amend'
 
 # type this a lot
-alias g='git status'
+alias g='git status -sb'
 
 # for looking at a commit
 alias gs='git show'

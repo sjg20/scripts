@@ -64,6 +64,9 @@ re_series = re.compile('^Series-(\w*): *(.*)')
 re_copyright = re.compile('\+ \* Copyright \(c\) 2011, Google Inc. '
     'All rights reserved.')
 
+re_commit = re.compile('commit (.*)')
+
+valid_series = ['to', 'cc', 'version', 'changes', 'prefix'];
 
 
 class Color(object):
@@ -195,7 +198,7 @@ def MakeChangeLog(changes):
     return final
 
 class PatchStream:
-    def __init__(self, series={}, is_log=False):
+    def __init__(self, series={}, is_log=False, name=None):
         self.skip_blank = False          # True to skip a single blank line
         self.found_test = False          # Found a TEST= line
         self.lines_after_test = 0        # MNumber of lines found after TEST=
@@ -209,21 +212,27 @@ class PatchStream:
         self.in_change = 0               # Non-zero if we are in a change list
         self.changes = {}                # List of changelogs
         self.blank_count = 0             # Number of blank lines stored up
+        self.name = name                 # Name of patch being processed
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
             self.series['cc'] = []
 
-    def AddToSeries(self, name, value):
+    def AddToSeries(self, line, name, value):
         if name in self.series:
             values = value.split(',')
             values = [str.strip() for str in values]
             if type(self.series[name]) != type([]):
-                print "Cannot add another value '%s' to series '%s'" % (
-                    values, self.series[name])
+                raise ValueError("In %s: line '%s': Cannot add another value "
+                        "'%s' to series '%s'" %
+                            (self.name, line, values, self.series[name]))
             self.series[name] += values
-        else:
+        elif name in valid_series:
             self.series[name] = value
+        else:
+            raise ValueError("In %s: line '%s': Unknown 'Series-%s': valid "
+                        "options are %s" % (self.name, line, name,
+                            ', '.join(valid_series)))
 
     def ProcessLine(self, line):
         """Process a single line of a patch file or commit log
@@ -239,6 +248,7 @@ class PatchStream:
             if line[:4] == '    ':
                 line = line[4:]
         series_match = re_series.match(line)
+        commit_match = re_commit.match(line)
         if re_prog.match(line):
             self.skip_blank = True
             if line.startswith('TEST='):
@@ -275,8 +285,10 @@ class PatchStream:
                     self.changes[value] = []
                 self.in_change = int(value)
             else:
-                self.AddToSeries(name, value)
+                self.AddToSeries(line, name, value)
                 self.skip_blank = True
+        elif commit_match:
+            self.name = commit_match.group(1)[:7]
         else:
             pos = 1
             for ch in line:
@@ -308,7 +320,7 @@ class PatchStream:
         if self.cover:
             self.series['cover'] = self.cover
 
-    def ProcessStream(self, infd, outfd):
+    def ProcessStream(self, infd, outfd, name=None):
         """Copy a stream from infd to outfd, filtering out unwanting things.
 
         Args:
@@ -354,15 +366,15 @@ def GetMetaData(count):
     ps.Finalize()
     return ps.series, ps.changes
 
-def FixPatch(backup_dir, fname, series):
+def FixPatch(backup_dir, fname, series, name):
     """Fix up a patch file, putting a backup in back_dir (if not None).
 
     Returns a list of errors, or [] if all ok."""
     handle, tmpname = tempfile.mkstemp()
     outfd = os.fdopen(handle, 'w')
     infd = open(fname, 'r')
-    ps = PatchStream(series)
-    ps.ProcessStream(infd, outfd)
+    ps = PatchStream(series, name)
+    ps.ProcessStream(infd, outfd, fname)
     infd.close()
     outfd.close()
 
@@ -380,7 +392,7 @@ def FixPatches(fnames):
     count = 0
     series = {}
     for fname in fnames:
-        result = FixPatch(backup_dir, fname, series)
+        result = FixPatch(backup_dir, fname, series, 'patch %d' % count)
         if result:
             print '%d warnings for %s:' % (len(result), fname)
             for warn in result:
@@ -911,8 +923,8 @@ else:
         InsertCoverLetter(cover_fname, series, changes, options.count)
 
     # Check that each version has a change log
+    col = Color()
     if series.get('version'):
-        col = Color()
         changes_copy = dict(changes)
         for version in range(2, int(series['version']) + 1):
             if changes.get(version):
@@ -923,6 +935,9 @@ else:
         for version in changes_copy:
             str = 'Change log for unknown version v%d' % version
             print col.Color(col.RED, str)
+    elif changes:
+        str = 'Change log exists, but no version is set'
+        print col.Color(col.RED, str)
 
     if CheckPatches(options.verbose, args) or options.ignore_errors:
         if not options.dry_run:

@@ -248,7 +248,7 @@ class PatchStream:
             if line[:4] == '    ':
                 line = line[4:]
         series_match = re_series.match(line)
-        commit_match = re_commit.match(line)
+        commit_match = re_commit.match(line) if self.is_log else None
         if re_prog.match(line):
             self.skip_blank = True
             if line.startswith('TEST='):
@@ -271,6 +271,7 @@ class PatchStream:
             else:
                 # Blank line ends this change list
                 self.in_change = 0
+            self.skip_blank = False
         elif re_copyright.match(line):
             out = ['+ * Copyright (c) 2011 The Chromium OS Authors.']
             self.warn.append("Changed copyright from '%s'" % line)

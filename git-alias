@@ -1,9 +1,9 @@
 get_branch() {
-	local branch=$(git symbolic-ref HEAD |awk -F / '{print $3}')
+	local branch=$(git symbolic-ref HEAD 2>/dev/null |awk -F / '{print $3}')
 	#local branch=$(git name-rev --name-only HEAD)
 	if [ -z "${branch}" ]; then
 		git name-rev @{-1} --name-only;
-		branch=$(git name-rev @{-1} --name-only);
+		branch=$(git name-rev @{-1} --name-only)
 		echo "Warning: Using branch ${branch}" >/dev/stderr
 		echo $branch
 	else

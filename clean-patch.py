@@ -4,6 +4,9 @@
 # Clean up patches ready for upstream by removing Chrome OS-specific things
 
 '''
+TODO: Run 'git am' on each patch in sequence as a further check
+TODO: grep for space before tab in case checkpatch.pl misses it
+
 Removes code review lines from patches:
     BUG=, TEST=, Change-Id:, Review URL:
     Reviewed-on:, Reviewed-by:, Tested-by
@@ -59,6 +62,9 @@ re_cover = re.compile('^Cover-letter:')
 
 # Patch series
 re_series = re.compile('^Series-(\w*): *(.*)')
+
+# Tag that we want to collect and keep
+re_tag = re.compile('^(Tested-by|Acked-by|Signed-off-by): (.*)')
 
 # Copyright
 re_copyright = re.compile('\+ \* Copyright \(c\) 2011, Google Inc. '
@@ -197,12 +203,16 @@ def MakeChangeLog(changes):
         final.append('')
     return final
 
+# States we can be in
+STATE_MSG_HEADER = 0        # Still in the message header
+STATE_PATCH_HEADER = 1      # In patch header
+STATE_DIFFS = 2             # In the diff part (past --- line)
+
 class PatchStream:
     def __init__(self, series={}, is_log=False, name=None):
         self.skip_blank = False          # True to skip a single blank line
         self.found_test = False          # Found a TEST= line
         self.lines_after_test = 0        # MNumber of lines found after TEST=
-        self.patch_started = False       # Have we see a '---' line yet?
         self.warn = []                   # List of warnings we have collected
         self.linenum = 1                 # Output line number we are up to
         self.in_cover = False            # True if we are in the cover letter
@@ -213,6 +223,9 @@ class PatchStream:
         self.changes = {}                # List of changelogs
         self.blank_count = 0             # Number of blank lines stored up
         self.name = name                 # Name of patch being processed
+        self.state = STATE_MSG_HEADER    # What state are we in?
+        self.tags = []                   # Tags collected, like Tested-by...
+        self.signoff = None              # Contents of signoff line
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
@@ -249,11 +262,16 @@ class PatchStream:
                 line = line[4:]
         series_match = re_series.match(line)
         commit_match = re_commit.match(line) if self.is_log else None
+        tag_match = re_tag.match(line) if self.state == STATE_PATCH_HEADER else None
+        is_blank = not line.strip()
+        if is_blank and self.state == STATE_MSG_HEADER:
+            self.state = STATE_PATCH_HEADER
+
         if re_prog.match(line):
             self.skip_blank = True
             if line.startswith('TEST='):
                 self.found_test = True
-        elif self.skip_blank and not line.strip():
+        elif self.skip_blank and is_blank:
             self.skip_blank = False
         elif re_cover.match(line):
             self.in_cover = True
@@ -266,11 +284,11 @@ class PatchStream:
             else:
                 self.cover.append(line)
         elif self.in_change:
-            if line.strip():
-                self.changes[self.in_change].append(line)
-            else:
+            if is_blank:
                 # Blank line ends this change list
                 self.in_change = 0
+            else:
+                self.changes[self.in_change].append(line)
             self.skip_blank = False
         elif re_copyright.match(line):
             out = ['+ * Copyright (c) 2011 The Chromium OS Authors.']
@@ -290,6 +308,11 @@ class PatchStream:
                 self.skip_blank = True
         elif commit_match:
             self.name = commit_match.group(1)[:7]
+        elif tag_match:
+            if tag_match.group(1) == 'Signed-off-by':
+                self.signoff = line
+            else:
+                self.tags.append(line)
         else:
             pos = 1
             for ch in line:
@@ -301,13 +324,16 @@ class PatchStream:
             out = [line]
             self.linenum += 1
             self.skip_blank = False
-            if self.patch_started:
+            if self.state == STATE_DIFFS:
                 pass
-            elif line.startswith('---'):
-                self.patch_started = True
+            elif line == '---':
+                self.state = STATE_DIFFS
 
-                # Output the change list
-                out += MakeChangeLog(self.changes)
+                # Output the tags (signeoff first), then change list
+                out = []
+                if self.signoff:
+                    out += [self.signoff]
+                out += sorted(self.tags) + [line] + MakeChangeLog(self.changes)
             elif self.found_test:
                 if not re_allowed_after_test.match(line):
                     self.lines_after_test += 1

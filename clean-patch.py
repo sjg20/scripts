@@ -4,7 +4,6 @@
 # Clean up patches ready for upstream by removing Chrome OS-specific things
 
 '''
-TODO: Run 'git am' on each patch in sequence as a further check
 TODO: grep for space before tab in case checkpatch.pl misses it
 
 Removes code review lines from patches:
@@ -540,6 +539,21 @@ def CheckPatch(verbose, fname):
                 item = {}
     return result, problems, error_count, warning_count, lines, stdout
 
+def GetWarningMsg(msg_type, fname, line, msg):
+    '''Create a message for a given file/line
+
+    Args:
+        msg_type: Message type ('error' or 'warning')
+        fname: Filename which reports the problem
+        line: Line number where it was noticed
+        msg: Message to report
+    '''
+    if msg_type == 'warning':
+        msg_type = col.Color(col.YELLOW, msg_type)
+    elif msg_type == 'error':
+        msg_type = col.Color(col.RED, msg_type)
+    return '%s: %s,%d: %s' % (msg_type, fname, line, msg)
+
 def CheckPatches(verbose, args):
     '''Run the checkpatch.pl script on each patch'''
     error_count = 0
@@ -557,14 +571,8 @@ def CheckPatches(verbose, args):
             if len(problems) != error_count + warning_count:
                 print "Internal error: some problems lost"
             for item in problems:
-                type_str = item['type']
-                if type_str == 'warning':
-                    type_str = col.Color(col.YELLOW, type_str)
-                elif type_str == 'error':
-                    type_str = col.Color(col.RED, type_str)
-                str = '%s: %s,%d: %s' % (type_str, item['file'],
-                        item['line'], item['msg'])
-                print str
+                print GetWarningMsg(item['type'], item['file'], item['line'],
+                        item['msg'])
             #print stdout
     if error_count != 0 or warning_count != 0:
         str = 'checkpatch.pl found %d error(s), %d warning(s)' % (
@@ -577,6 +585,72 @@ def CheckPatches(verbose, args):
         print col.Color(color, str)
         return False
     return True
+
+def ApplyPatch(verbose, fname):
+    '''Apply a patch with git am to test it
+    '''
+    cmd = ['git', 'am', fname]
+    pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+    stdout, stderr = pipe.communicate()
+    re_error = re.compile('^error: patch failed: (.+):(\d+)')
+    for line in stderr.splitlines():
+        if verbose:
+            print line
+        match = re_error.match(line)
+        if match:
+            print GetWarningMsg('warning', match.group(1), int(match.group(2)),
+                    'Patch failed')
+    return pipe.returncode == 0, stdout
+
+def ApplyPatches(verbose, args):
+    '''Apply the patches with git am to make sure all is well'''
+    error_count = 0
+    col = Color()
+
+    cmd = ['git', 'name-rev', 'HEAD', '--name-only']
+    pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    stdout, stderr = pipe.communicate()
+    if pipe.returncode:
+        str = 'Could not find current commit name'
+        print col.Color(col.RED, str)
+        print stdout
+        return False
+    old_head = stdout.splitlines()[0]
+
+    cmd = ['git', 'checkout', 'HEAD~%d' % len(args)]
+    pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+    stdout, stderr = pipe.communicate()
+    if pipe.returncode:
+        str = 'Could not move to commit before patch series'
+        print col.Color(col.RED, str)
+        print stdout, stderr
+        return False
+
+    for fname in args:
+        ok, stdout = ApplyPatch(verbose, fname)
+        if not ok:
+            print col.Color(col.RED, 'git am returned errors for %s: will '
+                    'skip this patch' % fname)
+            if verbose:
+                print stdout
+            error_count += 1
+            cmd = ['git', 'am', '--skip']
+            pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+            stdout, stderr = pipe.communicate()
+            if pipe.returncode != 0:
+                print col.Color(col.RED, 'Unable to skip patch! Aborting...')
+                print stdout
+                break
+
+    cmd = ['git', 'checkout', old_head]
+    pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = pipe.communicate()
+    if pipe.returncode:
+        print col.Color(col.RED, 'Could not move back to head commit')
+        print stdout, stderr
+    return error_count == 0
 
 def InsertCoverLetter(fname, series, changes, count):
     """Insert the given text into the cover letter"""
@@ -941,6 +1015,12 @@ else:
         # Work out how many patches to send
         options.count = CountCommitsToBranch()
 
+    col = Color()
+    if not options.count:
+        str = 'No commits found to process - please use -c flag'
+        print col.Color(col.RED, str)
+        sys.exit(1)
+
     if options.count:
         # Read the metadata
         series, changes = GetMetaData(options.count)
@@ -950,7 +1030,6 @@ else:
         InsertCoverLetter(cover_fname, series, changes, options.count)
 
     # Check that each version has a change log
-    col = Color()
     if series.get('version'):
         changes_copy = dict(changes)
         for version in range(2, int(series['version']) + 1):
@@ -966,10 +1045,12 @@ else:
         str = 'Change log exists, but no version is set'
         print col.Color(col.RED, str)
 
-    if CheckPatches(options.verbose, args) or options.ignore_errors:
+    ok = CheckPatches(options.verbose, args)
+    if not ApplyPatches(options.verbose, args):
+        ok = False
+    if ok or options.ignore_errors:
         if not options.dry_run:
             EmailPatches(series, cover_fname, args, options.dry_run)
 
     if options.dry_run:
         ShowActions(series, args)
-

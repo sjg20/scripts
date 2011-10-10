@@ -2,21 +2,23 @@ get_branch() {
 	local branch=$(git symbolic-ref HEAD 2>/dev/null |awk -F / '{print $3}')
 	#local branch=$(git name-rev --name-only HEAD)
 	if [ -z "${branch}" ]; then
-		git name-rev @{-1} --name-only;
 		branch=$(git name-rev @{-1} --name-only)
 		echo "Warning: Using branch ${branch}" >/dev/stderr
-		echo $branch
-	else
-		local remote=$(git config -l | \
-			sed -n "s#branch.${branch}.remote=\(.*\)#\1#p")
-		local merge=$(git config -l | \
-			sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
-		[ -n "${remote}${merge}" ] || (
-			echo "Error: No tracking branch" >/dev/stderr;
-			echo "Use 'git branch --set-upstream ${branch} upstream/foo'" \
-				>/dev/stderr;
-			echo >/dev/stderr;
-			return 1)
+	fi
+
+	local remote=$(git config -l | \
+		sed -n "s#branch.${branch}.remote=\(.*\)#\1#p")
+	local merge=$(git config -l | \
+		sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
+	[ -n "${remote}${merge}" ] || (
+		echo "Error: No tracking branch" >/dev/stderr;
+		echo "Use 'git branch --set-upstream ${branch} upstream/foo'" \
+			>/dev/stderr;
+		echo >/dev/stderr;
+		return 1)
+	if [ "${remote}" == "." ]; then
+	        echo ${merge}
+ 	else
 		echo ${remote}/${merge}
 	fi
 }

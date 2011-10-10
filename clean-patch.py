@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 # Patch creatiion and submission script
-# Clean up patches ready for upstream by removing Chrome OS-specific things
+# Clean up patches ready for upstream by removing Chrome OS-specific things,
+# running through checkpatch.pl and git-am.
 
 '''
-TODO: grep for space before tab in case checkpatch.pl misses it
-
 Removes code review lines from patches:
     BUG=, TEST=, Change-Id:, Review URL:
     Reviewed-on:, Reviewed-by:, Tested-by
@@ -70,6 +69,8 @@ re_copyright = re.compile('\+ \* Copyright \(c\) 2011, Google Inc. '
     'All rights reserved.')
 
 re_commit = re.compile('commit (.*)')
+
+re_space_before_tab = re.compile('^[+].* \t')
 
 valid_series = ['to', 'cc', 'version', 'changes', 'prefix'];
 
@@ -309,16 +310,26 @@ class PatchStream:
             self.name = commit_match.group(1)[:7]
         elif tag_match:
             if tag_match.group(1) == 'Signed-off-by':
-                self.signoff = line
+                if self.signoff:
+                    self.warn.append('Patch has more than one Signed-off-by '
+                            'tag')
+                else:
+                    self.signoff = line
             else:
                 self.tags.append(line)
         else:
             pos = 1
+            # TODO: Would be nicer to report source filename and line
             for ch in line:
                 if ord(ch) > 0x80:
                     self.warn.append('Line %d/%d has funny ascii character' %
                         (self.linenum, pos))
                 pos += 1
+
+            m = re_space_before_tab.match(line)
+            if m:
+                self.warn.append('Line %d/%d has space before tab' %
+                    (self.linenum, m.start()))
 
             out = [line]
             self.linenum += 1
@@ -373,7 +384,7 @@ class PatchStream:
                     self.blank_count += 1
                 else:
                     if self.blank_count and (line == '-- ' or match):
-                        self.warn.append("Found possible blank lines at"
+                        self.warn.append("Found possible blank lines at "
                                 "end of file '%s'" % last_fname)
                     outfd.write('+\n' * self.blank_count)
                     outfd.write(line + '\n')

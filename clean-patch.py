@@ -36,6 +36,14 @@ Series-changes: 2
 (for u-boot it looks up ~/.config/clean-patch for lines like:
 u-boot: "U-Boot Mailing List" <u-boot@lists.denx.de>
 )
+
+You can also create notes in each commit which appear after the cover letter
+
+Series-notes:
+Here are some notes
+...
+END
+
 '''
 
 from optparse import OptionParser
@@ -72,7 +80,7 @@ re_commit = re.compile('commit (.*)')
 
 re_space_before_tab = re.compile('^[+].* \t')
 
-valid_series = ['to', 'cc', 'version', 'changes', 'prefix'];
+valid_series = ['to', 'cc', 'version', 'changes', 'prefix', 'notes'];
 
 
 class Color(object):
@@ -215,8 +223,10 @@ class PatchStream:
         self.lines_after_test = 0        # MNumber of lines found after TEST=
         self.warn = []                   # List of warnings we have collected
         self.linenum = 1                 # Output line number we are up to
-        self.in_cover = False            # True if we are in the cover letter
+        self.in_section = None           # Name of start...END section we are in
         self.cover = None                # The cover letter contents
+        self.notes = []                  # Series notes
+        self.section = []                # The current section...END section
         self.series = series             # Info about the patch series
         self.is_log = is_log             # True if indent like git log
         self.in_change = 0               # Non-zero if we are in a change list
@@ -242,6 +252,9 @@ class PatchStream:
             self.series[name] += values
         elif name in valid_series:
             self.series[name] = value
+            if name == 'notes':
+                self.in_section = name
+                self.skip_blank = False
         else:
             raise ValueError("In %s: line '%s': Unknown 'Series-%s': valid "
                         "options are %s" % (self.name, line, name,
@@ -274,15 +287,21 @@ class PatchStream:
         elif self.skip_blank and is_blank:
             self.skip_blank = False
         elif re_cover.match(line):
-            self.in_cover = True
-            self.cover = []
+            self.in_section = 'cover'
             self.skip_blank = False
-        elif self.in_cover:
+        elif self.in_section:
             if line == 'END':
-                self.in_cover = False
+                if self.in_section == 'cover':
+                    self.cover = self.section
+                elif self.in_section == 'notes':
+                    self.notes += self.section
+                else:
+                    self.warn.append("Unknown section '%s'" % self.in_section)
+                self.in_section = None
                 self.skip_blank = True
+                self.section = []
             else:
-                self.cover.append(line)
+                self.section.append(line)
         elif self.in_change:
             if is_blank:
                 # Blank line ends this change list
@@ -356,6 +375,8 @@ class PatchStream:
                     self.lines_after_test)
         if self.cover:
             self.series['cover'] = self.cover
+        if self.notes:
+            self.series['notes'] = self.notes
 
     def ProcessStream(self, infd, outfd, name=None):
         """Copy a stream from infd to outfd, filtering out unwanting things.
@@ -664,11 +685,15 @@ def ApplyPatches(verbose, args):
     return error_count == 0
 
 def InsertCoverLetter(fname, series, changes, count):
-    """Insert the given text into the cover letter"""
-    #script = '-e s|Subject:.*|Subject: [PATCH 0/%d] %s|' % (count, text[0])
-    #cmd = 'sed -i "%s" %s' % (script, fname)
-    #print cmd
-    #os.system(cmd)
+    """Creates a cover letter with the required info
+
+    Args:
+        fname: Output filename
+        series: Series dictionary, containing element 'cover'
+        changes: Change list, dictionary keyed by version 1, 2, 3;
+                each item is an unsorted list of changes, one per line
+        count: Number of patches in the series
+    """
     fd = open(fname, 'r')
     lines = fd.readlines()
     fd.close()
@@ -682,6 +707,8 @@ def InsertCoverLetter(fname, series, changes, count):
         elif line.startswith('*** BLURB HERE ***'):
             # First the blurb test
             line = '\n'.join(text[1:]) + '\n'
+            if series.get('notes'):
+                line += '\n'.join(series['notes']) + '\n'
 
             # Now the change list
             out = MakeChangeLog(changes)
@@ -1035,6 +1062,7 @@ else:
     if options.count:
         # Read the metadata
         series, changes = GetMetaData(options.count)
+        #print series['notes']
         cover_fname, args = CreatePatches(options.count, series)
     series = FixPatches(args)
     if series and cover_fname and series.get('cover'):

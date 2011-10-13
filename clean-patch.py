@@ -413,10 +413,15 @@ class PatchStream:
         self.Finalize()
 
 
-def GetMetaData(count):
-    """Reads out patch series metadata from the commits"""
+def GetMetaData(start, count):
+    """Reads out patch series metadata from the commits
+
+    Args:
+        start: Commit to start from: 0=HEAD, 1=next one, etc.
+        count: Number of commits to list
+    """
     cmd = Command()
-    pipe = [['git', 'log', '-n%d' % count]]
+    pipe = [['git', 'log', 'HEAD~%d' % start, '-n%d' % count]]
     stdout = cmd.RunPipe(pipe, capture=True)
     ps = PatchStream(is_log=True)
     for line in stdout.splitlines():
@@ -472,10 +477,11 @@ def GetPatchPrefix(series):
         prefix = '%s ' % series['prefix']
     return '%sPATCH%s' % (prefix, version)
 
-def CreatePatches(count, series):
+def CreatePatches(start, count, series):
     """Create a series of patches from the top of the current branch.
 
     Args:
+        start: Commit to start from: 0=HEAD, 1=next one, etc.
         count: number of commits to include
     Returns:
         Filename of cover letter
@@ -488,7 +494,7 @@ def CreatePatches(count, series):
     prefix = GetPatchPrefix(series)
     if prefix:
         cmd += ['--subject-prefix=%s' % prefix]
-    cmd += ['HEAD~%d' % count]
+    cmd += ['HEAD~%d..HEAD~%d' % (count, start)]
 
     pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     stdout, stderr = pipe.communicate()
@@ -635,8 +641,16 @@ def ApplyPatch(verbose, fname):
                     'Patch failed')
     return pipe.returncode == 0, stdout
 
-def ApplyPatches(verbose, args):
-    '''Apply the patches with git am to make sure all is well'''
+def ApplyPatches(verbose, args, start_point):
+    """Apply the patches with git am to make sure all is well
+
+    Args:
+        verbose: Print out 'git am' output verbatim
+        args: List of patch files to apply
+        start_point: Number of commits back from HEAD to start applying.
+            Normally this is len(args), but it can be larger if a start
+            offset was given.
+    """
     error_count = 0
     col = Color()
 
@@ -650,7 +664,7 @@ def ApplyPatches(verbose, args):
         return False
     old_head = stdout.splitlines()[0]
 
-    cmd = ['git', 'checkout', 'HEAD~%d' % len(args)]
+    cmd = ['git', 'checkout', 'HEAD~%d' % start_point]
     pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
     stdout, stderr = pipe.communicate()
@@ -1035,6 +1049,8 @@ parser.add_option('-t', '--test', action='store_true', dest='test',
                   default=False, help='run tests')
 parser.add_option('-c', '--count', dest='count', type='int',
        default=-1, help='Automatically create patches from top n commits')
+parser.add_option('-s', '--start', dest='start', type='int',
+       default=0, help='Commit to start creating patches from (0 = HEAD)')
 parser.add_option('-n', '--dry-run', action='store_true', dest='dry_run',
        default=False, help='Do a try run by emailing to yourself')
 parser.add_option('-i', '--ignore-errors', action='store_true',
@@ -1061,12 +1077,13 @@ else:
 
     if options.count:
         # Read the metadata
-        series, changes = GetMetaData(options.count)
+        series, changes = GetMetaData(options.start, options.count)
         #print series['notes']
-        cover_fname, args = CreatePatches(options.count, series)
+        cover_fname, args = CreatePatches(options.start, options.count, series)
     series = FixPatches(args)
     if series and cover_fname and series.get('cover'):
-        InsertCoverLetter(cover_fname, series, changes, options.count)
+        InsertCoverLetter(cover_fname, series, changes, options.count -
+                            options.start)
 
     # Check that each version has a change log
     if series.get('version'):
@@ -1085,7 +1102,7 @@ else:
         print col.Color(col.RED, str)
 
     ok = CheckPatches(options.verbose, args)
-    if not ApplyPatches(options.verbose, args):
+    if not ApplyPatches(options.verbose, args, options.count + options.start):
         ok = False
     if ok or options.ignore_errors:
         if not options.dry_run:

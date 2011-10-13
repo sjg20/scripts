@@ -44,6 +44,7 @@ Here are some notes
 ...
 END
 
+Tested-by: is removed if the email address (up to @) matches getenv(USER)
 '''
 
 from optparse import OptionParser
@@ -334,6 +335,9 @@ class PatchStream:
                             'tag')
                 else:
                     self.signoff = line
+            elif (tag_match.group(1) == 'Tested-by' and
+                    tag_match.group(2).find(os.getenv('USER') + '@') != -1):
+                self.warn.append("Ignoring %s" % line)
             else:
                 self.tags.append(line)
         else:

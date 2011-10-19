@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+# TODO: change series dict to a class
+# TODO: add unit tests for new functions
+# TODO: create a web page for this on sites
+# TODO: upstream it
+# TODO: read alias file once!
+
 # Patch creatiion and submission script
 # Clean up patches ready for upstream by removing Chrome OS-specific things,
 # running through checkpatch.pl and git-am.
@@ -45,6 +51,9 @@ Here are some notes
 END
 
 Tested-by: is removed if the email address (up to @) matches getenv(USER)
+
+If a tag is found on the commit, then that tag is also CC's - so you should
+have all tags defined in your config file.
 '''
 
 from optparse import OptionParser
@@ -82,6 +91,8 @@ re_commit = re.compile('commit (.*)')
 re_space_before_tab = re.compile('^[+].* \t')
 
 valid_series = ['to', 'cc', 'version', 'changes', 'prefix', 'notes'];
+
+re_subject_tag = re.compile('(.*):\s*(.*)')
 
 
 class Color(object):
@@ -212,13 +223,39 @@ def MakeChangeLog(changes):
         final.append('')
     return final
 
-# States we can be in
+class Commit:
+    def __init__(self, hash):
+        self.hash = hash
+        self.subject = None
+        self.tags = []
+
+    def CheckTags(self):
+        """Create a list of subject tags in the commit
+
+        This checks that all tags have a valid email alias
+
+        Returns:
+            None if ok, else the name of a tag with no email alias
+        """
+        str = self.subject
+        m = True
+        while m:
+            m = re_subject_tag.match(str)
+            if m:
+                tag = m.group(1)
+                self.tags.append(tag)
+                str = m.group(2)
+        return None
+
+
+# States we can be in - can we use range() and still have comments?
 STATE_MSG_HEADER = 0        # Still in the message header
-STATE_PATCH_HEADER = 1      # In patch header
-STATE_DIFFS = 2             # In the diff part (past --- line)
+STATE_PATCH_SUBJECT = 1     # In patch subject (first line of log for a commit)
+STATE_PATCH_HEADER = 2      # In patch header (after the subject)
+STATE_DIFFS = 3             # In the diff part (past --- line)
 
 class PatchStream:
-    def __init__(self, series={}, is_log=False, name=None):
+    def __init__(self, series={}, name=None, is_log=False):
         self.skip_blank = False          # True to skip a single blank line
         self.found_test = False          # Found a TEST= line
         self.lines_after_test = 0        # MNumber of lines found after TEST=
@@ -233,33 +270,42 @@ class PatchStream:
         self.in_change = 0               # Non-zero if we are in a change list
         self.changes = {}                # List of changelogs
         self.blank_count = 0             # Number of blank lines stored up
-        self.name = name                 # Name of patch being processed
         self.state = STATE_MSG_HEADER    # What state are we in?
         self.tags = []                   # Tags collected, like Tested-by...
         self.signoff = None              # Contents of signoff line
+        self.commits = []                # List of commits found
+        self.commit = None               # Current commit
 
         # Set up 'cc' which must a list
         if not self.series.get('cc'):
             self.series['cc'] = []
 
     def AddToSeries(self, line, name, value):
+        if name == 'notes':
+            self.in_section = name
+            self.skip_blank = False
         if name in self.series:
             values = value.split(',')
             values = [str.strip() for str in values]
-            if type(self.series[name]) != type([]):
-                raise ValueError("In %s: line '%s': Cannot add another value "
-                        "'%s' to series '%s'" %
-                            (self.name, line, values, self.series[name]))
-            self.series[name] += values
+            if self.is_log:
+                if type(self.series[name]) != type([]):
+                    raise ValueError("In %s: line '%s': Cannot add another value "
+                            "'%s' to series '%s'" %
+                                (self.commit.hash, line, values, self.series[name]))
+                self.series[name] += values
         elif name in valid_series:
-            self.series[name] = value
-            if name == 'notes':
-                self.in_section = name
-                self.skip_blank = False
-        else:
+            if self.is_log:
+                self.series[name] = value
+        elif not self.is_log:
             raise ValueError("In %s: line '%s': Unknown 'Series-%s': valid "
-                        "options are %s" % (self.name, line, name,
+                        "options are %s" % (self.commit.hash, line, name,
                             ', '.join(valid_series)))
+
+    def CloseCommit(self):
+        """Save the current commit in our commit list, and reset our state"""
+        if self.commit and self.is_log:
+            self.commits.append(self.commit)
+            self.commit = None
 
     def ProcessLine(self, line):
         """Process a single line of a patch file or commit log
@@ -278,10 +324,21 @@ class PatchStream:
         commit_match = re_commit.match(line) if self.is_log else None
         tag_match = re_tag.match(line) if self.state == STATE_PATCH_HEADER else None
         is_blank = not line.strip()
-        if is_blank and self.state == STATE_MSG_HEADER:
-            self.state = STATE_PATCH_HEADER
+        if is_blank:
+            if (self.state == STATE_MSG_HEADER
+                    or self.state == STATE_PATCH_SUBJECT):
+                self.state += 1
 
-        if re_prog.match(line):
+            # We don't have a subject in the text stream of patch files
+            # It has its own line with a Subject: tag
+            if not self.is_log and self.state == STATE_PATCH_SUBJECT:
+                self.state += 1
+        elif commit_match:
+            self.state = STATE_MSG_HEADER
+
+        if not is_blank and self.state == STATE_PATCH_SUBJECT:
+            self.commit.subject = line
+        elif re_prog.match(line):
             self.skip_blank = True
             if line.startswith('TEST='):
                 self.found_test = True
@@ -327,7 +384,8 @@ class PatchStream:
                 self.AddToSeries(line, name, value)
                 self.skip_blank = True
         elif commit_match:
-            self.name = commit_match.group(1)[:7]
+            self.CloseCommit()
+            self.commit = Commit(commit_match.group(1)[:7])
         elif tag_match:
             if tag_match.group(1) == 'Signed-off-by':
                 if self.signoff:
@@ -374,6 +432,7 @@ class PatchStream:
         return out
 
     def Finalize(self):
+        self.CloseCommit()
         if self.lines_after_test:
             self.warn.append('Found %d lines after TEST=' %
                     self.lines_after_test)
@@ -381,6 +440,8 @@ class PatchStream:
             self.series['cover'] = self.cover
         if self.notes:
             self.series['notes'] = self.notes
+        if self.commits:
+            self.series['commits'] = self.commits
 
     def ProcessStream(self, infd, outfd, name=None):
         """Copy a stream from infd to outfd, filtering out unwanting things.
@@ -425,7 +486,7 @@ def GetMetaData(start, count):
         count: Number of commits to list
     """
     cmd = Command()
-    pipe = [['git', 'log', 'HEAD~%d' % start, '-n%d' % count]]
+    pipe = [['git', 'log', '--reverse', 'HEAD~%d' % start, '-n%d' % count]]
     stdout = cmd.RunPipe(pipe, capture=True)
     ps = PatchStream(is_log=True)
     for line in stdout.splitlines():
@@ -433,7 +494,7 @@ def GetMetaData(start, count):
     ps.Finalize()
     return ps.series, ps.changes
 
-def FixPatch(backup_dir, fname, series, name):
+def FixPatch(backup_dir, fname, series, name, commit):
     """Fix up a patch file, putting a backup in back_dir (if not None).
 
     Returns a list of errors, or [] if all ok."""
@@ -441,6 +502,7 @@ def FixPatch(backup_dir, fname, series, name):
     outfd = os.fdopen(handle, 'w')
     infd = open(fname, 'r')
     ps = PatchStream(series, name)
+    ps.commit = commit
     ps.ProcessStream(infd, outfd, fname)
     infd.close()
     outfd.close()
@@ -451,15 +513,17 @@ def FixPatch(backup_dir, fname, series, name):
     shutil.move(tmpname, fname)
     return ps.warn
 
-def FixPatches(fnames):
+def FixPatches(series, fnames):
     """Fix up a list of patches identified by filename
     TODO: Tidy this up by integrating properly with checkpatch
     """
     backup_dir = tempfile.mkdtemp('clean-patch')
     count = 0
-    series = {}
+#    series = {}
     for fname in fnames:
-        result = FixPatch(backup_dir, fname, series, 'patch %d' % count)
+        commit = series['commits'][count]
+        commit.patch = fname
+        result = FixPatch(backup_dir, fname, series, 'patch %d' % count, commit)
         if result:
             print '%d warnings for %s:' % (len(result), fname)
             for warn in result:
@@ -498,7 +562,7 @@ def CreatePatches(start, count, series):
     prefix = GetPatchPrefix(series)
     if prefix:
         cmd += ['--subject-prefix=%s' % prefix]
-    cmd += ['HEAD~%d..HEAD~%d' % (count, start)]
+    cmd += ['HEAD~%d..HEAD~%d' % (start + count, start)]
 
     pipe = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     stdout, stderr = pipe.communicate()
@@ -744,8 +808,10 @@ def LookupEmail(name):
 
     Returns:
         name, if it is a valid email address,
-          or real name, if name is an alias"""
-    if '<' in name:
+          or real name, if name is an alias,
+          or None if neither
+    """
+    if '<' in name: # Perhaps a real email address
         return name
 
     # TODO: Turn all this into a class, and read the aliases once
@@ -764,10 +830,10 @@ def LookupEmail(name):
         match = re_alias.match(line)
         if match:
             return match.group(1)
-    print "No match for alias '%s'" % name
-    return name
+#    print "No match for alias '%s'" % name
+    return None
 
-def EmailPatches(series, cover_fname, args, dry_run):
+def EmailPatches(series, cover_fname, args, dry_run, fname, self_only=False):
     """Email a patch series.
 
     Args:
@@ -776,24 +842,35 @@ def EmailPatches(series, cover_fname, args, dry_run):
             'cc' : list of cc addresses
         cover_fname: filename of cover letter
         args: list of filenames of patch files
-        dry_run: True to just email to yourself as a test"""
+        dry_run: Just return the command that would be run
+        self_only: True to just email to yourself as a test
+
+    Returns:
+        Git command that was run
+    """
     dest = series.get('to')
     if not dest:
         print ("No recipient, please add something like this to a commit\n"
             "Series-to: Fred Bloggs <f.blogs@napier.co.nz>")
         return
     to = LookupEmail(dest)
-    cc = ''
-    if series.get('cc'):
-        cc = ''.join(['-cc "%s" ' % LookupEmail(name)
-                    for name in series['cc']])
-    if dry_run:
+    cc = []
+    for item in series.get('cc'):
+        cc += ['-cc', '"%s"' % LookupEmail(item)]
+    if self_only:
         to = os.getenv('USER')
-        cc = ''
-    cmd = 'git send-email --annotate --to "%s" %s%s %s' % (to, cc,
-        cover_fname and cover_fname or '', ' '.join(args))
+        cc = []
+    cmd = ['git', 'send-email', '--annotate', '--to', '"%s"' % to]
+    cmd += cc
+    cmd += ['--cc-cmd', '"%s --cc-cmd %s"' % (sys.argv[0], fname)]
+    if cover_fname:
+        cmd.append(cover_fname)
+    cmd += args
+    str = ' '.join(cmd)
     #print cmd
-    os.system(cmd)
+    if not dry_run:
+        os.system(str)
+    return str
 
 def CountCommitsToBranch():
     """Returns number of commits between HEAD and the tracking branch.
@@ -1028,14 +1105,19 @@ index 0000000..2234c87
         self.assertEqual(lines, 67)
         os.remove(inname)
 
-def ShowActions(series, args):
+def ShowActions(series, args, cmd):
     """Show what actions we will perform"""
     print 'Dry run, so not doing much. But I would do this:'
     print
     print 'Send a total of %d patches with %scover letter.' % (
             len(args), series.get('cover') and 'a ' or 'no ')
-    for arg in args:
-        print '   %s' % arg
+    for upto in range(len(args)):
+        commit = series['commits'][upto]
+        print '   %s' % args[upto]
+        for tag in commit.tags:
+            email = LookupEmail(tag)
+            print '      cc: ', (email if email else
+                    "<alias '%s' not found>" % tag)
     print
     email = series.get('to')
     print 'To: ', LookupEmail(email) if email else '<none>'
@@ -1046,6 +1128,8 @@ def ShowActions(series, args):
     print 'Prefix: ', series.get('prefix')
     if series.get('cover'):
         print 'Cover: %d lines' % len(series.get('cover'))
+    if cmd:
+        print 'Git command: %s' % cmd
 
 
 parser = OptionParser()
@@ -1062,16 +1146,27 @@ parser.add_option('-i', '--ignore-errors', action='store_true',
        help='Send patches email even if patch errors are found')
 parser.add_option('-v', '--verbose', action='store_true', dest='verbose',
        default=False, help='Verbose output of errors and warnings')
+parser.add_option('--cc-cmd', dest='cc_cmd', type='string', action='store',
+       default=None, help='Output cc list for patch file (used by git)')
 
 (options, args) = parser.parse_args()
 
 if options.test:
     sys.argv = [sys.argv[0]]
     unittest.main()
+elif options.cc_cmd:
+    fd = open(options.cc_cmd, 'r')
+    re_line = re.compile('(\S*) (.*)')
+    for line in fd.readlines():
+        match = re_line.match(line)
+        if match and match.group(1) == args[0]:
+            for cc in match.group(2).split(', '):
+                print cc
+    fd.close()
 else:
     if options.count == -1:
         # Work out how many patches to send
-        options.count = CountCommitsToBranch()
+        options.count = CountCommitsToBranch() - options.start
 
     col = Color()
     if not options.count:
@@ -1082,12 +1177,10 @@ else:
     if options.count:
         # Read the metadata
         series, changes = GetMetaData(options.start, options.count)
-        #print series['notes']
         cover_fname, args = CreatePatches(options.start, options.count, series)
-    series = FixPatches(args)
+    series = FixPatches(series, args)
     if series and cover_fname and series.get('cover'):
-        InsertCoverLetter(cover_fname, series, changes, options.count -
-                            options.start)
+        InsertCoverLetter(cover_fname, series, changes, options.count)
 
     # Check that each version has a change log
     if series.get('version'):
@@ -1105,12 +1198,27 @@ else:
         str = 'Change log exists, but no version is set'
         print col.Color(col.RED, str)
 
+    # Look for commit tags (of the form 'xxx:' at the start of the subject)
+    fname = '/tmp/cleanpatch.%d' % os.getpid()
+    fd = open(fname, 'w')
+    for commit in series['commits']:
+        commit.CheckTags()
+        list = []
+        for tag in commit.tags:
+            alias = LookupEmail(tag)
+            if alias:
+                list.append(alias)
+            else:
+                print "Tag '%s' not found" % tag
+        print >>fd, commit.patch, ', '.join(list)
+    fd.close()
+
     ok = CheckPatches(options.verbose, args)
     if not ApplyPatches(options.verbose, args, options.count + options.start):
         ok = False
+    cmd = ''
     if ok or options.ignore_errors:
-        if not options.dry_run:
-            EmailPatches(series, cover_fname, args, options.dry_run)
+        cmd = EmailPatches(series, cover_fname, args, options.dry_run, fname)
 
     if options.dry_run:
-        ShowActions(series, args)
+        ShowActions(series, args, cmd)

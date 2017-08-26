@@ -196,14 +196,14 @@ alias et='git rebase --edit-todo'
 
 function fix_kconfig()
 {
-	crosfw -b $1 -w && \
+	crosfw -b $1 cfg && \
 	make O=b/$1 savedefconfig && \
 	meld b/$1/defconfig configs/$1_defconfig
 }
 
 alias fix-kconfig='fix_kconfig'
 
-alias pe='git log --oneline -n10'
+alias pe='git log --oneline -n10 --decorate'
 
 alias pm='patch -p1 --merge <.git/rebase-apply/patch'
 

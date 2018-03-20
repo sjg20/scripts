@@ -74,6 +74,17 @@ canned_output = {
         '- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
         '- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
         ],
+    MakeKey(['bugged', 'search', 'owner:test', 'modified>2017-09-01',
+             'status:fixed']): [
+        'issue     component  created   modified  reporter     assignee                                        priority  status  summary',
+        '74733513  197583     20180314  20180315  shapiroc     hanwen                                          P1        FIXED   Chrome OS private overlays are no longer indexed',
+        '72947182  191631     20180205  20180205  akillips     pleichtle                                       P3        FIXED   GSuite Contact Sales with < 20 employees should be ass',
+        ],
+    MakeKey(['bugged', 'search', 'r:test created>2017-09-01']): [
+        'issue     component  created   modified  reporter  assignee        priority  status             summary',
+        '74193661  46805      20180305  20180312  sjg       pedrosimonetti  P2        DUPLICATE          [feedback] Audio is skipping every ~7 seconds on my glinux workstations',
+        '74108115  324720     20180302  20180302  sjg       mcolagrosso     P2        ASSIGNED           [Drive SWM FB] I like this better than the pictures. Wish it could hold a few more docs (say 10)?',
+        ],
 }
 
 
@@ -137,17 +148,25 @@ def do_chromium_cls(stats, user):
         stats[internal]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], internal)
 
 def do_chromium_bugs(stats, user, slash_date):
-    #print '\n## Bugs fixed'
     query = "owner:%s modified>%s status:fixed" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    #print '\n'.join(lines)
-    stats['fixed'] = Info(len(lines), query)
+    stats[False]['fixed'] = Info(len(lines), query)
     query = "reporter:%s opened>%s" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    #print '\n'.join(lines)
-    stats['opened'] = Info(len(lines), query)
+    stats[False]['opened'] = Info(len(lines), query)
+
+def do_private_bugs(stats, user, start_date):
+    query = "owner:%s modified>%s status:fixed" % (user, start_date)
+    cmd = ['bugged', 'search', query]
+    # The first line is a heading, so drop it
+    lines = run_cmd(cmd)[1:]
+    stats[True]['fixed'] = Info(len(lines), query)
+    query = "r:%s created>%s" % (user, start_date)
+    cmd = ['bugged', 'search', query]
+    lines = run_cmd(cmd)[1:]
+    stats[True]['opened'] = Info(len(lines), query)
 
 def do_google3():
     print
@@ -157,16 +176,51 @@ def do_google3():
     cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
     os.system(cmd)
 
+def GetClMessage(stats, name):
+    private = stats[True][name].count
+    public = stats[False][name].count
+    items = []
+    if private:
+        items.append('[public](https://chromium-review.googlesource.com/q/%s)'
+                     % stats[True][name].query.replace(' ', '+'))
+    if public:
+        items.append('[private](https://chrome-internal-review.googlesource.com/q/%s)'
+                     % stats[False][name].query.replace(' ', '+'))
+    msg = ', '.join(items)
+    if msg:
+        msg = ' (%s)' % msg
+    return private + public, msg
+
+def GetBugMessage(stats, name):
+    private = stats[True][name].count
+    public = stats[False][name].count
+    items = []
+    if private:
+        items.append('[private](b/issues?q=%s)'
+                     % stats[True][name].query.replace(' ', '%20'))
+    if public:
+        items.append('[public](https://bugs.chromium.org/p/chromium/issues/list?can=1&q=%s)'
+                     % stats[False][name].query.replace(' ', '+'))
+    msg = ', '.join(items)
+    if msg:
+        msg = ' (%s)' % msg
+    return private + public, msg
+
 def PrintStats(user):
   stats = {True: {}, False: {}}
   slash_date = start_date.replace('-', '/')
   do_chromium_cls(stats, user)
-  total_submitted = stats[False]['submitted'].count + stats[True]['submitted'].count
-  total_reviewed = stats[False]['reviewed'].count + stats[True]['reviewed'].count
+  total_submitted, msg_submitted = GetClMessage(stats, 'submitted')
+  total_reviewed, msg_reviewed = GetClMessage(stats, 'reviewed')
   do_chromium_bugs(stats, user, slash_date)
-  print '%d CLs (),' % (total_submitted),
-  print '%d reviewed (), ' % (total_reviewed),
-  print '%d bugs fixed, %d opened' % (stats['fixed'].count, stats['opened'].count)
+  do_private_bugs(stats, user, start_date)
+  print '%d CLs%s,' % (total_submitted, msg_submitted),
+  print '%d reviewed%s,' % (total_reviewed, msg_reviewed),
+
+  total_fixed, msg_fixed = GetBugMessage(stats, 'fixed')
+  total_opened, msg_opened = GetBugMessage(stats, 'opened')
+  print '%d bugs fixed%s,' % (total_fixed, msg_fixed),
+  print '%d bugs opened%s' % (total_opened, msg_opened)
 
 
 class TestElf(unittest.TestCase):

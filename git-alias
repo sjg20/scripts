@@ -192,6 +192,7 @@ alias pm='patch -p1 --merge <.git/rebase-apply/patch'
 
 alias good='git bisect good'
 alias bad='git bisect bad'
+
 alias rb='git rebase m/master'
 
 alias gm='git log --oneline us/master | grep $1'

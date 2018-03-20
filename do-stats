@@ -413,6 +413,14 @@ def GetClMessage(stats, user, label, html=True):
     google3 = GetStat(stats, CL_GOOGLE3, label)
     items = []
 
+def do_google3():
+    print
+    print
+    cmd = 'g4d -f snippets'
+    os.system(cmd)
+    cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
+    os.system(cmd)
+
     #if private:
     items.append(GetMarkup(html, public, 'public', label,
         'https://chromium-review.googlesource.com/q/%s',

@@ -1,0 +1,130 @@
+#!/usr/bin/python
+
+import argparse
+from collections import namedtuple
+from contextlib import contextmanager
+from datetime import date
+import os
+import subprocess
+import sys
+import unittest
+
+
+testing = False
+
+start = date.today()
+ostart = start.toordinal() - start.weekday() - 1
+if start.weekday() < 3:
+   ostart -= 7
+#ostart -= 7
+
+#start_date = date.fromordinal(ostart).strftime("%Y-%m-%d")
+start_date = '2017-09-01'
+
+#end_date = date.fromordinal(ostart + 7).strftime("%Y-%m-%d")
+
+#start_date = '2017-07-31'
+#end_date = '2017-08-07'
+#start_date = '2017-12-10'
+#end_date = '2017-11-26'
+end_date = None
+
+Info = namedtuple('Info', ['count', 'query'])
+
+
+# Use this to suppress stdout/stderr output:
+# with capture_sys_output() as (stdout, stderr)
+#   ...do something...
+@contextmanager
+def capture_sys_output():
+  capture_out, capture_err = StringIO(), StringIO()
+  old_out, old_err = sys.stdout, sys.stderr
+  try:
+    sys.stdout, sys.stderr = capture_out, capture_err
+    yield capture_out, capture_err
+  finally:
+    sys.stdout, sys.stderr = old_out, old_err
+
+
+
+def run_cmd(cmd, cros_sdk=False):
+    if cros_sdk:
+        cmd = ['cros_sdk', '--'] + cmd
+    return subprocess.check_output(cmd, stderr=subprocess.PIPE,
+                shell=False).splitlines()
+
+# Show some CLs
+#  $1: Additional parameters for search, e.g. "owner:sjg"
+def get_cls(terms, internal):
+    terms="status:merged %s after:%s" % (' '.join(terms), start_date)
+    if end_date:
+        terms += ' before:%s' % end_date
+    awk="""{cl=match($1, /\/([0-9]+)\/$/,m); cl=m[1]; printf("- [%s](%s) (%s):", cl, $1, $8); for (i=9; i<=NF; i++) printf(" %s", $i); print ""}"""
+    #flags = '-i' if internal else ''
+    #cmd = "cros_sdk -- gerrit %s search '%s' | ansi2txt | awk '%s' 2>/tmp/asc" % (flags, terms, awk)
+    cmd = ['gerrit']
+    if internal:
+        cmd.append('-i')
+    cmd += ['search', terms]
+    #cmd = ['cros_sdk', '--', 'gerrit', 'search', terms, '|', 'ansi2txt', '|', 'awk', awk]
+#print cmd
+    lines = run_cmd(cmd, cros_sdk=True)
+    return Info(len(lines), terms)
+    #fred = 
+    #print cmd
+
+def do_chromium_cls(stats, user):
+    for internal in (False, True):
+        stats[internal]['submitted'] = get_cls(['owner:%s' % user], internal)
+        stats[internal]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], internal)
+
+def do_chromium_bugs(stats, user, slash_date):
+    #print '\n## Bugs fixed'
+    query = "owner:%s modified>%s status:fixed" % (user, slash_date)
+    cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
+    lines = run_cmd(cmd)
+    #print '\n'.join(lines)
+    stats['fixed'] = Info(len(lines), query)
+    query = "reporter:%s opened>%s" % (user, slash_date)
+    cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
+    lines = run_cmd(cmd)
+    #print '\n'.join(lines)
+    stats['opened'] = Info(len(lines), query)
+
+def do_google3():
+    print
+    print
+    cmd = 'g4d -f snippets'
+    os.system(cmd)
+    cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
+    os.system(cmd)
+
+def PrintStats():
+  slash_date = start_date.replace('-', '/')
+  do_chromium_cls(stats, args.user)
+  total_submitted = stats[False]['submitted'].count + stats[True]['submitted'].count
+  total_reviewed = stats[False]['reviewed'].count + stats[True]['reviewed'].count
+  do_chromium_bugs(stats, args.user, slash_date)
+  print '%d CLs (),' % (total_submitted),
+  print '%d reviewed (), ' % (total_reviewed),
+  print '%d bugs fixed, %d opened' % (stats['fixed'].count, stats['opened'].count)
+
+
+class TestElf(unittest.TestCase):
+  def testOutput(self):
+    pass
+
+
+def Main(args):
+  parser = argparse.ArgumentParser(description='Show stats for people')
+  parser.add_argument('user', type=str, help='user name to look at')
+  parser.add_argument('-t', help='run unit tests')
+  args = parser.parse_args(args)
+  if args.test:
+    unittest.main()
+    return
+  PrintStats()
+    
+
+if __name__ == '__main__':
+  sys.exit(Main(sys.argv[1:]))

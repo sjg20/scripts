@@ -32,6 +32,51 @@ end_date = None
 Info = namedtuple('Info', ['count', 'query'])
 
 
+def MakeKey(cmd):
+    return ' '.join(cmd)
+
+canned_output = {
+    MakeKey(['cros_sdk', '--', 'gerrit', 'search',
+             'status:merged owner:test after:2017-09-01']): [
+        'https://chromium-review.googlesource.com/#/c/426759/ CR: 2 CQ: 0 V: 0 mosys              mosys: Correct excess elements warnings',
+        'https://chromium-review.googlesource.com/#/c/641734/ CR: 0 CQ: 0 V: 0 chromiumos-overlay cros-firmware: Print an error when the bsc-overlay is not set',
+        'https://chromium-review.googlesource.com/#/c/645908/ CR: 2 CQ: 0 V: 0 firmware           pack_firmware: Show the model name in the versions file',
+        "https://chromium-review.googlesource.com/#/c/646994/ CR: 2 CQ: 0 V: 1 platform2          chromeos-config: Fix naming of 'reef' firmware node",
+        ],
+    MakeKey(['cros_sdk', '--', 'gerrit', 'search',
+             'status:merged reviewer:test -owner:test after:2017-09-01']): [
+        'https://chromium-review.googlesource.com/#/c/468650/ CR: 2 CQ: 0 V: 0 mosys              mosys: display full memory part number',
+        'https://chromium-review.googlesource.com/#/c/583727/ CR: 2 CQ: 0 V: 0 logitech-updater   Logitech firmware updater for PTZPro2',
+        ],
+    MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
+             'status:merged owner:test after:2017-09-01']): [
+        'https://chrome-internal-review.googlesource.com/#/c/444532/m CR: 0 CQ: 0 V: 0 overlay-kahlee-private Drop unused firmware eclass variables',
+        'https://chrome-internal-review.googlesource.com/#/c/444552/m CR: 0 CQ: 0 V: 0 overlay-coral-private  Drop unused firmware eclass variables',
+        ],
+    MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
+             'status:merged reviewer:test -owner:test after:2017-09-01']): [
+        'https://chrome-internal-review.googlesource.com/#/c/417539/ CR: 2 CQ: 0 V: 0 amd-firmware/stoney                   StoneyPI: Add stoney binaryPI',
+        'https://chrome-internal-review.googlesource.com/#/c/417874/ CR: 0 CQ: 0 V: 0 chromeos-partner-overlay              amd-firmware: Add ebuild',
+        'https://chrome-internal-review.googlesource.com/#/c/435714/ CR: 2 CQ: 1 V: 1 amd-firmware/raven                    Initial commit: RavenPI-FP5-AM4_1_0_0_0',
+        ],
+    MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
+             'owner:test modified>2017/09/01 status:fixed']): [
+        '- [chromium:821994](crbug.com/821994)[M66] [Reef] No Reef build after R66- 10440.0.0',
+        '- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
+        '- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
+        '- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
+        ],
+    MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
+             'reporter:test opened>2017/09/01']): [
+        "- [chromium:821128](crbug.com/821128)Drop the 'parent' files in Coral / cros-model.eclass",
+        '- [chromium:813442](crbug.com/813442)Drop cros_config_host_py',
+        '- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
+        '- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
+        '- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
+        ],
+}
+
+
 # Use this to suppress stdout/stderr output:
 # with capture_sys_output() as (stdout, stderr)
 #   ...do something...
@@ -46,12 +91,25 @@ def capture_sys_output():
     sys.stdout, sys.stderr = old_out, old_err
 
 
+def TestCmd(cmd):
+    key = MakeKey(cmd)
+    result = canned_output.get(key)
+    if not result:
+        raise ValueError("Unknown key '%s'" % key)
+    return result
 
 def run_cmd(cmd, cros_sdk=False):
     if cros_sdk:
         cmd = ['cros_sdk', '--'] + cmd
-    return subprocess.check_output(cmd, stderr=subprocess.PIPE,
-                shell=False).splitlines()
+    if testing:
+        return TestCmd(cmd)
+    lines = subprocess.check_output(cmd, stderr=subprocess.PIPE,
+                                    shell=False).splitlines()
+    print 'cmd %s, cros_sdk=%d' % (cmd, cros_sdk)
+    print 'lines:'
+    print '\n'.join(lines)
+    print
+    return lines
 
 # Show some CLs
 #  $1: Additional parameters for search, e.g. "owner:sjg"
@@ -99,31 +157,38 @@ def do_google3():
     cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
     os.system(cmd)
 
-def PrintStats():
+def PrintStats(user):
+  stats = {True: {}, False: {}}
   slash_date = start_date.replace('-', '/')
-  do_chromium_cls(stats, args.user)
+  do_chromium_cls(stats, user)
   total_submitted = stats[False]['submitted'].count + stats[True]['submitted'].count
   total_reviewed = stats[False]['reviewed'].count + stats[True]['reviewed'].count
-  do_chromium_bugs(stats, args.user, slash_date)
+  do_chromium_bugs(stats, user, slash_date)
   print '%d CLs (),' % (total_submitted),
   print '%d reviewed (), ' % (total_reviewed),
   print '%d bugs fixed, %d opened' % (stats['fixed'].count, stats['opened'].count)
 
 
 class TestElf(unittest.TestCase):
+  def setUp(self):
+    global testing
+    testing = True
+
   def testOutput(self):
-    pass
+    PrintStats('test')
 
 
 def Main(args):
   parser = argparse.ArgumentParser(description='Show stats for people')
-  parser.add_argument('user', type=str, help='user name to look at')
-  parser.add_argument('-t', help='run unit tests')
+  parser.add_argument('user', type=str, nargs='?', help='user name to look at')
+  parser.add_argument('-t', '--test', action='store_true',
+                      help='run unit tests')
   args = parser.parse_args(args)
   if args.test:
+    sys.argv = [sys.argv[0]]
     unittest.main()
     return
-  PrintStats()
+  PrintStats('sjg')
     
 
 if __name__ == '__main__':

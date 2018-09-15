@@ -11,19 +11,32 @@ import sys
 import unittest
 
 
-CROS_GERRIT, CRBUG, BUGANIZER, COREBOOT = range(4)
+CLS, BUGS = range(2)
 
-CL_TYPES = range(3)
-PUBLIC, PRIVATE, CL_COREBOOT = CL_TYPES
+CL_TYPES = range(4)
+CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3 = CL_TYPES
+
+BUG_TYPES = 4, 5
+BUGANIZER, CRBUG = BUG_TYPES
+
 
 STATS = Set()
+STATS.add(CLS)
+STATS.add(BUGS)
 
-STATS.add(CROS_GERRIT)
-STATS.add(CRBUG)
-STATS.add(BUGANIZER)
-STATS.add(COREBOOT)
+WHICH_BUGS = Set()
+WHICH_BUGS.add(CRBUG)
+WHICH_BUGS.add(BUGANIZER)
 
-testing = False
+WHICH_CLS = Set()
+WHICH_CLS.add(CL_PUBLIC)
+WHICH_CLS.add(CL_PRIVATE)
+WHICH_CLS.add(CL_COREBOOT)
+WHICH_CLS.add(CL_GOOGLE3)
+
+  
+testing = True
+#testing = False
 
 start = date.today()
 ostart = start.toordinal() - start.weekday() - 1
@@ -46,6 +59,9 @@ if testing:
 end_date = None
 
 Info = namedtuple('Info', ['count', 'query'])
+
+
+slash_date = start_date.replace('-', '/')
 
 
 def MakeKey(cmd):
@@ -101,7 +117,7 @@ canned_output = {
         '74193661  46805      20180305  20180312  sjg       pedrosimonetti  P2        DUPLICATE          [feedback] Audio is skipping every ~7 seconds on my glinux workstations',
         '74108115  324720     20180302  20180302  sjg       mcolagrosso     P2        ASSIGNED           [Drive SWM FB] I like this better than the pictures. Wish it could hold a few more docs (say 10)?',
         ],
-    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query status:merged owner:test after:2017-09-01']): [
+    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query "status:merged owner:test after:2017-09-01"']): [
       '''lines:
 change Id079c099ee4cf6a07724241af4400063f4551668
   project: coreboot
@@ -169,7 +185,7 @@ change I80363f06bdb22d0907f895885e607fde1c4c468d
   status: MERGED
 '''
          ],
-    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query status:merged reviewer:test -owner:test after:2017-09-01']): [
+    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query "status:merged reviewer:test -owner:test after:2017-09-01"']): [
     '''change I389815bc36b8610a30b0cbb9d73262ad392e0181
   project: coreboot
   branch: master
@@ -250,6 +266,14 @@ change Ia7c711304ffe460a9fb0d4f654a51485958239ea
       '111408252  168336     20180712  20180828  apphosting-stubby-api--s-7ecros-2dgoldeneye  sjg       P2        FIXED   Project Liara: Make sure the builder for your device is not marked as experimental',
       '111408847  168336     20180712  20180828  apphosting-stubby-api--s-7ecros-2dgoldeneye  sjg       P2        FIXED   Project Liara: Get the release builder up and running',
    ],
+   MakeKey(['clsearch a:test from:2017/09/01']): [
+     "http://cl/162008349 on 2017/07/14-15:28 by sjg@sjg:kiwi-main-m-NAgfoQmjY0lzP-git5:1970:citc 'Check board isUnibuild flag whe'"
+     "http://cl/161997835 on 2017/07/14-14:17 by sjg@sjg:kiwi-main-m-N0NNdalb2y1O5-git5:1937:citc 'Require that boards with models'",
+     ],
+   MakeKey(['clsearch r:test from:2017/09/01']): [
+     "http://cl/162008349 on 2017/07/14-15:28 by sjg@sjg:kiwi-main-m-NAgfoQmjY0lzP-git5:1970:citc 'Check board isUnibuild flag whe'"
+     "http://cl/161997835 on 2017/07/14-14:17 by sjg@sjg:kiwi-main-m-N0NNdalb2y1O5-git5:1937:citc 'Require that boards with models'",
+     ],
 }
 
 
@@ -279,6 +303,7 @@ def TestCmd(cmd):
     return result
 
 def run_cmd(cmd, use_ssh=False, cros_sdk=False):
+    print cmd
     if use_ssh:
       cmd = ['ssh', '-p', '29418', 'review.coreboot.org'] + cmd
     elif cros_sdk:
@@ -302,48 +327,54 @@ def run_cmd(cmd, use_ssh=False, cros_sdk=False):
 # Show some CLs
 #  $1: Additional parameters for search, e.g. "owner:sjg"
 def get_cls(terms, cl_type):
+  if cl_type == CL_GOOGLE3:
+    terms = ' '.join(terms)
+    cmd = ['clsearch'] + [terms]
+  else:
     terms="status:merged %s after:%s" % (' '.join(terms), start_date)
     if end_date:
         terms += ' before:%s' % end_date
-    awk="""{cl=match($1, /\/([0-9]+)\/$/,m); cl=m[1]; printf("- [%s](%s) (%s):", cl, $1, $8); for (i=9; i<=NF; i++) printf(" %s", $i); print ""}"""
-    #cmd = "cros_sdk -- gerrit %s search '%s' | ansi2txt | awk '%s' 2>/tmp/asc" % (flags, terms, awk)
     cmd = ['gerrit']
-    if cl_type == PRIVATE:
+    if cl_type == CL_PRIVATE:
         cmd.append('-i')
-    cmd += ['query' if cl_type == COREBOOT else 'search', terms]
-    #cmd = ['cros_sdk', '--', 'gerrit', 'search', terms, '|', 'ansi2txt', '|', 'awk', awk]
-#print cmd
-    lines = run_cmd(cmd, cl_type == COREBOOT, cros_sdk=True)
-    return Info(len(lines), terms)
-    #fred = 
-    #print cmd
+    cmd.append('query' if cl_type == CL_COREBOOT else 'search')
+    if cl_type == CL_COREBOOT:
+      cmd.append('"%s"' % terms)
+    else:
+      cmd.append(terms)
+  lines = run_cmd(cmd, cl_type == CL_COREBOOT, cros_sdk=cl_type != CL_GOOGLE3)
+  return Info(len(lines), terms)
 
 def do_all_cls(stats, user, stat_set):
-    for cl_type in (PUBLIC, PRIVATE, COREBOOT):
+    for cl_type in (CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3):
       if cl_type in stat_set:
-        stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
-        stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
+        if cl_type == CL_GOOGLE3:
+          stats[cl_type]['submitted'] = get_cls(['a:%s' % user, 'from:%s' % slash_date], cl_type)
+          stats[cl_type]['reviewer'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
+        else:
+          stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
+          stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
 
 def do_chromium_bugs(stats, user, slash_date):
     query = "owner:%s modified>%s status:fixed" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    stats[PUBLIC]['fixed'] = Info(len(lines), query)
+    stats[CRBUG]['fixed'] = Info(len(lines), query)
     query = "reporter:%s opened>%s" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    stats[PUBLIC]['opened'] = Info(len(lines), query)
+    stats[CRBUG]['opened'] = Info(len(lines), query.replace(' ', '%20'))
 
 def do_private_bugs(stats, user, start_date):
     query = "a:%s modified>%s status:fixed" % (user, start_date)
     cmd = ['bugged', 'search', query]
     # The first line is a heading, so drop it
     lines = run_cmd(cmd)[1:]
-    stats[PRIVATE]['fixed'] = Info(len(lines), query)
+    stats[BUGANIZER]['fixed'] = Info(len(lines), query)
     query = "r:%s created>%s" % (user, start_date)
     cmd = ['bugged', 'search', query]
     lines = run_cmd(cmd)[1:]
-    stats[PRIVATE]['opened'] = Info(len(lines), query)
+    stats[BUGANIZER]['opened'] = Info(len(lines), query)
 
 def do_google3():
     print
@@ -359,73 +390,94 @@ def GetStat(stats, cl_type, name):
       return stat[name].count
     return 0
 
-def GetMarkup(html, count, name, fmt, query):
-    query = query.replace(' ', '+')
-    if html:
-      return '%d <a href="%s">%s</a>' % (count, fmt % query, name)
-    else:
-      return '[%s](%s)' % (name, fmt % query)
-                
-def GetClMessage(stats, name, html=True):
-    private = GetStat(stats, PRIVATE, name)
-    public = GetStat(stats, PUBLIC, name)
-    coreboot = GetStat(stats, COREBOOT, name)
+def GetQuery(stats, cl_type, name):
+    stat = stats[cl_type]
+    if name in stat:
+      return stat[name].query
+    return ''
+
+def GetMarkup(html, count, label, name, fmt, stats, cl_type):
+  query = GetQuery(stats, cl_type, name)
+  stat = stats[cl_type]
+  if name not in stat:
+    print 'name', name, 'not found in ', stat
+    return ''
+  query = stat[name].query
+  print 'query', query
+  query = query.replace(' ', '+')
+  if html:
+    print 'fmt', fmt
+    print 'query', query
+    if '%' in fmt:
+      fmt = fmt % query
+    return '%d <a href="%s">%s</a>' % (count, fmt, label)
+  else:
+    return '[%s](%s)' % (name, fmt % query)
+
+def GetClMessage(stats, user, label, html=True):
+    private = GetStat(stats, CL_PRIVATE, label)
+    public = GetStat(stats, CL_PUBLIC, label)
+    coreboot = GetStat(stats, CL_COREBOOT, label)
+    google3 = GetStat(stats, CL_GOOGLE3, label)
     items = []
-    
-    if private:
-      items.append(GetMarkup(html, private, 'private',
-          'https://chromium-review.googlesource.com/q/%s',
-          stats[PRIVATE][name].query))
-    if public:
-      items.append(GetMarkup(html, public, 'public',
-          'https://chrome-internal-review.googlesource.com/q/%s',
-          stats[PUBLIC][name].query))
-    if coreboot:
-      items.append(GetMarkup(html, coreboot, 'coreboot',
-          'https://review.coreboot.org/q/%s',
-          stats[COREBOOT][name].query))
+
+    #if private:
+    items.append(GetMarkup(html, public, 'public', label,
+        'https://chromium-review.googlesource.com/q/%s',
+        stats, CL_PRIVATE))
+    #if public:
+    items.append(GetMarkup(html, private, 'private', label,
+        'https://chrome-internal-review.googlesource.com/q/%s',
+        stats, CL_PUBLIC))
+    #if coreboot:
+    items.append(GetMarkup(html, coreboot, 'coreboot', label,
+        'https://review.coreboot.org/q/%s',
+        stats, CL_COREBOOT))
+    items.append(GetMarkup(html, google3, 'google3', label,
+        'https://critique.corp.google.com/#search/&q=a:%s status:submitted from:%s'
+        % (user, slash_date), stats, CL_GOOGLE3))
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
     return private + public + coreboot, msg
 
-def GetBugMessage(stats, name, html=True):
-    private = stats[PRIVATE][name].count
-    public = stats[PUBLIC][name].count
+def GetBugMessage(stats, label, html=True):
+    private = stats[BUGANIZER][label].count
+    public = stats[CRBUG][label].count
     items = []
     if private:
-        items.append(GetMarkup(html, private, 'private',
-            'http://b/issues?q=%s', stats[PRIVATE][name].query))
+        items.append(GetMarkup(html, private, 'private', label,
+            'http://b/issues?q=%s', stats, BUGANIZER))
     if public:
-        items.append(GetMarkup(html, public, 'public',
-            'https://bugs.chromium.org/p/chromium/issues/list?can=1&q=%ss',
-            stats[PRIVATE][name].query))
+        items.append(GetMarkup(html, public, 'public', label,
+            'https://bugs.chromium.org/p/chromium/issues/list?can=1&q=%s',
+            stats, CRBUG))
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
     return private + public, msg
 
 def GetStatsText(user, stat_set):
-  stats = {PRIVATE: {}, PUBLIC: {}, COREBOOT: {}}
-  slash_date = start_date.replace('-', '/')
-  if CROS_GERRIT in stat_set or COREBOOT in stat_set:
-    do_all_cls(stats, user, stat_set)
-    total_submitted, msg_submitted = GetClMessage(stats, 'submitted')
-    total_reviewed, msg_reviewed = GetClMessage(stats, 'reviewed')
-  if CRBUG in stat_set:
+  stats = {}
+  for stat in tuple(BUG_TYPES) + tuple(CL_TYPES):
+    stats[stat] = {}
+  if CLS in stat_set:
+    do_all_cls(stats, user, WHICH_CLS)
+    total_submitted, msg_submitted = GetClMessage(stats, user, 'submitted')
+    total_reviewed, msg_reviewed = GetClMessage(stats, user, 'reviewed')
+  if BUGS in stat_set:
     do_chromium_bugs(stats, user, slash_date)
-  if BUGANIZER in stat_set:
     do_private_bugs(stats, user, start_date)
-
+  print stats
   out = '''<!DOCTYPE html><html>
 <body>
 '''
-  if CROS_GERRIT in stat_set or COREBOOT in stat_set:
+  if CLS in stat_set:
     out += '%s, ' % user
     out += '%d CLs%s, ' % (total_submitted, msg_submitted)
     out += '%d reviewed%s, ' % (total_reviewed, msg_reviewed)
 
-  if CRBUG in stat_set or BUGANIZER in stat_set:
+  if BUGS in stat_set:
     total_fixed, msg_fixed = GetBugMessage(stats, 'fixed')
     total_opened, msg_opened = GetBugMessage(stats, 'opened')
     out += '%d bugs fixed%s, ' % (total_fixed, msg_fixed)

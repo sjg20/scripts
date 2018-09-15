@@ -350,7 +350,7 @@ def do_all_cls(stats, user, stat_set):
       if cl_type in stat_set:
         if cl_type == CL_GOOGLE3:
           stats[cl_type]['submitted'] = get_cls(['a:%s' % user, 'from:%s' % slash_date], cl_type)
-          stats[cl_type]['reviewer'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
+          stats[cl_type]['reviewed'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
         else:
           stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
           stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
@@ -375,14 +375,6 @@ def do_private_bugs(stats, user, start_date):
     cmd = ['bugged', 'search', query]
     lines = run_cmd(cmd)[1:]
     stats[BUGANIZER]['opened'] = Info(len(lines), query)
-
-def do_google3():
-    print
-    print
-    cmd = 'g4d -f snippets'
-    os.system(cmd)
-    cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
-    os.system(cmd)
 
 def GetStat(stats, cl_type, name):
     stat = stats[cl_type]

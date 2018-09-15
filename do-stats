@@ -11,15 +11,19 @@ import sys
 import unittest
 
 
-CROS_GERRIT, CRBUG, BUGANIZER = range(3)
+CROS_GERRIT, CRBUG, BUGANIZER, COREBOOT = range(4)
+
+CL_TYPES = range(3)
+PUBLIC, PRIVATE, CL_COREBOOT = CL_TYPES
 
 STATS = Set()
 
 #STATS.add(CROS_GERRIT)
 #STATS.add(CRBUG)
 #STATS.add(BUGANIZER)
+STATS.add(COREBOOT)
 
-testing = False
+testing = True
 
 start = date.today()
 ostart = start.toordinal() - start.weekday() - 1
@@ -36,6 +40,9 @@ start_date = '2018-03-01'
 #end_date = '2017-08-07'
 #start_date = '2017-12-10'
 #end_date = '2017-11-26'
+if testing:
+  start_date = '2017-09-01'
+  
 end_date = None
 
 Info = namedtuple('Info', ['count', 'query'])
@@ -45,55 +52,199 @@ def MakeKey(cmd):
     return ' '.join(cmd)
 
 canned_output = {
-    MakeKey(['cros_sdk', '--', 'gerrit', 'search',
-             'status:merged owner:test after:2017-09-01']): [
-        'https://chromium-review.googlesource.com/#/c/426759/ CR: 2 CQ: 0 V: 0 mosys              mosys: Correct excess elements warnings',
-        'https://chromium-review.googlesource.com/#/c/641734/ CR: 0 CQ: 0 V: 0 chromiumos-overlay cros-firmware: Print an error when the bsc-overlay is not set',
-        'https://chromium-review.googlesource.com/#/c/645908/ CR: 2 CQ: 0 V: 0 firmware           pack_firmware: Show the model name in the versions file',
-        "https://chromium-review.googlesource.com/#/c/646994/ CR: 2 CQ: 0 V: 1 platform2          chromeos-config: Fix naming of 'reef' firmware node",
-        ],
-    MakeKey(['cros_sdk', '--', 'gerrit', 'search',
-             'status:merged reviewer:test -owner:test after:2017-09-01']): [
-        'https://chromium-review.googlesource.com/#/c/468650/ CR: 2 CQ: 0 V: 0 mosys              mosys: display full memory part number',
-        'https://chromium-review.googlesource.com/#/c/583727/ CR: 2 CQ: 0 V: 0 logitech-updater   Logitech firmware updater for PTZPro2',
-        ],
-    MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
-             'status:merged owner:test after:2017-09-01']): [
-        'https://chrome-internal-review.googlesource.com/#/c/444532/m CR: 0 CQ: 0 V: 0 overlay-kahlee-private Drop unused firmware eclass variables',
-        'https://chrome-internal-review.googlesource.com/#/c/444552/m CR: 0 CQ: 0 V: 0 overlay-coral-private  Drop unused firmware eclass variables',
-        ],
-    MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
-             'status:merged reviewer:test -owner:test after:2017-09-01']): [
-        'https://chrome-internal-review.googlesource.com/#/c/417539/ CR: 2 CQ: 0 V: 0 amd-firmware/stoney                   StoneyPI: Add stoney binaryPI',
-        'https://chrome-internal-review.googlesource.com/#/c/417874/ CR: 0 CQ: 0 V: 0 chromeos-partner-overlay              amd-firmware: Add ebuild',
-        'https://chrome-internal-review.googlesource.com/#/c/435714/ CR: 2 CQ: 1 V: 1 amd-firmware/raven                    Initial commit: RavenPI-FP5-AM4_1_0_0_0',
-        ],
-    MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
-             'owner:test modified>2017/09/01 status:fixed']): [
-        '- [chromium:821994](crbug.com/821994)[M66] [Reef] No Reef build after R66- 10440.0.0',
-        '- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
-        '- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
-        '- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
-        ],
-    MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
-             'reporter:test opened>2017/09/01']): [
-        "- [chromium:821128](crbug.com/821128)Drop the 'parent' files in Coral / cros-model.eclass",
-        '- [chromium:813442](crbug.com/813442)Drop cros_config_host_py',
-        '- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
-        '- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
-        '- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
-        ],
-    MakeKey(['bugged', 'search', 'owner:test', 'modified>2017-09-01',
-             'status:fixed']): [
-        'issue     component  created   modified  reporter     assignee                                        priority  status  summary',
-        '74733513  197583     20180314  20180315  shapiroc     hanwen                                          P1        FIXED   Chrome OS private overlays are no longer indexed',
-        '72947182  191631     20180205  20180205  akillips     pleichtle                                       P3        FIXED   GSuite Contact Sales with < 20 employees should be ass',
-        ],
-    MakeKey(['bugged', 'search', 'r:test created>2017-09-01']): [
-        'issue     component  created   modified  reporter  assignee        priority  status             summary',
-        '74193661  46805      20180305  20180312  sjg       pedrosimonetti  P2        DUPLICATE          [feedback] Audio is skipping every ~7 seconds on my glinux workstations',
-        '74108115  324720     20180302  20180302  sjg       mcolagrosso     P2        ASSIGNED           [Drive SWM FB] I like this better than the pictures. Wish it could hold a few more docs (say 10)?',
-        ],
+    #MakeKey(['cros_sdk', '--', 'gerrit', 'search',
+             #'status:merged owner:test after:2017-09-01']): [
+        #'https://chromium-review.googlesource.com/#/c/426759/ CR: 2 CQ: 0 V: 0 mosys              mosys: Correct excess elements warnings',
+        #'https://chromium-review.googlesource.com/#/c/641734/ CR: 0 CQ: 0 V: 0 chromiumos-overlay cros-firmware: Print an error when the bsc-overlay is not set',
+        #'https://chromium-review.googlesource.com/#/c/645908/ CR: 2 CQ: 0 V: 0 firmware           pack_firmware: Show the model name in the versions file',
+        #"https://chromium-review.googlesource.com/#/c/646994/ CR: 2 CQ: 0 V: 1 platform2          chromeos-config: Fix naming of 'reef' firmware node",
+        #],
+    #MakeKey(['cros_sdk', '--', 'gerrit', 'search',
+             #'status:merged reviewer:test -owner:test after:2017-09-01']): [
+        #'https://chromium-review.googlesource.com/#/c/468650/ CR: 2 CQ: 0 V: 0 mosys              mosys: display full memory part number',
+        #'https://chromium-review.googlesource.com/#/c/583727/ CR: 2 CQ: 0 V: 0 logitech-updater   Logitech firmware updater for PTZPro2',
+        #],
+    #MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
+             #'status:merged owner:test after:2017-09-01']): [
+        #'https://chrome-internal-review.googlesource.com/#/c/444532/m CR: 0 CQ: 0 V: 0 overlay-kahlee-private Drop unused firmware eclass variables',
+        #'https://chrome-internal-review.googlesource.com/#/c/444552/m CR: 0 CQ: 0 V: 0 overlay-coral-private  Drop unused firmware eclass variables',
+        #],
+    #MakeKey(['cros_sdk', '--', 'gerrit', '-i', 'search',
+             #'status:merged reviewer:test -owner:test after:2017-09-01']): [
+        #'https://chrome-internal-review.googlesource.com/#/c/417539/ CR: 2 CQ: 0 V: 0 amd-firmware/stoney                   StoneyPI: Add stoney binaryPI',
+        #'https://chrome-internal-review.googlesource.com/#/c/417874/ CR: 0 CQ: 0 V: 0 chromeos-partner-overlay              amd-firmware: Add ebuild',
+        #'https://chrome-internal-review.googlesource.com/#/c/435714/ CR: 2 CQ: 1 V: 1 amd-firmware/raven                    Initial commit: RavenPI-FP5-AM4_1_0_0_0',
+        #],
+    #MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
+             #'owner:test modified>2017/09/01 status:fixed']): [
+        #'- [chromium:821994](crbug.com/821994)[M66] [Reef] No Reef build after R66- 10440.0.0',
+        #'- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
+        #'- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
+        #'- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
+        #],
+    #MakeKey(['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q',
+             #'reporter:test opened>2017/09/01']): [
+        #"- [chromium:821128](crbug.com/821128)Drop the 'parent' files in Coral / cros-model.eclass",
+        #'- [chromium:813442](crbug.com/813442)Drop cros_config_host_py',
+        #'- [chromium:796983](crbug.com/796983)Implement YAML support in cros_config',
+        #'- [chromium:779438](crbug.com/779438)Implement BCS support in cros_config_host',
+        #'- [chromium:774498](crbug.com/774498)Small fix-ups Q4 2017',
+        #],
+    #MakeKey(['bugged', 'search', 'owner:test', 'modified>2017-09-01',
+             #'status:fixed']): [
+        #'issue     component  created   modified  reporter     assignee                                        priority  status  summary',
+        #'74733513  197583     20180314  20180315  shapiroc     hanwen                                          P1        FIXED   Chrome OS private overlays are no longer indexed',
+        #'72947182  191631     20180205  20180205  akillips     pleichtle                                       P3        FIXED   GSuite Contact Sales with < 20 employees should be ass',
+        #],
+    #MakeKey(['bugged', 'search', 'r:test created>2017-09-01']): [
+        #'issue     component  created   modified  reporter  assignee        priority  status             summary',
+        #'74193661  46805      20180305  20180312  sjg       pedrosimonetti  P2        DUPLICATE          [feedback] Audio is skipping every ~7 seconds on my glinux workstations',
+        #'74108115  324720     20180302  20180302  sjg       mcolagrosso     P2        ASSIGNED           [Drive SWM FB] I like this better than the pictures. Wish it could hold a few more docs (say 10)?',
+        #],
+    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query status:merged owner:sjg after:2017-09-01']): [
+      '''lines:
+change Id079c099ee4cf6a07724241af4400063f4551668
+  project: coreboot
+  branch: master
+  id: Id079c099ee4cf6a07724241af4400063f4551668
+  number: 28245
+  subject: libpayload/x86/delay: Make arch_ndelay call apic_delay if delay is long
+  owner:
+    name: Raul Rangel
+    email: rrangel@chromium.org
+    username: rrangel
+  url: https://review.coreboot.org/28245
+  commitMessage: libpayload/x86/delay: Make arch_ndelay call apic_delay if delay is long
+                 
+                 This reduces power consumption on grunt by over 3W when sitting at the
+                 depthcharge recovery screen.
+                 
+                 BUG=b:109749762
+                 TEST=Booted grunt in the recovery screen and made sure it continued to
+                 work.
+                 
+                 Change-Id: Id079c099ee4cf6a07724241af4400063f4551668
+                 Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+                 Reviewed-on: https://review.coreboot.org/28245
+                 Reviewed-by: Martin Roth <martinroth@google.com>
+                 Reviewed-by: Richard Spiegel <richard.spiegel@silverbackltd.com>
+                 Reviewed-by: Julius Werner <jwerner@google.com>
+                 Tested-by: build bot (Jenkins) <no-reply@coreboot.org>
+  createdOn: 2018-08-20 20:01:09 GMT
+  lastUpdated: 2018-09-12 14:26:04 GMT
+  open: false
+  status: MERGED
+
+change I80363f06bdb22d0907f895885e607fde1c4c468d
+  project: coreboot
+  branch: master
+  id: I80363f06bdb22d0907f895885e607fde1c4c468d
+  number: 28242
+  subject: libpayload/x86/apic: Add an apic_delay method and calibrate the timer
+  owner:
+    name: Raul Rangel
+    email: rrangel@chromium.org
+    username: rrangel
+  url: https://review.coreboot.org/28242
+  commitMessage: libpayload/x86/apic: Add an apic_delay method and calibrate the timer
+                 
+                 The apic_delay method will halt the CPU and wait for a timer interrupt
+                 to fire. I went with usec because nsec is too granular to guarantee.
+                 
+                 This method will be called from an arch_ndelay() method when the delay
+                 is large enough to justify a sleep.
+                 
+                 BUG=b:109749762
+                 TEST=Tested it on grunt by changing the _delay method to call
+                 apic_delay().
+                 
+                 Change-Id: I80363f06bdb22d0907f895885e607fde1c4c468d
+                 Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+                 Reviewed-on: https://review.coreboot.org/28242
+                 Tested-by: build bot (Jenkins) <no-reply@coreboot.org>
+                 Reviewed-by: Martin Roth <martinroth@google.com>
+  createdOn: 2018-08-20 20:01:09 GMT
+  lastUpdated: 2018-09-12 14:22:44 GMT
+  open: false
+  status: MERGED
+'''
+         ],
+    MakeKey(['ssh -p 29418 review.coreboot.org gerrit query status:merged reviewer:sjg -owner:sjg after:2017-09-01']): [
+    '''change I389815bc36b8610a30b0cbb9d73262ad392e0181
+  project: coreboot
+  branch: master
+  id: I389815bc36b8610a30b0cbb9d73262ad392e0181
+  number: 27465
+  subject: mainboard/google/Kahlee: Select low-power mode for WiFi
+  owner:
+    name: Simon Glass
+    email: sjg@chromium.org
+    username: sjg
+  url: https://review.coreboot.org/27465
+  commitMessage: mainboard/google/Kahlee: Select low-power mode for WiFi
+                 
+                 Put the PCIe clock pins in power-saving mode for the WiFi module to save
+                 power.
+                 
+                 Note: This currently does not appear to have any effect on grunt.
+                 
+                 BUG=b:110041917
+                 BRANCH=none
+                 TEST=boot without this patch:
+                 $ iotools mem_read32 0xfed80e00
+                 0x0046f3ff
+                 
+                 With this patch:
+                 $ iotools mem_read32 0xfed80e00
+                 0x0046f3f1
+                 
+                 Change-Id: I389815bc36b8610a30b0cbb9d73262ad392e0181
+                 Signed-off-by: Simon Glass <sjg@chromium.org>
+                 Reviewed-on: https://review.coreboot.org/27465
+                 Tested-by: build bot (Jenkins) <no-reply@coreboot.org>
+                 Reviewed-by: Aaron Durbin <adurbin@chromium.org>
+                 Reviewed-by: Martin Roth <martinroth@google.com>
+                 Reviewed-by: Paul Menzel <paulepanter@users.sourceforge.net>
+  createdOn: 2018-07-12 19:03:07 GMT
+  lastUpdated: 2018-07-18 20:10:45 GMT
+  open: false
+  status: MERGED
+
+change Ia7c711304ffe460a9fb0d4f654a51485958239ea
+  project: coreboot
+  branch: master
+  id: Ia7c711304ffe460a9fb0d4f654a51485958239ea
+  number: 27464
+  subject: mainboard/google/kahlee: Enable ASPM on PCI express
+  owner:
+    name: Simon Glass
+    email: sjg@chromium.org
+    username: sjg
+  url: https://review.coreboot.org/27464
+  commitMessage: mainboard/google/kahlee: Enable ASPM on PCI express
+                 
+                 We should use active-state power management where possible to reduce
+                 power consumption during normal operation. Enable these options.
+                 
+                 Linux does not seem to enable this for AMD, and the Intel code in coreboot
+                 does enable these options.
+                 
+                 PCIEXP_COMMON_CLOCK is enabled also, to follow how Intel does it.
+                 
+                 BUG=b:110041917
+                 TEST=boot on grunt, see that WiFi and eMMC still run OK
+                 
+                 Change-Id: Ia7c711304ffe460a9fb0d4f654a51485958239ea
+                 Signed-off-by: Simon Glass <sjg@chromium.org>
+                 Reviewed-on: https://review.coreboot.org/27464
+                 Reviewed-by: Martin Roth <martinroth@google.com>
+                 Tested-by: build bot (Jenkins) <no-reply@coreboot.org>
+  createdOn: 2018-07-12 19:03:07 GMT
+  lastUpdated: 2018-07-18 20:10:36 GMT
+  open: false
+  status: MERGED
+
+'''],
 }
 
 
@@ -115,12 +266,18 @@ def TestCmd(cmd):
     key = MakeKey(cmd)
     result = canned_output.get(key)
     if not result:
-        raise ValueError("Unknown key '%s'" % key)
+      print key
+      print canned_output.keys()[0]
+      raise ValueError("Unknown key '%s'" % key)
+    if '\n' in result:
+      return result.splitlines()
     return result
 
-def run_cmd(cmd, cros_sdk=False):
-    if cros_sdk:
-        cmd = ['cros_sdk', '--'] + cmd
+def run_cmd(cmd, cl_type, cros_sdk=False):
+    if cl_type == COREBOOT:
+      cmd = ['ssh', '-p', '29418', 'review.coreboot.org'] + cmd
+    elif cros_sdk:
+      cmd = ['cros_sdk', '--'] + cmd
     if testing:
         return TestCmd(cmd)
     lines = subprocess.check_output(cmd, stderr=subprocess.PIPE,
@@ -129,53 +286,56 @@ def run_cmd(cmd, cros_sdk=False):
     print 'lines:'
     print '\n'.join(lines)
     print
+  
     return lines
 
 # Show some CLs
 #  $1: Additional parameters for search, e.g. "owner:sjg"
-def get_cls(terms, internal):
+def get_cls(terms, cl_type):
     terms="status:merged %s after:%s" % (' '.join(terms), start_date)
     if end_date:
         terms += ' before:%s' % end_date
     awk="""{cl=match($1, /\/([0-9]+)\/$/,m); cl=m[1]; printf("- [%s](%s) (%s):", cl, $1, $8); for (i=9; i<=NF; i++) printf(" %s", $i); print ""}"""
-    #flags = '-i' if internal else ''
     #cmd = "cros_sdk -- gerrit %s search '%s' | ansi2txt | awk '%s' 2>/tmp/asc" % (flags, terms, awk)
     cmd = ['gerrit']
-    if internal:
+    if cl_type == PRIVATE:
         cmd.append('-i')
-    cmd += ['search', terms]
+    cmd += ['query' if cl_type == COREBOOT else 'search', terms]
     #cmd = ['cros_sdk', '--', 'gerrit', 'search', terms, '|', 'ansi2txt', '|', 'awk', awk]
 #print cmd
-    lines = run_cmd(cmd, cros_sdk=True)
+    lines = run_cmd(cmd, cl_type, cros_sdk=True)
+    if cl_type == COREBOOT:
+      lines = [line for line in lines if 'change I' in line]
     return Info(len(lines), terms)
     #fred = 
     #print cmd
 
-def do_chromium_cls(stats, user):
-    for internal in (False, True):
-        stats[internal]['submitted'] = get_cls(['owner:%s' % user], internal)
-        stats[internal]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], internal)
+def do_all_cls(stats, user, stat_set):
+    for cl_type in (PUBLIC, PRIVATE, COREBOOT):
+      if cl_type in stat_set:
+        stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
+        stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
 
 def do_chromium_bugs(stats, user, slash_date):
     query = "owner:%s modified>%s status:fixed" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    stats[False]['fixed'] = Info(len(lines), query)
+    stats[PUBLIC]['fixed'] = Info(len(lines), query)
     query = "reporter:%s opened>%s" % (user, slash_date)
     cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
-    stats[False]['opened'] = Info(len(lines), query)
+    stats[PUBLIC]['opened'] = Info(len(lines), query)
 
 def do_private_bugs(stats, user, start_date):
     query = "a:%s modified>%s status:fixed" % (user, start_date)
     cmd = ['bugged', 'search', query]
     # The first line is a heading, so drop it
     lines = run_cmd(cmd)[1:]
-    stats[True]['fixed'] = Info(len(lines), query)
+    stats[PRIVATE]['fixed'] = Info(len(lines), query)
     query = "r:%s created>%s" % (user, start_date)
     cmd = ['bugged', 'search', query]
     lines = run_cmd(cmd)[1:]
-    stats[True]['opened'] = Info(len(lines), query)
+    stats[PRIVATE]['opened'] = Info(len(lines), query)
 
 def do_google3():
     print
@@ -185,41 +345,51 @@ def do_google3():
     cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
     os.system(cmd)
 
+def GetStat(stats, cl_type, name):
+    stat = stats[cl_type]
+    if name in stat:
+      return stat[name].count
+    return 0
+                
 def GetClMessage(stats, name):
-    private = stats[True][name].count
-    public = stats[False][name].count
+    private = GetStat(stats, PRIVATE, name)
+    public = GetStat(stats, PUBLIC, name)
+    coreboot = GetStat(stats, COREBOOT, name)
     items = []
     if private:
         items.append('[public](https://chromium-review.googlesource.com/q/%s)'
-                     % stats[True][name].query.replace(' ', '+'))
+                     % stats[PRIVATE][name].query.replace(' ', '+'))
     if public:
         items.append('[private](https://chrome-internal-review.googlesource.com/q/%s)'
-                     % stats[False][name].query.replace(' ', '+'))
+                     % stats[PUBLIC][name].query.replace(' ', '+'))
+    if coreboot:
+        items.append('[coreboot](https://review.coreboot.org/q/%s)'
+                     % stats[COREBOOT][name].query.replace(' ', '+'))
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
-    return private + public, msg
+    return private + public + coreboot, msg
 
 def GetBugMessage(stats, name):
-    private = stats[True][name].count
-    public = stats[False][name].count
+    private = stats[PRIVATE][name].count
+    public = stats[PUBLIC][name].count
     items = []
     if private:
-        items.append('[private](b/issues?q=%s)'
-                     % stats[True][name].query.replace(' ', '%20'))
+        items.append('[%d private](b/issues?q=%s)'
+                     % (private, stats[PRIVATE][name].query.replace(' ', '%20')))
     if public:
-        items.append('[public](https://bugs.chromium.org/p/chromium/issues/list?can=1&q=%s)'
-                     % stats[False][name].query.replace(' ', '+'))
+        items.append('[%d public](https://bugs.chromium.org/p/chromium/issues/list?can=1&q=%s)'
+                     % (public, stats[PUBLIC][name].query.replace(' ', '+')))
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
     return private + public, msg
 
 def PrintStats(user, stat_set):
-  stats = {True: {}, False: {}}
+  stats = {PRIVATE: {}, PUBLIC: {}, COREBOOT: {}}
   slash_date = start_date.replace('-', '/')
-  if CROS_GERRIT in stat_set:
-    do_chromium_cls(stats, user)
+  if CROS_GERRIT in stat_set or COREBOOT in stat_set:
+    do_all_cls(stats, user, stat_set)
     total_submitted, msg_submitted = GetClMessage(stats, 'submitted')
     total_reviewed, msg_reviewed = GetClMessage(stats, 'reviewed')
   if CRBUG in stat_set:

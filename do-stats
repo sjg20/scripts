@@ -23,7 +23,7 @@ STATS.add(CRBUG)
 STATS.add(BUGANIZER)
 STATS.add(COREBOOT)
 
-testing = True
+testing = False
 
 start = date.today()
 ostart = start.toordinal() - start.weekday() - 1

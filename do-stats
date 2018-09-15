@@ -35,8 +35,8 @@ WHICH_CLS.add(CL_COREBOOT)
 WHICH_CLS.add(CL_GOOGLE3)
 
   
-testing = True
-#testing = False
+#testing = True
+testing = False
 
 start = date.today()
 ostart = start.toordinal() - start.weekday() - 1

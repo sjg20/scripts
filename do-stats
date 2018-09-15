@@ -5,10 +5,19 @@ from collections import namedtuple
 from contextlib import contextmanager
 from datetime import date
 import os
+from sets import Set
 import subprocess
 import sys
 import unittest
 
+
+CROS_GERRIT, CRBUG, BUGANIZER = range(3)
+
+STATS = Set()
+
+#STATS.add(CROS_GERRIT)
+#STATS.add(CRBUG)
+#STATS.add(BUGANIZER)
 
 testing = False
 
@@ -19,7 +28,7 @@ if start.weekday() < 3:
 #ostart -= 7
 
 #start_date = date.fromordinal(ostart).strftime("%Y-%m-%d")
-start_date = '2017-09-01'
+start_date = '2018-03-01'
 
 #end_date = date.fromordinal(ostart + 7).strftime("%Y-%m-%d")
 
@@ -158,7 +167,7 @@ def do_chromium_bugs(stats, user, slash_date):
     stats[False]['opened'] = Info(len(lines), query)
 
 def do_private_bugs(stats, user, start_date):
-    query = "owner:%s modified>%s status:fixed" % (user, start_date)
+    query = "a:%s modified>%s status:fixed" % (user, start_date)
     cmd = ['bugged', 'search', query]
     # The first line is a heading, so drop it
     lines = run_cmd(cmd)[1:]
@@ -206,21 +215,27 @@ def GetBugMessage(stats, name):
         msg = ' (%s)' % msg
     return private + public, msg
 
-def PrintStats(user):
+def PrintStats(user, stat_set):
   stats = {True: {}, False: {}}
   slash_date = start_date.replace('-', '/')
-  do_chromium_cls(stats, user)
-  total_submitted, msg_submitted = GetClMessage(stats, 'submitted')
-  total_reviewed, msg_reviewed = GetClMessage(stats, 'reviewed')
-  do_chromium_bugs(stats, user, slash_date)
-  do_private_bugs(stats, user, start_date)
-  print '%d CLs%s,' % (total_submitted, msg_submitted),
-  print '%d reviewed%s,' % (total_reviewed, msg_reviewed),
+  if CROS_GERRIT in stat_set:
+    do_chromium_cls(stats, user)
+    total_submitted, msg_submitted = GetClMessage(stats, 'submitted')
+    total_reviewed, msg_reviewed = GetClMessage(stats, 'reviewed')
+  if CRBUG in stat_set:
+    do_chromium_bugs(stats, user, slash_date)
+  if BUGANIZER in stat_set:
+    do_private_bugs(stats, user, start_date)
 
-  total_fixed, msg_fixed = GetBugMessage(stats, 'fixed')
-  total_opened, msg_opened = GetBugMessage(stats, 'opened')
-  print '%d bugs fixed%s,' % (total_fixed, msg_fixed),
-  print '%d bugs opened%s' % (total_opened, msg_opened)
+  if CROS_GERRIT in stat_set:
+    print '%d CLs%s,' % (total_submitted, msg_submitted),
+    print '%d reviewed%s,' % (total_reviewed, msg_reviewed),
+
+  if CRBUG in stat_set or BUGANIZER in stat_set:
+    total_fixed, msg_fixed = GetBugMessage(stats, 'fixed')
+    total_opened, msg_opened = GetBugMessage(stats, 'opened')
+    print '%d bugs fixed%s,' % (total_fixed, msg_fixed),
+    print '%d bugs opened%s' % (total_opened, msg_opened)
 
 
 class TestElf(unittest.TestCase):
@@ -242,7 +257,7 @@ def Main(args):
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
-  PrintStats('sjg')
+  PrintStats(args.user, STATS)
     
 
 if __name__ == '__main__':

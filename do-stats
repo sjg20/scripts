@@ -464,6 +464,8 @@ def GetStatsText(user, stat_set):
   out = '''<!DOCTYPE html><html>
 <body>
 '''
+  out = '<p>\n'
+
   if CLS in stat_set:
     out += '%s, ' % user
     out += '%d CLs%s, ' % (total_submitted, msg_submitted)
@@ -475,6 +477,8 @@ def GetStatsText(user, stat_set):
     out += '%d bugs fixed%s, ' % (total_fixed, msg_fixed)
     out += '%d bugs opened%s' % (total_opened, msg_opened)
     out += '\n'
+  return out
+
   out += '''</body>
 </html>
 '''
@@ -499,7 +503,7 @@ def Main(args):
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
-  with open('/tmp/x.html', 'w') as fd:
+  with open('/usr/local/google/home/sjg/x20/www/stats.html', 'a') as fd:
     out = GetStatsText(args.user, STATS)
     print >>fd, out
     print out

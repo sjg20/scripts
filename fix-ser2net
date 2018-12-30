@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# update /etc/ser2net.conf so that ports are as follows;
+#
+# 4003 - first servo AP
+# 4004 - first servo EC
+# 4010 - second servo AP
+# 4011 - second servo EC
+
+# 4020 - pit servo AP
+# 4021 - pit servo EC
+
+# cros_sdk is chronically slow
+# set -e
+
+# Usage:
+#   $1: Control to use, either ec_uart_ptr or cpu_uart_pty
+#   $2: Servo port to use, e.g. 7777
+#   $3: Telnet port to update in ser2net.conf
+update_ser2net() {
+	ctl=$1
+	servo_port=$2
+	telnet_port=$3
+
+	line=$(cros_sdk -- dut-control -p $servo_port $ctl)
+	pts=$(echo ${line} | cut -d: -f2)
+	sudo sed -i "s#^\(${telnet_port}.*:600:\)\([^:]*\)#\1${pts}#" /etc/ser2net.conf
+	grep ${telnet_port} /etc/ser2net.conf
+}
+
+do_it() {
+	servo_port=$1
+	telnet_port_ap=$2
+	telnet_port_ec=$3
+
+	update_ser2net ec_uart_pty $servo_port $telnet_port_ec
+	update_ser2net cpu_uart_pty $servo_port $telnet_port_ap
+}
+
+#echo Running cros_sdk
+#uarta=$(cros_sdk -- dut-control -p 9999 |egrep "(ec|cpu)_uart_pty")
+#echo Running cros_sdk
+#uartb=$(cros_sdk -- dut-control -p 8888 |egrep "(ec|cpu)_uart_pty")
+echo Running cros_sdk
+#do_it "${uarta}" 4003 4004
+#do_it "${uartb}" 4010 4011
+do_it 7777 4020 4021
+
+sudo /etc/init.d/ser2net restart
+
+#echo Selected "${uarta}", "${uartb}", "${uartc}"

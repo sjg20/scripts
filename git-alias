@@ -211,4 +211,19 @@ alias good='git bisect good'
 alias bad='git bisect bad'
 alias rb='git rebase m/master'
 
-alias mg='git log --oneline us/master | grep $1'
+alias gm='git log --oneline us/master | grep $1'
+
+# Grep the U-Boot map for board $b
+function mg() {
+	grep $1 /tmp/b/$b/u-boot.map
+}
+
+# Grep the U-Boot .config for board $b
+function cg() {
+	grep $1 /tmp/b/$b/.config
+}
+
+function rt() {
+	/tmp/b/sandbox/u-boot -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
+		-c "ut dm $1"
+}

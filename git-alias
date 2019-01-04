@@ -1,28 +1,11 @@
-get_branch_old() {
-	local branch=$(git symbolic-ref HEAD 2>/dev/null |awk -F / '{print $3}')
-	#local branch=$(git name-rev --name-only HEAD)
-	if [ -z "${branch}" ]; then
-		branch=$(git name-rev @{-1} --name-only)
-		echo "Warning: Using branch ${branch}" >/dev/stderr
-	fi
-
-	local remote=$(git config -l | \
-		sed -n "s#branch.${branch}.remote=\(.*\)#\1#p")
-	local merge=$(git config -l | \
-		sed -n "s#branch.${branch}.merge=refs/heads/\(.*\)#\1#p")
-	[ -n "${remote}${merge}" ] || (
-		echo "Error: No tracking branch" >/dev/stderr;
-		echo "Use 'git branch --set-upstream ${branch} upstream/foo'" \
-			>/dev/stderr;
-		echo >/dev/stderr;
-		return 1)
-	if [ "${remote}" == "." ]; then
-	        echo ${merge}
- 	else
-		echo ${remote}/${merge}
-	fi
-}
-
+# Git aliases
+#
+# Simon Glass <sjg@chromium.org>
+#
+# Put this in your ~/bin directory and this in your ~/.bashrc :
+#
+# . ~/bin/git-alias
+#
 get_branch() {
 	# try @{upstream} first since it is easy
 	upstream=$(git name-rev @{upstream} --name-only 2>/dev/null)
@@ -196,7 +179,7 @@ alias et='git rebase --edit-todo'
 
 function fix_kconfig()
 {
-	crosfw -b $1 cfg && \
+	crosfw -b $1 -w cfg && \
 	make O=/tmp/b/$1 savedefconfig && \
 	meld /tmp/b/$1/defconfig configs/$1_defconfig
 }
@@ -227,3 +210,5 @@ function rt() {
 	/tmp/b/sandbox/u-boot -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
 		-c "ut dm $1"
 }
+
+alias ga='echo "Git Aliases v1"'

@@ -1,5 +1,29 @@
 #!/usr/bin/python
 
+# Script to print out CL stats for people
+# sjg@chromium.org
+# September 2018
+#
+# Usage:
+#
+# for name in bmgordon chingcodes ddaveport sjg; do do-stats $name; done
+#
+# Output is /tmp/all.html
+#
+# Load this file into chrome and copy into Google docs or maybe perf
+#
+# Make sure you have monorail working, ssh access set up to coreboot and run
+# this inside a Chrome OS tree.
+#
+# Things it scans:
+#   - public and private bugs
+#   - public and private CL, google3 CLs, coreboot CLs
+#
+# It does not do Android CLs, but I suppose it would be easy enough to add
+#
+# The code is pretty awful but I am sharing it as it is as I'm not sure how
+# much tidying I will do in the near future.
+
 import argparse
 from collections import namedtuple
 from contextlib import contextmanager
@@ -24,6 +48,7 @@ STATS = Set()
 STATS.add(CLS)
 STATS.add(BUGS)
 
+# Select what gets collected (untested)
 WHICH_BUGS = Set()
 WHICH_BUGS.add(CRBUG)
 WHICH_BUGS.add(BUGANIZER)
@@ -315,10 +340,6 @@ def run_cmd(cmd, use_ssh=False, cros_sdk=False):
     else:
       lines = subprocess.check_output(cmd, stderr=subprocess.PIPE,
                                       shell=False).splitlines()
-    #print 'cmd %s, cros_sdk=%d' % (cmd, cros_sdk)
-    #print 'lines:'
-    #print '\n'.join(lines)
-    #print
     if use_ssh:
       lines = [line for line in lines if 'change I' in line]
   
@@ -395,11 +416,8 @@ def GetMarkup(html, count, label, name, fmt, stats, cl_type):
     print 'name', name, 'not found in ', stat
     return ''
   query = stat[name].query
-  print 'query', query
   query = query.replace(' ', '+')
   if html:
-    print 'fmt', fmt
-    print 'query', query
     if '%' in fmt:
       fmt = fmt % query
     return '%d <a href="%s">%s</a>' % (count, fmt, label)
@@ -468,7 +486,6 @@ def GetStatsText(user, stat_set):
   if BUGS in stat_set:
     do_chromium_bugs(stats, user, slash_date)
     do_private_bugs(stats, user, start_date)
-  print stats
   out = '''<!DOCTYPE html><html>
 <body>
 '''
@@ -511,9 +528,10 @@ def Main(args):
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
-  with open('/usr/local/google/home/sjg/x20/www/stats.html', 'a') as fd:
+  with open('/tmp/all.html' % args.user, 'wa') as fd:
     out = GetStatsText(args.user, STATS)
     print >>fd, out
+    print
     print out
 
 

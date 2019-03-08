@@ -1,28 +1,56 @@
 #!/usr/bin/python
 
-# Script to print out CL stats for people
-# sjg@chromium.org
-# September 2018
-#
-# Usage:
-#
-# for name in bmgordon chingcodes ddaveport sjg; do do-stats $name; done
-#
-# Output is /tmp/all.html
-#
-# Load this file into chrome and copy into Google docs or maybe perf
-#
-# Make sure you have monorail working, ssh access set up to coreboot and run
-# this inside a Chrome OS tree.
-#
-# Things it scans:
-#   - public and private bugs
-#   - public and private CL, google3 CLs, coreboot CLs
-#
-# It does not do Android CLs, but I suppose it would be easy enough to add
-#
-# The code is pretty awful but I am sharing it as it is as I'm not sure how
-# much tidying I will do in the near future.
+"""Utility to print stats for people in a particular format:
+
+sjg, 66 CLs (57 public, 9 private, 0 coreboot, 0 google3), 483 reviewed (318 public, 163 private, 2 coreboot, 0 google3), 22 bugs fixed (13 private, 9 public), 43 bugs opened (29 private, 14 public)
+
+with HTML links in each case.
+
+It writes out to a www directory in x20 by default.
+
+It needs some tools:
+
+1. Monorail (thanks lannm@)
+
+git clone sso://user/lannm/monorail-cli
+
+
+2. Bugged
+
+sudo apt-get install bugged
+
+
+
+Other things:
+
+a. There is a my_activity.py program in depot_tools which I have played with but
+not yet incorporated into my flow.
+
+b. For Google 3 there is autosnippet which I run like this:
+
+g4d -f canary; g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown
+
+c. Also for google 3 there is engineer_report, but I don't use it in Chrome OS
+as so little is applicable. It does collate buganizer activity though.
+
+/home/build/static/projects/manager/engineer_report.par \
+    -S 09/01/2018 -E 04/01/2019 --O  -D -w
+
+but this fails for me with snippets due to this:
+
+https://groups.google.com/a/google.com/forum/#!msg/lethe-eng/wQOBgliBCJQ/POo6cxyoAAAJ
+
+You can use --noshow_snippets --noshow_tickets
+
+d. go/clstalk  (no Chrome OS, but see dropdown menu top left)
+
+e. Something for looking at github activity (had not tried this):
+https://github.com/eseidelGoogle/github_activity
+
+f. go/perf-tools which is 
+ 
+
+"""
 
 import argparse
 from collections import namedtuple
@@ -33,7 +61,6 @@ from sets import Set
 import subprocess
 import sys
 import unittest
-
 
 CLS, BUGS = range(2)
 
@@ -70,7 +97,7 @@ if start.weekday() < 3:
 #ostart -= 7
 
 #start_date = date.fromordinal(ostart).strftime("%Y-%m-%d")
-start_date = '2018-03-01'
+start_date = '2018-09-01'
 
 #end_date = date.fromordinal(ostart + 7).strftime("%Y-%m-%d")
 
@@ -328,7 +355,7 @@ def TestCmd(cmd):
     return result
 
 def run_cmd(cmd, use_ssh=False, cros_sdk=False):
-    print cmd
+    #print cmd
     if use_ssh:
       cmd = ['ssh', '-p', '29418', 'review.coreboot.org'] + cmd
     elif cros_sdk:
@@ -416,8 +443,11 @@ def GetMarkup(html, count, label, name, fmt, stats, cl_type):
     print 'name', name, 'not found in ', stat
     return ''
   query = stat[name].query
+  #print 'query', query
   query = query.replace(' ', '+')
   if html:
+    #print 'fmt', fmt
+    #print 'query', query
     if '%' in fmt:
       fmt = fmt % query
     return '%d <a href="%s">%s</a>' % (count, fmt, label)
@@ -451,9 +481,13 @@ def do_google3():
     items.append(GetMarkup(html, coreboot, 'coreboot', label,
         'https://review.coreboot.org/q/%s',
         stats, CL_COREBOOT))
-    items.append(GetMarkup(html, google3, 'google3', label,
-        'https://critique.corp.google.com/#search/&q=a:%s status:submitted from:%s'
-        % (user, slash_date), stats, CL_GOOGLE3))
+    query = 'https://critique.corp.google.com/#search/&q=status:submitted from:%s ' % slash_date
+    if label == 'submitted':
+      query += 'a:%s' % user
+    else:
+      query += '-a:%s r:%s' % (user, user)
+    items.append(GetMarkup(html, google3, 'google3', label, query, stats,
+                           CL_GOOGLE3))
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
@@ -486,6 +520,7 @@ def GetStatsText(user, stat_set):
   if BUGS in stat_set:
     do_chromium_bugs(stats, user, slash_date)
     do_private_bugs(stats, user, start_date)
+  #print stats
   out = '''<!DOCTYPE html><html>
 <body>
 '''
@@ -520,7 +555,7 @@ class TestElf(unittest.TestCase):
 
 def Main(args):
   parser = argparse.ArgumentParser(description='Show stats for people')
-  parser.add_argument('user', type=str, nargs='?', help='user name to look at')
+  parser.add_argument('user', type=str, nargs='+', help='user name to look at')
   parser.add_argument('-t', '--test', action='store_true',
                       help='run unit tests')
   args = parser.parse_args(args)
@@ -528,11 +563,12 @@ def Main(args):
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
-  with open('/tmp/all.html' % args.user, 'wa') as fd:
-    out = GetStatsText(args.user, STATS)
-    print >>fd, out
-    print
-    print out
+  owner = run_cmd(['whoami'])[0]
+  with open('/usr/local/google/home/%s/x20/www/stats.html' % owner, 'a') as fd:
+    for user in args.user:
+      out = GetStatsText(user, STATS)
+      print >>fd, out
+      print out
 
 
 if __name__ == '__main__':

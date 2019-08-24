@@ -33,7 +33,7 @@ def process_file(fname, func, insert_hdr):
                 if m:
                     hdr = m.group(1)
                     if hdr != 'common.h':
-                        if insert_hdr < hdr or hdr.startswith('linux'):
+                        if insert_hdr < hdr or '/' in hdr:
                             out.append(to_add)
                             done = True
                 found_includes = True
@@ -81,3 +81,100 @@ def doit(func, insert_hdr):
 #all = 'ENVL_,ENV_CALLBACK_LIST_STATIC'
 #for item in all.split(','):
 	#doit(item, 'environment.h')
+
+
+#all = 'crc32,crc32_wd,crc32_no_comp'
+#for item in all.split(','):
+	#doit(item + '(', 'u-boot/crc.h.h')
+
+#all = 'qsort,strcmp_compar'
+#for item in all.split(','):
+	#doit(item + '(', 'sort.h')
+
+#all = 'strmhz'
+#for item in all.split(','):
+	#doit(item + '(', 'vsprintf.h')
+
+#all = 'serial_printf'
+#for item in all.split(','):
+	#doit(item + '(', 'serial.h')
+
+#all = 'serial_init,serial_setbrg,serial_putc,serial_putc_raw,serial_puts'
+#all += ',serial_getc,serial_tstc'
+#for item in all.split(','):
+	#doit(item + '(', 'serial.h')
+
+#all = 'usec2ticks,ticks2usec'
+#for item in all.split(','):
+	#doit(item + '(', 'time.h')
+
+#all = 'wait_ticks'
+#for item in all.split(','):
+	#doit(item + '(', 'time.h')
+
+#all = 'timer_get_us,get_ticks'
+#for item in all.split(','):
+	#doit(item + '(', 'time.h')
+
+#all = 'mii_init'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/mii.h')
+
+#all = 'checkcpu'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu.h')
+
+#all = 'smp_set_core_boot_addr,smp_kick_all_cpus'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu.h')
+
+#all = 'icache_status,icache_enable,icache_disable,dcache_status,dcache_enable,'
+#all += 'dcache_disable,mmu_disable'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu.h')
+
+#all = 'cpu_numcores,cpu_num_dspcores,cpu_mask,cpu_dsp_mask,is_core_valid,'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu_legacy.h')
+
+#all = 'enable_caches,flush_cache,flush_dcache_all,flush_dcache_range'
+#all += ',invalidate_dcache_range,invalidate_dcache_all,invalidate_icache_all'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu_legacy.h')
+
+#all = 'interrupt_init,timer_interrupt,external_interrupt,irq_install_handler'
+#all += ',irq_free_handler,reset_timer'
+#for item in all.split(','):
+	#doit(item + '(', 'irq_legacy.h')
+
+#all = 'enable_interrupts,disable_interrupts'
+#for item in all.split(','):
+	#doit(item + '(', 'irq_legacy.h')
+
+#all = 'run_command,run_command_repeatable,run_command_list'
+#for item in all.split(','):
+	#doit(item + '(', 'command.h')
+
+#all = 'interrupt_handler_t'
+#for item in all.split(','):
+	#doit(item, 'irq_legacy.h')
+
+#all = 'board_get_usable_ram_top'
+#for item in all.split(','):
+	#doit(item + '(', 'init.h')
+
+#all = 'board_fix_fdt,board_late_init,board_postclk_init,board_early_init_r'
+#for item in all.split(','):
+	#doit(item + '(', 'init.h')
+
+#all = 'pci_init_board'
+#for item in all.split(','):
+	#doit(item + '(', 'init.h')
+
+#all = 'trap_init'
+#for item in all.split(','):
+	#doit(item + '(', 'irq_legacy.h')
+
+all = 'eeprom_init,eeprom_read,eeprom_write'
+for item in all.split(','):
+	doit(item + '(', 'eeprom_legacy.h')

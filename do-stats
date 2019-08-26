@@ -394,7 +394,8 @@ def do_all_cls(stats, user, stat_set):
           stats[cl_type]['reviewed'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
         else:
           stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
-          stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
+          #stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
+          stats[cl_type]['reviewed'] = get_cls(['commentby:%s' % user, '-owner:%s' % user], cl_type)
 
 def do_chromium_bugs(stats, user, slash_date):
     query = "owner:%s modified>%s status:fixed" % (user, slash_date)
@@ -569,7 +570,7 @@ def Main(args):
     print 'Please change to a directory in a Chrome OS source tree'
     sys.exit(1)
   owner = run_cmd(['whoami'])[0]
-  print 'Start date: %s', start_date
+  print 'Start date: %s' % start_date
   with open('/usr/local/google/home/%s/x20/www/stats.html' % owner, 'a') as fd:
     for user in args.user:
       out = GetStatsText(user, STATS)

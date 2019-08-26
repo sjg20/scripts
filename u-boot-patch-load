@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# U-Boot patch load stats
+
+cd ~/u
+commits=$(git log --oneline upstream/master..m/master |wc -l)
+
+echo ${commits}
+
+git log --oneline upstream/master..m/master |awk '{print $2}' |sort |uniq -ic |sort -n |tail -5
+echo
+git log --oneline upstream/master..m/master |grep gen: | awk '{print $3}' |sort |uniq -ic |sort -n |tail -10

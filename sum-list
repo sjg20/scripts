@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# sum
+sum=$(echo $@ | tr ' a-z' '+A-Z')
+# echo $sum
+echo "ibase=16; obase=10; $sum" | bc

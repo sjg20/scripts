@@ -1,0 +1,6 @@
+#! /bin/sh
+
+commit=$1
+echo Pushing $1 to branch
+
+git push ssh://gerrit.chromium.org:29418/chromiumos/third_party/kernel-next.git $commit:refs/for/chromeos-3.8

@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Convert man pages to PDF and open them in the default PDF viewer.
+# PDFs are cached when created.
+# By Tom Harrington, tph at atomicbird dot com, 16 March 2005
+
+# Directory to save cached PDFs in
+# (if you don't want long-term caching, you could use /tmp/).
+CACHEDIR=/tmp/
+
+# Command to read PS from stdin and write PDF to an output file.
+PS2PDF_CMD="ps2pdf"
+# Command to open the resulting PDF once it's created.
+OPEN_CMD=evince
+# Path to "man", which is expected to take the -w, -S, and -t args.
+MAN_CMD="/usr/bin/man"
+
+CACHEDIR="$CACHEDIR/manpdf"
+if [ ! -e $CACHEDIR ]; then
+	mkdir -p $CACHEDIR
+fi
+
+if [ $# -eq 1 ]
+then
+	MANSECT=""
+	MANARG=$1
+elif [ $# -eq 2 ]
+then
+	MANSECT=$1
+	MANARG=$2
+else
+	echo "Usage: " `basename $0` "[section] name"
+	exit
+fi
+
+if [ "$MANSECT" != "" ]; then
+	MANSECTARG="-S $MANSECT"
+fi
+
+# Look for the command's man page.
+MANFILE=`$MAN_CMD $MANSECTARG -w $MANARG 2>/dev/null`
+if [ -z $MANFILE ]; then
+	echo No manual entry for $MANARG
+	exit
+fi
+# OK, got the man page.  Now get the name for the corresponding
+# PDF.  The goal here is to organize cached PDFs in CACHEDIR
+# according to man-page section, similar to the way /usr/share/man
+# is organized into "man1", "man3", etc.
+echo file: $MANFILE
+MANSECT=`echo "$MANFILE" | sed 's/.*\.\([0-9]\).*/\1/'`
+MANPDF=$CACHEDIR/pdf$MANSECT/$MANARG.$MANSECT.pdf
+FINALDIR=`dirname $MANPDF`
+echo PDF: $MANPDF
+# Create the PDF if it's not in the cache dir or if the cached version is obsolete.
+CREATEPDF=0
+if [ ! -e $MANPDF ]; then
+	echo Generating man page...
+	CREATEPDF=1
+else
+	if [ $MANFILE -nt $MANPDF ]; then
+		echo Man page newer than PDF, regenerating...
+		CREATEPDF=1
+	fi
+fi
+
+if [ $CREATEPDF -eq 1 ]; then
+	mkdir -p $FINALDIR
+	$MAN_CMD $MANSECTARG -t $MANARG | $PS2PDF_CMD - $MANPDF
+else
+	echo Reading man page from cache...
+fi
+# Now open the PDF.
+$OPEN_CMD $MANPDF

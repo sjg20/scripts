@@ -1,0 +1,22 @@
+#!/bin/bash
+PROG=$(basename $0)
+THIS_DIR="$(dirname "$0")"
+. "${THIS_DIR}/common.sh"
+
+DEFAULT_BOARD=${DEFAULT_BOARD:-x86-generic}
+
+DEFINE_string board "${DEFAULT_BOARD}" "The board to build packages for."
+DEFINE_integer jobs 17 "How many packages to build in parallel at maximum."
+DEFINE_boolean force "${FLAGS_FALSE}" "rebuild board"
+
+FLAGS_HELP="usage: $0 [flags]"
+FLAGS "$@" || exit 1
+eval set -- "${FLAGS_ARGV}"
+check_flags_only_and_allow_null_arg "$@" && set --
+
+
+[ ! -d /build/${FLAGS_board} ] && FLAGS_force="${FLAGS_TRUE}"
+
+[[ "${FLAGS_force}" -eq "${FLAGS_TRUE}" ]] && (${THIS_DIR}/setup_board --board ${FLAGS_board}  || exit 1)
+${THIS_DIR}/build_packages --board ${FLAGS_board} --jobs ${FLAGS_jobs}  || exit 1
+${THIS_DIR}/build_image --board ${FLAGS_board} --jobs  ${FLAGS_jobs} --noenable_rootfs_verification  || exit 1

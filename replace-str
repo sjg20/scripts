@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# replace
+. git-alias
+
+#out=$(git log --numstat --pretty=format: -n1 $GIT_COMMIT | tail -n+2)
+#out=$(git show --numstat --pretty=format: -n1 $GIT_COMMIT | tail -n+2)
+#files=$(echo "$out" | awk '{printf("%s ", $3)}')
+files="$*"
+
+for file in ${files}; do
+	echo ${file}
+	sed -i 's/vendor_file_puller_service/vendor_file_puller/' ${file}
+	#grep -i native ${file} || echo ok
+done
+
+#echo $GIT_COMMIT

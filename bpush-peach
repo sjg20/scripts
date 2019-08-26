@@ -1,0 +1,6 @@
+#! /bin/sh
+
+commit=$1
+echo Pushing $1 to branch
+
+git push ssh://gerrit-int.chromium.org:29419/chromeos/vendor/u-boot-exynos $commit:refs/for/peach

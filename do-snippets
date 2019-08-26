@@ -1,0 +1,75 @@
+#!/usr/bin/python
+
+import os
+from datetime import date
+
+start = date.today()
+ostart = start.toordinal() - start.weekday() - 1
+if start.weekday() < 3:
+   ostart -= 7
+# ostart -= 7
+
+start_date = date.fromordinal(ostart).strftime("%Y-%m-%d")
+end_date = date.fromordinal(ostart + 7).strftime("%Y-%m-%d")
+
+#start_date = '2017-07-31'
+#end_date = '2017-08-07'
+#start_date = '2017-12-10'
+#end_date = '2017-11-26'
+#end_date = None
+
+print 'Snippets ending ', end_date
+
+# Show some CLs
+#  $1: Additional parameters for search, e.g. "owner:sjg"
+def get_cls(name, terms, internal):
+	terms="status:merged %s after:%s" % (' '.join(terms), start_date)
+	if end_date:
+		terms += ' before:%s' % end_date
+	awk="""{cl=match($1, /\/([0-9]+)\/$/,m); cl=m[1]; printf("- [%s](%s) (%s):", cl, $1, $8); for (i=9; i<=NF; i++) printf(" %s", $i); print ""}"""
+	flags = '-i' if internal else ''
+	cmd = "cros_sdk -- gerrit %s search '%s' | ansi2txt | awk '%s' 2>/tmp/asc" % (flags, terms, awk)
+	#cmd = ['cros_sdk', '--', 'gerrit', 'search', terms, '|', 'ansi2txt', '|', 'awk', awk]
+	if not internal:
+		print '\n## CLs %s\n' % name
+	#print cmd
+	#out = subprocess.check_output(cmd)
+	os.system(cmd)
+	#print cmd
+
+def do_chromium_cls():
+	get_cls('submitted', ['owner:sjg'], False)
+	get_cls('submitted', ['owner:sjg'], True)
+
+#	get_cls('reviewed', ['reviewer:sjg', '-owner:sjg'], False)
+#	get_cls('reviewed', ['reviewer:sjg', '-owner:sjg'], True)
+	get_cls('reviewed', ['commentby:sjg', '-owner:sjg'], False)
+	get_cls('reviewed', ['commentby:sjg', '-owner:sjg'], True)
+
+def do_chromium_bugs():
+	print '\n## Bugs fixed'
+	query = "owner:sjg modified>%s status:fixed" % slash_date
+	os.system('monorail list --snippet -s all -q "%s" | cat' % query)
+
+	print
+	print '\n## Bugs opened'
+	query = "reporter:sjg opened>%s" % slash_date
+	os.system('monorail list --snippet -s all -q "%s" | cat' % query)
+
+def do_google3():
+	print
+	print
+	cmd = 'g4d -f snippets'
+	os.system(cmd)
+        cmd = 'g4 sync; blaze run //ops/managedsystems/tools/autosnippet:autosnippet -- --week=-1 --pending_cls=false --markdown'
+	os.system(cmd)
+
+slash_date = start_date.replace('-', '/')
+
+do_chromium_cls()
+do_chromium_bugs()
+
+
+#print '''cat /tmp/asc |awk '{printf("- [%s](crbug.com/%s)", $2, $2); for (i=10; i<=NF; i++) { if ($i == "----") break; printf(" %s", $i)} ; print "" }''''
+
+#do_google3()

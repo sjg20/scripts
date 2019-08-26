@@ -1,0 +1,7 @@
+#! /bin/sh
+
+commit=$1
+echo Pushing $1 to branch
+
+git push ssh://gerrit-int.chromium.org:29419/chromeos/vendor/kernel-exynos-staging.git $commit:refs/for/samsung-3.8-peach-alpha
+

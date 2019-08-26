@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/cosarm/src/third_party/u-boot
+for f in *; do if [ -d $f/01* ]; then echo $f; fi; done
+

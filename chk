@@ -1,0 +1,19 @@
+#! /bin/sh
+
+OUT=$(tempfile)
+while (( "$#" )); do
+	ERRCP=
+	ERR=
+	/c/cosarm/src/third_party/kernel-next/scripts/checkpatch.pl $1 || ERRCP=1
+	grep BUG= $1 && ERR="$ERR BUG"
+	grep TEST= $1 && ERR="$ERR TEST"
+	grep "Change-Id" $1 && ERR="$ERR Change-Id"
+	grep "Review URL" $1 && ERR="$ERR Review URL"
+	if [ -n "${ERR}" ]; then
+		echo "Bad  $1 ($ERR)" >>$OUT
+	else
+		echo "OK   $1" >>$OUT
+	fi
+	shift
+done
+cat $OUT

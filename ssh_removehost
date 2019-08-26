@@ -1,0 +1,15 @@
+#! /bin/sh
+
+# ssh_removehost user@host
+#
+# removes bad ssh key from known_hosts
+#
+# usage:
+#
+DEST=$1
+
+IP=$(ssh $DEST |& grep "^RSA" | awk '{print $5}')
+mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
+grep -v $IP ~/.ssh/known_hosts >/tmp/ssh_removehost
+mv /tmp/ssh_removehost ~/.ssh/known_hosts
+echo "Removed $IP from known_hosts"

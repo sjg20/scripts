@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# prints out the list of people who have commited in a repository
+# ranked by number of contributions
+
+git log -C -200 --pretty=format:"%cE" | sort | uniq -c | sort -nr

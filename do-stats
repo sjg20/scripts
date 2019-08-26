@@ -552,6 +552,14 @@ class TestElf(unittest.TestCase):
   def testOutput(self):
     print GetStatsText('test')
 
+def InCrosTree():
+  cur = os.getcwd()
+  while cur != '/':
+    check = os.path.join(cur, '.repo', 'manifest.xml')
+    if os.path.exists(check):
+      return True
+    cur = os.path.dirname(cur)
+
 
 def Main(args):
   parser = argparse.ArgumentParser(description='Show stats for people')
@@ -563,6 +571,9 @@ def Main(args):
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
+  if not InCrosTree():
+    print 'Please change to a directory in a Chrome OS source tree'
+    sys.exit(1)
   owner = run_cmd(['whoami'])[0]
   with open('/usr/local/google/home/%s/x20/www/stats.html' % owner, 'a') as fd:
     for user in args.user:

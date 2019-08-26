@@ -1,0 +1,11 @@
+#! /bin/bash
+
+# Simon's findpackage script
+echo $*
+
+while [ "$(basename `pwd`)" != "src" ]; do
+    cd ..
+done
+
+cd scripts
+./cros_workon --board=tegra2_seaboard list --all |grep $1

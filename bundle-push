@@ -1,0 +1,7 @@
+#! /bin/sh
+
+commit=$1
+echo Pushing $1 to branch
+
+git push ssh://gerrit.chromium.org:29418/chromiumos/platform/dev-util.git $commit:refs/for/master
+

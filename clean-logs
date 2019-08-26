@@ -1,0 +1,40 @@
+#! /bin/sh
+
+# Clean logs in a Chrome OS machine
+
+# Usage:
+# cd /path/to/var/log
+#
+# e.g.
+# cd /export/nfsroot-sjg-seaboard-261347/mnt/stateful_partition/var/log
+
+# clean-logs
+
+# sanity check
+cd ../../var/log || (echo "Check directory"; exit)
+
+echo "Before: " $(du -sh .)
+sudo rm -f *.?
+
+do_type() {
+    dir=$1
+    name=$2
+    latest=$(ls -l $dir/$name.LATEST  | awk '{print $11}')
+    pushd $dir >/dev/null && sudo rm -f $(ls | grep -v $latest | grep -v LATEST)
+    popd >/dev/null
+}
+
+do_type window_manager chromeos-wm
+do_type ui ui
+
+#     latest=$(ls -l window_manager/chromeos-wm.LATEST  | awk '{print $11}')
+#     pushd window_manager >/dev/null && sudo rm -f $(ls | grep -v $latest | grep -v LATEST)
+#     popd >/dev/null
+
+pushd chrome >/dev/null
+latest=$(ls -l chrome  | awk '{len = split($11, a, "/"); print a[len];}')
+list=$(ls chrome_* | grep -v $latest)
+sudo rm -f $delete
+popd >/dev/null
+
+echo "After: " $(du -sh .)

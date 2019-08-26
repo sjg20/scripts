@@ -3,6 +3,10 @@
 REPOS=(x86 dm fdt)
 OTHER=(us)
 
+# Do this first to avoid race conditions where repos have to fetch the same
+# commit comiits
+#git fetch us
+
 for b in "${REPOS[@]}"; do
 	(git fetch ${b}-public && git fetch ${b} )&
 done
@@ -11,4 +15,3 @@ for b in "${OTHER[@]}"; do
 	git fetch ${b} &
 done
 wait
-

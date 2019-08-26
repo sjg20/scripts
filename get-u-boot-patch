@@ -1,0 +1,14 @@
+#!/bin/sh
+
+get_patch() {
+	num=$1
+	echo $num $upto
+	wget -O $upto.mbox http://patchwork.ozlabs.org/patch/$num/mbox/
+	upto=$(echo $upto | awk '{printf "%02d\n", $1 + 1}')
+}
+
+upto=01
+for patch in 58 57 59 63 60 62 61; do
+	get_patch 1141$patch
+done
+

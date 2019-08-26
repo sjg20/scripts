@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# find the given config option by looking through Kconfig files
+
+grep -i "^config $1$" `find . -name Kconfig`
+grep -i "^config .*$1" `find . -name Kconfig`

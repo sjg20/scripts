@@ -1,17 +1,17 @@
 #!/bin/sh
 
 # determine if ssh-agent is running properly
-export SSH_AGENT_FILE=$HOME/.ssh/agent-stuff.$HOSTNAME
+#export SSH_AGENT_FILE=$HOME/.ssh/agent-stuff.$HOSTNAME
 
-[ -r $SSH_AGENT_FILE ] && . $SSH_AGENT_FILE &&
-    ssh-add -l >/dev/null 2>&1
+#[ -r $SSH_AGENT_FILE ] && . $SSH_AGENT_FILE &&
+#    ssh-add -l >/dev/null 2>&1
 
 # Try to copy the existing agent stuff into the environment
-if [ $? != 0 ] ; then
+#if [ $? != 0 ] ; then
     # start ssh-agent, and put stuff into the environment
-    ssh-agent | grep -v "^echo Agent pid" > $SSH_AGENT_FILE
-    . $SSH_AGENT_FILE
-    ssh-add
+#    ssh-agent | grep -v "^echo Agent pid" > $SSH_AGENT_FILE
+#    . $SSH_AGENT_FILE
+#    ssh-add
     ssh-add $HOME/.ssh/chromium
-fi
+#fi
 

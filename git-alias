@@ -199,7 +199,7 @@ alias gm='git log --oneline us/master | grep $1'
 
 # Grep the U-Boot map for board $b
 function mg() {
-	grep $1 /tmp/b/$b/u-boot.map
+	grep -A1 -B1 $1 /tmp/b/$b/u-boot.map
 }
 
 # Grep the U-Boot .config for board $b
@@ -213,3 +213,5 @@ function rt() {
 }
 
 alias ga='echo "Git Aliases v1"'
+
+alias hex='printf %x $1'

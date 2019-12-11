@@ -1741,3 +1741,7 @@ if __name__ == "__main__":
 #all = 'reset_cpu'
 #for item in all.split(','):
 	#doit(item + '(', 'cpu_func.h')
+
+#all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
+#for item in all.split(','):
+	#doit(item + '(', 'fdt_support.h')

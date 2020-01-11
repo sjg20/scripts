@@ -1745,3 +1745,7 @@ if __name__ == "__main__":
 #all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
 #for item in all.split(','):
 	#doit(item + '(', 'fdt_support.h')
+
+#all = 'malloc,free,calloc,memalign,realloc'
+#for item in all.split(','):
+	#doit(item + '(', 'malloc.h')

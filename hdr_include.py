@@ -55,6 +55,7 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False,
     """
     if func and func not in data:
         return ">'%s' not in file" % func
+
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
         return ">'%s' already in file" % to_add
@@ -132,6 +133,7 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False,
     found_ifndef = False
     in_comment = False
     for line in lines:
+        #if line.strip() and not done:
         if not done:
             if line.startswith('#if'):
                 tokens = line.split()
@@ -1715,3 +1717,27 @@ if __name__ == "__main__":
         hdr.insert(args.files)
     else:
         run_conversion()
+
+#all = 'BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/bug.h')
+
+#all = '__stringify'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/stringify.h')
+
+#all = 'udelay,__udelay,mdelay,ndelay'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/delay.h')
+
+#all = 'BIT,BITS_PER_BYTE,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,_LINUX_BITOPS_H,__clear_bit,__set_bit,ffs,fls'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/bitops.h')
+
+#all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
+#for item in all.split(','):
+	#doit(item + '(', 'fdt_support.h')
+
+#all = 'reset_cpu'
+#for item in all.split(','):
+	#doit(item + '(', 'cpu_func.h')

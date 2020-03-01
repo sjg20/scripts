@@ -63,7 +63,7 @@ import sys
 import unittest
 
 ############## Configuration here: ###############
-start_date = '2019-03-01'
+start_date = '2019-09-01'
 
 # Leave this unset to search until now
 #end_date = '2017-11-26'
@@ -72,8 +72,8 @@ start_date = '2019-03-01'
 
 CLS, BUGS = range(2)
 
-CL_TYPES = range(4)
-CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3 = CL_TYPES
+CL_TYPES = range(6)
+CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3, CL_ANDROID, CL_AOSP = CL_TYPES
 
 BUG_TYPES = 4, 5
 BUGANIZER, CRBUG = BUG_TYPES
@@ -93,6 +93,8 @@ WHICH_CLS.add(CL_PUBLIC)
 WHICH_CLS.add(CL_PRIVATE)
 WHICH_CLS.add(CL_COREBOOT)
 WHICH_CLS.add(CL_GOOGLE3)
+WHICH_CLS.add(CL_ANDROID)
+WHICH_CLS.add(CL_AOSP)
 
   
 #testing = True
@@ -358,8 +360,14 @@ def run_cmd(cmd, use_ssh=False, cros_sdk=False):
       if len(lines) == 1:
         lines = lines[0].splitlines()
     else:
-      lines = subprocess.check_output(cmd, stderr=subprocess.PIPE,
-                                      shell=False).splitlines()
+      print(' '.join(cmd))
+      lines = []
+      try:
+        lines = subprocess.check_output(cmd, stderr=subprocess.PIPE,
+                                        shell=False).splitlines()
+      except subprocess.CalledProcessError as e:
+        print >>sys.stderr, "Command exited with status %s" % e.returncode
+
     if use_ssh:
       lines = [line for line in lines if 'change I' in line]
   
@@ -378,6 +386,10 @@ def get_cls(terms, cl_type):
     cmd = ['gerrit']
     if cl_type == CL_PRIVATE:
         cmd.append('-i')
+    elif cl_type == CL_ANDROID:
+        cmd.extend(['-g', 'googleplex-android'])
+    elif cl_type == CL_AOSP:
+        cmd.extend(['-g', 'android'])
     cmd.append('query' if cl_type == CL_COREBOOT else 'search')
     if cl_type == CL_COREBOOT:
       cmd.append('"%s"' % terms)
@@ -387,23 +399,22 @@ def get_cls(terms, cl_type):
   return Info(len(lines), terms)
 
 def do_all_cls(stats, user, stat_set):
-    for cl_type in (CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3):
+    for cl_type in (CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3, CL_ANDROID, CL_AOSP):
       if cl_type in stat_set:
         if cl_type == CL_GOOGLE3:
           stats[cl_type]['submitted'] = get_cls(['a:%s' % user, 'from:%s' % slash_date], cl_type)
           stats[cl_type]['reviewed'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
         else:
           stats[cl_type]['submitted'] = get_cls(['owner:%s' % user], cl_type)
-          #stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
-          stats[cl_type]['reviewed'] = get_cls(['commentby:%s' % user, '-owner:%s' % user], cl_type)
+          stats[cl_type]['reviewed'] = get_cls(['reviewer:%s' % user, '-owner:%s' % user], cl_type)
 
 def do_chromium_bugs(stats, user, slash_date):
     query = "owner:%s modified>%s status:fixed" % (user, slash_date)
-    cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
+    cmd = ['monorail', 'list', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
     stats[CRBUG]['fixed'] = Info(len(lines), query)
     query = "reporter:%s opened>%s" % (user, slash_date)
-    cmd = ['monorail', 'list', '--snippet', '-s', 'all', '-n', '10000', '-q', query]
+    cmd = ['monorail', 'list', '-s', 'all', '-n', '10000', '-q', query]
     lines = run_cmd(cmd)
     stats[CRBUG]['opened'] = Info(len(lines), query.replace(' ', '%20'))
 
@@ -453,6 +464,8 @@ def GetClMessage(stats, user, label, html=True):
     public = GetStat(stats, CL_PUBLIC, label)
     coreboot = GetStat(stats, CL_COREBOOT, label)
     google3 = GetStat(stats, CL_GOOGLE3, label)
+    android = GetStat(stats, CL_ANDROID, label)
+    aosp = GetStat(stats, CL_AOSP, label)
     items = []
 
     #if private:
@@ -467,6 +480,14 @@ def GetClMessage(stats, user, label, html=True):
     items.append(GetMarkup(html, coreboot, 'coreboot', label,
         'https://review.coreboot.org/q/%s',
         stats, CL_COREBOOT))
+    #if android:
+    items.append(GetMarkup(html, android, 'android', label,
+        'https://googleplex-android-review.googlesource.com/q/%s',
+        stats, CL_ANDROID))
+    #if aosp:
+    items.append(GetMarkup(html, aosp, 'aosp', label,
+        'https://android-review.googlesource.com/q/%s',
+        stats, CL_AOSP))
     query = 'https://critique.corp.google.com/#search/&q=status:submitted from:%s ' % slash_date
     if label == 'submitted':
       query += 'a:%s' % user
@@ -477,7 +498,7 @@ def GetClMessage(stats, user, label, html=True):
     msg = ', '.join(items)
     if msg:
         msg = ' (%s)' % msg
-    return private + public + coreboot, msg
+    return private + public + coreboot + android + aosp + google3, msg
 
 def do_google3():
     print

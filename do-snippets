@@ -7,7 +7,7 @@ start = date.today()
 ostart = start.toordinal() - start.weekday() - 1
 if start.weekday() < 3:
    ostart -= 7
-# ostart -= 7
+#ostart -= 7
 
 start_date = date.fromordinal(ostart).strftime("%Y-%m-%d")
 end_date = date.fromordinal(ostart + 7).strftime("%Y-%m-%d")

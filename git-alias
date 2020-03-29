@@ -179,7 +179,7 @@ alias et='git rebase --edit-todo'
 
 function fix_kconfig()
 {
-	crosfw -b $1 cfg && \
+	crosfw $1 -T cfg && \
 	make O=/tmp/b/$1 savedefconfig && \
 	meld /tmp/b/$1/defconfig configs/$1_defconfig
 }

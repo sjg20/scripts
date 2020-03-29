@@ -12,44 +12,62 @@ sys.path.append('/home/sjg/u/tools/patman')
 
 import command
 
+UBOOT = '__UBOOT__'
+
+def not_supported(msg, line):
+    print('%s: %s' % (msg, line))
+
 
 def process_data(data, func, insert_hdr):
     if func and func not in data:
-        return
+        return None
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
-        return
+        return None
     lines = data.splitlines()
     out = []
     done = False
     found_includes = False
+    active = True  # We are not in an #ifndef
     for line in lines:
         #if line.strip() and not done:
         if not done:
-            if line.startswith('#include'):
-                m = re.match('#include <(.*)>', line)
-                if m:
-                    hdr = m.group(1)
-                    if hdr != 'common.h':
-                        has_subdir = '/' in hdr
-                        insert_has_subdir = '/' in insert_hdr
-                        todo = False
-                        if has_subdir == insert_has_subdir:
-                            todo = insert_hdr < hdr
-                        elif has_subdir:
-                            todo = True
-                        if todo:
-                            out.append(to_add)
-                            done = True
-                found_includes = True
-            elif line.startswith('#if'):
-                expr = line.split(line, ' ')
-                print('len', len(expr))
+            if line.startswith('#if'):
+                tokens = line.split(' ')
+                if len(tokens) == 2:
+                    cond, sym = tokens
+                    print('try', cond, sym)
+                    if sym == UBOOT:
+                        if cond == '#ifdef':
+                            active = True
+                        elif cond == '#ifndef':
+                            active = False
+                        else:
+                            not_supported('unknown condition', line)
+            elif line.startswith('#else'):
+                 active = not active
             elif line.startswith('#end'):
-                 pass
-            elif found_includes:
-                out.append(to_add)
-                done = True
+                 active= True
+            elif active:
+                if line.startswith('#include'):
+                    m = re.match('#include <(.*)>', line)
+                    if m:
+                        hdr = m.group(1)
+                        if hdr != 'common.h':
+                            has_subdir = '/' in hdr
+                            insert_has_subdir = '/' in insert_hdr
+                            todo = False
+                            if has_subdir == insert_has_subdir:
+                                todo = insert_hdr < hdr
+                            elif has_subdir:
+                                todo = True
+                            if todo:
+                                out.append(to_add)
+                                done = True
+                    found_includes = True
+                elif found_includes:
+                    out.append(to_add)
+                    done = True
         out.append(line)
     return out
 
@@ -59,9 +77,10 @@ def process_file(fname, func, insert_hdr):
     with open(fname, 'r') as fd:
         data = fd.read()
     out = process_data(data, func, insert_hdr)
-    with open(fname, 'w') as fd:
-        for line in out:
-            print(line, file=fd)
+    if out:
+        with open(fname, 'w') as fd:
+            for line in out:
+                print(line, file=fd)
 
 
 def doit(func, insert_hdr):
@@ -103,7 +122,6 @@ class TestEntry(unittest.TestCase):
         hdrs= '''
 #include <common.h>
 #include <stdio.h>
-
 '''
         body = '''
 int some_func(void)
@@ -115,10 +133,96 @@ int some_func(void)
 #include <common.h>
 #include <abs.h>
 #include <stdio.h>
-
 '''
         out = process_data(hdrs + body, 'abs(', 'abs.h')
-        new_hdrs = out[:-len(expect.splitlines())]
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testNoMatch(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+'''
+        body = '''
+int some_func(void)
+{
+    another(123);
+}
+'''
+        expect = hdrs
+        out = process_data(hdrs + body, 'abs(', 'abs.h')
+        self.assertIsNone(out)
+
+    def testLinuxEnd(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#include <common.h>
+#include <stdio.h>
+#include <linux/bug.h>
+'''
+        out = process_data(hdrs + body, 'abs(', 'linux/bug.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testAsm(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+#include <linux/types.h>
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#include <linux/types.h>
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testIfdef(self):
+        hdrs= '''
+#ifndef __UBOOT__
+#include <sys/types.h>
+#else
+#include <common.h>
+#include <stdio.h>
+#include <linux/types.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#ifndef __UBOOT__
+#include <sys/types.h>
+#else
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#include <linux/types.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
 

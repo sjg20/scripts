@@ -1,22 +1,19 @@
+#!/usr/bin/python3
 # Insert a header #include into all files that have a particular function call
 # in them
 
-from __future__ import print_function
-
+from optparse import OptionParser
 import os
 import re
 import sys
+import unittest
 
 sys.path.append('/home/sjg/u/tools/patman')
 
 import command
 
 
-def process_file(fname, func, insert_hdr):
-    if fname[-2:] not in ('.c'):
-        return
-    with open(fname, 'r') as fd:
-        data = fd.read()
+def process_data(data, func, insert_hdr):
     if func and func not in data:
         return
     to_add = '#include <%s>' % insert_hdr
@@ -45,12 +42,23 @@ def process_file(fname, func, insert_hdr):
                             out.append(to_add)
                             done = True
                 found_includes = True
-            elif line.startswith('#if') or line.startswith('#end'):
+            elif line.startswith('#if'):
+                expr = line.split(line, ' ')
+                print('len', len(expr))
+            elif line.startswith('#end'):
                  pass
             elif found_includes:
                 out.append(to_add)
                 done = True
         out.append(line)
+    return out
+
+def process_file(fname, func, insert_hdr):
+    if fname[-2:] not in ('.c'):
+        return
+    with open(fname, 'r') as fd:
+        data = fd.read()
+    out = process_data(data, func, insert_hdr)
     with open(fname, 'w') as fd:
         for line in out:
             print(line, file=fd)
@@ -69,6 +77,49 @@ def process_files_from(list_fname, insert_hdr):
             fname = fname.strip()
             print(fname, insert_hdr)
             process_file(fname, None, insert_hdr)
+
+
+class HdrConv:
+    def __init__(self):
+        self.hdr = None
+        self.searches = []
+
+    def set_hdr(self, hdr):
+        self.hdr = hdr
+
+    def add_funcs(self, funcs):
+        self.searches.append(['(', funcs])
+
+    def add_text(self, funcs):
+        self.searches.append(['', funcs])
+
+    def run(self):
+        for prefix, funcs in self.searches:
+            for item in funcs.split(','):
+                doit(item + prefix, self.hdr)
+
+class TestEntry(unittest.TestCase):
+    def testSimple(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#include <common.h>
+#include <abs.h>
+#include <stdio.h>
+
+'''
+        out = process_data(hdrs + body, 'abs(', 'abs.h')
+        new_hdrs = out[:-len(expect.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
 
 
 #all = 'ENV_VALID,ENV_INVALID,ENV_REDUND'.split(',')
@@ -268,29 +319,114 @@ def process_files_from(list_fname, insert_hdr):
 #for item in all.split(','):
 	#doit(item + '(', 'flash.h')
 
+#all = 'flash_info_t'
+#for item in all.split(','):
+	#doit(item, 'flash.h')
+
 #all = 'add_ip_checksums,arp_is_waiting,compute_ip_checksum,copy_filename,do_tftpb,env_get_ip,env_get_vlan,eth_env_get_enetaddr_by_index,eth_env_set_enetaddr_by_index,eth_get_dev,eth_get_dev,eth_get_dev_by_index,eth_get_dev_by_name,eth_get_dev_by_name,eth_get_dev_index,eth_get_ethaddr,eth_get_ethaddr,eth_get_name,eth_halt,eth_halt_state_only,eth_halt_state_only,eth_init,eth_init_state_only,eth_init_state_only,eth_initialize,eth_is_active,eth_is_active,eth_is_on_demand_init,eth_mcast_join,eth_parse_enetaddr,eth_receive,eth_register,eth_rx,eth_send,eth_set_current,eth_set_last_protocol,eth_try_another,eth_unregister,eth_write_hwaddr,ip_checksum_ok,ip_to_string,is_broadcast_ethaddr,is_cdp_packet,is_multicast_ethaddr,is_serverip_in_cmd,is_valid_ethaddr,is_zero_ethaddr,nc_input_packet,nc_start,net_auto_load,net_copy_ip,net_copy_u32,net_eth_hdr_size,net_get_arp_handler,net_get_async_tx_pkt_buf,net_get_udp_handler,net_init,net_loop,net_parse_bootfile,net_process_received_packet,net_random_ethaddr,net_read_ip,net_read_u32,net_send_ip_packet,net_send_packet,net_send_udp_packet,net_set_arp_handler,net_set_ether,net_set_icmp_handler,net_set_ip_header,net_set_state,net_set_timeout_handler,net_set_udp_handler,net_set_udp_header,net_start_again,net_update_ether,net_write_ip,random_port,reset_phy,string_to_ip,string_to_vlan,update_tftp,usb_eth_initialize,usb_ether_init,vlan_to_string'
 #for item in all.split(','):
 	#doit(item + '(', 'net.h')
+
+#all = 'ARP_HLEN'
+#for item in all.split(','):
+	#doit(item, 'net.h')
 
 #all = 'blk_get_dev,blk_get_dev,blk_get_device_by_str,blk_get_device_by_str,blk_get_device_part_str,blk_get_device_part_str,dev_print,dev_print,get_disk_guid,gpt_fill_header,gpt_fill_pte,gpt_restore,gpt_verify_headers,gpt_verify_partitions,host_get_dev_err,is_valid_dos_buf,is_valid_gpt_buf,mg_disk_get_dev,mg_disk_get_dev,part_get_info,part_get_info,part_get_info_by_dev_and_name_or_num,part_get_info_by_name,part_get_info_by_name_type,part_get_info_whole_disk,part_get_info_whole_disk,part_init,part_init,part_print,part_print,part_set_generic_name,write_gpt_table,write_mbr_and_gpt_partitions,write_mbr_partition'
 #for item in all.split(','):
 	#doit(item + '(', 'part.h')
 
+#all = 'lbaint_t'
+#for item in all.split(','):
+	#doit(item, 'blk.h')
+
+#all = 'AMIGA_ENTRY_NUMBERS,BOOT_PART_COMP,BOOT_PART_TYPE,DEV_TYPE_CDROM,DEV_TYPE_HARDDISK,DEV_TYPE_OPDISK,DEV_TYPE_TAPE,DEV_TYPE_UNKNOWN,DOS_ENTRY_NUMBERS,ISO_ENTRY_NUMBERS,LOG2,LOG2_INVALID,MAC_ENTRY_NUMBERS,MAX_SEARCH_PARTITIONS,PART_NAME_LEN,PART_TYPE_AMIGA,PART_TYPE_DOS,PART_TYPE_EFI,PART_TYPE_ISO,PART_TYPE_LEN,PART_TYPE_MAC,PART_TYPE_UNKNOWN,U_BOOT_PART_TYPE,_PART_H,part_get_info_ptr,part_get_info_ptr,part_get_info_ptr,part_print_ptr,part_print_ptr'
+#for item in all.split(','):
+	#doit(item, 'part.h')
+
+#all = 'blk_common_cmd'
+#for item in all.split(','):
+	#doit(item + '(', 'blk.h')
+
+#all = 'struct blk'
+#for item in all.split(','):
+	#doit(item, 'blk.h')
+
 #all= 'bootstage_accum,bootstage_accum,bootstage_add_record,bootstage_add_record,bootstage_error,bootstage_error,bootstage_fdt_add_report,bootstage_get_size,bootstage_get_size,bootstage_init,bootstage_init,bootstage_mark,bootstage_mark,bootstage_mark_code,bootstage_mark_code,bootstage_mark_name,bootstage_mark_name,bootstage_relocate,bootstage_relocate,bootstage_report,bootstage_start,bootstage_start,bootstage_stash,bootstage_stash,bootstage_unstash,bootstage_unstash,show_boot_progress,timer_get_boot_us'
 #for item in all.split(','):
 	#doit(item + '(', 'bootstage.h')
 
+#all = 'BOOTSTAGE_ID'
+#for item in all.split(','):
+	#doit(item, 'bootstage.h')
+
 #all = 'android_image_check_header,android_image_get_end,android_image_get_kcomp,android_image_get_kernel,android_image_get_kload,android_image_get_ramdisk,android_image_get_second,android_print_contents,board_fit_config_name_match,board_fit_image_post_process,boot_fdt_add_mem_rsv_regions,boot_get_cmdline,boot_get_fdt,boot_get_fdt_fit,boot_get_fpga,boot_get_kbd,boot_get_loadable,boot_get_ramdisk,boot_get_setup,boot_get_setup_fit,boot_ramdisk_high,boot_relocate_fdt,booti_setup,bootz_setup,calculate_hash,env_get_bootm_low,env_get_bootm_mapsize,env_get_bootm_size,fdt_getprop_u32,fit_add_verification_data,fit_all_image_verify,fit_check_format,fit_check_ramdisk,fit_conf_find_compat,fit_conf_get_node,fit_conf_get_prop_node,fit_conf_get_prop_node_count,fit_conf_get_prop_node_index,fit_config_verify,fit_find_config_node,fit_get_desc,fit_get_end,fit_get_name,fit_get_node_from_config,fit_get_size,fit_get_subimage_count,fit_get_timestamp,fit_image_check_arch,fit_image_check_comp,fit_image_check_os,fit_image_check_sig,fit_image_check_target_arch,fit_image_check_type,fit_image_get_arch,fit_image_get_comp,fit_image_get_data,fit_image_get_data_and_size,fit_image_get_data_offset,fit_image_get_data_position,fit_image_get_data_size,fit_image_get_entry,fit_image_get_load,fit_image_get_node,fit_image_get_os,fit_image_get_type,fit_image_hash_get_algo,fit_image_hash_get_value,fit_image_load,fit_image_print,fit_image_verify,fit_image_verify_required_sigs,fit_image_verify_with_data,fit_parse_conf,fit_parse_subimage,fit_print_contents,fit_region_make_list,fit_set_timestamp,genimg_get_arch_id,genimg_get_arch_name,genimg_get_arch_short_name,genimg_get_cat_count,genimg_get_cat_desc,genimg_get_cat_name,genimg_get_cat_short_name,genimg_get_comp_id,genimg_get_comp_name,genimg_get_comp_short_name,genimg_get_format,genimg_get_kernel_addr,genimg_get_kernel_addr_fit,genimg_get_os_id,genimg_get_os_name,genimg_get_os_short_name,genimg_get_type_id,genimg_get_type_name,genimg_get_type_short_name,genimg_has_config,genimg_print_size,genimg_print_time,get_table_entry_id,get_table_entry_name,image_check_arch,image_check_dcrc,image_check_hcrc,image_check_magic,image_check_os,image_check_target_arch,image_check_type,image_decomp,image_get_checksum_algo,image_get_crypto_algo,image_get_data,image_get_data_size,image_get_header_size,image_get_host_blob,image_get_image_end,image_get_image_size,image_get_name,image_get_padding_algo,image_multi_count,image_multi_getimg,image_print_contents,image_set_host_blob,image_set_name,image_setup_libfdt,image_setup_linux,image_source_script,memmove_wd'
 #for item in all.split(','):
-	#doit(item + '(', 'bootstage.h')
+	#doit(item + '(', 'image.h')
+
+#all = 'image_get_magic'
+#for item in all.split(','):
+	#doit(item + '(', 'image.h')
+
+#all = 'IH_ARCH_,IH_OS_,IH_MAGIC,bootm_headers_t,struct image_header'
+#for item in all.split(','):
+	#doit(item, 'image.h')
+
+#all = 'struct lmb'
+#for item in all.split(','):
+	#doit(item, 'lmb.h')
+
+#all = 'fdt_status_,fdt_find_,fdt_fixup_'
+#for item in all.split(','):
+	#doit(item, 'fdt_support.h')
+
+#all = 'fdt_for_each_subnode,fdt_node_offset_by_compat_reg,fdt_set_phandle'
+#all += ',fdt_alloc_phandle'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/libfdt.h')
+
+#all = 'fdt_for_'
+#for item in all.split(','):
+	#doit(item, 'linux/libfdt.h')
+
+#all = 'hash_block'
+#for item in all.split(','):
+	#doit(item + '(', 'hash.h')
+
+
+#all = 'fdt_node_'
+#for item in all.split(','):
+	#doit(item, 'linux/libfdt.h')
 
 #all = 'arch_cpu_init,arch_cpu_init_dm,arch_early_init_r,arch_fsp_init,arch_reserve_stacks,arch_setup_gd,board_early_init_f,board_early_init_r,board_fix_fdt,board_get_usable_ram_top,board_init_f,board_init_f_alloc_reserve,board_init_f_init_reserve,board_init_r,board_late_init,board_postclk_init,checkboard,cpu_init_r,dram_init,dram_init_banksize,embedded_dtb_select,get_effective_memsize,get_ram_size,init_cache_f_r,init_func_vid,last_stage_init,mac_read_from_eeprom,mach_cpu_init,main_loop,misc_init_f,misc_init_r,pci_init,pci_init_board,print_cpuinfo,relocate_code,relocate_code,reserve_mmu,set_cpu_clk_info,show_board_info,testdram,timer_init,trap_init,update_flash_size'
 #for item in all.split(','):
 	#doit(item + '(', 'init.h')
 
-#all = 'log'
+#all = 'monitor_flash_len'
 #for item in all.split(','):
+	#doit(item, 'init.h')
+
+#all = 'log,debug,assert,warn_non_spl,assert_noisy,log_ret,log_msg_ret,log_init'
+#all += ',log_err,log_warning,log_notice,log_info,log_debug,log_content,log_io'
+#all += ',debug_cond'
+#for item in all.split(','):
+	#print(item)
 	#doit(item + '(', 'log.h')
+
+#all = 'CMD_RET_,U_BOOT_CMD'
+#for item in all.split(','):
+	#doit(item, 'command.h')
+#all = 'fixup_cmdtable,cmd_auto_complete'
+#all += ',_do_help,board_run_command,bootm_maybe_autostart,bootm_maybe_autostart,cmd_always_repeatable,cmd_auto_complete,cmd_discard_repeatable,cmd_get_data_size,cmd_is_repeatable,cmd_never_repeatable,cmd_process,cmd_process_error,cmd_usage,common_diskboot,complete_subcmdv,do_bootd,do_booti,do_bootm,do_bootz,do_env_print_efi,do_env_set_efi,do_go_exec,do_poweroff,do_reset,do_run,find_cmd,find_cmd_tbl,fixup_cmdtable,run_command,run_command_list,run_command_repeatable,var_complete'
+#for item in all.split(','):
+	#doit(item + '(', 'command.h')
+
+#all = 'env_set,env_relocate,env_get,env_set_addr'
+#for item in all.split(','):
+	#doit(item + '(', 'env.h')
+
+#all = 'EFI_ENTRY'
+#for item in all.split(','):
+	#doit(item, 'efi_loader.h')
 
 #ctags -x --c-types=fp include/log.h |cut -d' ' -f1 >asc
 #ctags -x --c-types=d include/log.h |cut -d' ' -f1 >>asc
@@ -304,9 +440,14 @@ def process_files_from(list_fname, insert_hdr):
 #for item in all.split(','):
 	#doit(item + '(', 'asm/ptrace.h')
 
-#all = 'BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE'
+#all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
+#all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
 #for item in all.split(','):
-	#doit(item + '(', 'linux/bug.h')
+	#doit(item, 'asm-offsets.h')
+
+def bug(hdr):
+    hdr.set_hdr('linux/bug.h')
+    hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
 
 #all = '__stringify'
 #for item in all.split(','):
@@ -316,10 +457,73 @@ def process_files_from(list_fname, insert_hdr):
 #for item in all.split(','):
 	#doit(item + '(', 'linux/delay.h')
 
-#all = 'BIT,BITS_PER_BYTE,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,_LINUX_BITOPS_H,__clear_bit,__set_bit,ffs,fls'
+#all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
 #for item in all.split(','):
 	#doit(item + '(', 'linux/bitops.h')
 
-all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
-for item in all.split(','):
-	doit(item + '(', 'fdt_support.h')
+#all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
+#for item in all.split(','):
+	#doit(item + '(', 'fdt_support.h')
+
+#all = 'va_start'
+#for item in all.split(','):
+	#doit(item + '(', 'stdarg.h')
+
+#all = 'display_options,display_options_get_banner,display_options_get_banner_priv,print_buffer,print_freq,print_size'
+#for item in all.split(','):
+	#doit(item + '(', 'display_options.h')
+
+##all = 'fgetc,fputc,fputs,ftstc,getc,putc,puts,tstc,vprintf'
+#for item in all.split(','):
+	#doit(item + '(', 'stdio.h')
+
+#all = 'GD_FLG,gd->,gd_board_type'
+#for item in all.split(','):
+	#doit(item, 'asm/global_data.h')
+
+#all = 'bd->,\\->bi_'
+#for item in all.split(','):
+	#doit(item, 'asm/u-boot.h')
+
+#all = 'KERN_ALERT,KERN_CONT,KERN_CRIT,KERN_DEBUG,KERN_EMERG,KERN_ERR,KERN_INFO,KERN_NOTICE,KERN_WARNING,__KERNEL_PRINTK__,__printk,no_printk,pr_alert,pr_cont,pr_crit,pr_debug,pr_debug,pr_devel,pr_devel,pr_emerg,pr_err,pr_fmt,pr_info,pr_notice,pr_warn,pr_warning,printk,printk_once'
+#for item in all.split(','):
+	#doit(item, 'linux/printk.h')
+
+#all = 'ARCH_DMA_MINALIGN,MMU_SECTION_SIZE,MMU_SECTION_SHIFT,DCACHE_,PGTABLE_SIZE'
+#for item in all.split(','):
+	#doit(item, 'asm/cache.h')
+
+#all = 'arm_init_before_mmu,arm_init_domains,check_cache_range,cpu_cache_initialization,dram_bank_mmu_setup,invalidate_l2_cache,l2_cache_disable,l2_cache_enable,set_section_dcache'
+#all += ',current_el,read_mpidr,__asm_flush_dcache_range,psci_system_reset,smc_call'
+#all += ',__asm_flush_dcache_all,__asm_flush_dcache_range,__asm_flush_l3_dcache,__asm_invalidate_dcache_all,__asm_invalidate_dcache_range,__asm_invalidate_icache_all,__asm_invalidate_l3_dcache,__asm_invalidate_l3_icache,__asm_invalidate_tlb_all,__asm_switch_ttbr,armv8_el2_to_aarch32,armv8_setup_psci,armv8_switch_to_el1,armv8_switch_to_el2,flush_l3_cache,get_page_table_size,gic_init,gic_send_sgi,mmu_change_region_attr,mmu_page_table_flush,mmu_set_region_dcache_behaviour,noncached_alloc,noncached_init,protect_secure_region,psci_affinity_info,psci_arch_cpu_entry,psci_arch_init,psci_cpu_off,psci_cpu_on,psci_features,psci_features,psci_migrate_info_type,psci_setup_vectors,psci_system_off,psci_system_off,psci_system_reset,psci_system_reset,psci_system_reset2,psci_version,save_boot_params_ret,smc_call,smp_kick_all_cpus,switch_to_hypervisor_ret,wait_for_wakeup'
+#for item in all.split(','):
+	#doit(item + '(', 'asm/cache.h')
+
+#all = 'srand,rand'
+#for item in all.split(','):
+	#doit(item + '(', 'rand.h')
+
+#all = 'pt_regs'
+#for item in all.split(','):
+	#doit(item, 'asm/ptrace.h')
+
+def run_tests(args):
+    sys.argv = [sys.argv[0]] + args
+    unittest.main()
+
+def run_conversion():
+    hdr = HdrConv()
+    bug(hdr)
+    hdr.run()
+
+
+if __name__ == "__main__":
+    parser = OptionParser()
+
+    parser.add_option('-t', '--test', action='store_true', dest='test',
+                  default=False, help='run tests')
+    (options, args) = parser.parse_args()
+    if options.test:
+        run_tests(args)
+    else:
+        run_conversion()

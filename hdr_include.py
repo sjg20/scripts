@@ -5,6 +5,7 @@
 from optparse import OptionParser
 import os
 import re
+import string
 import sys
 import unittest
 
@@ -13,18 +14,56 @@ sys.path.append('/home/sjg/u/tools/patman')
 import command
 
 UBOOT = '__UBOOT__'
+ALPHANUM = set(string.ascii_lowercase + string.ascii_uppercase + string.digits +
+               '_')
 
 def not_supported(msg, line):
     print('%s: %s' % (msg, line))
 
 
-def process_data(data, func, insert_hdr):
+def process_data(data, func, insert_hdr, ignore_fragments=False):
+    """Process a C file by adding a header to it if needed
+
+    Args:
+        data: String containing the file contents
+        func: Symbol that is provided by the header (e.g. 'BUG(')
+        insert_hdr: Header to add (e.g. 'command.h', 'linux/bug.h')
+        ignore_fragments: True to check that the file actually has the
+            identifier. This will ignore 'PRBUG(' when looking for 'BUG(', for
+            example
+
+    Returns:
+        One of:
+           List of all lines in the file (each a string) if the header was added
+           None if the header was not added
+           str if the header was not added and there is a message
+    """
     if func and func not in data:
         return None
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
         return None
     lines = data.splitlines()
+
+    # Make sure that at least one match is the full match string. For example
+    # this will ignore PRBUG() when looking for BUG(
+    if ignore_fragments:
+        found = False
+        for line in lines:
+            start = 0
+            while True:
+                pos = line.find(func, start)
+                if pos == -1:
+                    break
+                if pos == 0 or line[pos - 1] not in ALPHANUM:
+                    found = True
+                    break
+                start = pos + 1
+            if found:
+                break
+        if not found:
+            return None
+
     out = []
     done = False
     found_includes = False
@@ -36,7 +75,6 @@ def process_data(data, func, insert_hdr):
                 tokens = line.split(' ')
                 if len(tokens) == 2:
                     cond, sym = tokens
-                    print('try', cond, sym)
                     if sym == UBOOT:
                         if cond == '#ifdef':
                             active = True
@@ -45,9 +83,16 @@ def process_data(data, func, insert_hdr):
                         else:
                             not_supported('unknown condition', line)
             elif line.startswith('#else'):
-                 active = not active
-            elif line.startswith('#end'):
-                 active= True
+                if active:
+                    out.append(to_add)
+                    done = True
+                active = not active
+            elif line.startswith('#endif'):
+                # We got to an #endif and didn't add the header yet
+                if active:
+                    out.append(to_add)
+                    done = True
+                active= True
             elif active:
                 if line.startswith('#include'):
                     m = re.match('#include <(.*)>', line)
@@ -64,6 +109,16 @@ def process_data(data, func, insert_hdr):
                             if todo:
                                 out.append(to_add)
                                 done = True
+                    else:
+                        # If the first include is a local file then probably
+                        # the inclusion is handled by that file.
+                        if found_includes:
+                            # Put it before the first local #include "..."
+                            out.append(to_add)
+                        else:
+                            inc_name = line.split(' ')[1]
+                            return ("local include %s" % inc_name)
+                        done = True
                     found_includes = True
                 elif found_includes:
                     out.append(to_add)
@@ -71,24 +126,31 @@ def process_data(data, func, insert_hdr):
         out.append(line)
     return out
 
-def process_file(fname, func, insert_hdr):
+def process_file(fname, func, insert_hdr, ignore_fragments):
     if fname[-2:] not in ('.c'):
         return
     with open(fname, 'r') as fd:
         data = fd.read()
-    out = process_data(data, func, insert_hdr)
+    out = process_data(data, func, insert_hdr, ignore_fragments)
     if out:
-        with open(fname, 'w') as fd:
-            for line in out:
-                print(line, file=fd)
+        if isinstance(out, str):
+            print('Check %s: %s' % (fname, out))
+        else:
+            with open(fname, 'w') as fd:
+                for line in out:
+                    print(line, file=fd)
 
 
-def doit(func, insert_hdr):
+def doit(func, insert_hdr, ignore_fragments):
     fnames = command.Output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
             continue
-        process_file(fname, func, insert_hdr)
+        if fname.startswith('tools/') or fname.startswith('scripts/'):
+            continue
+        if fname.startswith('tools/') or fname.startswith('scripts/'):
+            continue
+        process_file(fname, func, insert_hdr, ignore_fragments)
 
 def process_files_from(list_fname, insert_hdr):
     with open(list_fname) as fd:
@@ -106,16 +168,16 @@ class HdrConv:
     def set_hdr(self, hdr):
         self.hdr = hdr
 
-    def add_funcs(self, funcs):
-        self.searches.append(['(', funcs])
+    def add_funcs(self, funcs, ignore_fragments=True):
+        self.searches.append(['(', funcs, ignore_fragments])
 
-    def add_text(self, funcs):
-        self.searches.append(['', funcs])
+    def add_text(self, funcs, ignore_fragments=True):
+        self.searches.append(['', funcs, ignore_fragments])
 
     def run(self):
-        for prefix, funcs in self.searches:
+        for prefix, funcs, ignore_fragments in self.searches:
             for item in funcs.split(','):
-                doit(item + prefix, self.hdr)
+                doit(item + prefix, self.hdr, ignore_fragments)
 
 class TestEntry(unittest.TestCase):
     def testSimple(self):
@@ -195,7 +257,7 @@ int some_func(void)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
-    def testIfdef(self):
+    def testIfndef(self):
         hdrs= '''
 #ifndef __UBOOT__
 #include <sys/types.h>
@@ -224,6 +286,156 @@ int some_func(void)
         out = process_data(hdrs + body, 'abs(', 'asm/io.h')
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testIfdef(self):
+        hdrs= '''
+#ifdef __UBOOT__
+#include <common.h>
+#include <stdio.h>
+#include <linux/types.h>
+#else
+#include <sys/types.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#ifdef __UBOOT__
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#include <linux/types.h>
+#else
+#include <sys/types.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+
+#ifndef __UBOOT__
+#include <log.h>
+#include <dm/devres.h>
+#include <linux/crc32.h>
+#include <linux/err.h>
+#include <u-boot/crc.h>
+#else
+#include <div64.h>
+#include <malloc.h>
+#include <ubi_uboot.h>
+#endif
+#include <linux/bug.h>
+
+    def testEndif(self):
+        hdrs= '''
+#ifndef __UBOOT__
+#include <sys/types.h>
+#else
+#include <common.h>
+#include <stdio.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#ifndef __UBOOT__
+#include <sys/types.h>
+#else
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testElse(self):
+        hdrs= '''
+#ifdef __UBOOT__
+#include <common.h>
+#include <stdio.h>
+#else
+#include <sys/types.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#ifdef __UBOOT__
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#else
+#include <sys/types.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testLocal(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+#include "something.h"
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#include <common.h>
+#include <stdio.h>
+#include <asm/io.h>
+#include "something.h"
+'''
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testPartial(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+'''
+        body = '''
+int some_func(void)
+{
+    PDEBUG(123);
+}
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        self.assertIsNone(out)
+
+    def testNoStdIncludes(self):
+        """Don't add anything if the first include is a local file"""
+        hdrs= '''
+#include "local.h"
+'''
+        body = '''
+int some_func(void)
+{
+    BUG(123);
+}
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        self.assertEqual("local include \"local.h\"", out)
 
 
 #all = 'ENV_VALID,ENV_INVALID,ENV_REDUND'.split(',')
@@ -544,10 +756,12 @@ int some_func(void)
 #for item in all.split(','):
 	#doit(item + '(', 'asm/ptrace.h')
 
-#all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
-#all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
-#for item in all.split(','):
-	#doit(item, 'asm-offsets.h')
+def asm_offsets(hdr):
+    hdr.set_hdr('asm-offsets.h')
+    all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
+    all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
+    all += ',CONFIG_SYS_GBL_DATA_OFFSET'
+    hdr.add_text(all)
 
 def bug(hdr):
     hdr.set_hdr('linux/bug.h')
@@ -618,6 +832,7 @@ def run_tests(args):
 def run_conversion():
     hdr = HdrConv()
     bug(hdr)
+    #asm_offsets(hdr)
     hdr.run()
 
 

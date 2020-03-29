@@ -54,15 +54,6 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False,
     """
     if func and func not in data:
         return ">'%s' not in file" % func
-=======
-def process_file(fname, func, insert_hdr):
-    if fname[-2:] not in ('.c'):
-        return
-    with open(fname, 'r') as fd:
-        data = fd.read()
-    if func and func not in data:
-        return
->>>>>>> 415215c (do-stats new period)
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
         return ">'%s' already in file" % to_add
@@ -881,6 +872,49 @@ def process_files_from(list_fname, insert_hdr):
             process_file(fname, None, insert_hdr)
 
 
+class HdrConv:
+    def __init__(self):
+        self.hdr = None
+        self.searches = []
+
+    def set_hdr(self, hdr):
+        self.hdr = hdr
+
+    def add_funcs(self, funcs):
+        self.searches.append(['(', funcs])
+
+    def add_text(self, funcs):
+        self.searches.append(['', funcs])
+
+    def run(self):
+        for prefix, funcs in self.searches:
+            for item in funcs.split(','):
+                doit(item + prefix, self.hdr)
+
+class TestEntry(unittest.TestCase):
+    def testSimple(self):
+        hdrs= '''
+#include <common.h>
+#include <stdio.h>
+
+'''
+        body = '''
+int some_func(void)
+{
+    abs(123);
+}
+'''
+        expect = '''
+#include <common.h>
+#include <abs.h>
+#include <stdio.h>
+
+'''
+        out = process_data(hdrs + body, 'abs(', 'abs.h')
+        new_hdrs = out[:-len(expect.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+
 #all = 'ENV_VALID,ENV_INVALID,ENV_REDUND'.split(',')
 #all = 'env_op_create,env_op_delete,env_op_overwrite'.split(',')
 #for item in all:
@@ -1158,7 +1192,41 @@ def process_files_from(list_fname, insert_hdr):
 
 #all = 'android_image_check_header,android_image_get_end,android_image_get_kcomp,android_image_get_kernel,android_image_get_kload,android_image_get_ramdisk,android_image_get_second,android_print_contents,board_fit_config_name_match,board_fit_image_post_process,boot_fdt_add_mem_rsv_regions,boot_get_cmdline,boot_get_fdt,boot_get_fdt_fit,boot_get_fpga,boot_get_kbd,boot_get_loadable,boot_get_ramdisk,boot_get_setup,boot_get_setup_fit,boot_ramdisk_high,boot_relocate_fdt,booti_setup,bootz_setup,calculate_hash,env_get_bootm_low,env_get_bootm_mapsize,env_get_bootm_size,fdt_getprop_u32,fit_add_verification_data,fit_all_image_verify,fit_check_format,fit_check_ramdisk,fit_conf_find_compat,fit_conf_get_node,fit_conf_get_prop_node,fit_conf_get_prop_node_count,fit_conf_get_prop_node_index,fit_config_verify,fit_find_config_node,fit_get_desc,fit_get_end,fit_get_name,fit_get_node_from_config,fit_get_size,fit_get_subimage_count,fit_get_timestamp,fit_image_check_arch,fit_image_check_comp,fit_image_check_os,fit_image_check_sig,fit_image_check_target_arch,fit_image_check_type,fit_image_get_arch,fit_image_get_comp,fit_image_get_data,fit_image_get_data_and_size,fit_image_get_data_offset,fit_image_get_data_position,fit_image_get_data_size,fit_image_get_entry,fit_image_get_load,fit_image_get_node,fit_image_get_os,fit_image_get_type,fit_image_hash_get_algo,fit_image_hash_get_value,fit_image_load,fit_image_print,fit_image_verify,fit_image_verify_required_sigs,fit_image_verify_with_data,fit_parse_conf,fit_parse_subimage,fit_print_contents,fit_region_make_list,fit_set_timestamp,genimg_get_arch_id,genimg_get_arch_name,genimg_get_arch_short_name,genimg_get_cat_count,genimg_get_cat_desc,genimg_get_cat_name,genimg_get_cat_short_name,genimg_get_comp_id,genimg_get_comp_name,genimg_get_comp_short_name,genimg_get_format,genimg_get_kernel_addr,genimg_get_kernel_addr_fit,genimg_get_os_id,genimg_get_os_name,genimg_get_os_short_name,genimg_get_type_id,genimg_get_type_name,genimg_get_type_short_name,genimg_has_config,genimg_print_size,genimg_print_time,get_table_entry_id,get_table_entry_name,image_check_arch,image_check_dcrc,image_check_hcrc,image_check_magic,image_check_os,image_check_target_arch,image_check_type,image_decomp,image_get_checksum_algo,image_get_crypto_algo,image_get_data,image_get_data_size,image_get_header_size,image_get_host_blob,image_get_image_end,image_get_image_size,image_get_name,image_get_padding_algo,image_multi_count,image_multi_getimg,image_print_contents,image_set_host_blob,image_set_name,image_setup_libfdt,image_setup_linux,image_source_script,memmove_wd'
 #for item in all.split(','):
-	#doit(item + '(', 'bootstage.h')
+	#doit(item + '(', 'image.h')
+
+#all = 'image_get_magic'
+#for item in all.split(','):
+	#doit(item + '(', 'image.h')
+
+#all = 'IH_ARCH_,IH_OS_,IH_MAGIC,bootm_headers_t,struct image_header'
+#for item in all.split(','):
+	#doit(item, 'image.h')
+
+#all = 'struct lmb'
+#for item in all.split(','):
+	#doit(item, 'lmb.h')
+
+#all = 'fdt_status_,fdt_find_,fdt_fixup_'
+#for item in all.split(','):
+	#doit(item, 'fdt_support.h')
+
+#all = 'fdt_for_each_subnode,fdt_node_offset_by_compat_reg,fdt_set_phandle'
+#all += ',fdt_alloc_phandle'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/libfdt.h')
+
+#all = 'fdt_for_'
+#for item in all.split(','):
+	#doit(item, 'linux/libfdt.h')
+
+#all = 'hash_block'
+#for item in all.split(','):
+	#doit(item + '(', 'hash.h')
+
+
+#all = 'fdt_node_'
+#for item in all.split(','):
+	#doit(item, 'linux/libfdt.h')
 
 #all = 'arch_cpu_init,arch_cpu_init_dm,arch_early_init_r,arch_fsp_init,arch_reserve_stacks,arch_setup_gd,board_early_init_f,board_early_init_r,board_fix_fdt,board_get_usable_ram_top,board_init_f,board_init_f_alloc_reserve,board_init_f_init_reserve,board_init_r,board_late_init,board_postclk_init,checkboard,cpu_init_r,dram_init,dram_init_banksize,embedded_dtb_select,get_effective_memsize,get_ram_size,init_cache_f_r,init_func_vid,last_stage_init,mac_read_from_eeprom,mach_cpu_init,main_loop,misc_init_f,misc_init_r,pci_init,pci_init_board,print_cpuinfo,relocate_code,relocate_code,reserve_mmu,set_cpu_clk_info,show_board_info,testdram,timer_init,trap_init,update_flash_size'
 #for item in all.split(','):
@@ -1201,7 +1269,30 @@ def process_files_from(list_fname, insert_hdr):
 
 #all = 'log'
 #for item in all.split(','):
+	#doit(item, 'init.h')
+
+#all = 'log,debug,assert,warn_non_spl,assert_noisy,log_ret,log_msg_ret,log_init'
+#all += ',log_err,log_warning,log_notice,log_info,log_debug,log_content,log_io'
+#all += ',debug_cond'
+#for item in all.split(','):
+	#print(item)
 	#doit(item + '(', 'log.h')
+
+#all = 'CMD_RET_,U_BOOT_CMD'
+#for item in all.split(','):
+	#doit(item, 'command.h')
+#all = 'fixup_cmdtable,cmd_auto_complete'
+#all += ',_do_help,board_run_command,bootm_maybe_autostart,bootm_maybe_autostart,cmd_always_repeatable,cmd_auto_complete,cmd_discard_repeatable,cmd_get_data_size,cmd_is_repeatable,cmd_never_repeatable,cmd_process,cmd_process_error,cmd_usage,common_diskboot,complete_subcmdv,do_bootd,do_booti,do_bootm,do_bootz,do_env_print_efi,do_env_set_efi,do_go_exec,do_poweroff,do_reset,do_run,find_cmd,find_cmd_tbl,fixup_cmdtable,run_command,run_command_list,run_command_repeatable,var_complete'
+#for item in all.split(','):
+	#doit(item + '(', 'command.h')
+
+#all = 'env_set,env_relocate,env_get,env_set_addr'
+#for item in all.split(','):
+	#doit(item + '(', 'env.h')
+
+#all = 'EFI_ENTRY'
+#for item in all.split(','):
+	#doit(item, 'efi_loader.h')
 
 #ctags -x --c-types=fp include/log.h |cut -d' ' -f1 >asc
 #ctags -x --c-types=d include/log.h |cut -d' ' -f1 >>asc
@@ -1296,8 +1387,14 @@ def process_files_from(list_fname, insert_hdr):
 	#doit(item, 'asm/ptrace.h')
 
 #all = 'BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE'
+#all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
+#all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
 #for item in all.split(','):
-	#doit(item + '(', 'linux/bug.h')
+	#doit(item, 'asm-offsets.h')
+
+def bug(hdr):
+    hdr.set_hdr('linux/bug.h')
+    hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
 
 #all = '__stringify'
 #for item in all.split(','):
@@ -1307,7 +1404,7 @@ def process_files_from(list_fname, insert_hdr):
 #for item in all.split(','):
 	#doit(item + '(', 'linux/delay.h')
 
-#all = 'BIT,BITS_PER_BYTE,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,_LINUX_BITOPS_H,__clear_bit,__set_bit,ffs,fls'
+#all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
 #for item in all.split(','):
 	#doit(item + '(', 'linux/bitops.h')
 
@@ -1318,6 +1415,52 @@ def process_files_from(list_fname, insert_hdr):
 #all = 'reset_cpu'
 #for item in all.split(','):
 	#doit(item + '(', 'cpu_func.h')
+
+#all = 'ft_cpu_setup,ft_pci_setup,arch_fixup_fdt'
+#for item in all.split(','):
+	#doit(item + '(', 'fdt_support.h')
+
+#all = 'va_start'
+#for item in all.split(','):
+	#doit(item + '(', 'stdarg.h')
+
+#all = 'display_options,display_options_get_banner,display_options_get_banner_priv,print_buffer,print_freq,print_size'
+#for item in all.split(','):
+	#doit(item + '(', 'display_options.h')
+
+##all = 'fgetc,fputc,fputs,ftstc,getc,putc,puts,tstc,vprintf'
+#for item in all.split(','):
+	#doit(item + '(', 'stdio.h')
+
+#all = 'GD_FLG,gd->,gd_board_type'
+#for item in all.split(','):
+	#doit(item, 'asm/global_data.h')
+
+#all = 'bd->,\\->bi_'
+#for item in all.split(','):
+	#doit(item, 'asm/u-boot.h')
+
+#all = 'KERN_ALERT,KERN_CONT,KERN_CRIT,KERN_DEBUG,KERN_EMERG,KERN_ERR,KERN_INFO,KERN_NOTICE,KERN_WARNING,__KERNEL_PRINTK__,__printk,no_printk,pr_alert,pr_cont,pr_crit,pr_debug,pr_debug,pr_devel,pr_devel,pr_emerg,pr_err,pr_fmt,pr_info,pr_notice,pr_warn,pr_warning,printk,printk_once'
+#for item in all.split(','):
+	#doit(item, 'linux/printk.h')
+
+#all = 'ARCH_DMA_MINALIGN,MMU_SECTION_SIZE,MMU_SECTION_SHIFT,DCACHE_,PGTABLE_SIZE'
+#for item in all.split(','):
+	#doit(item, 'asm/cache.h')
+
+#all = 'arm_init_before_mmu,arm_init_domains,check_cache_range,cpu_cache_initialization,dram_bank_mmu_setup,invalidate_l2_cache,l2_cache_disable,l2_cache_enable,set_section_dcache'
+#all += ',current_el,read_mpidr,__asm_flush_dcache_range,psci_system_reset,smc_call'
+#all += ',__asm_flush_dcache_all,__asm_flush_dcache_range,__asm_flush_l3_dcache,__asm_invalidate_dcache_all,__asm_invalidate_dcache_range,__asm_invalidate_icache_all,__asm_invalidate_l3_dcache,__asm_invalidate_l3_icache,__asm_invalidate_tlb_all,__asm_switch_ttbr,armv8_el2_to_aarch32,armv8_setup_psci,armv8_switch_to_el1,armv8_switch_to_el2,flush_l3_cache,get_page_table_size,gic_init,gic_send_sgi,mmu_change_region_attr,mmu_page_table_flush,mmu_set_region_dcache_behaviour,noncached_alloc,noncached_init,protect_secure_region,psci_affinity_info,psci_arch_cpu_entry,psci_arch_init,psci_cpu_off,psci_cpu_on,psci_features,psci_features,psci_migrate_info_type,psci_setup_vectors,psci_system_off,psci_system_off,psci_system_reset,psci_system_reset,psci_system_reset2,psci_version,save_boot_params_ret,smc_call,smp_kick_all_cpus,switch_to_hypervisor_ret,wait_for_wakeup'
+#for item in all.split(','):
+	#doit(item + '(', 'asm/cache.h')
+
+#all = 'srand,rand'
+#for item in all.split(','):
+	#doit(item + '(', 'rand.h')
+
+#all = 'pt_regs'
+#for item in all.split(','):
+	#doit(item, 'asm/ptrace.h')
 
 
 def global_data(hdr):

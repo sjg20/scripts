@@ -21,7 +21,7 @@ def not_supported(msg, line):
     print('%s: %s' % (msg, line))
 
 
-def process_data(data, func, insert_hdr, ignore_fragments=False):
+def process_data(data, func, insert_hdr, ignore_fragments):
     """Process a C file by adding a header to it if needed
 
     Args:
@@ -126,14 +126,26 @@ def process_data(data, func, insert_hdr, ignore_fragments=False):
         out.append(line)
     return out
 
-def process_file(fname, func, insert_hdr, ignore_fragments):
-    if fname[-2:] not in ('.c'):
+def process_file(fname, func, insert_hdr, skipped, ignore_fragments):
+    skip = False
+    suffix = fname[-2:]
+    if suffix == '.h':
+        if fname.startswith('include/linux'):
+            return
+        skip = True
+    elif suffix != '.c':
         return
     with open(fname, 'r') as fd:
         data = fd.read()
     out = process_data(data, func, insert_hdr, ignore_fragments)
     if out:
-        if isinstance(out, str):
+        if skip:
+            # Don't process this but indicate that it needs a look
+            if fname in skipped:
+                skiped[fname].append(func)
+            else:
+                skipped[fname] = [func]
+        elif isinstance(out, str):
             print('Check %s: %s' % (fname, out))
         else:
             with open(fname, 'w') as fd:
@@ -141,7 +153,7 @@ def process_file(fname, func, insert_hdr, ignore_fragments):
                     print(line, file=fd)
 
 
-def doit(func, insert_hdr, ignore_fragments):
+def doit(func, insert_hdr, skipped, ignore_fragments):
     fnames = command.Output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
@@ -150,7 +162,7 @@ def doit(func, insert_hdr, ignore_fragments):
             continue
         if fname.startswith('tools/') or fname.startswith('scripts/'):
             continue
-        process_file(fname, func, insert_hdr, ignore_fragments)
+        process_file(fname, func, insert_hdr, skipped, ignore_fragments)
 
 def process_files_from(list_fname, insert_hdr):
     with open(list_fname) as fd:
@@ -175,9 +187,13 @@ class HdrConv:
         self.searches.append(['', funcs, ignore_fragments])
 
     def run(self):
+        skipped = {}
         for prefix, funcs, ignore_fragments in self.searches:
             for item in funcs.split(','):
-                doit(item + prefix, self.hdr, ignore_fragments)
+                doit(item + prefix, self.hdr, skipped, ignore_fragments)
+        for fname in sorted(skipped.keys()):
+            print("Skipping file '%s': %s" % (fname, skipped[fname]))
+
 
 class TestEntry(unittest.TestCase):
     def testSimple(self):
@@ -196,7 +212,7 @@ int some_func(void)
 #include <abs.h>
 #include <stdio.h>
 '''
-        out = process_data(hdrs + body, 'abs(', 'abs.h')
+        out = process_data(hdrs + body, 'abs(', 'abs.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -212,7 +228,7 @@ int some_func(void)
 }
 '''
         expect = hdrs
-        out = process_data(hdrs + body, 'abs(', 'abs.h')
+        out = process_data(hdrs + body, 'abs(', 'abs.h', False)
         self.assertIsNone(out)
 
     def testLinuxEnd(self):
@@ -231,7 +247,7 @@ int some_func(void)
 #include <stdio.h>
 #include <linux/bug.h>
 '''
-        out = process_data(hdrs + body, 'abs(', 'linux/bug.h')
+        out = process_data(hdrs + body, 'abs(', 'linux/bug.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -253,7 +269,7 @@ int some_func(void)
 #include <asm/io.h>
 #include <linux/types.h>
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -283,7 +299,7 @@ int some_func(void)
 #include <linux/types.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -313,7 +329,7 @@ int some_func(void)
 #include <sys/types.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -355,7 +371,7 @@ int some_func(void)
 #include <asm/io.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -383,7 +399,7 @@ int some_func(void)
 #include <sys/types.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -405,7 +421,7 @@ int some_func(void)
 #include <asm/io.h>
 #include "something.h"
 '''
-        out = process_data(hdrs + body, 'abs(', 'asm/io.h')
+        out = process_data(hdrs + body, 'abs(', 'asm/io.h', False)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -766,6 +782,7 @@ def asm_offsets(hdr):
 def bug(hdr):
     hdr.set_hdr('linux/bug.h')
     hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
+    hdr.add_text('BUILD_BUG_', ignore_fragments=False)
 
 #all = '__stringify'
 #for item in all.split(','):

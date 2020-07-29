@@ -11,6 +11,7 @@ import unittest
 
 #sys.path.append('/home/sjg/u/tools')
 sys.path.append('/usr/local/google/home/sjg/u/tools/patman')
+#sys.path.append('/home/sjg/u/tools')
 
 from patman import command
 
@@ -131,7 +132,6 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False,
     found_ifndef = False
     in_comment = False
     for line in lines:
-        #if line.strip() and not done:
         if not done:
             if line.startswith('#if'):
                 tokens = line.split()
@@ -364,7 +364,6 @@ class HdrConv:
         for fname in files:
             process_file(fname, None, self.hdr, to_check_hdr, False,
                          all_to_check)
-
 
 class Tests(unittest.TestCase):
     def testSimple(self):
@@ -1396,15 +1395,30 @@ def bug(hdr):
     hdr.set_hdr('linux/bug.h')
     hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
 
-#all = '__stringify'
-#for item in all.split(','):
-	#doit(item + '(', 'linux/stringify.h')
+#def bug(hdr):
+    #hdr.set_hdr('linux/bug.h')
+    #hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
+    #hdr.add_text('BUILD_BUG_', ignore_fragments=False)
 
-#all = 'udelay,__udelay,mdelay,ndelay'
-#for item in all.split(','):
-	#doit(item + '(', 'linux/delay.h')
+#def stringify(hdr):
+    #hdr.set_hdr('linux/stringify.h')
+    #hdr.add_funcs('__stringify')
 
-#all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
+#def delay(hdr):
+    #hdr.set_hdr('linux/delay.h')
+    #hdr.add_funcs('udelay,__udelay,mdelay,ndelay')
+
+#def bitops(hdr):
+    #hdr.set_hdr('linux/bitops.h')
+    #all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
+    #hdr.add_funcs(all)
+
+#def ilog2(hdr):
+    #hdr.set_hdr('asm/bitops.h')
+    #all = '__ilog2'
+    #hdr.add_funcs(all)
+
+
 #for item in all.split(','):
 	#doit(item + '(', 'linux/bitops.h')
 

@@ -15,6 +15,7 @@ from patman import command
 
 UBOOT = '__UBOOT__'
 ASM = '__ASSEMBLY__'
+HOSTCC = 'USE_HOSTCC'
 ALPHANUM = set(string.ascii_lowercase + string.ascii_uppercase + string.digits +
                '_')
 
@@ -139,6 +140,16 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
                             found_ifndef = True
                         else:
                             not_supported('unknown condition', line)
+                    elif sym == HOSTCC:
+                        if cond == '#ifdef':
+                            active = False
+                            wait_for_endif = False
+                        elif cond == '#ifndef':
+                            active = True
+                            wait_for_endif = False
+                            found_ifndef = True
+                        else:
+                            not_supported('unknown condition', line)
                     elif (not found_ifndef and cond == '#ifndef' and
                           is_hdr_file):
                         wait_for_header_guard = sym
@@ -231,7 +242,7 @@ def process_file(fname, func, insert_hdr, to_check, ignore_fragments):
         skip = True
     elif suffix != '.c':
         return
-    is_hdr_file = fname.endwith('.h')
+    is_hdr_file = fname.endswith('.h')
     with open(fname, 'r') as fd:
         data = fd.read()
     out = process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file)
@@ -753,6 +764,42 @@ int some_func(void)
 '''
         out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True,
                            is_hdr_file=True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testUbootGuard(self):
+        """Handle putting a header into a __U_BOOT__ guard"""
+        hdrs = '''
+/* SPDX */
+
+#define __U_BOOT__
+#ifdef __U_BOOT__
+#include <common.h>         /* readline */
+#ifndef CONFIG_SYS_PROMPT_HUSH_PS2
+#define CONFIG_SYS_PROMPT_HUSH_PS2	"> "
+#endif
+#include <asm/global_data.h>
+#endif
+'''
+        body = '''
+strcpy(a, b);
+'''
+
+        # Expected output (without body)
+        expect = '''
+/* SPDX */
+
+#define __U_BOOT__
+#ifdef __U_BOOT__
+#include <common.h>         /* readline */
+#ifndef CONFIG_SYS_PROMPT_HUSH_PS2
+#define CONFIG_SYS_PROMPT_HUSH_PS2	"> "
+#endif
+#include <asm/global_data.h>
+#include <linux/string.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'strcpy(', 'linux/string.h', True)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 

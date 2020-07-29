@@ -9,16 +9,24 @@ import string
 import sys
 import unittest
 
-sys.path.append('/home/sjg/u/tools/patman')
+sys.path.append('/home/sjg/u/tools')
 
-import command
+from patman import command
 
 UBOOT = '__UBOOT__'
+ASM = '__ASSEMBLY__'
 ALPHANUM = set(string.ascii_lowercase + string.ascii_uppercase + string.digits +
                '_')
 
 def not_supported(msg, line):
     print('%s: %s' % (msg, line))
+
+
+def remove_comment(line):
+    pos = line.find('/*')
+    end = line.find('*/')
+    line = line[:pos] + line[end + 2:]
+    return line
 
 
 def process_data(data, func, insert_hdr, ignore_fragments):
@@ -49,50 +57,111 @@ def process_data(data, func, insert_hdr, ignore_fragments):
     # this will ignore PRBUG() when looking for BUG(
     if ignore_fragments:
         found = False
-        for line in lines:
+        in_comment = False
+        for linenum, line in enumerate(lines):
             start = 0
-            while True:
-                pos = line.find(func, start)
-                if pos == -1:
+            stripped = line.strip()
+            if stripped.startswith('/*'):
+                if stripped.endswith('*/'):
+                    line = remove_comment(line)
+                else:
+                    in_comment = True
+                    continue
+            elif '/*' in line:
+                pos = line.find('/*')
+                end = line.find('*/')
+                if end == -1:
+                    in_comment = True
+                    continue
+                else:
+                    line = line[:pos] + line[end + 2:]
+            elif stripped == '*/':
+                if not in_comment:
+                    return 'comment error at %d: %s' % (linenum + 1, line)
+                in_comment = False
+                continue
+            elif stripped.endswith('*/'):
+                if '/*' not in stripped and not in_comment:
+                    return 'comment error at %d: %s' % (linenum + 1, line)
+                in_comment = False
+                continue
+            if not in_comment:
+                while True:
+                    pos = line.find(func, start)
+                    if pos == -1:
+                        break
+                    if pos == 0 or line[pos - 1] not in ALPHANUM:
+                        found = True
+                        break
+                    start = pos + 1
+                if found:
                     break
-                if pos == 0 or line[pos - 1] not in ALPHANUM:
-                    found = True
-                    break
-                start = pos + 1
-            if found:
-                break
         if not found:
             return None
+
+    # If there are no existing #includes to put this new one near, just put it
+    # somewhere near the top of the file
+    insert_early = '#include' not in data
 
     out = []
     done = False
     found_includes = False
     active = True  # We are not in an #ifndef
+    wait_for_endif = False  # We are waiting for an #endif
+    wait_for_header_guard = False
+    found_ifndef = False
+    in_comment = False
     for line in lines:
-        #if line.strip() and not done:
         if not done:
             if line.startswith('#if'):
                 tokens = line.split(' ')
+                wait_for_endif = True
+                active = False
                 if len(tokens) == 2:
                     cond, sym = tokens
                     if sym == UBOOT:
                         if cond == '#ifdef':
                             active = True
+                            wait_for_endif = False
                         elif cond == '#ifndef':
                             active = False
+                            wait_for_endif = False
+                            found_ifndef = True
                         else:
                             not_supported('unknown condition', line)
+                    elif sym == ASM:
+                        if cond == '#ifdef':
+                            active = False
+                            wait_for_endif = False
+                        elif cond == '#ifndef':
+                            active = True
+                            wait_for_endif = False
+                            found_ifndef = True
+                        else:
+                            not_supported('unknown condition', line)
+                    elif (not found_ifndef and cond == '#ifndef'):
+                        wait_for_header_guard = sym
+                        found_ifndef = True
+                else:
+                    # Unknown ifdef so wait for #endif
+                    pass
             elif line.startswith('#else'):
                 if active:
                     out.append(to_add)
                     done = True
-                active = not active
+                if not wait_for_endif:
+                    active = not active
             elif line.startswith('#endif'):
                 # We got to an #endif and didn't add the header yet
                 if active:
                     out.append(to_add)
                     done = True
                 active= True
+                wait_for_endif = False
+            elif (line.startswith('#define') and
+                  line.split(' ')[-1] == wait_for_header_guard):
+                wait_for_header_guard = False
+                active = True
             elif active:
                 if line.startswith('#include'):
                     m = re.match('#include <(.*)>', line)
@@ -123,14 +192,40 @@ def process_data(data, func, insert_hdr, ignore_fragments):
                 elif found_includes:
                     out.append(to_add)
                     done = True
+                elif insert_early and line:
+                    # Don't insert it before or inside a comment
+                    stripped = line.strip()
+                    if not stripped:
+                        pass
+                    if '/*' in line:
+                        pos = line.find('/*')
+                        end = line.find('*/')
+                        if end == -1:
+                            in_comment = True
+                        elif remove_comment(line) and not in_comment:
+                            out.append(to_add)
+                            done = True
+                    elif '*/' in line:
+                        in_comment = False
+
+                    # Don't put it on a line that consists only of a comment
+                    elif not remove_comment(line).strip():
+                        pass
+                    elif not in_comment:
+                        out.append(to_add)
+                        done = True
         out.append(line)
+    if wait_for_header_guard:
+        return 'Never found the end of the header guard'
+    if not done:
+        return 'could not find a suitable place'
     return out
 
-def process_file(fname, func, insert_hdr, skipped, ignore_fragments):
+def process_file(fname, func, insert_hdr, to_check, ignore_fragments):
     skip = False
     suffix = fname[-2:]
     if suffix == '.h':
-        if fname.startswith('include/linux'):
+        if fname.startswith('include/linux') and not 'soc' in fname:
             return
         skip = True
     elif suffix != '.c':
@@ -141,10 +236,13 @@ def process_file(fname, func, insert_hdr, skipped, ignore_fragments):
     if out:
         if skip:
             # Don't process this but indicate that it needs a look
-            if fname in skipped:
-                skiped[fname].append(func)
+            if fname in to_check:
+                to_check[fname].append(func)
             else:
-                skipped[fname] = [func]
+                to_check[fname] = [func]
+                skip = False
+        if skip:
+            pass
         elif isinstance(out, str):
             print('Check %s: %s' % (fname, out))
         else:
@@ -153,7 +251,7 @@ def process_file(fname, func, insert_hdr, skipped, ignore_fragments):
                     print(line, file=fd)
 
 
-def doit(func, insert_hdr, skipped, ignore_fragments):
+def doit(func, insert_hdr, to_check, ignore_fragments):
     fnames = command.Output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
@@ -162,7 +260,7 @@ def doit(func, insert_hdr, skipped, ignore_fragments):
             continue
         if fname.startswith('tools/') or fname.startswith('scripts/'):
             continue
-        process_file(fname, func, insert_hdr, skipped, ignore_fragments)
+        process_file(fname, func, insert_hdr, to_check, ignore_fragments)
 
 def process_files_from(list_fname, insert_hdr):
     with open(list_fname) as fd:
@@ -187,15 +285,15 @@ class HdrConv:
         self.searches.append(['', funcs, ignore_fragments])
 
     def run(self):
-        skipped = {}
-        for prefix, funcs, ignore_fragments in self.searches:
+        to_check = {}
+        for suffix, funcs, ignore_fragments in self.searches:
             for item in funcs.split(','):
-                doit(item + prefix, self.hdr, skipped, ignore_fragments)
-        for fname in sorted(skipped.keys()):
-            print("Skipping file '%s': %s" % (fname, skipped[fname]))
+                doit(item + suffix, self.hdr, to_check, ignore_fragments)
+        for fname in sorted(to_check.keys()):
+            print("Check header '%s': %s" % (fname, to_check[fname]))
 
 
-class TestEntry(unittest.TestCase):
+class Tests(unittest.TestCase):
     def testSimple(self):
         hdrs= '''
 #include <common.h>
@@ -452,6 +550,207 @@ int some_func(void)
 '''
         out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
         self.assertEqual("local include \"local.h\"", out)
+
+    def testInComment(self):
+        """Don't add anything if the match is in a comment"""
+        hdrs= '''
+#include <common.h>
+'''
+        body = '''
+int some_func(void)
+{
+    /*
+     * Some text about BUG() here
+     */
+}
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        self.assertIsNone(out)
+
+    def testInOtherIfdef(self):
+        """Don't add add a header inside an unknown #ifdef"""
+        hdrs= '''
+#include <common.h>
+#if CONFIG_IS_ENABLED(OF_CONTROL)
+#include <fdtdec.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    BUG();
+}
+'''
+        expect = '''
+#include <common.h>
+#if CONFIG_IS_ENABLED(OF_CONTROL)
+#include <fdtdec.h>
+#endif
+#include <linux/bug.h>
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testInAsm(self):
+        """Allow adding a header inside __ASSEMBLY__f"""
+        hdrs= '''
+#ifndef __ASSEMBLY__
+#include <asm/arch/base.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    BUG();
+}
+'''
+        expect = '''
+#ifndef __ASSEMBLY__
+#include <asm/arch/base.h>
+#include <linux/bug.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testHdrGuard(self):
+        """Don't let header guards mess things upf"""
+        hdrs= '''
+#ifndef __PINCTRL_UNIPHIER_H__
+#define __PINCTRL_UNIPHIER_H__
+#include <asm/arch/base.h>
+#endif
+'''
+        body = '''
+int some_func(void)
+{
+    BUG();
+}
+'''
+        expect = '''
+#ifndef __PINCTRL_UNIPHIER_H__
+#define __PINCTRL_UNIPHIER_H__
+#include <asm/arch/base.h>
+#include <linux/bug.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testBadComment(self):
+        """Don't add anything if the match is in a comment"""
+        hdrs= '''
+#include <common.h>
+'''
+        body = '''
+int some_func(void)
+{
+    /*
+     * Some comment here with wrong ending*/
+    BUG();
+}
+'''
+        expect = '''
+#include <common.h>
+#include <linux/bug.h>
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        self.assertIsNotNone(out)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testOneLineComment(self):
+        """Don't add anything if the match is in a comment"""
+        hdrs= '''
+#include <common.h>
+'''
+        body = '''
+int some_func(void)
+{
+    BUG();  /* with comment here */
+}
+'''
+        expect = '''
+#include <common.h>
+#include <linux/bug.h>
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        self.assertIsNotNone(out)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testNoHeaders(self):
+        """Handle the case where there are no existing headers"""
+        hdrs= '''
+/* SPDX */
+/* some other badly formatted comment
+ */
+
+/*
+ * yet another comment
+ */
+
+#define VIRTIO_ID_NET		1 /* virtio net */
+'''
+        body = '''
+#define something    BUG();
+'''
+        expect = '''
+/* SPDX */
+/* some other badly formatted comment
+ */
+
+/*
+ * yet another comment
+ */
+
+#include <linux/bug.h>
+#define VIRTIO_ID_NET		1 /* virtio net */
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
+
+    def testAfterGuard(self):
+        """Handle the case where there are no existing headers"""
+        hdrs= '''
+/* SPDX */
+
+/*
+ * yet another comment
+ */
+
+#ifndef __AM43XX_HARDWARE_AM43XX_H
+#define __AM43XX_HARDWARE_AM43XX_H
+
+/* Module base addresses */
+
+#endif
+'''
+        body = '''
+#define something    BUG();
+'''
+        expect = '''
+/* SPDX */
+
+/*
+ * yet another comment
+ */
+
+#ifndef __AM43XX_HARDWARE_AM43XX_H
+#define __AM43XX_HARDWARE_AM43XX_H
+
+/* Module base addresses */
+
+#include <linux/bug.h>
+#endif
+'''
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        new_hdrs = out[:-len(body.splitlines())]
+        self.assertEqual(expect.splitlines(), new_hdrs)
 
 
 #all = 'ENV_VALID,ENV_INVALID,ENV_REDUND'.split(',')
@@ -762,6 +1061,11 @@ int some_func(void)
 
 #ctags -x --c-types=fp include/log.h |cut -d' ' -f1 >asc
 #ctags -x --c-types=d include/log.h |cut -d' ' -f1 >>asc
+
+#ctags -x --c-types=d include/linux/printk.h |cut -d' ' -f1 |tr '\n' ','; echo
+
+#find . -name '*.c' -or -name '*.h' >cscope.files
+#cscope -b -q -k
 #(for f in `cat asc`; do cscope -d  -L3 $f; done) |cut -d' ' -f1 |sort |uniq
 
 #process_files_from('files', 'log.h')
@@ -772,27 +1076,37 @@ int some_func(void)
 #for item in all.split(','):
 	#doit(item + '(', 'asm/ptrace.h')
 
-def asm_offsets(hdr):
-    hdr.set_hdr('asm-offsets.h')
-    all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
-    all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
-    all += ',CONFIG_SYS_GBL_DATA_OFFSET'
-    hdr.add_text(all)
+#def asm_offsets(hdr):
+    #hdr.set_hdr('asm-offsets.h')
+    #all = 'GENERATED_GBL_DATA_SIZE,GENERATED_BD_INFO_SIZE,GD_SIZE,GD_BD'
+    #all += ',GD_MALLOC_BASE,GD_RELOCADDR,GD_RELOC_OFF,GD_START_ADDR_SP,GD_NEW_GD'
+    #all += ',CONFIG_SYS_GBL_DATA_OFFSET'
+    #hdr.add_text(all)
 
-def bug(hdr):
-    hdr.set_hdr('linux/bug.h')
-    hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
-    hdr.add_text('BUILD_BUG_', ignore_fragments=False)
+#def bug(hdr):
+    #hdr.set_hdr('linux/bug.h')
+    #hdr.add_funcs('BUG,BUG_ON,WARN,WARN_ON,WARN_ON_ONCE,WARN_ONCE')
+    #hdr.add_text('BUILD_BUG_', ignore_fragments=False)
 
-#all = '__stringify'
-#for item in all.split(','):
-	#doit(item + '(', 'linux/stringify.h')
+#def stringify(hdr):
+    #hdr.set_hdr('linux/stringify.h')
+    #hdr.add_funcs('__stringify')
 
-#all = 'udelay,__udelay,mdelay,ndelay'
-#for item in all.split(','):
-	#doit(item + '(', 'linux/delay.h')
+#def delay(hdr):
+    #hdr.set_hdr('linux/delay.h')
+    #hdr.add_funcs('udelay,__udelay,mdelay,ndelay')
 
-#all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
+#def bitops(hdr):
+    #hdr.set_hdr('linux/bitops.h')
+    #all = 'BIT,BITS_TO_LONGS,BIT_MASK,BIT_ULL,BIT_ULL_MASK,BIT_ULL_WORD,BIT_WORD,GENMASK,GENMASK,GENMASK_ULL,__clear_bit,__set_bit,ffs,fls'
+    #hdr.add_funcs(all)
+
+#def ilog2(hdr):
+    #hdr.set_hdr('asm/bitops.h')
+    #all = '__ilog2'
+    #hdr.add_funcs(all)
+
+
 #for item in all.split(','):
 	#doit(item + '(', 'linux/bitops.h')
 
@@ -842,24 +1156,73 @@ def bug(hdr):
 #for item in all.split(','):
 	#doit(item, 'asm/ptrace.h')
 
+def global_data(hdr):
+    hdr.set_hdr('asm/global_data.h')
+    #hdr.add_text('DECLARE_GLOBAL_DATA_PTR')
+    hdr.add_text('gd->')
+    #hdr.add_text('gd_t')
+    #hdr.add_text('global_data,GD_FLG_')
+
+def display_options(hdr):
+    hdr.set_hdr('display_options.h')
+    hdr.add_funcs('display_options,display_options_get_banner,'
+        'display_options_get_banner_priv,print_buffer,print_freq,print_size')
+    #hdr.add_text('gd_t')
+    #hdr.add_text('global_data,GD_FLG_')
+
+def printk(hdr):
+    hdr.set_hdr('linux/printk.h')
+    hdr.add_text('KERN_ALERT,KERN_CONT,KERN_CRIT,KERN_DEBUG,KERN_EMERG,'
+                 'KERN_ERR,KERN_INFO,KERN_NOTICE,KERN_WARNING,'
+                 '__KERNEL_PRINTK__,__printk,no_printk,pr_alert,pr_cont,'
+                 'pr_crit,pr_debug,pr_debug,pr_devel,pr_devel,pr_emerg,'
+                 'pr_err,pr_fmt,pr_info,pr_notice,pr_warn,pr_warning,printk,'
+                 'printk_once')
+
+def time(hdr):
+    hdr.set_hdr('time.h')
+    hdr.add_text('time_after,time_after_eq,time_before,time_before_eq,'
+                 'time_in_range,time_in_range_open')
+    hdr.add_funcs('get_tbclk,get_ticks,get_timer,get_timer_us,'
+                  'get_timer_us_long,ticks2usec,timer_get_us,timer_get_us,'
+                  'timer_test_add_offset,usec2ticks,usec_to_tick,wait_ticks')
+
+def string(hdr):
+    hdr.set_hdr('linux/string.h')
+    hdr.add_funcs('memchr,memchr_inv,memcmp,memcpy,memmove,memscan,memset,'
+                  'strcasecmp,strcat,strchr,strchrnul,strcmp,strcpy,strcspn,'
+                  'strdup,strlcpy,strlen,strncasecmp,strncat,strncmp,strncpy,'
+                  'strndup,strnlen,strpbrk,strrchr,strsep,strspn,strstr,'
+                  'strswab,strtok,ustrtoul,ustrtoull,strdup,strndup')
+
 def run_tests(args):
     sys.argv = [sys.argv[0]] + args
     unittest.main()
 
 def run_conversion():
     hdr = HdrConv()
-    bug(hdr)
+    #bug(hdr)
     #asm_offsets(hdr)
+    #stringify(hdr)
+    #delay(hdr)
+    #bitops(hdr)
+    #ilog2(hdr)
+    #global_data(hdr)
+    #display_options(hdr)
+    #printk(hdr)
+    #time(hdr)
+    string(hdr)
     hdr.run()
 
 
 if __name__ == "__main__":
-    parser = OptionParser()
+    #parser = OptionParser()
 
-    parser.add_option('-t', '--test', action='store_true', dest='test',
-                  default=False, help='run tests')
-    (options, args) = parser.parse_args()
-    if options.test:
-        run_tests(args)
+    #parser.add_option('-t', '--test', action='store_true', dest='test',
+                  #default=False, help='run tests')
+    #(options, args) = parser.parse_args()
+    test = len(sys.argv) > 1 and sys.argv[1] == '-t'
+    if test:
+        run_tests(sys.argv[2:])
     else:
         run_conversion()

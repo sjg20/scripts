@@ -29,7 +29,7 @@ def remove_comment(line):
     return line
 
 
-def process_data(data, func, insert_hdr, ignore_fragments):
+def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
     """Process a C file by adding a header to it if needed
 
     Args:
@@ -139,7 +139,8 @@ def process_data(data, func, insert_hdr, ignore_fragments):
                             found_ifndef = True
                         else:
                             not_supported('unknown condition', line)
-                    elif (not found_ifndef and cond == '#ifndef'):
+                    elif (not found_ifndef and cond == '#ifndef' and
+                          is_hdr_file):
                         wait_for_header_guard = sym
                         found_ifndef = True
                 else:
@@ -230,9 +231,10 @@ def process_file(fname, func, insert_hdr, to_check, ignore_fragments):
         skip = True
     elif suffix != '.c':
         return
+    is_hdr_file = fname.endwith('.h')
     with open(fname, 'r') as fd:
         data = fd.read()
-    out = process_data(data, func, insert_hdr, ignore_fragments)
+    out = process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file)
     if out:
         if skip:
             # Don't process this but indicate that it needs a look
@@ -636,7 +638,8 @@ int some_func(void)
 #include <linux/bug.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True,
+                           is_hdr_file=True)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 
@@ -748,7 +751,8 @@ int some_func(void)
 #include <linux/bug.h>
 #endif
 '''
-        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True)
+        out = process_data(hdrs + body, 'BUG(', 'linux/bug.h', True,
+                           is_hdr_file=True)
         new_hdrs = out[:-len(body.splitlines())]
         self.assertEqual(expect.splitlines(), new_hdrs)
 

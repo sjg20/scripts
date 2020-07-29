@@ -14,7 +14,8 @@ def doit(name, pos, size):
         size: Size to checksum
     """
     base = 0xff000000
-    pos -= base
+    offset = 0x81000
+    pos -= base + offset
     with open(u_boot, 'rb') as fd:
         indata = fd.read()
 
@@ -24,7 +25,7 @@ def doit(name, pos, size):
     with open(outfile, 'wb') as fd:
             fd.write(data)
     print('%s: ' % name, end='', flush=True)
-    os.system('md5sum %s' % outfile)
+    os.system('crc32 %s' % outfile)
 
 
 doit('fsp-m', 0xff220000, 0x59000)

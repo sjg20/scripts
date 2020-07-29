@@ -177,14 +177,19 @@ alias us='set_upstream'
 alias et='git rebase --edit-todo'
 
 
-function fix_kconfig()
+function meld_kconfig()
 {
 	crosfw $1 -T cfg && \
 	make O=/tmp/b/$1 savedefconfig && \
 	meld /tmp/b/$1/defconfig configs/$1_defconfig
 }
 
-alias fix-kconfig='fix_kconfig'
+function fix_kconfig()
+{
+	crosfw $1 -T cfg && \
+	make O=/tmp/b/$1 savedefconfig && \
+	cp /tmp/b/$1/defconfig configs/$1_defconfig
+}
 
 alias pe='git log --oneline -n10 --decorate'
 
@@ -207,11 +212,68 @@ function cg() {
 	grep $1 /tmp/b/$b/.config
 }
 
+function rt_get_name() {
+	name=${1#dm_test_}
+	name=${name#ut_dm_}
+}
+
+# Run a test
 function rt() {
-	/tmp/b/sandbox/u-boot -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
-		-c "ut dm $1"
+	local name
+	rt_get_name $1
+
+	/tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+}
+
+# Run a test in the debugger
+function rtd() {
+	local name
+	rt_get_name $1
+
+	gdb --args /tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+}
+
+# Run a test in sandbox_spl
+function rtspl() {
+	local name
+	rt_get_name $1
+
+	/tmp/b/sandbox_spl/u-boot -T $2 -c "ut dm $name"
+}
+
+# Run a test on sandbox_spl in the debugger
+function rtdspl() {
+	local name
+	rt_get_name $1
+
+	gdb --args /tmp/b/sandbox_spl/u-boot -T $2 -c "ut dm $name"
+}
+
+# Run a test in sandbox_flattree
+function rtft() {
+	local name
+	rt_get_name $1
+
+	/tmp/b/sandbox_flattree/u-boot -T $2 -c "ut dm $name"
+}
+
+# Run a test on sandbox_flattree in the debugger
+function rtdft() {
+	local name
+	rt_get_name $1
+
+	gdb --args /tmp/b/sandbox_flattree/u-boot -T $2 -c "ut dm $name"
 }
 
 alias ga='echo "Git Aliases v1"'
 
 alias hex='printf %x $1'
+
+function lsb() {
+	ls /tmp/b/$b/$@
+}
+
+function eg() {
+	grep $1 include/linux/errno.h
+}
+

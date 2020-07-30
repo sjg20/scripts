@@ -2,7 +2,7 @@
 # Insert a header #include into all files that have a particular function call
 # in them
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 import os
 import re
 import string
@@ -52,6 +52,8 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
         return None
+    #if '#include <linux/err.h>' in data:
+        #return None
     lines = data.splitlines()
 
     # Make sure that at least one match is the full match string. For example
@@ -86,7 +88,7 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
                     return 'comment error at %d: %s' % (linenum + 1, line)
                 in_comment = False
                 continue
-            if not in_comment:
+            if not in_comment and func:
                 while True:
                     pos = line.find(func, start)
                     if pos == -1:
@@ -233,7 +235,8 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
         return 'could not find a suitable place'
     return out
 
-def process_file(fname, func, insert_hdr, to_check, ignore_fragments):
+def process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
+                 all_to_check):
     skip = False
     suffix = fname[-2:]
     if suffix == '.h':
@@ -249,22 +252,24 @@ def process_file(fname, func, insert_hdr, to_check, ignore_fragments):
     if out:
         if skip:
             # Don't process this but indicate that it needs a look
-            if fname in to_check:
-                to_check[fname].append(func)
+            if fname in to_check_hdr:
+                to_check_hdr[fname].append(func)
             else:
-                to_check[fname] = [func]
+                to_check_hdr[fname] = [func]
                 skip = False
+            all_to_check.append(fname)
         if skip:
             pass
         elif isinstance(out, str):
             print('Check %s: %s' % (fname, out))
+            all_to_check.append(fname)
         else:
             with open(fname, 'w') as fd:
                 for line in out:
                     print(line, file=fd)
 
 
-def doit(func, insert_hdr, to_check, ignore_fragments):
+def doit(func, insert_hdr, to_check_hdr, ignore_fragments, all_to_check):
     fnames = command.Output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
@@ -273,7 +278,8 @@ def doit(func, insert_hdr, to_check, ignore_fragments):
             continue
         if fname.startswith('tools/') or fname.startswith('scripts/'):
             continue
-        process_file(fname, func, insert_hdr, to_check, ignore_fragments)
+        process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
+                     all_to_check)
 
 def process_files_from(list_fname, insert_hdr):
     with open(list_fname) as fd:
@@ -297,13 +303,30 @@ class HdrConv:
     def add_text(self, funcs, ignore_fragments=True):
         self.searches.append(['', funcs, ignore_fragments])
 
+    def report(self, to_check_hdr, all_to_check):
+        for fname in sorted(to_check_hdr.keys()):
+            print("Check header '%s': %s" % (fname, to_check_hdr[fname]))
+
+        print()
+        print(' '.join(all_to_check))
+
     def run(self):
-        to_check = {}
+        """Find all files that include the fragments and add the header"""
+        all_to_check = []
+        to_check_hdr = {}
         for suffix, funcs, ignore_fragments in self.searches:
             for item in funcs.split(','):
-                doit(item + suffix, self.hdr, to_check, ignore_fragments)
-        for fname in sorted(to_check.keys()):
-            print("Check header '%s': %s" % (fname, to_check[fname]))
+                doit(item + suffix, self.hdr, to_check_hdr, ignore_fragments,
+                     all_to_check)
+        self.report(to_check_hdr, all_to_check)
+
+    def insert(self, files):
+        """Add the header to all listed files"""
+        all_to_check = []
+        to_check_hdr = {}
+        for fname in files:
+            process_file(fname, None, self.hdr, to_check_hdr, False,
+                         all_to_check)
 
 
 class Tests(unittest.TestCase):
@@ -1246,6 +1269,100 @@ def string(hdr):
                   'strndup,strnlen,strpbrk,strrchr,strsep,strspn,strstr,'
                   'strswab,strtok,ustrtoul,ustrtoull,strdup,strndup')
 
+def uboot(hdr):
+    hdr.set_hdr('asm/u-boot.h')
+    hdr.add_text('IH_ARCH_DEFAULT,bd_info,bd->')
+    hdr.add_funcs('ddr_enable_ecc,disable_addr_trans,enable_addr_trans,'
+                  'ft_fixup_cpu,ft_fixup_num_cores,get_bus_freq,get_ddr_freq,'
+                  'get_ddr_freq,get_immr,get_msr,get_pvr,get_svr,get_sys_info,'
+                  'get_sys_info,in16,in16r,in32,in32r,in8,interrupt_init_cpu,'
+                  'out16,out16r,out32,out32r,out8,ppcDWload,ppcDWstore,ppcDcbf,'
+                  'ppcDcbi,ppcDcbz,ppcSync,print_reginfo,'
+                  'search_exception_table,set_msr,timer_interrupt_cpu,'
+                  'upmconfig')
+    hdr.add_funcs('arch_cpu_init,arch_early_init_r,arch_misc_init,'
+                  'arch_misc_init,arch_misc_init,bad_mode,'
+                  'board_get_usable_ram_top,board_init,board_init,'
+                  'board_init,board_init,board_init_f_r,board_init_f_r,'
+                  'board_init_f_r_trampoline,board_init_f_r_trampoline,'
+                  'board_quiesce_devices,cleanup_before_linux,'
+                  'cleanup_before_linux,cleanup_before_linux,'
+                  'cleanup_before_linux,cleanup_before_linux,'
+                  'cleanup_before_linux,cpu_init_cp15,cpu_init_f,'
+                  'cpu_init_interrupts,cpu_reinit_fpu,default_print_cpuinfo,'
+                  'do_data_abort,do_fiq,do_fiq,do_irq,do_irq,do_not_used,'
+                  'do_prefetch_abort,do_software_interrupt,'
+                  'do_undefined_instruction,exc_handler,except_vec3_generic,'
+                  'except_vec_ejtag_debug,fsp_save_s3_stack,get_tbclk_mhz,'
+                  'i8254_init,init_cache,isa_map_rom,isa_unmap_rom,'
+                  'pci_map_physmem,pci_unmap_physmem,quick_ram_check,rdtsc,'
+                  'reset_misc,reset_timer_masked,'
+                  'riscv_board_reserved_mem_fixup,riscv_fdt_copy_resv_mem_node,'
+                  's_init,sandbox_early_getopt_check,sandbox_exit,'
+                  'sandbox_lcd_sdl_early_init,sandbox_main_loop_init,'
+                  'sandbox_read_fdt_from_file,sandbox_set_enable_pci_map,'
+                  'setup_fsp_gdt,setup_gdt,setup_internal_uart,timer_get_tsc,'
+                  'timer_isr,timer_set_base,timer_set_tsc_base,trap_restore,'
+                  'video_bios_init,x86_cleanup_before_linux,x86_cpu_init_f,'
+                  'x86_cpu_init_tpl,x86_cpu_reinit_f,x86_disable_caches,'
+                  'x86_enable_caches,x86_init_cache')
+
+def stdio(hdr):
+    hdr.set_hdr('stdio.h')
+    hdr.add_funcs('fgetc,fputc,fputs,ftstc,getc,printf,putc,putc,puts,puts,'
+                  'tstc,vprintf,vprintf')
+
+def stdarg(hdr):
+    hdr.set_hdr('stdarg.h')
+    hdr.add_funcs('va_start,va_arg')
+    hdr.add_text('va_list')
+
+def vsprintf(hdr):
+    hdr.set_hdr('vsprintf.h')
+    hdr.add_funcs('panic,panic_str,print_grouped_ull,scnprintf,simple_itoa,'
+                  'simple_strtol,simple_strtoul,simple_strtoull,snprintf,'
+                  'sprintf,str2long,str2off,str_to_upper,strict_strtoul,strmhz,'
+                  'trailing_strtol,trailing_strtoln,vscnprintf,vsnprintf,'
+                  'vsprintf')
+    hdr.add_text('va_list')
+
+def errno(hdr):
+    hdr.set_hdr('errno.h')
+    hdr.add_text('E2BIG,EACCES,EADDRINUSE,EADDRNOTAVAIL,EADV,EAFNOSUPPORT,'
+'EAGAIN,EALREADY,EBADCOOKIE,EBADE,EBADF,EBADFD,EBADHANDLE,EBADMSG,EBADR,'
+'EBADRQC,EBADSLT,EBADTYPE,EBFONT,EBUSY,ECANCELED,ECHILD,ECHRNG,ECOMM,'
+'ECONNABORTED,ECONNREFUSED,ECONNRESET,EDEADLK,EDEADLOCK,EDESTADDRREQ,EDOM,'
+'EDOTDOT,EDQUOT,EEXIST,EFAULT,EFBIG,EHOSTDOWN,EHOSTUNREACH,EHWPOISON,EIDRM,'
+'EILSEQ,EINPROGRESS,EINTR,EINVAL,EIO,EIOCBQUEUED,EISCONN,EISDIR,EISNAM,'
+'EJUKEBOX,EKEYEXPIRED,EKEYREJECTED,EKEYREVOKED,EL2HLT,EL2NSYNC,EL3HLT,EL3RST,'
+'ELIBACC,ELIBBAD,ELIBEXEC,ELIBMAX,ELIBSCN,ELNRNG,ELOOP,EMEDIUMTYPE,EMFILE,'
+'EMLINK,EMSGSIZE,EMULTIHOP,ENAMETOOLONG,ENAVAIL,ENETDOWN,ENETRESET,ENETUNREACH,'
+'ENFILE,ENOANO,ENOBUFS,ENOCSI,ENODATA,ENODEV,ENOENT,ENOEXEC,ENOIOCTLCMD,ENOKEY,'
+'ENOLCK,ENOLINK,ENOMEDIUM,ENOMEM,ENOMSG,ENONET,ENOPKG,ENOPROTOOPT,ENOSPC,ENOSR,'
+'ENOSTR,ENOSYS,ENOTBLK,ENOTCONN,ENOTDIR,ENOTEMPTY,ENOTNAM,ENOTRECOVERABLE,'
+'ENOTSOCK,ENOTSUPP,ENOTSYNC,ENOTTY,ENOTUNIQ,ENXIO,EOPENSTALE,EOPNOTSUPP,'
+'EOVERFLOW,EOWNERDEAD,EPERM,EPFNOSUPPORT,EPIPE,EPROBE_DEFER,EPROTO,'
+'EPROTONOSUPPORT,EPROTOTYPE,ERANGE,ERECALLCONFLICT,EREMCHG,EREMOTE,EREMOTEIO,'
+'ERESTART,ERESTARTNOHAND,ERESTARTNOINTR,ERESTARTSYS,ERESTART_RESTARTBLOCK,'
+'ERFKILL,EROFS,ESERVERFAULT,ESHUTDOWN,ESOCKTNOSUPPORT,ESPIPE,ESRCH,ESRMNT,'
+'ESTALE,ESTRPIPE,ETIME,ETIMEDOUT,ETOOMANYREFS,ETOOSMALL,ETXTBSY,EUCLEAN,'
+'EUNATCH,EUSERS,EWOULDBLOCK,EXDEV,EXFULL')
+
+def kernel(hdr):
+    hdr.set_hdr('linux/kernel.h')
+    hdr.add_funcs('ALIGN,ALIGN_DOWN,ARRAY_SIZE,DIV_ROUND_CLOSEST,'
+'DIV_ROUND_CLOSEST_ULL,DIV_ROUND_DOWN_ULL,DIV_ROUND_UP,DIV_ROUND_UP_SECTOR_T,'
+'DIV_ROUND_UP_SECTOR_T,DIV_ROUND_UP_ULL,FIELD_SIZEOF,'
+'abs,abs64,check_member,clamp,clamp_t,clamp_val,'
+'container_of,lower_32_bits,max,max3,max_t,min,min3,min_not_zero,min_t,'
+'mult_frac,round_down,round_up,rounddown,roundup,swap,upper_32_bits')
+    hdr.add_text('INT32_MAX,INT_MAX,INT_MIN,'
+'IS_ALIGNED,LLONG_MAX,LLONG_MIN,LONG_MAX,LONG_MIN,PTR_ALIGN,REPEAT_BYTE,ROUND,'
+'S16_MAX,S16_MIN,S32_MAX,S32_MIN,S64_MAX,S64_MIN,S8_MAX,S8_MIN,SHRT_MAX,'
+'SHRT_MIN,SIZE_MAX,STACK_MAGIC,U16_MAX,U32_MAX,U64_MAX,U8_MAX,UINT32_MAX,'
+'UINT64_MAX,UINT_MAX,ULLONG_MAX,ULONG_MAX,USHRT_MAX')
+
+
 def run_tests(args):
     sys.argv = [sys.argv[0]] + args
     unittest.main()
@@ -1262,18 +1379,32 @@ def run_conversion():
     #display_options(hdr)
     #printk(hdr)
     #time(hdr)
-    string(hdr)
+    #string(hdr)
+    #uboot(hdr)
+    #stdio(hdr)
+    #stdarg(hdr)
+    #vsprintf(hdr)
+    #errno(hdr)
+    kernel(hdr)
     hdr.run()
 
 
 if __name__ == "__main__":
-    #parser = OptionParser()
+    parser = ArgumentParser()
 
-    #parser.add_option('-t', '--test', action='store_true', dest='test',
-                  #default=False, help='run tests')
-    #(options, args) = parser.parse_args()
-    test = len(sys.argv) > 1 and sys.argv[1] == '-t'
-    if test:
+    parser.add_argument('-i', '--insert', type=str,
+                        help='Insert header in a list of files')
+    parser.add_argument('-t', '--test', action='store_true', default=False,
+                        help='run tests')
+    parser.add_argument('files', nargs='*')
+    args = parser.parse_args()
+    opt = None
+    if args.test:
         run_tests(sys.argv[2:])
+    elif args.insert:
+        hdr = HdrConv()
+        hdr.set_hdr(args.insert)
+        hdr.insert(args.files)
     else:
-        run_conversion()
+        pass
+        #run_conversion()

@@ -313,6 +313,16 @@ function rtdft() {
 	gdb --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
 }
 
+function rtd() {
+	gdb --args /tmp/b/sandbox/u-boot -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
+		-c "ut dm $1"
+}
+
+function rtv() {
+	/tmp/b/sandbox/u-boot -v -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
+		-c "ut dm $1"
+}
+
 alias ga='echo "Git Aliases v1"'
 
 alias hex='printf %x $1'

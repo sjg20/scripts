@@ -30,7 +30,8 @@ def remove_comment(line):
     return line
 
 
-def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
+def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False,
+                 skip_if_hdrs=None):
     """Process a C file by adding a header to it if needed
 
     Args:
@@ -40,6 +41,9 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
         ignore_fragments: True to check that the file actually has the
             identifier. This will ignore 'PRBUG(' when looking for 'BUG(', for
             example
+        is_hdr_file: True if this is a header file
+        skip_if_hdrs: List of header files that already include insert_hdr
+            transitively, or None
 
     Returns:
         One of:
@@ -48,11 +52,19 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
            str if the header was not added and there is a message
     """
     if func and func not in data:
-        return None
+        return ">'%s' not in file" % func
     to_add = '#include <%s>' % insert_hdr
     if to_add in data:
-        return None
+        return ">'%s' already in file" % to_add
+    if skip_if_hdrs:
+        for hdr in skip_if_hdrs:
+            if hdr in data:
+                return ">skipping due to '%s'" % hdr
     #if '#include <linux/err.h>' in data:
+        #return None
+    #if '#include <linux/log2.h>' in data:
+        #return None
+    #if '#include <linux/kernel.h>' in data:
         #return None
     lines = data.splitlines()
 
@@ -110,6 +122,9 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
     done = False
     found_includes = False
     active = True  # We are not in an #ifndef
+    wait_for_asm = False
+    if is_hdr_file and '__ASSEMBLY__' in data:
+        wait_for_asm = True # Wait for __ASSEMBLY__ ifdef before including
     wait_for_endif = False  # We are waiting for an #endif
     wait_for_header_guard = False
     found_ifndef = False
@@ -117,7 +132,7 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
     for line in lines:
         if not done:
             if line.startswith('#if'):
-                tokens = line.split(' ')
+                tokens = line.split()
                 wait_for_endif = True
                 active = False
                 if len(tokens) == 2:
@@ -133,6 +148,7 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
                         else:
                             not_supported('unknown condition', line)
                     elif sym == ASM:
+                        wait_for_asm = False
                         if cond == '#ifdef':
                             active = False
                             wait_for_endif = False
@@ -173,10 +189,10 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
                 active= True
                 wait_for_endif = False
             elif (line.startswith('#define') and
-                  line.split(' ')[-1] == wait_for_header_guard):
+                  line.split()[1] == wait_for_header_guard):
                 wait_for_header_guard = False
                 active = True
-            elif active:
+            elif active and not wait_for_asm:
                 if line.startswith('#include'):
                     m = re.match('#include <(.*)>', line)
                     if m:
@@ -203,7 +219,8 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
                             return ("local include %s" % inc_name)
                         done = True
                     found_includes = True
-                elif found_includes:
+                elif (found_includes or 'struct' in line or func in line or
+                      'enum' in line or 'void' in line):
                     out.append(to_add)
                     done = True
                 elif insert_early and line:
@@ -236,19 +253,26 @@ def process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file=False):
     return out
 
 def process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
-                 all_to_check):
+                 all_to_check, skip_if_hdrs):
     skip = False
+    show_only = None
+    #show_only = 'fs/btrfs/inode.c':
     suffix = fname[-2:]
-    if suffix == '.h':
+    is_hdr_file = suffix == '.h'
+    if is_hdr_file:
         if fname.startswith('include/linux') and not 'soc' in fname:
             return
-        skip = True
+        #skip = True
     elif suffix != '.c':
         return
-    is_hdr_file = fname.endswith('.h')
     with open(fname, 'r') as fd:
         data = fd.read()
-    out = process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file)
+    if show_only:
+        if fname != show_only:
+            return
+        print('fname', fname)
+    out = process_data(data, func, insert_hdr, ignore_fragments, is_hdr_file,
+                       skip_if_hdrs)
     if out:
         if skip:
             # Don't process this but indicate that it needs a look
@@ -261,15 +285,17 @@ def process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
         if skip:
             pass
         elif isinstance(out, str):
-            print('Check %s: %s' % (fname, out))
-            all_to_check.append(fname)
+            if show_only or not out.startswith('>'): # minor issue
+                print('Check %s: %s' % (fname, out))
+                all_to_check.append(fname)
         else:
             with open(fname, 'w') as fd:
                 for line in out:
                     print(line, file=fd)
 
 
-def doit(func, insert_hdr, to_check_hdr, ignore_fragments, all_to_check):
+def doit(func, insert_hdr, to_check_hdr, ignore_fragments, all_to_check,
+         skip_if_hdrs):
     fnames = command.Output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
@@ -279,7 +305,7 @@ def doit(func, insert_hdr, to_check_hdr, ignore_fragments, all_to_check):
         if fname.startswith('tools/') or fname.startswith('scripts/'):
             continue
         process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
-                     all_to_check)
+                     all_to_check, skip_if_hdrs)
 
 def process_files_from(list_fname, insert_hdr):
     with open(list_fname) as fd:
@@ -293,9 +319,18 @@ class HdrConv:
     def __init__(self):
         self.hdr = None
         self.searches = []
+        self.skip_if_hdrs = None
 
     def set_hdr(self, hdr):
         self.hdr = hdr
+
+    def skip_if(self, hdrs):
+        """Set the header files that transitively include self.hdr
+
+        Args:
+            hdrs: List of headers
+        """
+        self.skip_if_hdrs = hdrs
 
     def add_funcs(self, funcs, ignore_fragments=True):
         self.searches.append(['(', funcs, ignore_fragments])
@@ -317,7 +352,7 @@ class HdrConv:
         for suffix, funcs, ignore_fragments in self.searches:
             for item in funcs.split(','):
                 doit(item + suffix, self.hdr, to_check_hdr, ignore_fragments,
-                     all_to_check)
+                     all_to_check, self.skip_if_hdrs)
         self.report(to_check_hdr, all_to_check)
 
     def insert(self, files):
@@ -1232,10 +1267,10 @@ strcpy(a, b);
 
 def global_data(hdr):
     hdr.set_hdr('asm/global_data.h')
-    #hdr.add_text('DECLARE_GLOBAL_DATA_PTR')
+    hdr.add_text('DECLARE_GLOBAL_DATA_PTR')
     hdr.add_text('gd->')
-    #hdr.add_text('gd_t')
-    #hdr.add_text('global_data,GD_FLG_')
+    hdr.add_text('gd_t')
+    hdr.add_text('global_data,GD_FLG_')
 
 def display_options(hdr):
     hdr.set_hdr('display_options.h')
@@ -1327,7 +1362,7 @@ def vsprintf(hdr):
     hdr.add_text('va_list')
 
 def errno(hdr):
-    hdr.set_hdr('errno.h')
+    hdr.set_hdr('linux/errno.h')
     hdr.add_text('E2BIG,EACCES,EADDRINUSE,EADDRNOTAVAIL,EADV,EAFNOSUPPORT,'
 'EAGAIN,EALREADY,EBADCOOKIE,EBADE,EBADF,EBADFD,EBADHANDLE,EBADMSG,EBADR,'
 'EBADRQC,EBADSLT,EBADTYPE,EBFONT,EBUSY,ECANCELED,ECHILD,ECHRNG,ECOMM,'
@@ -1362,6 +1397,38 @@ def kernel(hdr):
 'SHRT_MIN,SIZE_MAX,STACK_MAGIC,U16_MAX,U32_MAX,U64_MAX,U8_MAX,UINT32_MAX,'
 'UINT64_MAX,UINT_MAX,ULLONG_MAX,ULONG_MAX,USHRT_MAX')
 
+def compiler(hdr):
+    hdr.set_hdr('compiler.h')
+    hdr.add_text('notrace,__weak,__packed,__iomem')
+
+def bool(hdr):
+    hdr.set_hdr('stdbool.h')
+    hdr.add_text('bool')
+
+def types(hdr):
+    hdr.set_hdr('linux/types.h')
+    hdr.add_text('__be16,__be32,__be64,__le16,__le32,__le64,__sum16,__wsum,'
+'caddr_t,clock_t,daddr_t,dev_t,fd_set,gfp_t,gid16_t,gid_t,gid_t,ino_t,int16_t,'
+'int32_t,int64_t,int8_t,key_t,loff_t,mode_t,nlink_t,off_t,old_gid_t,old_uid_t,'
+'pid_t,ptrdiff_t,resource_size_t,size_t,ssize_t,suseconds_t,time_t,u_char,'
+'u_int,u_int16_t,u_int32_t,u_int64_t,u_int8_t,u_long,u_short,uchar,uid16_t,'
+'uid_t,uid_t,uint,uint16_t,uint32_t,uint64_t,uint8_t,uintptr_t,ulong,ushort,'
+'vu_char,vu_long,vu_short')
+
+def asm_types(hdr):
+    hdr.set_hdr('asm/types.h')
+    hdr.skip_if(['linux/types.h'])
+    hdr.add_text('phys_addr_t')
+
+def kernel_types(hdr):
+    hdr.set_hdr('asm/types.h')
+    hdr.skip_if(['linux/types.h'])
+    hdr.add_text('u8,u16,u32')
+
+#def asm_global_data(hdr):
+    #hdr.set_hdr('asm/global_data.h')
+    #hdr.add_text('GD_FLG,gd->,gd_board_type')
+
 
 def run_tests(args):
     sys.argv = [sys.argv[0]] + args
@@ -1385,7 +1452,36 @@ def run_conversion():
     #stdarg(hdr)
     #vsprintf(hdr)
     #errno(hdr)
+    #kernel(hdr)
+    #compiler(hdr)
+
+    '''
+    hdr = HdrConv()
+    bool(hdr)
+    hdr.run()
+
+    hdr = HdrConv()
     kernel(hdr)
+    hdr.run()
+
+    hdr = HdrConv()
+    compiler(hdr)
+    hdr.run()
+
+    hdr = HdrConv()
+    types(hdr)
+    hdr.run()
+
+    hdr = HdrConv()
+    asm_types(hdr)
+    hdr.run()
+
+    hdr = HdrConv()
+    kernel_types(hdr)
+    hdr.run()
+    '''
+    hdr = HdrConv()
+    global_data(hdr)
     hdr.run()
 
 
@@ -1406,5 +1502,4 @@ if __name__ == "__main__":
         hdr.set_hdr(args.insert)
         hdr.insert(args.files)
     else:
-        pass
-        #run_conversion()
+        run_conversion()

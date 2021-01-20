@@ -38,7 +38,7 @@ get_branch() {
 }
 
 # show changed made in top commit (useful when working through a rebase -i)
-alias dh='git diff HEAD~'
+alias dh='git --no-pager diff HEAD~'
 
 # move to next commit during a rebase
 alias rc='git rebase --continue'
@@ -111,7 +111,7 @@ function diff_branch()
 	git diff $1 --stat -- $(next_commit_changes)
 
 	# now run meld on each diff
-	git diff $1 -- $(next_commit_changes)
+	git --no-pager diff $1 -- $(next_commit_changes)
 }
 
 # db <branch>
@@ -132,11 +132,11 @@ alias gp='git cherry-pick'
 
 function show_commit()
 {
-	git diff $1~..$1
+	git --no-pager diff $1~..$1
 }
 alias sd='show_commit'
-alias gd='git diff'
-alias gdc='git diff --cached'
+alias gd='git --no-pager diff'
+alias gdc='git --no-pager diff --cached'
 alias gc='git commit'
 alias co='git checkout'
 
@@ -225,12 +225,20 @@ function rt() {
 	/tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
 }
 
+# Run a test verbosely
+function rtv() {
+	local name
+	rt_get_name $1
+
+	/tmp/b/sandbox/u-boot -v -T $2 -c "ut dm $name"
+}
+
 # Run a test in the debugger
 function rtd() {
 	local name
 	rt_get_name $1
 
-	gdb --args /tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+	gdb-multiarch --args /tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
 }
 
 # Run a test in sandbox_spl
@@ -238,7 +246,7 @@ function rtspl() {
 	local name
 	rt_get_name $1
 
-	/tmp/b/sandbox_spl/u-boot -T $2 -c "ut dm $name"
+	/tmp/b/sandbox_spl/spl/u-boot-spl -u
 }
 
 # Run a test on sandbox_spl in the debugger
@@ -246,7 +254,7 @@ function rtdspl() {
 	local name
 	rt_get_name $1
 
-	gdb --args /tmp/b/sandbox_spl/u-boot -T $2 -c "ut dm $name"
+	gdb-multiarch --args /tmp/b/sandbox_spl/spl/u-boot-spl -u
 }
 
 # Run a test in sandbox_flattree
@@ -277,3 +285,51 @@ function eg() {
 	grep $1 include/linux/errno.h
 }
 
+# Run a pytest on sandbox
+# $1: Name of test to run (optional, else run all)
+
+function pyt {
+	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${1:+"-k $1"}
+}
+
+# Run a pytest on a baord
+# $b is the board
+# $1: Name of test to run  (optional, else run all SPL tests)
+function pyt_any {
+	local run
+
+	if [ "$1" = "-b" ]; then
+		crosfw $b || return 1
+		shift
+	fi
+
+	[[ -z "$run" ]] && run='test_ofplatdata or test_handoff or test_spl'
+	test/py/test.py -B $b --build-dir /tmp/b/$b -k "$run"
+}
+
+# Run a pytest on sandbox_spl
+# $1: Name of test to run  (optional, else run all SPL tests)
+function pytspl {
+	b=sandbox_spl
+	pyt_any "$@"
+}
+
+# Run a pytest on sandbox_noinst
+# $1: Name of test to run  (optional, else run all SPL tests)
+function pytni {
+	b=sandbox_noinst
+	pyt_any "$@"
+}
+
+# Check which of the top 5 commits in a branch are in master
+function gmb() {
+	branch=$1
+
+	git log -n5 --format=%s $branch | while read c; do
+		if git log --oneline -n10000 us/master | grep -q "$c"; then
+			echo -e "\e[92mFound: $c"
+		else
+			echo -e "\e[91mNot found: $c"
+		fi
+	done
+}

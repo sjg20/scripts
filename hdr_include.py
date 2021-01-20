@@ -1749,3 +1749,23 @@ if __name__ == "__main__":
 #all = 'malloc,free,calloc,memalign,realloc'
 #for item in all.split(','):
 	#doit(item + '(', 'malloc.h')
+
+#all = 'malloc,free,calloc,memalign,realloc'
+#for item in all.split(','):
+	#doit(item + '(', 'malloc.h')
+
+#all = 'IS_ERR_VALUE,ERR_PTR,PTR_ERR,IS_ERR,IS_ERR_OR_NULL'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/err.h')
+
+#all = 'EXPORT_SYMBOL_GPL'
+#for item in all.split(','):
+	#doit(item + '(', 'linux/compat.h')
+
+#all = 'dev_dbg,dev_err,dev_notice,dev_printk,dev_warn,dev_notice,dev_info'
+#for item in all.split(','):
+	#doit(item + '(', 'dm/device_compat.h')
+
+#all = 'devm_kzalloc,devm_kcalloc,kfree,kzalloc,devm_kmalloc'
+#for item in all.split(','):
+	#doit(item + '(', 'dm/devres.h')

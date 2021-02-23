@@ -363,6 +363,10 @@ function pytft {
 	test/py/test.py -B sandbox_flattree --build-dir /tmp/b/sandbox_flattree ${tests:+"-k $tests"} $@
 }
 
+function pytft {
+	test/py/test.py -B sandbox_flattree --build-dir /tmp/b/sandbox_flattree ${1:+"-k $1"}
+}
+
 # Run a pytest on a baord
 # $b is the board
 # $1: Name of test to run  (optional, else run all SPL tests)

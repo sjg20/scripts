@@ -246,7 +246,7 @@ function rtspl() {
 	local name
 	rt_get_name $1
 
-	/tmp/b/sandbox_spl/spl/u-boot-spl -u
+	/tmp/b/sandbox_spl/spl/u-boot-spl -u -c "exit"
 }
 
 # Run a test on sandbox_spl in the debugger
@@ -331,5 +331,17 @@ function gmb() {
 		else
 			echo -e "\e[91mNot found: $c"
 		fi
+	done
+	echo -n -e "\e[0m"
+}
+
+function list_not_applied() {
+	# a simple 'git branch' shows a * against the current branch, which
+	# causes all files in the current dir to be included in the list. So
+	# set the format directly.
+	for b in $(gb --format='%(refname:short)'); do
+		echo;
+		echo "Branch: $b";
+		gmb $b;
 	done
 }

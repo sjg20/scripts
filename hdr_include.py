@@ -367,6 +367,7 @@ class HdrConv:
             process_file(fname, None, self.hdr, to_check_hdr, False,
                          all_to_check)
 
+
 class Tests(unittest.TestCase):
     def testSimple(self):
         hdrs= '''
@@ -873,49 +874,6 @@ def process_files_from(list_fname, insert_hdr):
             process_file(fname, None, insert_hdr)
 
 
-class HdrConv:
-    def __init__(self):
-        self.hdr = None
-        self.searches = []
-
-    def set_hdr(self, hdr):
-        self.hdr = hdr
-
-    def add_funcs(self, funcs):
-        self.searches.append(['(', funcs])
-
-    def add_text(self, funcs):
-        self.searches.append(['', funcs])
-
-    def run(self):
-        for prefix, funcs in self.searches:
-            for item in funcs.split(','):
-                doit(item + prefix, self.hdr)
-
-class TestEntry(unittest.TestCase):
-    def testSimple(self):
-        hdrs= '''
-#include <common.h>
-#include <stdio.h>
-
-'''
-        body = '''
-int some_func(void)
-{
-    abs(123);
-}
-'''
-        expect = '''
-#include <common.h>
-#include <abs.h>
-#include <stdio.h>
-
-'''
-        out = process_data(hdrs + body, 'abs(', 'abs.h')
-        new_hdrs = out[:-len(expect.splitlines())]
-        self.assertEqual(expect.splitlines(), new_hdrs)
-
-
 #all = 'ENV_VALID,ENV_INVALID,ENV_REDUND'.split(',')
 #all = 'env_op_create,env_op_delete,env_op_overwrite'.split(',')
 #for item in all:
@@ -1193,41 +1151,7 @@ int some_func(void)
 
 #all = 'android_image_check_header,android_image_get_end,android_image_get_kcomp,android_image_get_kernel,android_image_get_kload,android_image_get_ramdisk,android_image_get_second,android_print_contents,board_fit_config_name_match,board_fit_image_post_process,boot_fdt_add_mem_rsv_regions,boot_get_cmdline,boot_get_fdt,boot_get_fdt_fit,boot_get_fpga,boot_get_kbd,boot_get_loadable,boot_get_ramdisk,boot_get_setup,boot_get_setup_fit,boot_ramdisk_high,boot_relocate_fdt,booti_setup,bootz_setup,calculate_hash,env_get_bootm_low,env_get_bootm_mapsize,env_get_bootm_size,fdt_getprop_u32,fit_add_verification_data,fit_all_image_verify,fit_check_format,fit_check_ramdisk,fit_conf_find_compat,fit_conf_get_node,fit_conf_get_prop_node,fit_conf_get_prop_node_count,fit_conf_get_prop_node_index,fit_config_verify,fit_find_config_node,fit_get_desc,fit_get_end,fit_get_name,fit_get_node_from_config,fit_get_size,fit_get_subimage_count,fit_get_timestamp,fit_image_check_arch,fit_image_check_comp,fit_image_check_os,fit_image_check_sig,fit_image_check_target_arch,fit_image_check_type,fit_image_get_arch,fit_image_get_comp,fit_image_get_data,fit_image_get_data_and_size,fit_image_get_data_offset,fit_image_get_data_position,fit_image_get_data_size,fit_image_get_entry,fit_image_get_load,fit_image_get_node,fit_image_get_os,fit_image_get_type,fit_image_hash_get_algo,fit_image_hash_get_value,fit_image_load,fit_image_print,fit_image_verify,fit_image_verify_required_sigs,fit_image_verify_with_data,fit_parse_conf,fit_parse_subimage,fit_print_contents,fit_region_make_list,fit_set_timestamp,genimg_get_arch_id,genimg_get_arch_name,genimg_get_arch_short_name,genimg_get_cat_count,genimg_get_cat_desc,genimg_get_cat_name,genimg_get_cat_short_name,genimg_get_comp_id,genimg_get_comp_name,genimg_get_comp_short_name,genimg_get_format,genimg_get_kernel_addr,genimg_get_kernel_addr_fit,genimg_get_os_id,genimg_get_os_name,genimg_get_os_short_name,genimg_get_type_id,genimg_get_type_name,genimg_get_type_short_name,genimg_has_config,genimg_print_size,genimg_print_time,get_table_entry_id,get_table_entry_name,image_check_arch,image_check_dcrc,image_check_hcrc,image_check_magic,image_check_os,image_check_target_arch,image_check_type,image_decomp,image_get_checksum_algo,image_get_crypto_algo,image_get_data,image_get_data_size,image_get_header_size,image_get_host_blob,image_get_image_end,image_get_image_size,image_get_name,image_get_padding_algo,image_multi_count,image_multi_getimg,image_print_contents,image_set_host_blob,image_set_name,image_setup_libfdt,image_setup_linux,image_source_script,memmove_wd'
 #for item in all.split(','):
-	#doit(item + '(', 'image.h')
-
-#all = 'image_get_magic'
-#for item in all.split(','):
-	#doit(item + '(', 'image.h')
-
-#all = 'IH_ARCH_,IH_OS_,IH_MAGIC,bootm_headers_t,struct image_header'
-#for item in all.split(','):
-	#doit(item, 'image.h')
-
-#all = 'struct lmb'
-#for item in all.split(','):
-	#doit(item, 'lmb.h')
-
-#all = 'fdt_status_,fdt_find_,fdt_fixup_'
-#for item in all.split(','):
-	#doit(item, 'fdt_support.h')
-
-#all = 'fdt_for_each_subnode,fdt_node_offset_by_compat_reg,fdt_set_phandle'
-#all += ',fdt_alloc_phandle'
-#for item in all.split(','):
-	#doit(item + '(', 'linux/libfdt.h')
-
-#all = 'fdt_for_'
-#for item in all.split(','):
-	#doit(item, 'linux/libfdt.h')
-
-#all = 'hash_block'
-#for item in all.split(','):
-	#doit(item + '(', 'hash.h')
-
-
-#all = 'fdt_node_'
-#for item in all.split(','):
-	#doit(item, 'linux/libfdt.h')
+	#doit(item + '(', 'bootstage.h')
 
 #all = 'arch_cpu_init,arch_cpu_init_dm,arch_early_init_r,arch_fsp_init,arch_reserve_stacks,arch_setup_gd,board_early_init_f,board_early_init_r,board_fix_fdt,board_get_usable_ram_top,board_init_f,board_init_f_alloc_reserve,board_init_f_init_reserve,board_init_r,board_late_init,board_postclk_init,checkboard,cpu_init_r,dram_init,dram_init_banksize,embedded_dtb_select,get_effective_memsize,get_ram_size,init_cache_f_r,init_func_vid,last_stage_init,mac_read_from_eeprom,mach_cpu_init,main_loop,misc_init_f,misc_init_r,pci_init,pci_init_board,print_cpuinfo,relocate_code,relocate_code,reserve_mmu,set_cpu_clk_info,show_board_info,testdram,timer_init,trap_init,update_flash_size'
 #for item in all.split(','):
@@ -1270,33 +1194,11 @@ int some_func(void)
 
 #all = 'log'
 #for item in all.split(','):
-	#doit(item, 'init.h')
-
-#all = 'log,debug,assert,warn_non_spl,assert_noisy,log_ret,log_msg_ret,log_init'
-#all += ',log_err,log_warning,log_notice,log_info,log_debug,log_content,log_io'
-#all += ',debug_cond'
-#for item in all.split(','):
-	#print(item)
 	#doit(item + '(', 'log.h')
-
-#all = 'CMD_RET_,U_BOOT_CMD'
-#for item in all.split(','):
-	#doit(item, 'command.h')
-#all = 'fixup_cmdtable,cmd_auto_complete'
-#all += ',_do_help,board_run_command,bootm_maybe_autostart,bootm_maybe_autostart,cmd_always_repeatable,cmd_auto_complete,cmd_discard_repeatable,cmd_get_data_size,cmd_is_repeatable,cmd_never_repeatable,cmd_process,cmd_process_error,cmd_usage,common_diskboot,complete_subcmdv,do_bootd,do_booti,do_bootm,do_bootz,do_env_print_efi,do_env_set_efi,do_go_exec,do_poweroff,do_reset,do_run,find_cmd,find_cmd_tbl,fixup_cmdtable,run_command,run_command_list,run_command_repeatable,var_complete'
-#for item in all.split(','):
-	#doit(item + '(', 'command.h')
-
-#all = 'env_set,env_relocate,env_get,env_set_addr'
-#for item in all.split(','):
-	#doit(item + '(', 'env.h')
-
-#all = 'EFI_ENTRY'
-#for item in all.split(','):
-	#doit(item, 'efi_loader.h')
 
 #ctags -x --c-types=fp include/log.h |cut -d' ' -f1 >asc
 #ctags -x --c-types=d include/log.h |cut -d' ' -f1 >>asc
+
 #(for f in `cat asc`; do cscope -d  -L3 $f; done) |cut -d' ' -f1 |sort |uniq
 
 #process_files_from('files', 'log.h')

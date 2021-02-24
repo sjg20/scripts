@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 """Utility to print stats for people in a particular format:
 
@@ -14,11 +14,28 @@ It needs some tools:
 
 git clone sso://user/lannm/monorail-cli
 
+make it PATH discoverable by putting it in your ~/bin / ~/cmd / directory
+  ln -s tools/monorail-cli/monorail.py ~/cmdmono/monorail
+
+run it once, and get your credentials set up:
+  monorail list -s all -n 10000 -q "reporter:sjg opened>2019/09/01"
+
 
 2. Bugged
 
 sudo apt-get install bugged
 
+3. clsearch
+
+sudo apt-get install clsearch
+
+4. Add ssh keys to coreboot
+
+https://review.coreboot.org/settings/#SSHKeys
+https://www.mediawiki.org/wiki/Gerrit/Tutorial#Set_Up_SSH_Keys_in_Gerrit
+ensure you have a username selected (matching your username on your local box)
+
+5. Ensure your x20 directory is permissioned correctly (ugo+rx)
 
 
 Other things:
@@ -56,14 +73,17 @@ import argparse
 from collections import namedtuple
 from contextlib import contextmanager
 from datetime import date
+import json
 import os
+import re
 from sets import Set
 import subprocess
 import sys
+import urllib
 import unittest
 
 ############## Configuration here: ###############
-start_date = '2019-09-01'
+start_date = '2019-10-01'
 
 # Leave this unset to search until now
 #end_date = '2017-11-26'
@@ -96,13 +116,20 @@ WHICH_CLS.add(CL_GOOGLE3)
 WHICH_CLS.add(CL_ANDROID)
 WHICH_CLS.add(CL_AOSP)
 
-  
+CLSTATS_MAP = {
+  'chrome': CL_PUBLIC,
+  'chrome-internal': CL_PRIVATE,
+  'critique': CL_GOOGLE3,
+  'android-internal': CL_ANDROID,
+  'android': CL_AOSP,
+}
+
 #testing = True
 testing = False
 
 if testing:
   start_date = '2017-09-01'
-  
+
 end_date = None
 
 Info = namedtuple('Info', ['count', 'query'])
@@ -370,7 +397,7 @@ def run_cmd(cmd, use_ssh=False, cros_sdk=False):
 
     if use_ssh:
       lines = [line for line in lines if 'change I' in line]
-  
+
     return lines
 
 # Show some CLs
@@ -398,9 +425,17 @@ def get_cls(terms, cl_type):
   lines = run_cmd(cmd, cl_type == CL_COREBOOT, cros_sdk=cl_type != CL_GOOGLE3)
   return Info(len(lines), terms)
 
-def do_all_cls(stats, user, stat_set):
+def do_all_cls(stats, user, stat_set, clstats):
     for cl_type in (CL_PUBLIC, CL_PRIVATE, CL_COREBOOT, CL_GOOGLE3, CL_ANDROID, CL_AOSP):
       if cl_type in stat_set:
+        if user in clstats and cl_type in clstats[user]:
+          cache = clstats[user][cl_type]
+          stats[cl_type]['submitted'] = Info(cache['author'],
+                                             cache['query_author'])
+          stats[cl_type]['reviewed'] =  Info(cache['review'],
+                                             cache['query_review'])
+          continue
+
         if cl_type == CL_GOOGLE3:
           stats[cl_type]['submitted'] = get_cls(['a:%s' % user, 'from:%s' % slash_date], cl_type)
           stats[cl_type]['reviewed'] = get_cls(['r:%s' % user, 'from:%s' % slash_date], cl_type)
@@ -449,7 +484,7 @@ def GetMarkup(html, count, label, name, fmt, stats, cl_type):
     return ''
   query = stat[name].query
   #print 'query', query
-  query = query.replace(' ', '+')
+  query = urllib.quote_plus(query)
   if html:
     #print 'fmt', fmt
     #print 'query', query
@@ -525,12 +560,12 @@ def GetBugMessage(stats, label, html=True):
         msg = ' (%s)' % msg
     return private + public, msg
 
-def GetStatsText(user, stat_set):
+def GetStatsText(user, stat_set, clstats):
   stats = {}
   for stat in tuple(BUG_TYPES) + tuple(CL_TYPES):
     stats[stat] = {}
   if CLS in stat_set:
-    do_all_cls(stats, user, WHICH_CLS)
+    do_all_cls(stats, user, WHICH_CLS, clstats)
     total_submitted, msg_submitted = GetClMessage(stats, user, 'submitted')
     total_reviewed, msg_reviewed = GetClMessage(stats, user, 'reviewed')
   if BUGS in stat_set:
@@ -577,24 +612,85 @@ def InCrosTree():
     cur = os.path.dirname(cur)
 
 
+def ProdaccessOK():
+  return run_cmd(['prodcertstatus', '--simple_output'])[0] == '1'
+
+
+def RunClstats(users, start_date, end_date):
+  if not end_date:
+    end_date = date.today().isoformat()
+  pwd = os.getcwd()
+  match = re.match('^(/google/src/cloud/.*/google3)', sys.argv[0])
+  if match:
+    os.chdir(match.group(1))
+  else:
+    os.chdir('/google/src/head/depot/google3')
+  cls_raw = run_cmd([
+    'blaze', 'run', '//devtools/clstats:clstats_cli', '--',
+    '--backend=%s' % ','.join(CLSTATS_MAP.keys()),
+    '--user=%s' % ','.join(users),
+    '--time_frame=%s:%s' % (start_date, end_date)
+  ])
+  os.chdir(pwd)
+  cl_results = json.loads('\n'.join(cls_raw))
+
+  clstats = {}
+  for result in cl_results:
+    user = ','.join(result['expanded_users'])
+    if user not in clstats:
+      clstats[user] = {}
+    clstats[user][CLSTATS_MAP[result['backend_name']]] = {
+      'author': result['total_cls_authored'],
+      'review': result['total_cls_reviewed'],
+      'query_author': result['query_authored'],
+      'query_review': result['query_reviewed'],
+    }
+
+  return clstats
+
 def Main(args):
+  global start_date, end_date, slash_date
+
   parser = argparse.ArgumentParser(description='Show stats for people')
   parser.add_argument('user', type=str, nargs='+', help='user name to look at')
   parser.add_argument('-t', '--test', action='store_true',
                       help='run unit tests')
+  parser.add_argument('--noclstats', dest='clstats', action='store_false',
+                      help="Don't run clstats_cli")
+  parser.add_argument('--start_date', default=start_date,
+                      help='Start date (YYYY-MM-DD)')
+  parser.add_argument('--end_date', default=end_date,
+                      help='End date (YYYY-MM-DD)')
   args = parser.parse_args(args)
   if args.test:
     sys.argv = [sys.argv[0]]
     unittest.main()
     return
+
+  start_date = args.start_date
+  end_date = args.end_date
+  slash_date = start_date.replace('-', '/')
+
   if not InCrosTree():
     print 'Please change to a directory in a Chrome OS source tree'
     sys.exit(1)
+  if args.clstats and not ProdaccessOK():
+    print 'Please run prodaccess'
+    sys.exit(1)
+
   owner = run_cmd(['whoami'])[0]
+  firstwo = owner[:2]
+  userdir = firstwo + "/" + owner
   print 'Start date: %s' % start_date
-  with open('/usr/local/google/home/%s/x20/www/stats.html' % owner, 'a') as fd:
+
+  clstats = {}
+  if args.clstats:
+    clstats = RunClstats(args.user, start_date, end_date)
+
+  with open('/google/data/rw/users/%s/www/stats_%s.html' % (userdir, date.today().isoformat()), 'a') as fd:
+    print >>fd, "<p>Date range: %s through %s</p>" % (start_date, end_date if end_date else date.today().isoformat())
     for user in args.user:
-      out = GetStatsText(user, STATS)
+      out = GetStatsText(user, STATS, clstats)
       print >>fd, out
       print out
 

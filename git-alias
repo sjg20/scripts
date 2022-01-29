@@ -201,6 +201,7 @@ alias bad='git bisect bad'
 alias rb='git rebase m/master'
 
 alias gm='git log --oneline us/master | grep $1'
+alias gmn='git log --oneline us/next | grep $1'
 
 # Grep the U-Boot map for board $b
 function mg() {
@@ -289,7 +290,10 @@ function eg() {
 # $1: Name of test to run (optional, else run all)
 
 function pyt {
-	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${1:+"-k $1"}
+	local tests="$1"
+
+	shift
+	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${tests:+"-k $tests"} $@
 }
 
 # Run a pytest on a baord
@@ -335,6 +339,20 @@ function gmb() {
 	echo -n -e "\e[0m"
 }
 
+# Check which of the top 5 commits in a branch are in next
+function gnb() {
+	branch=$1
+
+	git log -n5 --format=%s $branch | while read c; do
+		if git log --oneline -n10000 us/next | grep -q "$c"; then
+			echo -e "\e[92mFound: $c"
+		else
+			echo -e "\e[91mNot found: $c"
+		fi
+	done
+	echo -n -e "\e[0m"
+}
+
 function list_not_applied() {
 	# a simple 'git branch' shows a * against the current branch, which
 	# causes all files in the current dir to be included in the list. So
@@ -345,3 +363,6 @@ function list_not_applied() {
 		gmb $b;
 	done
 }
+
+alias st='git stash'
+alias ust='git stash apply'

@@ -325,12 +325,16 @@ function pytni {
 	pyt_any "$@"
 }
 
-# Check which of the top 5 commits in a branch are in master
-function gmb() {
+function grep_branch_for_commits() {
 	branch=$1
+	count=$2
+	upstream=$3
 
-	git log -n5 --format=%s $branch | while read c; do
-		if git log --oneline -n10000 us/master | grep -q "$c"; then
+	echo "branch ${branch}"
+	echo "count ${count}"
+	echo "upstream ${upstream}"
+	git log -n${count} --format=%s ${branch} | while read c; do
+		if git log --oneline -n25000 ${upstream} | grep -q "$c"; then
 			echo -e "\e[92mFound: $c"
 		else
 			echo -e "\e[91mNot found: $c"
@@ -339,18 +343,20 @@ function gmb() {
 	echo -n -e "\e[0m"
 }
 
+# Check which of the top 5 commits in a branch are in master
+function gmb() {
+	branch=$1
+	count=${2:-5}
+
+	grep_branch_for_commits ${branch} ${count} us/master
+}
+
 # Check which of the top 5 commits in a branch are in next
 function gnb() {
 	branch=$1
+	count=${2:-20}
 
-	git log -n5 --format=%s $branch | while read c; do
-		if git log --oneline -n10000 us/next | grep -q "$c"; then
-			echo -e "\e[92mFound: $c"
-		else
-			echo -e "\e[91mNot found: $c"
-		fi
-	done
-	echo -n -e "\e[0m"
+	grep_branch_for_commits ${branch} ${count} us/next
 }
 
 function list_not_applied() {

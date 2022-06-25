@@ -38,7 +38,7 @@ get_branch() {
 }
 
 # show changed made in top commit (useful when working through a rebase -i)
-alias dh='git --no-pager diff HEAD~'
+alias dh='git --no-pager difftool HEAD~'
 
 # move to next commit during a rebase
 alias rc='git rebase --continue'
@@ -108,10 +108,10 @@ function diff_branch()
 
 	# print a stat list first
 	echo $(next_commit_changes)
-	git diff $1 --stat -- $(next_commit_changes)
+	git difftool $1 --stat -- $(next_commit_changes)
 
 	# now run meld on each diff
-	git --no-pager diff $1 -- $(next_commit_changes)
+	git --no-pager difftool $1 -- $(next_commit_changes)
 }
 
 # db <branch>
@@ -132,11 +132,11 @@ alias gp='git cherry-pick'
 
 function show_commit()
 {
-	git --no-pager diff $1~..$1
+	git --no-pager difftool $1~..$1
 }
 alias sd='show_commit'
-alias gd='git --no-pager diff'
-alias gdc='git --no-pager diff --cached'
+alias gd='git --no-pager difftool'
+alias gdc='git --no-pager difftool --cached'
 alias gc='git commit'
 alias co='git checkout'
 

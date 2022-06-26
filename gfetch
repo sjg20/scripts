@@ -1,0 +1,14 @@
+#!/bin/bash
+
+REPOS=(x86 dm fdt)
+OTHER=(us)
+
+for b in "${REPOS[@]}"; do
+	(git fetch ${b}-public && git fetch ${b} )&
+done
+
+for b in "${OTHER[@]}"; do
+	git fetch ${b} &
+done
+wait
+

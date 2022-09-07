@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0+
 #
 # Copyright 2021 Google LLC
+# Written by Simon Glass <sjg@chromium.org>
 #
 
 """Changes the functions and class methods in a file to use snake case, updating
@@ -15,9 +16,14 @@ import subprocess
 
 import camel_case
 
-EXCLUDE_NAMES = set(['setUp', 'tearDown'])
+# Exclude functions with these names
+EXCLUDE_NAMES = set(['setUp', 'tearDown', 'setUpClass', 'tearDownClass'])
 
+# Find function definitions in a file
 RE_FUNC = re.compile(r' *def (\w+)\(')
+
+# Where to find files that might call the file being converted
+FILES_GLOB = 'tools/**/*.py'
 
 def collect_funcs(fname):
     """Collect a list of functions in a file
@@ -141,7 +147,7 @@ def process_file(srcfile, do_write, commit):
             out.write(data)
 
     # Now find all files which use these functions and update them
-    for fname in glob.glob('tools/**/*.py', recursive=True):
+    for fname in glob.glob(FILES_GLOB, recursive=True):
         with open(fname, encoding='utf-8') as inf:
             data = inf.read()
         newdata = process_caller(fname, conv, module_name, leaf)

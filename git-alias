@@ -436,3 +436,26 @@ function list_not_applied() {
 
 alias st='git stash'
 alias ust='git stash apply'
+
+# exp <branch > [-f]
+# Send a branch to dm/<branch>-working
+# If it is already there, show the commits instead
+# Use -f to force
+function exp() {
+	local branch
+	local force
+
+	for arg in $@; do
+		if [ "$arg" = "-f" ]; then
+			force="-f"
+		else
+			branch="$arg"
+		fi
+		shift
+	done
+
+	target="${branch}-working"
+	if ! git push ${force} dm "HEAD:$target"; then
+		gmb "dm/${target}"
+	fi
+}

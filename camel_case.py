@@ -1,4 +1,6 @@
 
+from argparse import ArgumentParser
+
 import re
 
 def convert(name):
@@ -46,11 +48,14 @@ def to_snake(name):
     return name
 
 if __name__ == "__main__":
-    fname = '/home/sglass/asc'
-    #'arch/x86/include/asm/arch-apollolake/fsp/fsp_s_upd.h'
+    parser = ArgumentParser()
+    parser.add_argument('fname')
+    parser.add_argument('-T', '--test-coverage', action='store_true',
+                        help='run tests and check for 100% coverage')
+    args = parser.parse_args()
 
-    with open(fname) as inf:
+    with open(args.fname, encoding='utf-8') as inf:
         with open('asc', 'w') as outf:
             for line in inf:
                 out = convert_line(line)
-                print(line)
+                print(out, file=outf)

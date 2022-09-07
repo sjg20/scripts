@@ -213,65 +213,104 @@ function cg() {
 	grep $1 /tmp/b/$b/.config
 }
 
-function rt_get_name() {
-	name=${1#dm_test_}
-	name=${name#ut_dm_}
+function rt_get_suite_and_name() {
+	local arg="$1"
+	#echo arg $arg
+	suite=
+	name=
+
+	# The symbol is something like this:
+	#	_u_boot_list_2_ut_bootstd_test_2_vbe_simple_test_base
+	# Split it into the suite name (bootstd) and test name
+	# (vbe_simple_test_base)
+	read suite name < \
+		<(nm /tmp/b/$exec/u-boot |grep "list_2_ut.*$arg.*" \
+			| cut -d' ' -f3 \
+			| head -1 \
+			| sed -n 's/_u_boot_list_2_ut_\(.*\)_test_2_/\1 /p')
+	#echo suite $suite
+	#echo name $name
+	#name=${1#dm_test_}
+	#name=${name#ut_dm_}
 }
 
 # Run a test
 function rt() {
-	local name
-	rt_get_name $1
+	local exec=sandbox
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
-	/tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+	/tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
 }
 
 # Run a test verbosely
 function rtv() {
-	local name
-	rt_get_name $1
+	local exec=sandbox
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
-	/tmp/b/sandbox/u-boot -v -T $2 -c "ut dm $name"
+	/tmp/b/$exec/u-boot -v -T $2 -c "ut $suite $name"
 }
 
 # Run a test in the debugger
 function rtd() {
-	local name
-	rt_get_name $1
+	local exec=sandbox
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
-	gdb-multiarch --args /tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
+}
+
+# Run a test in the debugger verbosely
+function rtdv() {
+	local exec=sandbox
+	local suite name
+	rt_get_suite_and_name $1 $exec
+
+	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -v -c "ut $suite $name"
 }
 
 # Run a test in sandbox_spl
 function rtspl() {
-	local name
-	rt_get_name $1
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
 	/tmp/b/sandbox_spl/spl/u-boot-spl -u -c "exit"
 }
 
 # Run a test on sandbox_spl in the debugger
 function rtdspl() {
-	local name
-	rt_get_name $1
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
 	gdb-multiarch --args /tmp/b/sandbox_spl/spl/u-boot-spl -u
 }
 
 # Run a test in sandbox_flattree
 function rtft() {
-	local name
-	rt_get_name $1
+	local exec=sandbox_flattree
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
-	/tmp/b/sandbox_flattree/u-boot -T $2 -c "ut dm $name"
+	/tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
+}
+
+# Run a test in sandbox_flattree
+function rtftv() {
+	local exec=sandbox_flattree
+	local suite name
+	rt_get_suite_and_name $1 $exec
+
+	/tmp/b/$exec/u-boot -T $2 -v -c "ut $suite $name"
 }
 
 # Run a test on sandbox_flattree in the debugger
 function rtdft() {
-	local name
-	rt_get_name $1
+	local exec=sandbox_flattree
+	local suite name
+	rt_get_suite_and_name $1 $exec
 
-	gdb --args /tmp/b/sandbox_flattree/u-boot -T $2 -c "ut dm $name"
+	gdb --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
 }
 
 alias ga='echo "Git Aliases v1"'
@@ -290,19 +329,37 @@ function eg() {
 # $1: Name of test to run (optional, else run all)
 
 function pyt {
+	local tests
+	local para
+
+	if [ "$1" = "-p" ]; then
+		para="-n$(nproc)"
+		shift
+	fi
+	tests="$@"
+	echo $para $tests
+
+	shift
+	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${para} ${tests:+"-k $tests"} $@
+}
+
+# Run a pytest on sandbox_flattree
+# $1: Name of test to run (optional, else run all)
+
+function pytft {
 	local tests="$1"
 
 	shift
-	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${tests:+"-k $tests"} $@
+	test/py/test.py -B sandbox_flattree --build-dir /tmp/b/sandbox_flattree ${tests:+"-k $tests"} $@
 }
 
 # Run a pytest on a baord
 # $b is the board
 # $1: Name of test to run  (optional, else run all SPL tests)
 function pyt_any {
-	local run
+	local run="$1"
 
-	if [ "$1" = "-b" ]; then
+	if [ "$run" = "-b" ]; then
 		crosfw $b || return 1
 		shift
 	fi
@@ -315,6 +372,13 @@ function pyt_any {
 # $1: Name of test to run  (optional, else run all SPL tests)
 function pytspl {
 	b=sandbox_spl
+	pyt_any "$@"
+}
+
+# Run a pytest on sandbox_vpl
+# $1: Name of test to run (optional, else run all VPL tests)
+function pytvpl {
+	b=sandbox_vpl
 	pyt_any "$@"
 }
 

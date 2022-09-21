@@ -270,6 +270,14 @@ function rtdv() {
 	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -v -c "ut $suite $name"
 }
 
+# Run a test in the debugger verbosely
+function rtdv() {
+	local name
+	rt_get_name $1
+
+	gdb-multiarch --args /tmp/b/sandbox/u-boot -v -T $2 -c "ut dm $name"
+}
+
 # Run a test in sandbox_spl
 function rtspl() {
 	local suite name
@@ -473,3 +481,4 @@ function exp() {
 		gmb "dm/${target}"
 	fi
 }
+\

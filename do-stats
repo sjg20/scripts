@@ -612,8 +612,8 @@ def InCrosTree():
     cur = os.path.dirname(cur)
 
 
-def ProdaccessOK():
-  return run_cmd(['prodcertstatus', '--simple_output'])[0] == '1'
+def GCertOk():
+  return os.system('gcertstatus --quiet') == 0
 
 
 def RunClstats(users, start_date, end_date):
@@ -674,8 +674,8 @@ def Main(args):
   if not InCrosTree():
     print 'Please change to a directory in a Chrome OS source tree'
     sys.exit(1)
-  if args.clstats and not ProdaccessOK():
-    print 'Please run prodaccess'
+  if args.clstats and not GCertOk():
+    print 'Please run gcert'
     sys.exit(1)
 
   owner = run_cmd(['whoami'])[0]

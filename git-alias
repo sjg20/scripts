@@ -339,6 +339,11 @@ function pyt {
 	local tests
 	local para
 
+	if [ "$1" = "-b" ]; then
+		crosfw $b || return 1
+		shift
+	fi
+
 	if [ "$1" = "-p" ]; then
 		para="-n$(nproc) -q"
 		shift

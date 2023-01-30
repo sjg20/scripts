@@ -466,8 +466,49 @@ function exp() {
 		shift
 	done
 
-	target="${branch}-working"
+	# Drop any version number, so 'spl2' becomes 'spl'
+	exp_branch=$(echo $branch |sed 's/[0-9].*//')
+
+	target="${exp_branch}-working"
 	if ! git push ${force} dm "HEAD:$target"; then
 		gmb "dm/${target}"
+	fi
+}
+
+# imp <branch > [-f]
+# Obtain a branch from dm/<branch>-working
+# If it is already available locally, show the commits instead
+# Use -f to force
+function imp() {
+	local branch
+	local force
+
+	for arg in $@; do
+		if [ "$arg" = "-f" ]; then
+			force=1
+		else
+			branch="$arg"
+		fi
+		shift
+	done
+
+	# Drop any version number, so 'spl2' becomes 'spl'
+	exp_branch=$(echo $branch |sed 's/[0-9].*//')
+
+	target="${exp_branch}-working"
+
+	if git status -sb |grep -q " M "; then
+		echo "Local tree is not clean"
+		return
+	fi
+
+	if ! git checkout -b ${branch} dm/${target}; then
+		if [ -n "${force}" ]; then
+			if git checkout ${branch}; then
+				git reset --hard dm/${target}
+			fi
+		else
+			gmb "${branch}"
+		fi
 	fi
 }

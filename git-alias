@@ -466,6 +466,12 @@ function exp() {
 		shift
 	done
 
+	if [ -z "${branch}" ]; then
+		branch=$(git rev-parse --abbrev-ref HEAD)
+		echo "Using branch ${branch}"
+		[ -z "${branch}" ] && exit 1
+	fi
+
 	# Drop any version number, so 'spl2' becomes 'spl'
 	exp_branch=$(echo $branch |sed 's/[0-9].*//')
 

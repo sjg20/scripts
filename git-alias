@@ -214,10 +214,17 @@ function cg() {
 }
 
 function rt_get_suite_and_name() {
-	local arg="$1"
+	local arg
 	#echo arg $arg
 	suite=
 	name=
+
+	if [ "$1" = "-f" ]; then
+		force="-f"
+		shift
+	fi
+	arg="$1"
+	rest="$2"
 
 	# The symbol is something like this:
 	#	_u_boot_list_2_ut_bootstd_test_2_vbe_simple_test_base
@@ -237,19 +244,19 @@ function rt_get_suite_and_name() {
 # Run a test
 function rt() {
 	local exec=sandbox
-	local suite name
-	rt_get_suite_and_name $1 $exec
+	local suite name force rest
+	rt_get_suite_and_name $*
 
-	/tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
+	/tmp/b/$exec/u-boot -T $rest -c "ut $suite $force $name"
 }
 
 # Run a test verbosely
 function rtv() {
 	local exec=sandbox
-	local suite name
-	rt_get_suite_and_name $1 $exec
+	local suite name force rest
+	rt_get_suite_and_name $*
 
-	/tmp/b/$exec/u-boot -v -T $2 -c "ut $suite $name"
+	/tmp/b/$exec/u-boot -v -T $rest -c "ut $suite $force $name"
 }
 
 # Run a test in the debugger
@@ -268,14 +275,6 @@ function rtdv() {
 	rt_get_suite_and_name $1 $exec
 
 	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -v -c "ut $suite $name"
-}
-
-# Run a test in the debugger verbosely
-function rtdv() {
-	local name
-	rt_get_name $1
-
-	gdb-multiarch --args /tmp/b/sandbox/u-boot -v -T $2 -c "ut dm $name"
 }
 
 # Run a test in sandbox_spl
@@ -321,16 +320,6 @@ function rtdft() {
 	gdb --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
 }
 
-function rtd() {
-	gdb --args /tmp/b/sandbox/u-boot -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
-		-c "ut dm $1"
-}
-
-function rtv() {
-	/tmp/b/sandbox/u-boot -v -d /tmp/b/sandbox/arch/sandbox/dts/test.dtb \
-		-c "ut dm $1"
-}
-
 alias ga='echo "Git Aliases v1"'
 
 alias hex='printf %x $1'
@@ -351,7 +340,7 @@ function pyt {
 	local para
 
 	if [ "$1" = "-p" ]; then
-		para="-n$(nproc)"
+		para="-n$(nproc) -q"
 		shift
 	fi
 	tests="$@"
@@ -369,10 +358,6 @@ function pytft {
 
 	shift
 	test/py/test.py -B sandbox_flattree --build-dir /tmp/b/sandbox_flattree ${tests:+"-k $tests"} $@
-}
-
-function pytft {
-	test/py/test.py -B sandbox_flattree --build-dir /tmp/b/sandbox_flattree ${1:+"-k $1"}
 }
 
 # Run a pytest on a baord
@@ -481,4 +466,3 @@ function exp() {
 		gmb "dm/${target}"
 	fi
 }
-\

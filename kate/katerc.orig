@@ -1,0 +1,1913 @@
+[$Version]
+update_info=kate-2.4.upd:kate2.4
+
+[Colors]
+CurrentPalette=* Custom Colors *
+
+[Document 0]
+Bookmarks=
+Encoding=UTF-8
+FoldedColumns=
+FoldedLines=
+Highlighting=Bash
+Indentation Mode=cstyle
+Mode=Bash
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/missing
+
+[Document 1]
+Bookmarks=
+Encoding=UTF-8
+FoldedColumns=
+FoldedLines=
+Highlighting=None
+Indentation Mode=cstyle
+Mode=
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/backend/saned.conf.in
+
+[Document 10]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_tcp.c
+
+[Document 11]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_udp.c
+
+[Document 12]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_usb.c
+
+[Document 13]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pa4s2.c
+
+[Document 14]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_thread.c
+
+[Document 15]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Indentation Mode=cstyle
+Mode=
+URL=
+
+[Document 16]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pio.c
+
+[Document 17]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/lib/isfdtype.c
+
+[Document 18]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=Makefile
+Indentation Mode=cstyle
+Mode=Makefile
+URL=file:///home/sglass/files/max/sane/sane-backends/lib/Makefile
+
+[Document 19]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Indentation Mode=cstyle
+Mode=
+URL=file:///home/sglass/files/max/sane/sane-backends/INSTALL
+
+[Document 2]
+Bookmarks=
+Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_scsi.c
+
+[Document 20]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Indentation Mode=cstyle
+Mode=
+URL=file:///home/sglass/files/max/sane/sane-backends/README
+
+[Document 21]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=QMake
+Indentation Mode=cstyle
+Mode=QMake
+URL=file:///home/sglass/files/max/git/paperman.pro
+
+[Document 3]
+Bookmarks=
+Encoding=UTF-8
+FoldedColumns=
+FoldedLines=
+Highlighting=Makefile
+Indentation Mode=cstyle
+Mode=Makefile
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/Makefile.in
+
+[Document 4]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C++
+Indentation Mode=cstyle
+Mode=C++
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/include/sane/config.h
+
+[Document 5]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C++
+Indentation Mode=cstyle
+Mode=C++
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/include/sane/sanei_scsi.h
+
+[Document 6]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/sane-backends/lib/vsyslog.c
+
+[Document 7]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=Email
+Indentation Mode=cstyle
+Mode=Email
+ReadWrite=true
+URL=file:///home/sglass/files/max/sane/attachment-0001.bin
+
+[Document 8]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=Email
+Indentation Mode=cstyle
+Mode=Email
+URL=file:///home/sglass/files/max/sane/attachment-0002.bin
+
+[Document 9]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=C
+Indentation Mode=cstyle
+Mode=C
+URL=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_init_debug.c
+
+[FileList]
+Edit Shade=251,170,255
+Shading Enabled=true
+SortRole=34
+View Shade=135,140,244
+
+[Filelist]
+Edit Shade=255,102,153
+Shading Enabled=true
+Sort Type=1
+View Shade=51,204,255
+
+[General]
+Config Revision=10
+Days Meta Infos=0
+First Start=false
+Last Session=u-boot
+Modified Notification=true
+Recent File List Entry Count=10
+Restore Window Configuration=true
+Save Meta Infos=true
+Session Exit=save
+Show Console=false
+Show Full Path in Title=true
+Show Menu Bar=true
+Show Status Bar=true
+Show Tab Bar=true
+ShowAlternativeShortcutConfig=false
+Startup Session=manual
+Sync Konsole=true
+
+[GrepTool]
+CaseSensitive=false
+LastSearchFiles=Kconfig,*.h,*.c,*.xml,*.h\\,*.hxx\\,*.cpp\\,*.cc\\,*.C\\,*.cxx\\,*.idl\\,*.c,*.py\\,*.xml,*.py,a,*.py\\,*.xml\\,*.csv,*.cpp\\,*.cc\\,*.C\\,*.cxx\\,*.c
+LastSearchItems=Aborted shutdown,RX_ON_TX_CLK,SND_AT91_SOC_RX_ON_TX_CLK,AT91_SSC_CK_RISING,snd_soc_cpu_dai,domain.*false,domain,CFG_NAND_BASE,delay,nand_info
+LastSearchPaths=/home/sglass/files/bigeye/linux/sound,/home/sglass/files/bigeye/linux/include/asm-arm/,/home/sglass/files/bigeye/linux/sound/,/home/sglass/files/bigeye/linux/sound/soc,/home/sglass/files/bigeye/linux/include/sound,/home/sglass/files/bigeye/linux/sound/soc/,/home/sglass/files/bigeye/linux/sound/soc/at91,/tools/tinyerp/testing/tinyerp-server-4.2.2/bin/addons/,/home/sglass/files/bigeye/u-boot-1.1.6/,/home/sglass/files/bigeye/u-boot-1.1.6/include/configs
+Recursive=true
+Regex=true
+
+[KFileDialog Settings]
+Height 1024=508
+Height 1050=547
+Height 1080=644
+Height 1200=715
+Height 1600=604
+Height 2160=698
+Height 864=574
+Recent Files[$e]=/scratch/sglass/cosarm/src/third_party/u-boot/files/arch/blackfin/include/asm/blackfin.h,$HOME/cosarm/src/platform/firmware/pack_stub,$HOME/cosarm/src/platform/firmware/pack_firmware_functest.py,$HOME/cosarm/src/third_party/chromiumos-overlay/eclass/cros-firmware.eclass,$HOME/cosarm/src/platform/firmware/pack_firmware_unittest.py,$HOME/cosarm/src/platform/firmware/pack_firmware.py,$HOME/files/max/git/paperman.pro,$HOME/files/max/git/Makefile,$HOME/files/max/sane/sane-backends/README,$HOME/files/max/sane/sane-backends/INSTALL,$HOME/files/max/sane/sane-backends/lib/Makefile,$HOME/files/max/sane/sane-backends/lib/isfdtype.c,$HOME/files/max/sane/sane-backends/sanei/sanei_pio.c,$HOME/files/max/sane/sane-backends/sanei/Makefile,$HOME/files/max/sane/sane-backends/sanei/sanei_thread.c,$HOME/files/max/sane/sane-backends/sanei/sanei_pa4s2.c
+Recent URLs[$e]=$HOME/files/max/sane/sane-backends/lib/,$HOME/files/max/sane/sane-backends/,$HOME/files/max/git/,$HOME/files/max/sane/sane-backends/sanei/,$HOME/cosarm/src/platform/firmware/,$HOME/cosarm/src/
+Width 1152=869
+Width 1280=860
+Width 1600=800
+Width 1680=776
+Width 1920=842
+Width 2560=964
+Width 3840=922
+
+[KPrinter Settings]
+ApplicationOptions=app-kate-boxcolor,#000000,app-kate-boxmargin,6,app-kate-boxwidth,1,app-kate-colorscheme,kate - Printing,app-kate-footerbg,#d3d3d3,app-kate-footerfg,#000000,app-kate-footerformat,||%U,app-kate-footerusebg,true,app-kate-headerbg,#d3d3d3,app-kate-headerfg,#000000,app-kate-headerformat,%y|%f|%p,app-kate-headerusebg,true,app-kate-hffont,,app-kate-printguide,false,app-kate-printlinenumbers,false,app-kate-printselection,true,app-kate-usebackground,false,app-kate-usebox,false,app-kate-usefooter,true,app-kate-useheader,true
+DialogReduced=false
+PrintCommand[$e]=
+Printer=hp_laserjet
+
+[KPropertiesDialog]
+Height 2160=450
+Width 3840=495
+
+[KTEXTEDITOR:]
+DEVELOPER_INFO=NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES
+
+[KTextEditor::Search]
+Replace History=fdt,fdt\s
+Search History=mario,ignore,.43,open(,getreplacedi,flashrom,script,getrepl,_ExtractFile,_UntarFile,config,subnode,_WriteUpdateScript,writeversionfil,(rw)
+
+[Kate Document Defaults]
+Allow End of Line Detection=true
+Allow Simple Mode=true
+Automatically Insert Closing Brackets=false
+BOM=false
+Backup Config Flags=0
+Backup Flags=0
+Backup Prefix=
+Backup Suffix=~
+Basic Config Flags=631799840
+Encoding=UTF-8
+End of Line=0
+Indent On Backspace=false
+Indent On Tab=true
+Indent On Text Paste=false
+Indentation Mode=cstyle
+Indentation Width=2
+KTextEditor Plugin ktexteditor_docwordcompletion=false
+KTextEditor Plugin ktexteditor_insertfile=false
+KTextEditor Plugin ktexteditor_isearch=true
+KTextEditor Plugin ktexteditor_kdatatool=false
+KTextEditor Plugin ktexteditor_kttsd=false
+Keep Extra Spaces=false
+Line Length Limit=1024
+Maximal Loaded Blocks=16
+Newline At EOF=false
+No sync=false
+On-The-Fly Spellcheck=false
+Overwrite Mode=false
+PageUp/PageDown Moves Cursor=false
+ProberType for Encoding Autodetection=0
+Remove Spaces=1
+RemoveTrailingDyn=false
+ReplaceTabsDyn=true
+Script for Encoding Autodetection=0
+Search Dir Config Depth=3
+Show Spaces=false
+Show Tabs=true
+Smart Home=true
+Tab Handling=2
+Tab Width=8
+Undo Steps=0
+Word Wrap=false
+Word Wrap Column=80
+Wrap Cursor=true
+
+[Kate Part Defaults]
+Encoding Prober Type=1
+Fallback Encoding=ISO-8859-15
+
+[Kate Plugins]
+kate_kttsd=false
+katebacktracebrowserplugin=false
+katebuildplugin=false
+katecloseexceptplugin=true
+katecppsymbolviewerplugin=false
+katectagsplugin=false
+kateexternaltoolsplugin=false
+katefilebrowserplugin=true
+katefiletemplates=false
+katefiletreeplugin=true
+katefindinfilesplugin=true
+katefll_plugin=false
+kategdbplugin=false
+katehelloworldplugin=false
+katehtmltoolsplugin=false
+kateinsertcommandplugin=false
+katekonsoleplugin=true
+katemailfilesplugin=false
+katemakeplugin=false
+katemodelineplugin=false
+kateopenheaderplugin=false
+katepateplugin=false
+kateprojectplugin=true
+katepybrowseplugin=false
+katequickdocumentswitcherplugin=false
+katereplicodeplugin=false
+katesearchplugin=true
+katesnippets_tngplugin=false
+katesnippetsplugin=false
+katesqlplugin=false
+katesymbolviewerplugin=false
+katetabbarextensionplugin=false
+katetabifyplugin=false
+katetextfilterplugin=false
+katexmlcheckplugin=false
+katexmltoolsplugin=false
+libkatetabbarextensionplugin=false
+
+[Kate Print Settings][HeaderFooter]
+FooterBackground=211,211,211
+FooterBackgroundEnabled=false
+FooterEnabled=true
+FooterForeground=0,0,0
+FooterFormatCenter=
+FooterFormatLeft=
+FooterFormatRight=%U
+HeaderBackground=211,211,211
+HeaderBackgroundEnabled=false
+HeaderEnabled=true
+HeaderFooterFont=Ubuntu,11,-1,5,50,0,0,0,0,0
+HeaderForeground=0,0,0
+HeaderFormatCenter=%f
+HeaderFormatLeft=%y
+HeaderFormatRight=%p
+
+[Kate Print Settings][Layout]
+BackgroundColorEnabled=false
+BoxColor=invalid
+BoxEnabled=false
+BoxMargin=6
+BoxWidth=1
+ColorScheme=Printing
+
+[Kate Print Settings][Margins]
+bottom=3.52777777777944
+left=3.52777777777944
+right=3.52777777777944
+top=3.52777777777944
+
+[Kate Print Settings][Text]
+Legend=false
+LineNumbers=false
+
+[Kate Renderer Defaults]
+Animate Bracket Matching=false
+Schema=darK
+Show Indentation Lines=false
+Show Whole Bracket Expression=false
+Word Wrap Marker=true
+
+[Kate Vi Input Mode Settings]
+Command Mode Mapping Keys=
+Command Mode Mappings=
+Command Mode Mappings Recursion=
+Insert Mode Mapping Keys=
+Insert Mode Mappings=
+Insert Mode Mappings Recursion=
+Macro Completions=
+Macro Contents=
+Macro Registers=
+Normal Mode Mapping Keys=
+Normal Mode Mappings=
+Normal Mode Mappings Recursion=
+Visual Mode Mapping Keys=
+Visual Mode Mappings=
+Visual Mode Mappings Recursion=
+
+[Kate View Defaults]
+Allow Mark Menu=true
+Auto Center Lines=0
+Auto Completion=false
+Bookmark Menu Sorting=0
+Command Line=false
+Default Mark Type=1
+Dynamic Word Wrap=false
+Dynamic Word Wrap Align Indent=80
+Dynamic Word Wrap Indicators=1
+Folding Bar=false
+Icon Bar=false
+Keyword Completion=true
+Line Modification=true
+Line Numbers=false
+Maximum Search History Size=100
+Persistent Selection=false
+Replacement Text History=pylibfdt_copy_value,ysize,xsize,bcm2835,get_property_by_offset_internal,ROOT_PROPS,FdtException,,self.fdt., ,/* ,image_base, */,bd82x6x_video,vesa_video,3399,3036,/*,\\, ,------,spl_image->,CONFIG_$(SPL_)32BIT_INIT,config SPL_,64,elf64-x86-64,hello_word,efi,info->bf,${git_dir},git_dir,fdt.TYPE,socfpga_dwmci,Color,dtb,log.action,cons.log_action(,last_year,plat,params->,ehci_zynq_,cfg->,cg->,evb,kylin,cd,struct udevice *dev,tm->tm_,timing.,timing->,reg,atmel_fb,macb,name,env_enetaddr,AT91_RTC_,#define ,ATMEL_BASE_RTC,sata,systemace,mmc_list_init,get_unaligned_le16,get_unaligned_le32,'/toolchains/, /toolchains/,toolchains,prefix,prefixes,debug(,debug("%s %d\\\\n"\\, __func__\\, __LINE__),broadwell_xhci,xhci,readl(RCB_REG(,writew(xx\\, RCB_REG(IOBPS));,writew(RCB_REG(IOBPS)\\, ,= readw(RCB_REG(,priv = dev_get_priv(dev),broadwell,pin->, 0>\\,,base,gpio_conf,node,ich6_pinctrl_,ich6,0,pci_bus_clrset_config32,\\\\n,pch_common_sir_write(,pch_common_sir_read(,plat->,goto err,regs +,cpu_,dp_hotplug[2],dp_hotplug[1],dp_hotplug[0],gtt_clrsetbits(priv\\, ,gtt_clrsetbits,gtt_write(priv\\, ,gtt_read(priv\\,\s
+Scroll Bar Marks=false
+Scroll Bar Mini Map=false
+Scroll Bar Mini Map All=false
+Scroll Bar Mini Map Width=60
+Scroll Past End=false
+Search Config Flags=40
+Search Pattern History=lib,libs,isf,isfdt,HAVE_ISFDTYPE,HAVE_SYS_IO_H,have_scs,<<<<,scsi,must_fully_buffer,linaro,CompilerTool,lists_bind_node,device_node,root,console_mux,rk3288,sdhci,getpropertybyof,first_property(,first_property_quiet,get_property_q,pylibfdt_record_error,string(,check_err_null,from_offset,get_property,delete,.prop(,.props(,fdt_first_property_offset(,get_property_by_offset_internal,get_property_by_offset_internal(,prop,get_property(,get_property_by_offset(,def get_property,get_property_by_offset,get_name(,fdt_get_name,fdt_get_property_by_offset,ROOT_PROP_OFFSETS,fdt_next_property_offset,fdt_first_property_offset,first_property_offset,path_off,fdt_first_subnode,quiet,next_subnode_q,fdt_get_nam,null_e,runtime,get_err,RuntimeError,RuntimeException,fdt_strerror,int_exc,exce,todo,fdt.h,endi,name(,pylibfdt_copy_data,libfdtex,\\, _,fdt_off_dt_strings,if (!result,_quiet,result < 0,FDT_ERR_NOTFOUND,fdt_next_property_offset_quiet,const void,fdt_first_property_offset_quiet,next_property_offset,self.fdt\\, ,libfdt.fdt_,-n,why_sel,verb,arch,socf,layer,crt0_ia32,\\,\\\\n,crt0,hellow,efi,OBJCOPYFLAGS_EFI,u-boot-pay, \\\\t,\\\\t ,// ,built-in,default is bu,efi_,export ,efi_boot_services,efi_exit,efi_loader_relocate,lds
+Search/Replace Flags=524
+Show Scrollbars=0
+Smart Copy Cut=false
+Text To Search Mode=2
+Vi Input Mode=false
+Vi Input Mode Emulate Command Bar=false
+Vi Input Mode Hide Status Bar=false
+Vi Input Mode Steal Keys=false
+Word Completion=false
+Word Completion Minimal Word Length=3
+Word Completion Remove Tail=true
+
+[Konsole]
+AutoSyncronize=false
+SetEditor=false
+
+[MainWindow]
+Height 1024=698
+Height 1080=1748
+Height 1200=925
+Height 1600=1317
+Height 2160=987
+Height 800=681
+Height 864=698
+State=AAAA/wAAAAD9AAAAAAAAA3gAAAOcAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAAAAAFEwAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1152=964
+Width 1280=964
+Width 1400=868
+Width 1600=1450
+Width 1920=2689
+Width 2560=1439
+Width 3840=888
+Width 4096=2829
+Width 5760=5761
+
+[MainWindow][Toolbar mainToolBar]
+Index=0
+
+[MainWindow0]
+Active ViewSpace=0
+Characters Count Visible=false
+Cursor Position Visible=true
+Document Name Visible=true
+Encoding Visible=true
+Height 1024=745
+Height 1080=616
+Height 1200=554
+Height 2160=928
+Insertion Mode Visible=true
+Kate-MDI-H-Splitter=148,889,200
+Kate-MDI-Sidebar-0-Splitter=890,0,0
+Kate-MDI-Sidebar-3-Splitter=0,0,0
+Kate-MDI-Sidebar-Style=2
+Kate-MDI-ToolView-kate_plugin_katesearch-Persistent=false
+Kate-MDI-ToolView-kate_plugin_katesearch-Position=3
+Kate-MDI-ToolView-kate_plugin_katesearch-Sidebar-Position=0
+Kate-MDI-ToolView-kate_plugin_katesearch-Visible=false
+Kate-MDI-ToolView-kate_private_plugin_katefileselectorplugin-Persistent=false
+Kate-MDI-ToolView-kate_private_plugin_katefileselectorplugin-Position=0
+Kate-MDI-ToolView-kate_private_plugin_katefileselectorplugin-Sidebar-Position=1
+Kate-MDI-ToolView-kate_private_plugin_katefileselectorplugin-Visible=false
+Kate-MDI-ToolView-kate_private_plugin_katefiletreeplugin-Persistent=false
+Kate-MDI-ToolView-kate_private_plugin_katefiletreeplugin-Position=0
+Kate-MDI-ToolView-kate_private_plugin_katefiletreeplugin-Sidebar-Position=0
+Kate-MDI-ToolView-kate_private_plugin_katefiletreeplugin-Visible=true
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Persistent=false
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Position=3
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Sidebar-Position=1
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Visible=false
+Kate-MDI-ToolView-katefindinfilesplugin_1-Persistent=false
+Kate-MDI-ToolView-katefindinfilesplugin_1-Position=3
+Kate-MDI-ToolView-katefindinfilesplugin_1-Sidebar-Position=1
+Kate-MDI-ToolView-katefindinfilesplugin_1-Visible=true
+Kate-MDI-ToolView-kateproject-Persistent=false
+Kate-MDI-ToolView-kateproject-Position=0
+Kate-MDI-ToolView-kateproject-Sidebar-Position=2
+Kate-MDI-ToolView-kateproject-Visible=false
+Kate-MDI-ToolView-kateprojectinfo-Persistent=false
+Kate-MDI-ToolView-kateprojectinfo-Position=3
+Kate-MDI-ToolView-kateprojectinfo-Sidebar-Position=2
+Kate-MDI-ToolView-kateprojectinfo-Visible=false
+Kate-MDI-V-Splitter=150,865,296
+MenuBar=Disabled
+Selection Mode Visible=true
+State=AAAA/wAAAAD9AAAAAAAABCoAAAN6AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAAAAAFEwAAAAAAAAAA
+Width 1280=1175
+Width 1920=796
+Width 3840=1066
+
+[MainWindow0 Settings]
+Height 1024=745
+Height 1080=616
+Height 1200=554
+Height 2160=928
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAABCoAAAN6AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAAAAAFEwAAAAAAAAAA
+Width 1280=1175
+Width 1920=796
+Width 3840=1066
+WindowState=8
+
+[MainWindow0-Splitter 0]
+Children=MainWindow0-ViewSpace 0
+Sizes=889
+
+[MainWindow0-ViewSpace 0]
+Active View=file:///home/sglass/files/max/git/paperman.pro
+Count=22
+View 0=file:///home/sglass/files/max/sane/sane-backends/missing
+View 1=file:///home/sglass/files/max/sane/sane-backends/backend/saned.conf.in
+View 10=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_scsi.c
+View 11=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pa4s2.c
+View 12=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_thread.c
+View 13=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elfcode.h
+View 14=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pio.c
+View 15=file:///home/sglass/files/max/sane/sane-backends/lib/Makefile
+View 16=file:///home/sglass/files/max/sane/sane-backends/include/sane/config.h
+View 17=file:///home/sglass/files/max/sane/sane-backends/lib/isfdtype.c
+View 18=file:///home/sglass/files/max/sane/sane-backends/INSTALL
+View 19=file:///home/sglass/files/max/sane/sane-backends/README
+View 2=file:///home/sglass/files/max/sane/sane-backends/sanei/Makefile.in
+View 20=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_init_debug.c
+View 21=file:///home/sglass/files/max/git/paperman.pro
+View 3=file:///home/sglass/files/max/sane/sane-backends/include/sane/sanei_scsi.h
+View 4=file:///home/sglass/files/max/sane/sane-backends/lib/vsyslog.c
+View 5=file:///home/sglass/files/max/sane/attachment-0001.bin
+View 6=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_tcp.c
+View 7=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_udp.c
+View 8=file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_usb.c
+View 9=file:///home/sglass/files/max/sane/attachment-0002.bin
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/bin/fix-chrome]
+CursorColumn=0
+CursorLine=6
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/platform/ec/common/main.c]
+CursorColumn=20
+CursorLine=89
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/flashrom/Makefile]
+CursorColumn=21
+CursorLine=26
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/flashrom/gec.c]
+CursorColumn=15
+CursorLine=479
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/flashrom/gec_dev.c]
+CursorColumn=0
+CursorLine=47
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/kernel/3.14/arch/arm/boot/dts/imx6q.dtsi]
+CursorColumn=0
+CursorLine=12
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/kernel/3.14/arch/arm/boot/dts/imx6qdl.dtsi]
+CursorColumn=16
+CursorLine=70
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/kernel/3.14/drivers/gpio/gpio-mxc.c]
+CursorColumn=18
+CursorLine=176
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/cosarm/src/third_party/kernel/3.14/drivers/of/platform.c]
+CursorColumn=0
+CursorLine=440
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/git/paperman.pro]
+CursorColumn=25
+CursorLine=55
+JumpList=
+ViMarks=.,0,0,[,0,0,],-1,-1
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/git/podofo-svn/cmake/modules/FindFREETYPE.cmake]
+CursorColumn=0
+CursorLine=44
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/git/podofo-svn/libpodofo_0.9.0-1ubuntu1.debdiff]
+CursorColumn=0
+CursorLine=31
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/attachment-0001.bin]
+CursorColumn=0
+CursorLine=7
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/attachment-0002.bin]
+CursorColumn=13
+CursorLine=257
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/INSTALL]
+CursorColumn=2
+CursorLine=11
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/README]
+CursorColumn=0
+CursorLine=126
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/backend/fujitsu-s.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/backend/fujitsu.c]
+CursorColumn=13
+CursorLine=9784
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/backend/saned.conf.in]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/include/sane/config.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/include/sane/sanei_scsi.h]
+CursorColumn=0
+CursorLine=39
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/lib/Makefile]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/lib/isfdtype.c]
+CursorColumn=2
+CursorLine=10
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/lib/vsyslog.c]
+CursorColumn=0
+CursorLine=22
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/missing]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/Makefile.in]
+CursorColumn=49
+CursorLine=105
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_init_debug.c]
+CursorColumn=1
+CursorLine=152
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pa4s2.c]
+CursorColumn=28
+CursorLine=64
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_pio.c]
+CursorColumn=1
+CursorLine=82
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_scsi.c]
+CursorColumn=28
+CursorLine=96
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_tcp.c]
+CursorColumn=0
+CursorLine=136
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_thread.c]
+CursorColumn=15
+CursorLine=66
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_udp.c]
+CursorColumn=0
+CursorLine=224
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/files/max/sane/sane-backends/sanei/sanei_usb.c]
+CursorColumn=24
+CursorLine=1943
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/arch/x86/cpu/intel_common/cpu.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/arch/x86/cpu/intel_common/microcode.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/arch/x86/cpu/ivybridge/cpu.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/arch/x86/dts/chromebook_link.dts]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/arch/x86/dts/microcode/m12306a9_0000001b.dtsi]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/drivers/i2c/intel_i2c.c]
+CursorColumn=40
+CursorLine=4
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/tools/binman/test/u_boot.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/tools/binman/test/u_boot_ucode_ptr.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/tools/binman/test/u_boot_ucode_ptr.lds]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/tools/binman/test/x86_single_ucode.dts]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///home/sglass/u/tools/binman/test/x86_ucode.dts]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/gurnard5/DDS/Makefile]
+CursorColumn=13
+CursorLine=41
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/gurnard5/DDS/build_rules.mk]
+CursorColumn=48
+CursorLine=181
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/gurnard5/DDS/tape/testing/controller_simulator/cook_2200_unformatted/Makefile]
+CursorColumn=0
+CursorLine=28
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/gurnard5/DDS/tape/testing/factory/Makefile]
+CursorColumn=54
+CursorLine=52
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/gurnard5/package-builder/config]
+CursorColumn=27
+CursorLine=24
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/linux/README]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/linux/include/linux/time.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/linux/include/linux/timer.h]
+CursorColumn=0
+CursorLine=260
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/linux/init/main.c]
+CursorColumn=8
+CursorLine=848
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/drivers/intel/fsp/fsp_util.h]
+CursorColumn=0
+CursorLine=40
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/soc/intel/fsp_broadwell_de/fsp/chipset_fsp_util.c]
+CursorColumn=14
+CursorLine=32
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/vendorcode/intel/fsp/broadwell_de/include/fsp_api.h]
+CursorColumn=2
+CursorLine=74
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/vendorcode/intel/fsp/broadwell_de/include/fsp_platform.h]
+CursorColumn=2
+CursorLine=69
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/vendorcode/intel/fsp/broadwell_de/include/fsp_types.h]
+CursorColumn=0
+CursorLine=222
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/README]
+CursorColumn=0
+CursorLine=3
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/excp_helper.c]
+CursorColumn=1
+CursorLine=115
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/seg_helper.c]
+CursorColumn=27
+CursorLine=2109
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/translate.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/user-exec.c]
+CursorColumn=5
+CursorLine=49
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/README]
+CursorColumn=0
+CursorLine=0
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/corelib/kernel/qcoreevent.cpp]
+CursorColumn=22
+CursorLine=197
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/corelib/statemachine/qeventtransition.cpp]
+CursorColumn=0
+CursorLine=177
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/corelib/statemachine/qstatemachine.cpp]
+CursorColumn=47
+CursorLine=2254
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/corelib/statemachine/qstatemachine_p.h]
+CursorColumn=2
+CursorLine=236
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/kernel/qapplication.cpp]
+CursorColumn=6
+CursorLine=994
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/statemachine/qguistatemachine.cpp]
+CursorColumn=14
+CursorLine=501
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/widgets/qlineedit.cpp]
+CursorColumn=0
+CursorLine=132
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/bfd-in2.h]
+CursorColumn=16
+CursorLine=1234
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/cache.c]
+CursorColumn=8
+CursorLine=516
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf-bfd.h]
+CursorColumn=18
+CursorLine=2197
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf.c]
+CursorColumn=24
+CursorLine=2112
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf64-x86-64.c]
+CursorColumn=0
+CursorLine=3396
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf64.c]
+CursorColumn=0
+CursorLine=23
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elfcode.h]
+CursorColumn=26
+CursorLine=800
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elflink.c]
+CursorColumn=19
+CursorLine=5108
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/format.c]
+CursorColumn=32
+CursorLine=306
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/opncls.c]
+CursorColumn=2
+CursorLine=925
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/section.c]
+CursorColumn=13
+CursorLine=697
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/targets.c]
+CursorColumn=9
+CursorLine=129
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/objdump.c]
+CursorColumn=0
+CursorLine=451
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/readelf.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/include/bfdlink.h]
+CursorColumn=39
+CursorLine=82
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/tools/x86-2/.build/x86_64-unknown-linux-gnu/build/build-binutils-host-x86_64-build_pc-linux-gnu/bfd/elf64-target.h]
+CursorColumn=18
+CursorLine=981
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/AppPkg/Applications/Lua/src/lauxlib.c]
+CursorColumn=0
+CursorLine=540
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/CorebootModulePkg/CbSupportDxe/CbSupportDxe.c]
+CursorColumn=0
+CursorLine=201
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/CorebootModulePkg/CbSupportPei/CbSupportPei.c]
+CursorColumn=0
+CursorLine=61
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/CorebootModulePkg/Contributions.txt]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/IntelFspPkg/Library/BaseCacheLib/CacheLib.c]
+CursorColumn=4
+CursorLine=400
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/MdeModulePkg/Universal/CapsulePei/UefiCapsule.c]
+CursorColumn=41
+CursorLine=76
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/MdePkg/Library/BaseLib/Ia32/GccInline.c]
+CursorColumn=3
+CursorLine=45
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/MdePkg/Library/BaseLib/X64/CpuIdEx.S]
+CursorColumn=14
+CursorLine=44
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/UefiCpuPkg/Library/BaseUefiCpuLib/X64/InitializeFpu.S]
+CursorColumn=0
+CursorLine=57
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///scratch/sglass/uefi/src/edk2/UefiCpuPkg/ResetVector/FixupVtf/ResetVector.uni]
+CursorColumn=0
+CursorLine=21
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/README]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/arch/arm/cpu/armv7/exynos5/pinmux.c]
+CursorColumn=25
+CursorLine=292
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/arch/arm/cpu/armv7/exynos5/power.c]
+CursorColumn=24
+CursorLine=140
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/arch/arm/include/asm/arch-exynos/gpio.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/arch/arm/include/asm/arch-exynos5/gpio.h]
+CursorColumn=10
+CursorLine=213
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/board/samsung/dts/exynos5250-spring.dts]
+CursorColumn=0
+CursorLine=40
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/board/samsung/smdk5250/low_battery.c]
+CursorColumn=0
+CursorLine=59
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/board/samsung/smdk5250/smdk5250.c]
+CursorColumn=9
+CursorLine=990
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/drivers/gpio/s5p_gpio.c]
+CursorColumn=29
+CursorLine=427
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/drivers/power/mkbp_tps65090.c]
+CursorColumn=32
+CursorLine=46
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/drivers/power/s5m8767.c]
+CursorColumn=20
+CursorLine=31
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/drivers/video/exynos-fb.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/include/configs/exynos5-common.h]
+CursorColumn=35
+CursorLine=193
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/include/configs/smdk5250.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/spring/include/s5m8767.h]
+CursorColumn=0
+CursorLine=95
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/clock-rk3288.c]
+CursorColumn=12
+CursorLine=216
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/clock.c]
+CursorColumn=0
+CursorLine=148
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/cpu.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/ddr.c]
+CursorColumn=8
+CursorLine=49
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/iomux-rk3288.c]
+CursorColumn=0
+CursorLine=185
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/lowlevel_init.S]
+CursorColumn=15
+CursorLine=35
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/pl330.c]
+CursorColumn=0
+CursorLine=2202
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/arch/arm/cpu/armv7/rk32xx/pwm.c]
+CursorColumn=48
+CursorLine=192
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/board/rockchip/rk32xx/rk32xx.c]
+CursorColumn=38
+CursorLine=166
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/drivers/video/rk32_hdmi.c]
+CursorColumn=40
+CursorLine=91
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/drivers/video/rk32_hdmi.h]
+CursorColumn=0
+CursorLine=1466
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/drivers/video/rk_hdmi.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///tmp/u-boot-rockchip/drivers/video/rockchip_fb.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake]
+CursorColumn=28
+CursorLine=156
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/coreboot/radare2/binr/radare2/radare2.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/coreboot/radare2/libr/core/cmd.c]
+CursorColumn=2
+CursorLine=806
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/coreboot/radare2/libr/core/cmd_quit.c]
+CursorColumn=0
+CursorLine=32
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/dediprog/flashrom/Makefile]
+CursorColumn=28
+CursorLine=153
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/dediprog/flashrom/dediprog.c]
+CursorColumn=11
+CursorLine=485
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/dediprog/flashrom/flashchips.c]
+CursorColumn=24
+CursorLine=14331
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/dediprog/flashrom/flashchips.h]
+CursorColumn=21
+CursorLine=32
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/dediprog/flashrom/flashrom.c]
+CursorColumn=4
+CursorLine=233
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/android_sdcard/Tools/README.txt]
+CursorColumn=0
+CursorLine=34
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/android_sdcard/create-android-sdcard]
+CursorColumn=18
+CursorLine=38
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/android_sdcard_rk3288/create-linux-sdcard]
+CursorColumn=20
+CursorLine=9
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/README]
+CursorColumn=4
+CursorLine=89
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/doc/protocol.txt]
+CursorColumn=11
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/rkcrc.c]
+CursorColumn=19
+CursorLine=74
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/rkflashtool.c]
+CursorColumn=28
+CursorLine=209
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/rkparameters]
+CursorColumn=0
+CursorLine=35
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/firefly/rkflashtool/rkparametersblock]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/namebench/README.md]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/namebench/namebench.go]
+CursorColumn=26
+CursorLine=21
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/namebench/ui/ui.go]
+CursorColumn=36
+CursorLine=32
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/pcnfsd/pcnfsd.93.02.16.LPRng.97.02.12/Makefile]
+CursorColumn=39
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/pcnfsd/pcnfsd.93.02.16.LPRng.97.02.12/Makefile.linux]
+CursorColumn=31
+CursorLine=42
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/pcnfsd/pcnfsd.93.02.16.LPRng.97.02.12/Makefile.sunos]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/pcnfsd/pcnfsd.93.02.16.LPRng.97.02.12/pcnfsd_svc.c]
+CursorColumn=12
+CursorLine=36
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 0 file:///vid/software/devel/stb/stb_truetype.h]
+CursorColumn=18
+CursorLine=1144
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1]
+Active View=file:///scratch/sglass/tools/x86-2/.build/x86_64-unknown-linux-gnu/build/build-binutils-host-x86_64-build_pc-linux-gnu/bfd/elf64-target.h
+Count=11
+View 0=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/readelf.c
+View 1=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elflink.c
+View 10=file:///scratch/sglass/tools/x86-2/.build/x86_64-unknown-linux-gnu/build/build-binutils-host-x86_64-build_pc-linux-gnu/bfd/elf64-target.h
+View 11=file:///tmp/spring/include/configs/smdk5250.h
+View 12=file:///tmp/spring/board/samsung/smdk5250/smdk5250.c
+View 2=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf64-x86-64.c
+View 3=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/include/bfdlink.h
+View 4=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/bfd-in2.h
+View 5=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/objdump.c
+View 6=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/format.c
+View 7=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/targets.c
+View 8=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/opncls.c
+View 9=file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elfcode.h
+
+[MainWindow0-ViewSpace 1 file:///home/sglass/cosarm/src/third_party/flashrom/Makefile]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///home/sglass/files/max/git/maxview.pro]
+CursorColumn=27
+CursorLine=26
+
+[MainWindow0-ViewSpace 1 file:///home/sglass/files/max/git/podofo-svn/libpodofo_0.9.0-1ubuntu1.debdiff]
+CursorColumn=44
+CursorLine=49
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/drivers/intel/fsp/fsp_util.c]
+CursorColumn=1
+CursorLine=102
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/soc/intel/fsp_baytrail/fsp/chipset_fsp_util.c]
+CursorColumn=12
+CursorLine=324
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/soc/intel/fsp_baytrail/romstage/romstage.c]
+CursorColumn=3
+CursorLine=218
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/soc/intel/fsp_broadwell_de/fsp/chipset_fsp_util.c]
+CursorColumn=23
+CursorLine=87
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/planet/er/BDXDE_EFR_004_20150313/BDXDE_CB_EFR_004_20150313/coreboot/src/soc/intel/fsp_broadwell_de/romstage/romstage.c]
+CursorColumn=5
+CursorLine=59
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/README]
+CursorColumn=0
+CursorLine=3
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/excp_helper.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/seg_helper.c]
+CursorColumn=26
+CursorLine=2301
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/target-i386/translate.c]
+CursorColumn=40
+CursorLine=6408
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qemu/qemu-2.4.0-rc0/user-exec.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/corelib/statemachine/qstatemachine.cpp]
+CursorColumn=54
+CursorLine=18
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/statemachine/qguistatemachine.cpp]
+CursorColumn=14
+CursorLine=84
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/widgets/qlineedit.cpp]
+CursorColumn=0
+CursorLine=0
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/bfd-in2.h]
+CursorColumn=0
+CursorLine=7057
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elf64-x86-64.c]
+CursorColumn=5
+CursorLine=3582
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elfcode.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/elflink.c]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/format.c]
+CursorColumn=19
+CursorLine=246
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/opncls.c]
+CursorColumn=34
+CursorLine=742
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/bfd/targets.c]
+CursorColumn=27
+CursorLine=149
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/objdump.c]
+CursorColumn=5
+CursorLine=3431
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/binutils/readelf.c]
+CursorColumn=0
+CursorLine=5829
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/src/binutils-2.26/include/bfdlink.h]
+CursorColumn=23
+CursorLine=121
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/tools/x86-2/.build/x86_64-unknown-linux-gnu/build/build-binutils-host-x86_64-build_pc-linux-gnu/bfd/elf64-target.h]
+CursorColumn=5
+CursorLine=896
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///scratch/sglass/uefi/src/edk2/CorebootModulePkg/Contributions.txt]
+CursorColumn=0
+CursorLine=29
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/README]
+CursorColumn=6
+CursorLine=12
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/arch/arm/cpu/armv7/exynos-common/spl_boot.c]
+CursorColumn=2
+CursorLine=325
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/board/samsung/dts/exynos5250-spring.dts]
+CursorColumn=21
+CursorLine=76
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/board/samsung/smdk5250/board.h]
+CursorColumn=5
+CursorLine=43
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/board/samsung/smdk5250/low_battery.c]
+CursorColumn=1
+CursorLine=88
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/board/samsung/smdk5250/smdk5250.c]
+CursorColumn=39
+CursorLine=667
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/drivers/power/exynos-cpufreq.c]
+CursorColumn=35
+CursorLine=239
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/drivers/power/s5m8767.c]
+CursorColumn=9
+CursorLine=195
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/drivers/spi/exynos_spi.c]
+CursorColumn=21
+CursorLine=119
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/drivers/video/exynos-fb.c]
+CursorColumn=8
+CursorLine=1006
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/include/configs/exynos5-common.h]
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/include/configs/smdk5250.h]
+CursorColumn=22
+CursorLine=190
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/include/fdtdec.h]
+CursorColumn=21
+CursorLine=108
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/include/s5m8767.h]
+CursorColumn=25
+CursorLine=115
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///tmp/spring/lib/fdtdec.c]
+CursorColumn=9
+CursorLine=487
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/dediprog/flashrom/cli_classic.c]
+CursorColumn=15
+CursorLine=430
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/dediprog/flashrom/dediprog.c]
+CursorColumn=18
+CursorLine=22
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/dediprog/flashrom/flashchips.c]
+CursorColumn=29
+CursorLine=8648
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/dediprog/flashrom/flashrom.c]
+CursorColumn=12
+CursorLine=1153
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/firefly/rkflashtool/README]
+CursorColumn=0
+CursorLine=50
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/firefly/rkflashtool/doc/protocol.txt]
+CursorColumn=24
+CursorLine=67
+JumpList=
+ViMarks=
+
+[MainWindow0-ViewSpace 1 file:///vid/software/devel/firefly/rkflashtool/rkflashtool.c]
+CursorColumn=32
+CursorLine=57
+JumpList=
+ViMarks=
+
+[Notification Messages]
+OnSave-WrongPythonEncodingHeader=false
+kate_ignore_modonhd=false
+
+[Open Documents]
+Count=22
+
+[Open MainWindows]
+Count=1
+
+[Plugin:katecloseexceptplugin:menu]
+ShowConfirmation=true
+
+[Plugin:katefilebrowserplugin:MainWindow:0]
+auto sync folder=false
+filter history=
+location[$e]=file://$HOME
+
+[Plugin:katefilebrowserplugin:MainWindow:0:dir]
+Decoration position=0
+Previews=false
+Show Preview=false
+Show hidden files=false
+Sort by=Name
+Sort directories first=true
+Sort reversed=false
+View Style=Simple
+listViewIconSize=0
+
+[Plugin:katefiletreeplugin:MainWindow:0]
+listMode=true
+sortRole=0
+
+[Plugin:katefindinfilesplugin::find-in-files]
+CaseSensitive=false
+FollowDirectorySymlinks=true
+IncludeHiddenFiles=false
+LastSearchFiles=*.h\\,*.hxx\\,*.cpp\\,*.cc\\,*.C\\,*.cxx\\,*.idl\\,*.c,*.cpp\\,*.cc\\,*.C\\,*.cxx\\,*.c,*,*.h\\,*.hxx\\,*.idl
+LastSearchItems=WrappedEvent,cloneEvent,QStateMachinePrivate,qcoreStateMachineHandler,QState,CMAKE_ARCH_TRIPLET,Could NOT find,show_boot_progress,config_show_boot_progress,config_showboot_progress,boot_progress
+LastSearchPaths=file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/,/scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/,file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/,/scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/,file:///scratch/sglass/qt/qt-everywhere-opensource-src-4.7.4/src/gui/widgets,file:///home/sglass/files/max/git,~/files/max/git,file:///usr/share/cmake-2.8/Modules,file:///home/sglass/files/da/snapper/u-boot/
+Recursive=true
+RegExp=false
+
+[Plugin:katesearchplugin:MainWindow:0:search-plugin]
+BinaryFiles=false
+CurrentExcludeFilter=0
+CurrentFilter=0
+ExcludeFilters=\\0
+ExpandSearchResults=false
+Filters=\\0
+FollowSymLink=false
+HiddenFiles=false
+MatchCase=true
+Place=1
+Recursive=true
+Search=139,129,127,bfd_section_from_shdr,bfd_elf64_object_p,BFD_SEND_FMT,elf64-target.h,TARGET_LITTLE_SYM,x86_64_elf64_vec,_bfd_check_format,bfd_check_format_matches (,elf_object_p (,elf_object_p, bfd_check_format (,bfd_check_format (,bfd_check_format,struct bfd_section$,struct bfd_section#,struct bfd$,struct bfd,struct bfd {,bfd_cache_init,*bfd_openr (,bfd_openr (,bfd_openr,readelf,readeld,map_over_sections,".rela,.rela.text,bfd_map_over_sections,SEC_LINKER_CREATED,elfNN_ia64_object_p,intel\\,ich-i2c,rkclk_lcdc_clk_set,rkclk_vio_hclk_set,CRU_CLKSELS_CON(28,CRU_CLKSELS_CON(,hdmi_writel,hdmi_parse_edid,MC_CLKDIS,FSP_INIT_RT_COMMON_BUFFER,FSP_INIT_RT_BUFFER,romstage_main_continue,ChipsetFspReturnPoint,FSP_INIT_PARAMS;,FSP_INIT_PARAMS,fsp_early_init,EFER,efer
+SearchDiskFiles=/vid/software/devel/pcnfsd/pcnfsd.93.02.16.LPRng.97.02.12
+SearchDiskFiless=/vid/software/devel/coreboot/flashrom,/vid/software/devel/dediprog/flashrom,/vid/software/devel/firefly/rkflashtool/,/tmp/sprin,/tmp/spring,/scratch/sglass/qemu/qemu-2.4.0-rc0/,/scratch/sglass/uefi/,/tmp/u-boot-rockchip/
+SearchFolder=
+SearchFolders=
+UseRegExp=false
+
+[PluginSymbolViewer]
+ExpandTree=true
+ViewTypes=true
+
+[PluginTextFilter]
+Completion list=wc
+
+[Recent Files]
+File1[$e]=$HOME/files/max/sane/sane-backends/sanei/Makefile
+File10[$e]=$HOME/files/max/git/paperman.pro
+File2[$e]=$HOME/files/max/sane/sane-backends/sanei/sanei_pio.c
+File3[$e]=$HOME/files/max/sane/sane-backends/include/sane/config.h
+File4[$e]=$HOME/files/max/sane/sane-backends/lib/isfdtype.c
+File5[$e]=$HOME/files/max/sane/sane-backends/lib/Makefile
+File6[$e]=$HOME/files/max/sane/sane-backends/INSTALL
+File7[$e]=$HOME/files/max/sane/sane-backends/README
+File8[$e]=$HOME/files/max/sane/sane-backends/sanei/sanei_init_debug.c
+File9[$e]=$HOME/files/max/git/Makefile
+Name1[$e]=Makefile
+Name10[$e]=paperman.pro
+Name2[$e]=sanei_pio.c
+Name3[$e]=config.h
+Name4[$e]=isfdtype.c
+Name5[$e]=Makefile
+Name6[$e]=INSTALL
+Name7[$e]=README
+Name8[$e]=sanei_init_debug.c
+Name9[$e]=Makefile
+
+[Spelling]
+backgroundCheckerEnabled=true
+checkUppercase=true
+checkerEnabledByDefault=false
+defaultClient=
+defaultLanguage=en_GB
+skipRunTogether=true
+
+[TipOfDay]
+RunOnStart=false
+TipLastShown=2009,1,27,15,58,26
+
+[fileselector]
+AutoSyncEvents=0
+current filter=
+dir history=
+filter history=
+filter history len=9
+last filter=
+location[$e]=
+pathcombo history len=9
+restore last filter=true
+restore location=true
+toolbar actions=up,back,forward,home,short view,detailed view,bookmarks,sync_dir
+
+[fileselector:dir]
+Separate Directories=false
+Show Preview=false
+Show hidden files=false
+Sort by=Name
+Sort case insensitively=true
+Sort directories first=true
+Sort reversed=false
+View Style=Simple
+
+[fileselector:view]
+ColumnOrder=0,1,2,3,4,5
+ColumnWidths=55,43,47,95,58,55
+SortAscending=true
+SortColumn=0
+
+[filetree]
+editShade=255,201,241
+listMode=false
+shadingEnabled=true
+showFullPathOnRoots=false
+sortRole=0
+viewShade=164,252,255

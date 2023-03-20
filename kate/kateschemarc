@@ -1,0 +1,119 @@
+[Normal]
+dummy=prevent-empty-group
+
+[Simon]
+Color Background=0,0,0
+Color Highlighted Bracket=154,109,111
+Color Highlighted Line=22,33,31
+Color Icon Bar=118,102,102
+Color Line Number=222,244,244
+Color MarkType1=127,187,255
+Color MarkType2=222,165,164
+Color MarkType3=213,238,213
+Color MarkType4=197,194,213
+Color MarkType5=160,160,164
+Color MarkType6=139,210,213
+Color MarkType7=239,159,159
+Color Selection=255,255,0
+Color Spelling Mistake Line=85,0,85
+Color Tab Marker=65,79,72
+Color Template Background=204,204,204
+Color Template Editable Placeholder=204,255,204
+Color Template Focused Editable Placeholder=102,255,102
+Color Template Not Editable Placeholder=255,204,204
+Color Word Wrap Marker=119,121,112
+Font=Monospace,9,-1,5,50,0,0,0,0,0
+dummy=prevent-empty-group
+
+[darK]
+Color Background=0,0,0
+Color Highlighted Bracket=0,78,15
+Color Highlighted Line=0,0,25
+Color Icon Bar=234,233,232
+Color Line Number=0,0,0
+Color MarkType1=255,118,180
+Color MarkType2=255,0,0
+Color MarkType3=246,196,255
+Color MarkType4=255,0,255
+Color MarkType5=160,160,164
+Color MarkType6=0,255,0
+Color MarkType7=255,0,0
+Color Selection=169,209,255
+Color Spelling Mistake Line=255,0,0
+Color Tab Marker=255,0,0
+Color Template Background=204,204,204
+Color Template Editable Placeholder=204,255,204
+Color Template Focused Editable Placeholder=102,255,102
+Color Template Not Editable Placeholder=255,204,204
+Color Word Wrap Marker=118,122,124
+Font=Liberation Mono,9,-1,5,50,0,0,0,0,0
+dummy=prevent-empty-group
+
+[kasandra]
+Color Background=0,0,0
+Color Highlighted Bracket=0,0,102
+Color Highlighted Line=17,9,0
+Color Icon Bar=21,22,23
+Color Line Number=255,255,255
+Color MarkType1=255,255,0
+Color MarkType2=0,255,255
+Color MarkType3=0,0,255
+Color MarkType4=0,255,0
+Color MarkType5=95,95,91
+Color MarkType6=0,0,255
+Color MarkType7=0,255,255
+Color Selection=152,114,77
+Color Spelling Mistake Line=255,0,0
+Color Tab Marker=255,255,255
+Color Template Background=204,204,204
+Color Template Editable Placeholder=204,255,204
+Color Template Focused Editable Placeholder=102,255,102
+Color Template Not Editable Placeholder=255,204,204
+Color Word Wrap Marker=136,133,128
+Font=Sans Serif,10,-1,5,50,0,0,0,0,0
+
+[kate - Normal]
+Color Background=255,255,255
+Color Highlighted Bracket=240,247,255
+Color Highlighted Line=248,247,246
+Color Icon Bar=224,223,222
+Color Line Number=20,19,18
+Color MarkType1=0,0,255
+Color MarkType2=255,0,0
+Color MarkType3=255,255,0
+Color MarkType4=255,0,255
+Color MarkType5=160,160,164
+Color MarkType6=0,255,0
+Color MarkType7=255,0,0
+Color Selection=65,139,212
+Color Spelling Mistake Line=255,0,0
+Color Tab Marker=210,210,210
+Color Template Background=204,204,204
+Color Template Editable Placeholder=204,255,204
+Color Template Focused Editable Placeholder=102,255,102
+Color Template Not Editable Placeholder=255,204,204
+Color Word Wrap Marker=237,237,237
+Font=Monospace,9,-1,5,50,0,0,0,0,0
+
+[zenburn]
+Color Background=63,63,63
+Color Highlighted Bracket=154,109,111
+Color Highlighted Line=46,67,64
+Color Icon Bar=118,102,102
+Color Line Number=159,175,175
+Color MarkType1=238,222,189
+Color MarkType2=222,165,164
+Color MarkType3=213,238,213
+Color MarkType4=197,194,213
+Color MarkType5=160,160,164
+Color MarkType6=139,210,213
+Color MarkType7=239,159,159
+Color Selection=106,109,106
+Color Spelling Mistake Line=255,0,0
+Color Tab Marker=143,175,159
+Color Template Background=204,204,204
+Color Template Editable Placeholder=204,255,204
+Color Template Focused Editable Placeholder=102,255,102
+Color Template Not Editable Placeholder=255,204,204
+Color Word Wrap Marker=119,121,112
+Font=DejaVu Sans Mono,14,-1,5,50,0,0,0,0,0

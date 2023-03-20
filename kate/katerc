@@ -1,0 +1,229 @@
+[CTags]
+GlobalCommand=ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.
+GlobalNumTargets=1
+GlobalTarget_  0=/home/sglass/cosarm/src/third_party/u-boot/files
+
+[Desktop Entry]
+DefaultProfile=
+
+[Favorite Profiles]
+Favorites=
+
+[General]
+Close After Last=false
+Config Revision=10
+Days Meta Infos=30
+Expand Tabs=true
+Last Session=dtc
+Modified Notification=true
+Quick Open List Mode=0
+Quick Open Search Mode=0
+Recent File List Entry Count=10
+Restore Window Configuration=true
+Save Meta Infos=true
+Show Full Path in Title=true
+Show Menu Bar=true
+Show Status Bar=true
+Show Tab Bar=true
+Show Tabs Close Button=true
+Show output view for message type=1
+Startup Session=manual
+Stash new unsaved files=true
+Stash unsaved file changes=false
+Tab Double Click New Document=true
+Tab Middle Click Close Document=true
+Tabbar Tab Limit=0
+
+[KTextEditor Document]
+Allow End of Line Detection=true
+Auto Detect Indent=true
+BOM=false
+Backup Local=false
+Backup Prefix=
+Backup Remote=false
+Backup Suffix=~
+Camel Cursor=false
+Encoding=UTF-8
+End of Line=0
+Indent On Backspace=false
+Indent On Tab=true
+Indent On Text Paste=false
+Indentation Mode=normal
+Indentation Width=8
+Keep Extra Spaces=true
+Line Length Limit=4096
+Newline At EOF=false
+Newline at End of File=true
+On-The-Fly Spellcheck=false
+Overwrite Mode=false
+PageUp/PageDown Moves Cursor=false
+Remove Spaces=1
+ReplaceTabsDyn=false
+Show Spaces=0
+Show Tabs=true
+Smart Home=true
+Swap Directory=
+Swap File Mode=1
+Swap Sync Interval=15
+Tab Handling=2
+Tab Width=8
+Trailing Marker Size=1
+Word Wrap=false
+Word Wrap Column=80
+
+[KTextEditor Editor]
+Encoding Prober Type=1
+Fallback Encoding=ISO-8859-15
+
+[KTextEditor Renderer]
+Animate Bracket Matching=false
+Auto Color Theme Selection=false
+Color Theme=simon ayu
+Font=Monospace,10,-1,5,50,0,0,0,0,0
+Schema=darK
+Show Indentation Lines=false
+Show Whole Bracket Expression=true
+Word Wrap Marker=true
+
+[KTextEditor View]
+Allow Mark Menu=true
+Auto Brackets=false
+Auto Center Lines=0
+Auto Completion=false
+Auto Completion Preselect First Entry=true
+Backspace Remove Composed Characters=false
+Bookmark Menu Sorting=0
+Bracket Match Preview=false
+Chars To Enclose Selection=
+Default Mark Type=1
+Dynamic Word Wrap=false
+Dynamic Word Wrap Align Indent=80
+Dynamic Word Wrap At Static Marker=false
+Dynamic Word Wrap Indicators=1
+Dynamic Wrap not at word boundaries=false
+Fold First Line=false
+Folding Bar=false
+Folding Preview=true
+Icon Bar=false
+Input Mode=0
+Keyword Completion=true
+Line Modification=false
+Line Numbers=false
+Maximum Search History Size=100
+Mouse Paste At Cursor Position=false
+Persistent Selection=false
+Scroll Bar Marks=false
+Scroll Bar Mini Map=false
+Scroll Bar Mini Map All=false
+Scroll Bar Mini Map Width=60
+Scroll Bar MiniMap=true
+Scroll Bar Preview=true
+Scroll Past End=false
+Search/Replace Flags=524
+Show Documentation With Completion=true
+Show Focus Frame Around Editor=true
+Show Line Count=false
+Show Scrollbars=0
+Show Word Count=false
+Smart Copy Cut=false
+Text Drag And Drop=true
+User Sets Of Chars To Enclose Selection=
+Vi Input Mode Steal Keys=false
+Vi Relative Line Numbers=false
+Word Completion=true
+Word Completion Minimal Word Length=3
+Word Completion Remove Tail=true
+
+[KTextEditor::Search]
+Replace History=hostprogs-y,280_,\\, 0x,.,${dir},fname,",    ,openssl,CONFIG_PPL_CMD_DHCP,,u16,),!= , !=,==, = ,++,+= , + ,\\, ,info,num_spls,IS_ENABLED(CONFIG_PPL_,qfw,check_src_missing,check_mk_missing,CONFIG_IS_ENABLED(,        ,Returns: ,last_timestamp,is_optee_bin_v1,\\\\\\\\t,blob,notrace ,extension,ahci,sf,delta=%ld,fs_helper.mk_fs,--,---\\\\n,-------,ITEM2_LABEL,ITEM1_LABEL,ITEM_LABEL,label_id,ITEM_PREVIEW,OBJ_U_BOOT_LOGO,desc,part_blk_read,part_blk_write,part_blk_erase,ITEM2_KEY,ITEM1_KEY,met->font_size,expo,\\\\t,TPL,VPL,vpl,fit_util.,basename,ofnode_from_tree_offset,get_other_oftree,local suite name,rt_get_suite_and_name,fdt_action,&priv->eminfo,scsi,info->file_size,info->block_size,info->buff,info->buff_used,info->read_len,info->phase,SCSIPH_,info->,conv_uclass_id,_entries,req,cmd,IF_TYPE_,if_typeinfo,\\,,csv,csf,buf, ,NULL,g_assert_null,g_assert_cmpint(0\\, ==\\, ,object_class,node,klass_device,xxxxx,device_class,g_debug,method,VbeMethod
+Search History=header,header_name_se,set_header,jerry,servo_snow,snow,coral,em100_coral,samus,ssamus,link64,sanm,bob,bob#,toolpath,allow,toolpa,CollectBintools,toolpat,GetData,build_don,force_mi,capt,_SetupDtb,_DoTestFile,missing,testReplaceFitSibling,277_,277,mrc,minnow,mm_communicate,func_da,FFA_X3_MBZ_REG_START,From,sandb,.add(,self.path =,systab,do_efi_show_tables,smbios_tab,external_data,exter,build,note,KBUILD_LDFLAGS,_start =,_start,u-boot:,standalone,standal,-wl,-z,-lz,lz,cmd_objcopy,u-boot.bin,UBOOT_BIN,objcopy,-j,repro,meth_ef,_RunReplaceCmd,getimage,WriteEntryToImage,replace,preser,ProcessContentsUpdate,readda,.getentr,WriteData,allow_missing,missing_bintools,allow_mi,build_done,buildsect,_MakeInputFile,makeinp,ext_,@,-0x,hostprogs-y,CheckSize,-t,prepare_output_dir,'replace',buildsectionda,exists,cross =,MakeEnvironment,CROSS_COMPILE,cross_com,VAR_CROSS_COMPILE,default_board,DEFAULT_DTS,SOCS,UBOARDS,target,family,vendor
+
+[Kate Print Settings][Margins]
+bottom=4.23
+left=4.23
+right=4.23
+top=4.23
+
+[Konsole]
+AutoSyncronize=false
+KonsoleEscKeyBehaviour=true
+KonsoleEscKeyExceptions=vi,vim,nvim
+RemoveExtension=false
+RunPrefix=
+SetEditor=false
+
+[MainWindow]
+HDMI-0 Height 3840x2160=1390
+HDMI-0 Width 3840x2160=1667
+Height 1080=1165
+Height 2160=1189
+State=AAAA/wAAAAD9AAAAAAAABhcAAASPAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAAAAAFEwAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1920=1543
+Width 3840=1559
+
+[Notification Messages]
+closeOther=false
+
+[PluginSymbolViewer]
+ExpandTree=false
+SortSymbols=false
+TreeView=false
+ViewTypes=true
+
+[PluginTextFilter]
+Completion list=sort
+Copy result=false
+Merge output=true
+
+[Printing][HeaderFooter]
+FooterBackground=211,211,211
+FooterBackgroundEnabled=false
+FooterEnabled=true
+FooterForeground=0,0,0
+FooterFormatCenter=
+FooterFormatLeft=
+FooterFormatRight=%U
+HeaderBackground=211,211,211
+HeaderBackgroundEnabled=false
+HeaderEnabled=true
+HeaderFooterFont=Ubuntu,11,-1,5,50,0,0,0,0,0
+HeaderForeground=0,0,0
+HeaderFormatCenter=%f
+HeaderFormatLeft=%y
+HeaderFormatRight=%p
+
+[Printing][Layout]
+BackgroundColorEnabled=false
+BoxColor=invalid
+BoxEnabled=false
+BoxMargin=6
+BoxWidth=1
+ColorScheme=Printing
+
+[Printing][Text]
+Legend=false
+LineNumbers=false
+
+[Shortcuts]
+kate_mdi_toolview_kate_plugin_katesearch=none
+kate_mdi_toolview_kate_plugin_symbolviewer=none
+kate_mdi_toolview_kate_private_plugin_katefiletreeplugin=none
+kate_mdi_toolview_kate_private_plugin_katekonsoleplugin=none
+kate_mdi_toolview_kateproject=none
+kate_mdi_toolview_kateprojectgit=none
+kate_mdi_toolview_kateprojectinfo=none
+kate_mdi_toolview_output=none
+
+[UiSettings]
+ColorScheme=
+
+[filetree]
+editShade=179,218,246
+listMode=false
+shadingEnabled=true
+showCloseButton=false
+showFullPathOnRoots=true
+showToolbar=true
+sortRole=0
+viewShade=193,208,209

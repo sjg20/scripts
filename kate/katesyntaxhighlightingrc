@@ -1,0 +1,6142 @@
+[Cache /usr/share/kde4/apps/katepart/syntax/abap.xml]
+author=Marcos Antonio Alvarez Costales (busgosin@hotmail.com)
+extension=*.abap;*.ABAP
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-abap-src
+name=ABAP
+priority=5
+section=Sources
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/abc.xml]
+author=Andrea Primiani (primiani@dag.it)
+extension=*.abc;*.ABC
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/vnd.abc
+name=ABC
+priority=
+section=Other
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/actionscript.xml]
+author=Aaron Miller (armantic101@gmail.com)
+extension=*.as
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-actionscript
+name=ActionScript 2.0
+priority=
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ada.xml]
+author=
+extension=*.adb;*.ads;*.ada;*.a
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-adasrc
+name=Ada
+priority=
+section=Sources
+style=
+version=1.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ahdl.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.ahdl;*.tdf
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-ahdl
+name=AHDL
+priority=
+section=Hardware
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ahk.xml]
+author=
+extension=*.ahk;*.iahk
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=
+name=AutoHotKey
+priority=9
+section=Scripts
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/alert.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=
+hidden=true
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Alerts
+priority=
+section=Other
+style=
+version=1.09
+
+[Cache /usr/share/kde4/apps/katepart/syntax/alert_indent.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=
+hidden=true
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Alerts_indent
+priority=
+section=Other
+style=
+version=1.09
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ample.xml]
+author=Christian Parg (cparg@gmx.de)
+extension=*.ample;*.menu;*.startup
+hidden=false
+indenter=
+lastModified=1404961857
+license=Apache & LGPL
+mimetype=text/x-amplesrc
+name=AMPLE
+priority=5
+section=Scripts
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ansforth94.xml]
+author=Mark Corbin (mark@dibsco.co.uk)
+extension=*.4th;*.4TH;*.f;*.F;*.frt;*.FRT;*.fs;*.FS;*.fth;*.FTH;*.seq;*.SEQ
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=ANS-Forth94
+priority=5
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ansic89.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.c;*.C;*.h
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-csrc;text/x-c++src;text/x-chdr
+name=ANSI C89
+priority=2
+section=Sources
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ansys.xml]
+author=Giovanni Bacci (giovanni@castellodilari.it)
+extension=*.ans
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Ansys
+priority=
+section=Scientific
+style=
+version=1.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/apache.xml]
+author=Jan Janssen (medhefgo@googlemail.com)
+extension=httpd.conf;httpd2.conf;apache.conf;apache2.conf;.htaccess*;.htpasswd*
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Apache Configuration
+priority=
+section=Configuration
+style=
+version=1.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asm-avr.xml]
+author=Roland Nagy
+extension=*.asm;*.ASM;*.asm-avr
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-asm;text/x-asm-avr
+name=AVR Assembler
+priority=
+section=Assembler
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asm-dsp56k.xml]
+author=Miro Kropacek (miro.kropacek@gmail.com)
+extension=*.asm;*.inc;*.ASM;*.INC
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Motorola DSP56k
+priority=
+section=Assembler
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asm-m68k.xml]
+author=Miro Kropacek (miro.kropacek@gmail.com)
+extension=*.s;*.i;*.S;*.I
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Motorola 68k (VASM/Devpac)
+priority=
+section=Assembler
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asm6502.xml]
+author=
+extension=*.asm
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-asm6502
+name=Asm6502
+priority=
+section=Assembler
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asn1.xml]
+author=Philippe Rigault
+extension=*.asn;*.asn1
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=ASN.1
+priority=
+section=Markup
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asp.xml]
+author=Antonio Salazar (savedfastcool@gmail.com)
+extension=*.asp;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-asp-src;text/x-asp-src
+name=ASP
+priority=
+section=Markup
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/asterisk.xml]
+author=UNGAR Didier
+extension=*asterisk/*.conf
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Asterisk
+priority=
+section=Configuration
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/awk.xml]
+author=
+extension=*.awk
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-awk
+name=AWK
+priority=
+section=Scripts
+style=
+version=0.92
+
+[Cache /usr/share/kde4/apps/katepart/syntax/bash.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.sh;*.bash;*.ebuild;*.eclass;.bashrc;.bash_profile;.bash_login;.profile
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-shellscript
+name=Bash
+priority=
+section=Scripts
+style=
+version=2.17
+
+[Cache /usr/share/kde4/apps/katepart/syntax/bibtex.xml]
+author=Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)
+extension=*.bib
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-bib
+name=BibTeX
+priority=
+section=Markup
+style=
+version=1.17
+
+[Cache /usr/share/kde4/apps/katepart/syntax/bmethod.xml]
+author=Ivo Anjo (knuckles@gmail.com)
+extension=*.mch;*.imp;*.ref
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=B-Method
+priority=
+section=Scientific
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/boo.xml]
+author=Marc Dassonneville
+extension=*.boo
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-boo
+name=Boo
+priority=
+section=Sources
+style=
+version=0.91
+
+[Cache /usr/share/kde4/apps/katepart/syntax/c.xml]
+author=
+extension=*.c;*.C;*.h
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=text/x-csrc;text/x-c++src;text/x-chdr
+name=C
+priority=5
+section=Sources
+style=
+version=1.45
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ccss.xml]
+author=Massimiliano Torromeo
+extension=*.ccss
+hidden=false
+indenter=
+lastModified=1404961857
+license=BSD
+mimetype=
+name=CleanCSS
+priority=
+section=Markup
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cg.xml]
+author=Florian Schanda (florian.schanda@schanda.de)
+extension=*.cg;*.cgfx
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-cgsrc
+name=Cg
+priority=
+section=Sources
+style=
+version=1.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cgis.xml]
+author=
+extension=*.cgis
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=CGiS
+priority=
+section=Sources
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/changelog.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=ChangeLog
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=ChangeLog
+priority=
+section=Other
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/chicken.xml]
+author=Dominik Haumann (dhdev@gmx.de) [modified for Chicken by Nick Zarczynski (jacktradespublic@gmail.com)]
+extension=*.chicken;*.scm;*.ss;*.scheme;*.meta
+hidden=false
+indenter=lisp
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-scheme
+name=Chicken
+priority=
+section=Scripts
+style=
+version=1.12
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cisco.xml]
+author=Raphaël GRAPINET
+extension=*.cis
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/cisco
+name=Cisco
+priority=
+section=Configuration
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/clipper.xml]
+author=Andrey Cherepanov (sibskull@mail.ru)
+extension=*.prg;*.PRG;*.ch
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-clipper-src
+name=Clipper
+priority=2
+section=Sources
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/clojure.xml]
+author=Dominik Haumann [lisp] modified for clojure by Caspar Hasenclever
+extension=*.clj
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Clojure
+priority=
+section=Sources
+style=
+version=2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cmake.xml]
+author=Alexander Neundorf (neundorf@kde.org)
+extension=CMakeLists.txt;*.cmake;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=CMake
+priority=
+section=Other
+style=
+version=1.26
+
+[Cache /usr/share/kde4/apps/katepart/syntax/coffee.xml]
+author=Max Shawabkeh (max99x@gmail.com)
+extension=Cakefile;*.coffee;*.coco
+hidden=false
+indenter=python
+lastModified=1404961857
+license=MIT
+mimetype=text/x-coffeescript;application/x-coffeescript
+name=CoffeeScript
+priority=
+section=Scripts
+style=
+version=1.4
+
+[Cache /usr/share/kde4/apps/katepart/syntax/coldfusion.xml]
+author=
+extension=*.cfm;*.cfc;*.cfml;*.dbm
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-coldfusion
+name=ColdFusion
+priority=
+section=Markup
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/commonlisp.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.lisp;*.cl;*.lsp
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Common Lisp
+priority=
+section=Sources
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/component-pascal.xml]
+author=Werner Braun (wb@o3-software.de)
+extension=*.cp;*.bro
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-component-pascal
+name=Component-Pascal
+priority=
+section=Sources
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/context.xml]
+author=Philipp A. (flying-sheep@web.de)
+extension=*.ctx
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-tex
+name=ConTeXt
+priority=8
+section=Markup
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cpp.xml]
+author=Alex Turbov (i.zaufi@gmail.com)
+extension=*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-c++src;text/x-c++hdr;text/x-chdr
+name=C++
+priority=9
+section=Sources
+style=C++
+version=2.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/crk.xml]
+author=
+extension=*.crk
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Crack
+priority=
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cs.xml]
+author=
+extension=*.cs
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-csharp-src;text/x-csharp-hde
+name=C#
+priority=
+section=Sources
+style=
+version=1.15
+
+[Cache /usr/share/kde4/apps/katepart/syntax/css-php.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=
+hidden=true
+indenter=cstyle
+lastModified=1407213431
+license=LGPL
+mimetype=
+name=CSS/PHP
+priority=
+section=Other
+style=
+version=2.09
+
+[Cache /usr/share/kde4/apps/katepart/syntax/css.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.css
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/css
+name=CSS
+priority=
+section=Markup
+style=
+version=2.09
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cubescript.xml]
+author=Kevin Meyer
+extension=*.cfg
+hidden=false
+indenter=normal
+lastModified=1404961857
+license=zlib/libpng
+mimetype=
+name=CubeScript
+priority=
+section=Scripts
+style=
+version=0.77
+
+[Cache /usr/share/kde4/apps/katepart/syntax/cue.xml]
+author=
+extension=*.cue
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/x-cue
+name=CUE Sheet
+priority=
+section=Other
+style=
+version=0.91
+
+[Cache /usr/share/kde4/apps/katepart/syntax/curry.xml]
+author=Björn Peemöller (bjp@informatik.uni-kiel.de)
+extension=*.curry
+hidden=false
+indenter=haskell
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-curry
+name=Curry
+priority=
+section=Sources
+style=
+version=0.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/d.xml]
+author=Diggory Hardy (diggory.hardy@gmail.com), Aziz Köksal (aziz.koeksal@gmail.com), Jari-Matti Mäkelä (jmjm@iki.fi), Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)
+extension=*.d;*.D;*.di;*.DI;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-dsrc
+name=D
+priority=
+section=Sources
+style=
+version=1.62
+
+[Cache /usr/share/kde4/apps/katepart/syntax/debianchangelog.xml]
+author=
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Debian Changelog
+priority=
+section=Other
+style=
+version=0.69
+
+[Cache /usr/share/kde4/apps/katepart/syntax/debiancontrol.xml]
+author=
+extension=control
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Debian Control
+priority=
+section=Other
+style=
+version=0.84
+
+[Cache /usr/share/kde4/apps/katepart/syntax/desktop.xml]
+author=
+extension=*.desktop;*.kdelnk;*.desktop.cmake
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/x-desktop
+name=.desktop
+priority=
+section=Configuration
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/diff.xml]
+author=
+extension=*.diff;*patch
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-patch
+name=Diff
+priority=
+section=Other
+style=
+version=1.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/djangotemplate.xml]
+author=Matthew Marshall (matthew@matthewmarshall.org)
+extension=*.htm;*.html
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/html
+name=Django HTML Template
+priority=9
+section=Markup
+style=
+version=1.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/dosbat.xml]
+author=Matthew Woehlke (mw_triad@users.sourceforge.net)
+extension=*.bat
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-dos
+name=MS-DOS Batch
+priority=
+section=Scripts
+style=
+version=0.30
+
+[Cache /usr/share/kde4/apps/katepart/syntax/dot.xml]
+author=Postula Loïs (lois.postula@live.be)
+extension=*.dot
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-dot
+name=dot
+priority=0
+section=Scientific
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/doxygen.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.dox;*.doxygen
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-doxygen
+name=Doxygen
+priority=9
+section=Markup
+style=
+version=1.35
+
+[Cache /usr/share/kde4/apps/katepart/syntax/doxygenlua.xml]
+author=Bruno Massa (brmassa@gmail.com)
+extension=*.dox;*.doxygen
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-doxygen
+name=DoxygenLua
+priority=
+section=Markup
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/dtd.xml]
+author=Andriy Lesyuk (s-andy@in.if.ua)
+extension=*.dtd
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/xml-dtd
+name=DTD
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/e.xml]
+author=
+extension=*.e
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-e-src
+name=E Language
+priority=
+section=Sources
+style=
+version=0.22
+
+[Cache /usr/share/kde4/apps/katepart/syntax/eiffel.xml]
+author=Sebastian Vuorinen
+extension=*.e
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-eiffel-src
+name=Eiffel
+priority=
+section=Sources
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/email.xml]
+author=Carl A Joslin (carl.joslin@joslin.dyndns.org)
+extension=*.eml
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=message/rfc822
+name=Email
+priority=
+section=Other
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/erlang.xml]
+author=Bill Ross (bill@emailme.net.au)
+extension=*.erl
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Erlang
+priority=
+section=Scripts
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/euphoria.xml]
+author=Irv Mullins (irvm@ellijay.com)
+extension=*.e;*.ex;*.exw;*.exu
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-euphoria
+name=Euphoria
+priority=
+section=Scripts
+style=
+version=2.08
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fasm.xml]
+author=rCX (rCX12@yahoo.com)
+extension=*.asm;*.inc;*.fasm
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Intel x86 (FASM)
+priority=
+section=Assembler
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ferite.xml]
+author=
+extension=*.fe;*.feh
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-ferite-src
+name=ferite
+priority=
+section=Scripts
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fgl-4gl.xml]
+author=Andrej Falout (andrej@falout.org)
+extension=*.4gl;*.4GL;*.err
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-4glsrc;text/x-4glerr
+name=4GL
+priority=
+section=Database
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fgl-per.xml]
+author=Andrej Falout (andrej@falout.org)
+extension=*.per;*.PER;*.per.err
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-4glper;text/x-4glpererr
+name=4GL-PER
+priority=
+section=Database
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fortran.xml]
+author=Franchin Matteo (fnch@libero.it)
+extension=*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-fortran-src
+name=Fortran
+priority=9
+section=Sources
+style=
+version=1.13
+
+[Cache /usr/share/kde4/apps/katepart/syntax/freebasic.xml]
+author=Chris Neugebauer (chrisjrn@gmail.com)
+extension=*.bas;*.bi;*.BAS;*.BI
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-freebasic
+name=FreeBASIC
+priority=
+section=Sources
+style=
+version=0.14
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fsharp.xml]
+author=Bas Bossink (bas.bossink@gmail.com)
+extension=*.fs;*.fsi;*.fsx
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=FSharp
+priority=10
+section=Sources
+style=
+version=0.0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/fstab.xml]
+author=Diego Iastrubni (elcuco@kde.org)
+extension=fstab;mtab
+hidden=false
+indenter=
+lastModified=1404961857
+license=Public Domain
+mimetype=
+name=fstab
+priority=
+section=Configuration
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gap.xml]
+author=Jose Joao Morais
+extension=*.gd;*.gi;*.g
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/gap
+name=GAP
+priority=
+section=Scientific
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gcc.xml]
+author=Alex Turbov (i.zaufi@gmail.com)
+extension=*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;
+hidden=true
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-csrc
+name=GCCExtensions
+priority=5
+section=Sources
+style=
+version=0.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gdb.xml]
+author=Milian Wolff (mail@milianw.de)
+extension=*.kcrash;*.crash;*.bt
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=GDB Backtrace
+priority=
+section=Other
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gdl.xml]
+author=
+extension=*.gdl;*.vcg;*.GDL;*.VCG
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=GDL
+priority=
+section=Scientific
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gettext.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.po;*.pot
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-gettext-translation
+name=GNU Gettext
+priority=
+section=Markup
+style=
+version=2.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/git-rebase.xml]
+author=Orgad Shaneh (orgads@gmail.com)
+extension=git-rebase-todo
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/vnd.git.rebase
+name=Git Rebase
+priority=
+section=Other
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/glosstex.xml]
+author=Thomas Braun(braun@physik.fu-berlin.de)
+extension=*.gdf
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-gdf
+name=GlossTex
+priority=
+section=Markup
+style=
+version=0.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/glsl.xml]
+author=Oliver Richers (o.richers@tu-bs.de)
+extension=*.glsl;*.vert;*.frag;*.geom
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-glslsrc
+name=GLSL
+priority=
+section=Sources
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gnuassembler.xml]
+author=John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name), Miquel Sabaté (mikisabate@gmail.com)
+extension=*.s;*.S
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-asm
+name=GNU Assembler
+priority=
+section=Assembler
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/gnuplot.xml]
+author=
+extension=*.gnuplot;*.gp;*.gplt
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Gnuplot
+priority=
+section=Scripts
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/go-lang.xml]
+author=Miquel Sabaté (mikisabate@gmail.com)
+extension=*.go
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Go
+priority=
+section=Sources
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/go.xml]
+author=Miquel Sabaté (mikisabate@gmail.com)
+extension=*.go
+hidden=false
+indenter=cstyle
+lastModified=1311792008
+license=GPL
+mimetype=
+name=Go
+priority=
+section=Sources
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/grammar.xml]
+author=Milian Wolff (mail@milianw.de), Jonathan Schmidt-Dominé (devel@the-user.org)
+extension=*.g
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=KDev-PG[-Qt] Grammar
+priority=
+section=Sources
+style=
+version=0.24
+
+[Cache /usr/share/kde4/apps/katepart/syntax/haml.xml]
+author=Cies Breijs (cies_at_kde_nl)
+extension=*.haml
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-haml
+name=Haml
+priority=
+section=Markup
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/haskell.xml]
+author=Nicolas Wu (zenzike@gmail.com)
+extension=*.hs;*.chs
+hidden=false
+indenter=haskell
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-haskell
+name=Haskell
+priority=
+section=Sources
+style=
+version=2.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/haxe.xml]
+author=Chad Joan
+extension=*.hx;*.Hx;*.hX;*.HX;
+hidden=false
+indenter=
+lastModified=1404961857
+license=MIT
+mimetype=text/x-hxsrc
+name=Haxe
+priority=
+section=Sources
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/html-php.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.php;*.php3;*.wml;*.phtml;*.phtm;*.inc
+hidden=false
+indenter=
+lastModified=1407213431
+license=LGPL
+mimetype=text/x-php4-src;text/x-php3-src;text/vnd.wap.wml;application/x-php
+name=PHP (HTML)
+priority=10
+section=Scripts
+style=
+version=1.99
+
+[Cache /usr/share/kde4/apps/katepart/syntax/html.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.htm;*.html;*.shtml;*.shtm
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/html
+name=HTML
+priority=10
+section=Markup
+style=
+version=1.99
+
+[Cache /usr/share/kde4/apps/katepart/syntax/idconsole.xml]
+author=
+extension=*.cfg
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Quake Script
+priority=
+section=Scripts
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/idl.xml]
+author=
+extension=*.idl
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-idl-src
+name=IDL
+priority=
+section=Sources
+style=
+version=1.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ilerpg.xml]
+author=
+extension=QRPG*.*;qrpg*.*
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-ilerpg-src
+name=ILERPG
+priority=
+section=Sources
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/inform.xml]
+author=Giancarlo Niccolai (giancarlo@niccolai.ws)
+extension=*.inf;*.h
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-inform-src
+name=Inform
+priority=
+section=Sources
+style=
+version=1.23
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ini.xml]
+author=Jan Janssen (medhefgo@web.de)
+extension=*.ini;*.pls;*.kcfgc
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=INI Files
+priority=
+section=Configuration
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/jam.xml]
+author=
+extension=Jam*;*.jam
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-jam;text/x-Jamfile;text/x-Jamrules;text/x-Jambase
+name=Jam
+priority=
+section=Other
+style=
+version=0.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/java.xml]
+author=Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)
+extension=*.java
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-java
+name=Java
+priority=
+section=Sources
+style=
+version=1.21
+
+[Cache /usr/share/kde4/apps/katepart/syntax/javadoc.xml]
+author=Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Javadoc
+priority=
+section=Markup
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/javascript-php.xml]
+author=Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)
+extension=
+hidden=true
+indenter=cstyle
+lastModified=1407213431
+license=
+mimetype=
+name=JavaScript/PHP
+priority=
+section=Other
+style=
+version=1.22
+
+[Cache /usr/share/kde4/apps/katepart/syntax/javascript.xml]
+author=Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)
+extension=*.js;*.kwinscript
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=text/x-javascript;application/x-javascript
+name=JavaScript
+priority=
+section=Scripts
+style=
+version=1.22
+
+[Cache /usr/share/kde4/apps/katepart/syntax/jira.xml]
+author=
+extension=*.jira
+hidden=false
+indenter=
+lastModified=1404961857
+license=FDL
+mimetype=
+name=Jira
+priority=
+section=Markup
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/json.xml]
+author=Sebastian Pipping (sebastian@pipping.org)
+extension=*.json
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=application/json
+name=JSON
+priority=
+section=Markup
+style=
+version=1.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/jsp.xml]
+author=Rob Martin (rob@gamepimp.com)
+extension=*.jsp;*.JSP
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/html
+name=JSP
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/julia.xml]
+author=
+extension=*.jl
+hidden=false
+indenter=
+lastModified=1404961857
+license=MIT
+mimetype=
+name=Julia
+priority=5
+section=Sources
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/k.xml]
+author=James Schmitz (james.schmitz@gmail.com)
+extension=*.k
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL2+
+mimetype=
+name=k
+priority=
+section=Scripts
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/katetemplate.xml]
+author=Anders Lund
+extension=*.katetemplate
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Kate File Template
+priority=
+section=Markup
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/kbasic.xml]
+author=
+extension=*.kbasic
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-kbasic-src
+name=KBasic
+priority=
+section=Sources
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/latex.xml]
+author=Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)
+extension=*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-tex
+name=LaTeX
+priority=10
+section=Markup
+style=
+version=1.55
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ld.xml]
+author=Lyle Putnam (lcputnam@gmail.com)
+extension=*.ld
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=GNU Linker Script
+priority=
+section=Scripts
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ldif.xml]
+author=Andreas Hochsteger (e9625392@student.tuwien.ac.at)
+extension=*.ldif
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/directory
+name=LDIF
+priority=
+section=Database
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/less.xml]
+author=from CCS:Wilbert Berendsen (wilbert@kde.nl)
+extension=*.less
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/css
+name=LESSCSS
+priority=
+section=Markup
+style=
+version=0.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/lex.xml]
+author=Jan Villat (jan.villat@net2000.ch)
+extension=*.l;*.lex;*.flex
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Lex/Flex
+priority=
+section=Sources
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/lilypond.xml]
+author=Wilbert Berendsen (info@wilbertberendsen.nl)
+extension=*.ly;*.LY;*.ily;*.ILY;*.lyi;*.LYI
+hidden=false
+indenter=lilypond
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-lilypond
+name=LilyPond
+priority=
+section=Other
+style=lilypond
+version=3.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/literate-curry.xml]
+author=Björn Peemöller (bjp@informatik.uni-kiel.de)
+extension=*.lcurry
+hidden=false
+indenter=haskell
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-curry
+name=Literate Curry
+priority=
+section=Sources
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/literate-haskell.xml]
+author=Nicolas Wu (zenzike@gmail.com)
+extension=*.lhs
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-haskell
+name=Literate Haskell
+priority=
+section=Sources
+style=
+version=2.0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/logohighlightstyle.en_GB.xml]
+author=
+extension=*.logo;*.lgo;*.LOGO;*.Logo
+hidden=false
+indenter=
+lastModified=1095969162
+license=
+mimetype=text/x-logosrc;text/x-logo;application/x-logo
+name=en_US
+priority=9
+section=Logo
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/logtalk.xml]
+author=Paulo Moura (pmoura@logtalk.org)
+extension=*.lgt;*.config
+hidden=false
+indenter=
+lastModified=1404961857
+license=Artistic License 2.0
+mimetype=text/x-logtalk
+name=Logtalk
+priority=
+section=Sources
+style=
+version=1.51
+
+[Cache /usr/share/kde4/apps/katepart/syntax/lpc.xml]
+author=Andreas Klauer (Andreas.Klauer@metamorpher.de)
+extension=*.c;*.h;*.inc;*.o
+hidden=false
+indenter=
+lastModified=1404961857
+license=Artistic
+mimetype=
+name=LPC
+priority=
+section=Sources
+style=
+version=0.76
+
+[Cache /usr/share/kde4/apps/katepart/syntax/lsl.xml]
+author=Rafał Rzepecki
+extension=*.lsl
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL-3
+mimetype=text/x-lsl
+name=LSL
+priority=
+section=Scripts
+style=
+version=1.20
+
+[Cache /usr/share/kde4/apps/katepart/syntax/lua.xml]
+author=
+extension=*.lua
+hidden=false
+indenter=lua
+lastModified=1404961857
+license=
+mimetype=text/x-lua
+name=Lua
+priority=
+section=Scripts
+style=
+version=1.06
+
+[Cache /usr/share/kde4/apps/katepart/syntax/m3u.xml]
+author=Jan Janssen (medhefgo@web.de)
+extension=*.m3u
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=audio/x-mpegurl
+name=M3U
+priority=
+section=Other
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/m4.xml]
+author=Jaak Ristioja
+extension=*.m4;
+hidden=false
+indenter=
+lastModified=1404961857
+license=New BSD License
+mimetype=
+name=GNU M4
+priority=
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mab.xml]
+author=
+extension=*.mab;*.MAB;*.Mab
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-mab
+name=MAB-DB
+priority=
+section=Markup
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/makefile.xml]
+author=Per Wigren (wigren@home.se)
+extension=GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*;*.mk
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-makefile
+name=Makefile
+priority=
+section=Other
+style=
+version=2.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mako.xml]
+author=Massimiliano Torromeo (massimiliano.torromeo@gmail.com)
+extension=*.mako;*.mak
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Mako
+priority=
+section=Markup
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mandoc.xml]
+author=Matthew Woehlke (mw_triad@users.sourceforge.net)
+extension=*.1;*.2;*.3;*.4;*.5;*.6;*.7;*.8;*.1m;*.3x;*.tmac
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Troff Mandoc
+priority=
+section=Markup
+style=
+version=0.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/markdown.xml]
+author=Darrin Yeager, Claes Holmerson
+extension=*.md;*.mmd;*.markdown
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL,BSD
+mimetype=
+name=Markdown
+priority=15
+section=Markup
+style=
+version=1.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mason.xml]
+author=
+extension=*.html;
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Mason
+priority=
+section=Scripts
+style=
+version=1.06
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mathematica.xml]
+author=Sven Brauch (svenbrauch@gmail.com)
+extension=*.nb
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Mathematica
+priority=3
+section=Scientific
+style=
+version=8.0.4
+
+[Cache /usr/share/kde4/apps/katepart/syntax/matlab.xml]
+author=
+extension=*.m;*.M
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/mfile
+name=Matlab
+priority=
+section=Scientific
+style=
+version=1.31
+
+[Cache /usr/share/kde4/apps/katepart/syntax/maxima.xml]
+author=Alexey Beshenov <al@beshenov.ru>
+extension=*.mac;*.MAC;*.dem;*.DEM
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Maxima
+priority=
+section=Scientific
+style=
+version=0.16
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mediawiki.xml]
+author=
+extension=*.mediawiki
+hidden=false
+indenter=
+lastModified=1404961857
+license=FDL
+mimetype=
+name=MediaWiki
+priority=
+section=Markup
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mel.xml]
+author=Karl Erlandsen (karlerlandsen@yahoo.com)
+extension=*.mel
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=MEL
+priority=
+section=Scripts
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mergetagtext.xml]
+author=Diggory Hardy (diggory.hardy@gmail.com)
+extension=*.mtt;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=mergetag text
+priority=
+section=Configuration
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/metafont.xml]
+author=Yedvilun (yedvilun@gmail.com)
+extension=*.mp;*.mps;*.mpost;*.mf
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-metapost
+name=Metapost/Metafont
+priority=
+section=Markup
+style=
+version=0.9
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mips.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.s;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-mips
+name=MIPS Assembler
+priority=-1
+section=Assembler
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/modelica.xml]
+author=Federico Zenith
+extension=*.mo
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Modelica
+priority=
+section=Sources
+style=
+version=3.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/modelines.xml]
+author=Alex Turbov (i.zaufi@gmail.com)
+extension=
+hidden=true
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Modelines
+priority=5
+section=Other
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/modula-2.xml]
+author=
+extension=*.mod;*.def;*.mi;*.md
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-modula-2
+name=Modula-2
+priority=
+section=Sources
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/monobasic.xml]
+author=Davide Bettio (davide.bettio@kdemail.net)
+extension=*.vb
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=MonoBasic
+priority=
+section=Sources
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/mup.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.mup;*.not
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-mup;audio/x-mup;application/x-mup;audio/x-notes
+name=Music Publisher
+priority=
+section=Other
+style=
+version=1.06
+
+[Cache /usr/share/kde4/apps/katepart/syntax/nagios.xml]
+author=Gastón Martini
+extension=*.cfg
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Nagios
+priority=
+section=Configuration
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/nasm.xml]
+author=Nicola Gigante (nicola.gigante@gmail.com)
+extension=*.asm
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Intel x86 (NASM)
+priority=
+section=Assembler
+style=
+version=1.40
+
+[Cache /usr/share/kde4/apps/katepart/syntax/nemerle.xml]
+author=caminoix + Kamil Skalski (Nazgul)
+extension=*.n
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-nemerle
+name=Nemerle
+priority=
+section=Sources
+style=
+version=0.32
+
+[Cache /usr/share/kde4/apps/katepart/syntax/nesc.xml]
+author=Shakthi Kannan
+extension=*.nc
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPLv2
+mimetype=text/x-ncsrc
+name=nesC
+priority=5
+section=Sources
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/noweb.xml]
+author=Scott Collins (scc@scottcollins.net)
+extension=*.w;*.nw
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=noweb
+priority=
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/objectivec.xml]
+author=
+extension=*.m;*.h
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-objc-src;text/x-c-hdr
+name=Objective-C
+priority=
+section=Sources
+style=
+version=1.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/objectivecpp.xml]
+author=Gennady Telegin (gepo@lvk.cs.msu.su
+extension=*.mm;*.M;*.h
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-objcpp-src;text/x-c-hdr
+name=Objective-C++
+priority=
+section=Sources
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ocaml.xml]
+author=Glyn Webster (glyn@wave.co.nz)
+extension=*.ml;*.mli
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Objective Caml
+priority=10
+section=Sources
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/octave.xml]
+author=Luis Silvestre and Federico Zenith
+extension=*.octave;*.m;*.M
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/octave
+name=Octave
+priority=
+section=Scientific
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/oors.xml]
+author=Gernot Gebhard (gebhard@cs.uni-sb.de)
+extension=*.oors
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=OORS
+priority=
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/opal.xml]
+author=Sebastian Pipping (webmaster@hartwork.org)
+extension=*.impl;*.sign
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=OPAL
+priority=
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/opencl.xml]
+author=
+extension=*.cl
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=text/x-clsrc
+name=OpenCL
+priority=5
+section=Sources
+style=
+version=1.44
+
+[Cache /usr/share/kde4/apps/katepart/syntax/pango.xml]
+author=Jonathan Schmidt-Domniné <devel@the-user.org>
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Pango
+priority=10
+section=Markup
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/pascal.xml]
+author=Unnamed people and Liu Sizhuang(oldherl@gmail.com)
+extension=*.p;*.pas;*.pp
+hidden=false
+indenter=pascal
+lastModified=1404961857
+license=
+mimetype=text/x-pascal
+name=Pascal
+priority=8
+section=Sources
+style=
+version=1.23
+
+[Cache /usr/share/kde4/apps/katepart/syntax/perl.xml]
+author=Anders Lund (anders@alweb.dk)
+extension=*.pl;*.PL;*.pm
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-perl;text/x-perl
+name=Perl
+priority=5
+section=Scripts
+style=
+version=1.29
+
+[Cache /usr/share/kde4/apps/katepart/syntax/pgn.xml]
+author=Ruben Carlo Benante (dr.beco@gmail.com)
+extension=*.pgn;*.PGN
+hidden=false
+indenter=
+lastModified=1404961857
+license=GNU/GPL
+mimetype=
+name=PGN
+priority=5
+section=Other
+style=
+version=2.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/php.xml]
+author=
+extension=
+hidden=true
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=
+name=PHP/PHP
+priority=5
+section=Scripts
+style=
+version=1.44
+
+[Cache /usr/share/kde4/apps/katepart/syntax/picsrc.xml]
+author=Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)
+extension=*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-PicSrc;text/x-PicHdr
+name=PicAsm
+priority=
+section=Assembler
+style=
+version=1.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/pig.xml]
+author=Johannes Schwenk, johannes.schwenk@adition.com
+extension=*.pig
+hidden=false
+indenter=
+lastModified=1404961857
+license=GNU GPL
+mimetype=application/x-pig;text/x-pig
+name=Pig
+priority=
+section=Scripts
+style=
+version=3.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/pike.xml]
+author=Paul Pogonyshev
+extension=*.pike
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/x-pike;text/x-pike
+name=Pike
+priority=
+section=Scripts
+style=
+version=1.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/postscript.xml]
+author=
+extension=*.ps;*.ai;*.eps
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/postscript
+name=PostScript
+priority=
+section=Markup
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/povray.xml]
+author=Christoph Hormann (chris_hormann@gmx.de)
+extension=*.inc;*.pov
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-povray-script;text/x-povray-include
+name=POV-Ray
+priority=2
+section=Other
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ppd.xml]
+author=Lukas Sommer
+extension=*.ppd
+hidden=false
+indenter=
+lastModified=1404961857
+license=public domain
+mimetype=application/vnd.cups-ppd
+name=PostScript Printer Description
+priority=
+section=Markup
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/progress.xml]
+author=Rares Stanciulescu (rstanciu@operamail.com)
+extension=*.p;*.w;*.i;*.cls;
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=progress
+priority=
+section=Database
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/prolog.xml]
+author=Torsten Eichstädt (torsten.eichstaedt@web.de)
+extension=*.prolog;*.dcg;*.pro
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-prolog
+name=Prolog
+priority=
+section=Sources
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/protobuf.xml]
+author=Slawomir Mikula (slawek.mikula@gmail.com)
+extension=*.proto
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-protobuf
+name=Protobuf
+priority=
+section=Sources
+style=
+version=2.40
+
+[Cache /usr/share/kde4/apps/katepart/syntax/puppet.xml]
+author=Michal Humpula (michal.humpula@seznam.cz)
+extension=*.pp
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-puppet
+name=Puppet
+priority=10
+section=Scripts
+style=puppet
+version=2.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/purebasic.xml]
+author=Sven Langenkamp (ace@kylixforum.de)
+extension=*.pb
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-purebasic
+name=PureBasic
+priority=
+section=Sources
+style=
+version=3.91
+
+[Cache /usr/share/kde4/apps/katepart/syntax/python.xml]
+author=Michael Bueker
+extension=*.py;*.pyw;SConstruct;SConscript
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/x-python;text/x-python
+name=Python
+priority=
+section=Scripts
+style=python
+version=2.22
+
+[Cache /usr/share/kde4/apps/katepart/syntax/q.xml]
+author=James Schmitz (james.schmitz@gmail.com)
+extension=*.q
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL2+
+mimetype=
+name=q
+priority=
+section=Scripts
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/qmake.xml]
+author=Milian Wolff (mail@milianw.de)
+extension=*.pro;*.pri;*.prf;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=QMake
+priority=
+section=Other
+style=
+version=1.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/qml.xml]
+author=Milian Wolff (mail@milianw.de)
+extension=*.qml
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=text/x-qml;application/x-qml
+name=QML
+priority=
+section=Scripts
+style=
+version=1.5
+
+[Cache /usr/share/kde4/apps/katepart/syntax/qt4.xml]
+author=Alex Turbov (i.zaufi@gmail.com)
+extension=*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-c++src;text/x-c++hdr;text/x-chdr
+name=C++/Qt4
+priority=6
+section=Sources
+style=C++
+version=1.6
+
+[Cache /usr/share/kde4/apps/katepart/syntax/r.xml]
+author=
+extension=*.R;*.r;*.S;*.s;*.q
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=R Script
+priority=
+section=Scripts
+style=
+version=2.07
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rapidq.xml]
+author=Tiberiu Dragulinescu
+extension=*.rqb
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=RapidQ
+priority=
+section=Sources
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/relaxng.xml]
+author=Thomas Schraitle (tom_schr AT web DOT de)
+extension=*.rng;*.RNG
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=RELAX NG
+priority=
+section=Markup
+style=
+version=0.8
+
+[Cache /usr/share/kde4/apps/katepart/syntax/relaxngcompact.xml]
+author=Rintze Zelle
+extension=*.rnc
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=RelaxNG-Compact
+priority=
+section=Markup
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/replicode.xml]
+author=Martin Sandsmark
+extension=*.replicode
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=Replicode
+priority=
+section=Scientific
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rest.xml]
+author=
+extension=*.rst
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-rst
+name=reStructuredText
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/restructuredtext.xml]
+author=Massimiliano Torromeo (massimiliano.torromeo@gmail.com)
+extension=*.rst
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Restructured Text
+priority=
+section=Markup
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rexx.xml]
+author=
+extension=*.rex
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=REXX
+priority=
+section=Scripts
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rhtml.xml]
+author=Richard Dale rdale@foton.es
+extension=*.rhtml;*.html.erb
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Ruby/Rails/RHTML
+priority=
+section=Markup
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rib.xml]
+author=David Williams <david@david-williams.info>
+extension=*.rib
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=RenderMan RIB
+priority=
+section=Other
+style=
+version=1.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/roff.xml]
+author=Matthew Woehlke (mw_triad@users.sourceforge.net)
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Roff
+priority=
+section=Markup
+style=
+version=0.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rpmspec.xml]
+author=
+extension=*.spec
+hidden=false
+indenter=
+lastModified=1404961857
+license=public domain
+mimetype=
+name=RPM Spec
+priority=
+section=Other
+style=
+version=2.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/rsiidl.xml]
+author=Markus Fraenz (fraenz@linmpi.mpg.de)
+extension=*.pro
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-rsiidl-src
+name=RSI IDL
+priority=
+section=Sources
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/ruby.xml]
+author=Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi), Robin Pedersen (robinpeder@gmail.com), Miquel Sabaté (mikisabate@gmail.com)
+extension=*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb;*.rake;Rakefile;Gemfile;*.gemspec
+hidden=false
+indenter=ruby
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-ruby
+name=Ruby
+priority=
+section=Scripts
+style=ruby
+version=1.27
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sather.xml]
+author=
+extension=*.sa
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-sather-src
+name=Sather
+priority=
+section=Sources
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/scala.xml]
+author=Stephane Micheloud (stephane.micheloud@epfl.ch)
+extension=*.scala
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-scala
+name=Scala
+priority=
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/scheme.xml]
+author=Dominik Haumann (dhdev@gmx.de)
+extension=*.scm;*.ss;*.scheme;*.guile
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-scheme
+name=Scheme
+priority=9
+section=Scripts
+style=
+version=1.13
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sci.xml]
+author=
+extension=*.sci;*.sce
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-sci
+name=scilab
+priority=
+section=Scientific
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/scss.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.scss
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/css
+name=SCSS
+priority=
+section=Markup
+style=
+version=2.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sed.xml]
+author=Bart Sas (bart.sas@gmail.com)
+extension=*.sed
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-sed
+name=sed
+priority=
+section=Scripts
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sgml.xml]
+author=
+extension=*.sgml
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/sgml
+name=SGML
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sieve.xml]
+author=Petter E. Stokke
+extension=*.siv
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=application/sieve
+name=Sieve
+priority=5
+section=Scripts
+style=
+version=1.05
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sisu.xml]
+author=Ralph Amissah (ralph.amissah@gmail.com)
+extension=*.sst;*.ssm;*.ssi;*._sst;*.-sst;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=SiSU
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sml.xml]
+author=Christoph Cullmann (cullmann@kde.org)
+extension=*.sml;*.ml
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=SML
+priority=
+section=Sources
+style=
+version=1.06
+
+[Cache /usr/share/kde4/apps/katepart/syntax/spice.xml]
+author=Steven Robson (s.a.robson@sms.ed.ac.uk) and Anders Lund
+extension=*.sp;*.hsp
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/spice
+name=Spice
+priority=
+section=Hardware
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sql-mysql.xml]
+author=Shane Wright (me@shanewright.co.uk)
+extension=*.sql;*.SQL;*.ddl;*.DDL
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-sql
+name=SQL (MySQL)
+priority=
+section=Database
+style=
+version=1.15
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sql-postgresql.xml]
+author=Shane Wright (me@shanewright.co.uk)
+extension=*.sql;*.SQL;*.ddl;*.DDL
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-sql
+name=SQL (PostgreSQL)
+priority=
+section=Database
+style=
+version=1.12
+
+[Cache /usr/share/kde4/apps/katepart/syntax/sql.xml]
+author=Yury Lebedev (yurylebedev@mail.ru)
+extension=*.sql;*.SQL;*.ddl;*.DDL
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-sql
+name=SQL
+priority=
+section=Database
+style=
+version=1.16
+
+[Cache /usr/share/kde4/apps/katepart/syntax/stata.xml]
+author=Larry Radbill (Larry.Radbill gmail com)
+extension=*.do; *.ado; *.doh; *.DO; *.ADO; *.DOH
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Stata
+priority=5
+section=Sources
+style=
+version=2.00
+
+[Cache /usr/share/kde4/apps/katepart/syntax/systemc.xml]
+author=Joseph Wenninger (jowenn@kde.org)
+extension=*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-c++src;text/x-c++hdr;text/x-chdr
+name=SystemC
+priority=1
+section=Hardware
+style=
+version=0.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/systemverilog.xml]
+author=Sean O'Boyle (seanoboyle@intelligentdv.com)
+extension=*.sv;*.svh
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-systemverilog-src
+name=SystemVerilog
+priority=
+section=Hardware
+style=
+version=1.50
+
+[Cache /usr/share/kde4/apps/katepart/syntax/tads3.xml]
+author=
+extension=*.t;*.h
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=
+mimetype=
+name=TADS 3
+priority=0
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/tcl.xml]
+author=
+extension=*.tcl;*.tk
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-tcl
+name=Tcl/Tk
+priority=
+section=Scripts
+style=
+version=1.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/tcsh.xml]
+author=Matthew Woehlke (mw_triad@users.sourceforge.net)
+extension=*.csh;*.tcsh;csh.cshrc;csh.login;.tcshrc;.cshrc;.login
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-csh
+name=Tcsh
+priority=
+section=Scripts
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/template-toolkit.xml]
+author=Красимир Беров (k.berov@gmail.com)
+extension=*.tt*;
+hidden=false
+indenter=
+lastModified=1404961857
+license=Artistic
+mimetype=
+name=TT2
+priority=
+section=Markup
+style=
+version=0.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/texinfo.xml]
+author=Daniel Franke (franke.daniel@gmail.com)
+extension=*.texi
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-texinfo
+name=Texinfo
+priority=
+section=Markup
+style=
+version=0.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/textile.xml]
+author=Alexander Kabakov (kabakov.as@gmail.com)
+extension=*.textile
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Textile
+priority=15
+section=Markup
+style=
+version=1.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/tibasic.xml]
+author=
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=TI Basic
+priority=
+section=Scientific
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/txt2tags.xml]
+author=
+extension=*.t2t
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/txt2tags
+name=txt2tags
+priority=
+section=Markup
+style=
+version=1.20
+
+[Cache /usr/share/kde4/apps/katepart/syntax/uscript.xml]
+author=
+extension=*.uc
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-uscript
+name=UnrealScript
+priority=
+section=Scripts
+style=
+version=0.92
+
+[Cache /usr/share/kde4/apps/katepart/syntax/vala.xml]
+author=Antoni Boucher (bouanto@hotmail.com)
+extension=*.vala
+hidden=false
+indenter=cstyle
+lastModified=1404961857
+license=LGPL
+mimetype=text/x-vala
+name=Vala
+priority=15
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/valgrind-suppression.xml]
+author=Milian Wolff (mail@milianw.de)
+extension=*.supp;
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Valgrind Suppression
+priority=
+section=Other
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/varnish.xml]
+author=Xavier Guerrin (xavier@tuxfamily.org)
+extension=*.vcl;
+hidden=false
+indenter=
+lastModified=1404961857
+license=WTFPL
+mimetype=
+name=Varnish Configuration Language
+priority=
+section=Configuration
+style=
+version=0.3
+
+[Cache /usr/share/kde4/apps/katepart/syntax/varnishtest.xml]
+author=Xavier Guerrin (xavier@tuxfamily.org)
+extension=*.vtc;
+hidden=false
+indenter=
+lastModified=1404961857
+license=WTFPL
+mimetype=
+name=Varnish Test Case language
+priority=
+section=Configuration
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/vcard.xml]
+author=Lukas Sommer
+extension=*.iCal;*.iCalendar;.ics;*.ifb;*.iFBf;*.vcal;*.vcalendar;*.vcard;*.vcf;
+hidden=false
+indenter=
+lastModified=1404961857
+license=public domain
+mimetype=text/calendar;text/vcard
+name=vCard, vCalendar, iCalendar
+priority=
+section=Markup
+style=
+version=0.1
+
+[Cache /usr/share/kde4/apps/katepart/syntax/velocity.xml]
+author=John Christopher (John@animalsinneed.net)
+extension=*.vm;
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-velocity-src;text/x-vm-src
+name=Velocity
+priority=
+section=Scripts
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/vera.xml]
+author=Sean O'Boyle (seanoboyle@intelligentdv.com)
+extension=*.vr;*.vri;*.vrh
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-vera-src
+name=Vera
+priority=
+section=Hardware
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/verilog.xml]
+author=Yevgen Voronenko (ysv22@drexel.edu), Ryan Dalzell (ryan@tullyroan.com)
+extension=*.v;*.V;*.vl
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-verilog-src
+name=Verilog
+priority=
+section=Hardware
+style=
+version=1.09
+
+[Cache /usr/share/kde4/apps/katepart/syntax/vhdl.xml]
+author=Rocky Scaletta (rocky@purdue.edu), Stefan Endrullis (stefan@endrullis.de), Florent Ouchet (outchy@users.sourceforge.net), Chris Higgs (chiggs.99@gmail.com), Jan Michel (jan@mueschelsoft.de)
+extension=*.vhdl;*.vhd
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-vhdl
+name=VHDL
+priority=
+section=Hardware
+style=
+version=1.10
+
+[Cache /usr/share/kde4/apps/katepart/syntax/vrml.xml]
+author=Volker Krause (vkrause@kde.org)
+extension=*.wrl
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=model/vrml
+name=VRML
+priority=
+section=Markup
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/winehq.xml]
+author=
+extension=*.reg
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=WINE Config
+priority=
+section=Configuration
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/wml.xml]
+author=Zachary Palmer (zep01@bahj.com), modif. by Ignacio Riquelme Morelle (shadowm2006@gmail.com) and Jonathan Schmidt-Dominé (devel@the-user.org)
+extension=*.cfg;*.pbl;*.CFG;*.PBL
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=
+name=Wesnoth Markup Language
+priority=
+section=Markup
+style=
+version=0.42
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xharbour.xml]
+author=Giancarlo Niccolai (giancarlo@niccolai.ws)
+extension=*.prg;*.PRG;*.ch
+hidden=false
+indenter=
+lastModified=1404961857
+license=GPL
+mimetype=text/x-xharbour-src
+name=xHarbour
+priority=5
+section=Sources
+style=
+version=1.04
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xml.xml]
+author=Wilbert Berendsen (wilbert@kde.nl)
+extension=*.docbook;*.xml;*.rc;*.daml;*.rdf;*.rss;*.xspf;*.xsd;*.svg;*.ui;*.kcfg;*.qrc;*.wsdl
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/xml;text/book;text/daml;text/rdf;application/rss+xml;application/xspf+xml;image/svg+xml;application/x-designer;application/xml
+name=XML
+priority=
+section=Markup
+style=
+version=2.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xmldebug.xml]
+author=
+extension=
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=
+name=XML (Debug)
+priority=
+section=Markup
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xorg.xml]
+author=Jan Janssen (medhefgo@web.de)
+extension=xorg.conf
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=x.org Configuration
+priority=
+section=Configuration
+style=
+version=1.01
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xslt.xml]
+author=Peter Lammich (views@gmx.de)
+extension=*.xsl;*.xslt
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=xslt
+priority=
+section=Markup
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/xul.xml]
+author=Wilbert Berendsen (wilbert@kde.nl), Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net), Marc Dassonneville (marc.dassonneville@gmail.com)
+extension=*.xul;*.xbl
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/xul
+name=XUL
+priority=
+section=Markup
+style=
+version=0.11
+
+[Cache /usr/share/kde4/apps/katepart/syntax/yacas.xml]
+author=
+extension=*.ys
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-yacassrc
+name=yacas
+priority=
+section=Scientific
+style=
+version=1.02
+
+[Cache /usr/share/kde4/apps/katepart/syntax/yacc.xml]
+author=Jan Villat (jan.villat@net2000.ch)
+extension=*.y;*.yy
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=
+name=Yacc/Bison
+priority=
+section=Sources
+style=
+version=1.03
+
+[Cache /usr/share/kde4/apps/katepart/syntax/yaml.xml]
+author=Dr Orlovsky MA (dr.orlovsky@gmail.com)
+extension=*.yaml;*.yml
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=text/yaml
+name=YAML
+priority=
+section=Markup
+style=
+version=1.2
+
+[Cache /usr/share/kde4/apps/katepart/syntax/zonnon.xml]
+author=
+extension=*.znn
+hidden=false
+indenter=
+lastModified=1404961857
+license=
+mimetype=text/x-zonnon
+name=Zonnon
+priority=
+section=Sources
+style=
+version=1.0
+
+[Cache /usr/share/kde4/apps/katepart/syntax/zsh.xml]
+author=Jonathan Kolberg (bulldog98@kubuntu-de.org)
+extension=*.sh;*.zsh;.zshrc;.zprofile;.zlogin;.zlogout;.profile
+hidden=false
+indenter=
+lastModified=1404961857
+license=LGPL
+mimetype=application/x-shellscript
+name=Zsh
+priority=
+section=Scripts
+style=
+version=0.1
+
+[Default Item Styles - Schema Simon]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
+Annotation=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Attribute=ff2980b9,fffdbc4b,,,,,-,-,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,-,-,,---
+Built-in=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Character=ffff80e0,ffff80e0,,,,,-,-,,---
+Comment=ff888786,ffa5c1e4,,1,,,-,-,,---
+Comment Variable=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Constant=ff31363b,ffeff0f1,1,,,,-,-,,---
+Control Flow=ff31363b,ffeff0f1,1,,,,-,-,,---
+Data Type=ff0057ae,ff00316e,,,,,-,-,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,-,-,,---
+Documentation=ffda4453,ffda4453,,,,,-,-,,---
+Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Extension=ff0095ff,ffeff0f1,1,,,,-,-,,---
+Floating Point=ffb08000,ffffdd00,,,,,-,-,,---
+Function=ff452886,ff452886,,,,,-,-,,---
+Import=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Information=fff67400,fff67400,,,,,-,-,,---
+Keyword=ff141312,ffffffff,1,,,,-,-,,---
+Normal=ff141312,ffffffff,,,,,-,-,,---
+Operator=ff31363b,ffeff0f1,,,,,-,-,,---
+Others=ff006e28,ff80ff80,,,,,-,-,,---
+Preprocessor=ff27ae60,ff27ae60,,,,,-,-,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
+Special Character=ff3daee9,fffcfcfc,,,,,-,-,,---
+Special String=ffda4453,ffda4453,,,,,-,-,,---
+String=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Variable=ff2980b9,fffdbc4b,,,,,-,-,,---
+Verbatim String=ffda4453,ffda4453,,,,,-,-,,---
+Warning=ffda4453,ffda4453,,,,,-,-,,---
+
+[Default Item Styles - Schema darK]
+Alert=ff000000,ffffcccc,1,,,,ffffcccc,-,,---
+Annotation=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Attribute=ff2980b9,fffdbc4b,,,,,-,-,,---
+Base-N Integer=ff008080,ff00ffff,,,,,-,-,,---
+Built-in=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Character=ffff00ff,ffff00ff,,,,,-,-,,---
+Comment=ff00b612,ffc8c8c8,,1,,,-,-,,---
+Comment Variable=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Constant=ff8ae234,ffeff0f1,1,,,,-,-,,---
+Control Flow=ff729fcf,ffeff0f1,1,,,,-,-,,---
+Data Type=ff00aaff,ff000000,,,,,-,-,,---
+Decimal/Value=ff00b7ff,ff00ffff,,,,,-,-,,---
+Documentation=ffda4453,ffda4453,,,,,-,-,,---
+Error=ffff0000,ffff0000,,1,,1,-,-,,---
+Extension=ff0095ff,ffeff0f1,1,,,,-,-,,---
+Floating Point=ff800080,ff00ffff,,,,,-,-,,---
+Function=fff700ff,ffffffff,,,,,-,-,,---
+Import=ff7f8c8d,ffbdc3c7,,,,,-,-,,---
+Information=fff67400,fff67400,,,,,-,-,,---
+Keyword=ffffff00,fffce94f,1,,,,-,-,,---
+Normal=ffffffff,ff000000,,,,,-,-,,---
+Operator=ffedd400,ffeff0f1,,,,,-,-,,---
+Others=ff008000,ff00ff00,,,,,-,-,,---
+Preprocessor=ff27ae60,ff27ae60,,,,,-,-,,---
+Region Marker=ffffffff,ffa0a0a4,,,,,ffa0a0a4,-,,---
+Special Character=ff3daee9,fffcfcfc,,,,,-,-,,---
+Special String=ffda4453,ffda4453,,,,,-,-,,---
+String=ffff6f00,ffff0000,,,,,-,-,,---
+Variable=ff2980b9,fffdbc4b,,,,,-,-,,---
+Verbatim String=ffda4453,ffda4453,,,,,-,-,,---
+Warning=ffda4453,ffda4453,,,,,-,-,,---
+
+[Default Item Styles - Schema kasandra]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,,,,---
+Character=ffff80e0,ffff80e0,,,,,,,,---
+Comment=ff888786,ffa5c1e4,,1,,,,,,---
+Data Type=ff0057ae,ff00316e,,,,,,,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,,,,---
+Error=ffbf0303,ff9c0e0e,,,,,,,,---
+Floating Point=ffb08000,ffffdd00,,,,,,,,---
+Function=ff452886,ff452886,,,,,,,,---
+Keyword=ff141312,ffffffff,1,,,,,,,---
+Normal=ff141312,ffffffff,,,,,,,,---
+Others=ff006e28,ff80ff80,,,,,,,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,,,---
+String=ffbf0303,ff9c0e0e,,,,,,,,---
+
+[Default Item Styles - Schema kate - Normal]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,-,-,,---
+Character=ffff80e0,ffff80e0,,,,,-,-,,---
+Comment=ff888786,ffa5c1e4,,1,,,-,-,,---
+Data Type=ff0057ae,ff00316e,,,,,-,-,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,-,-,,---
+Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Floating Point=ffb08000,ffffdd00,,,,,-,-,,---
+Function=ff452886,ff452886,,,,,-,-,,---
+Keyword=ff141312,ffffffff,1,,,,-,-,,---
+Normal=ff141312,ffffffff,,,,,-,-,,---
+Others=ff006e28,ff80ff80,,,,,-,-,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
+String=ffbf0303,ff9c0e0e,,,,,-,-,,---
+
+[Default Item Styles - Schema zenburn]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,,,,---
+Character=ffff80e0,ffff80e0,,,,,,,,---
+Comment=ff888786,ffa5c1e4,,1,,,,,,---
+Data Type=ff0057ae,ff00316e,,,,,,,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,,,,---
+Error=ffbf0303,ff9c0e0e,,,,,,,,---
+Floating Point=ffb08000,ffffdd00,,,,,,,,---
+Function=ff452886,ff452886,,,,,,,,---
+Keyword=ff141312,ffffffff,1,,,,,,,---
+Normal=ff141312,ffffffff,,,,,,,,---
+Others=ff006e28,ff80ff80,,,,,,,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,,,---
+String=ffbf0303,ff9c0e0e,,,,,,,,---
+
+[Highlighting AVR Assembler - Schema zenburn]
+AVR Assembler:Binary=4,,,,,,,,,---
+AVR Assembler:Char=6,,,,,,,,,---
+AVR Assembler:Comment=8,,,,,,,,,---
+AVR Assembler:Decimal=3,,,,,,,,,---
+AVR Assembler:Float=5,,,,,,,,,---
+AVR Assembler:Hex=4,,,,,,,,,---
+AVR Assembler:Keyword=1,,,,,,,,,---
+AVR Assembler:Label=11,,,,,,,,,---
+AVR Assembler:Normal Text=0,,,,,,,,,---
+AVR Assembler:Octal=4,,,,,,,,,---
+AVR Assembler:Preprocessor=9,,,,,,,,,---
+AVR Assembler:String=7,,,,,,,,,---
+AVR Assembler:String Char=6,,,,,,,,,---
+AVR Assembler:Symbol=0,,,,,,,,,---
+
+[Highlighting AWK - Schema zenburn]
+AWK:Builtin=2,,,,,,,,,---
+AWK:Comment=8,,,,,,,,,---
+AWK:Decimal=3,,,,,,,,,---
+AWK:Field=9,,,,,,,,,---
+AWK:Float=5,,,,,,,,,---
+AWK:Function=11,,,,,,,,,---
+AWK:Keyword=1,,,,,,,,,---
+AWK:Normal=0,,,,,,,,,---
+AWK:Pattern=7,,,,,,,,,---
+AWK:String=7,,,,,,,,,---
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+
+[Highlighting Ada - Schema zenburn]
+Ada:Base-N=4,,,,,,,,,---
+Ada:Char=6,,,,,,,,,---
+Ada:Comment=8,,,,,,,,,---
+Ada:Data Type=2,,,,,,,,,---
+Ada:Decimal=3,,,,,,,,,---
+Ada:Float=5,,,,,,,,,---
+Ada:Keyword=1,,,,,,,,,---
+Ada:Normal Text=0,,,,,,,,,---
+Ada:Pragmas=1,ff0095ff,ffffffff,1,0,,,,,---
+Ada:Region Marker=12,,,,,,,,,---
+Ada:String=7,,,,,,,,,---
+Ada:Symbol=0,,,,,,,,,---
+
+[Highlighting Bash - Schema Simon]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Bash:Backquote=1,,,,,,,,,,---
+Bash:Builtin=1,ffff92dd,ff656565,1,,,,,,,---
+Bash:Command=1,ffcc90cb,ff656565,1,,,,,,,---
+Bash:Comment=8,,,,,,,,,,---
+Bash:Control=1,,,,,,,,,,---
+Bash:Error=13,,,,,,,,,,---
+Bash:Escape=2,,,,,,,,,,---
+Bash:Expression=9,,,,,,,,,,---
+Bash:Function=11,ffbda3ff,ff452886,,,,,,,,---
+Bash:Keyword=1,,,,,,,,,,---
+Bash:Normal Text=0,,,,,,,,,,---
+Bash:Option=0,,,,,,,,,,---
+Bash:Path=0,,,,,,,,,,---
+Bash:Redirection=1,ffbdb9ff,ff656565,1,,,,,,,---
+Bash:String DoubleQ=7,ffffbcbc,ff9c0e0e,,,,,,,,---
+Bash:String Escape=2,ff9ba6c8,ff00316e,,,,,,,,---
+Bash:String SingleQ=7,ffffc5c1,ff9c0e0e,,,,,,,,---
+Bash:String Transl.=7,,,,,,,,,,---
+Bash:Variable=9,,,,,,,,,,---
+
+[Highlighting Bash - Schema darK]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Alert Level 1=10,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=10,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=10,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Bash:Backquote=1,,,,,,,,,,---
+Bash:Builtin=1,ff880088,ff656565,1,,,,,,,---
+Bash:Command=1,ffcc00cc,ff656565,1,,,,,,,---
+Bash:Comment=8,,,,,,,,,,---
+Bash:Control=1,,,,,,,,,,---
+Bash:Error=13,,,,,,,,,,---
+Bash:Escape=2,,,,,,,,,,---
+Bash:Expression=9,,,,,,,,,,---
+Bash:Function=6,ffbda3ff,ff452886,1,,,,,,,---
+Bash:Keyword=1,,,,,,,,,,---
+Bash:Normal Text=0,,,,,,,,,,---
+Bash:Option=0,,,,,,,,,,---
+Bash:OtherCommand=1,ffef8cef,ff000000,1,,,,,,,---
+Bash:Path=0,,,,,,,,,,---
+Bash:Redirection=1,ff223388,ff656565,1,,,,,,,---
+Bash:String DoubleQ=7,ffffbcbc,ff9c0e0e,,,,,,,,---
+Bash:String Escape=2,ff9ba6c8,ff00316e,,,,,,,,---
+Bash:String SingleQ=7,ffffc5c1,ff9c0e0e,,,,,,,,---
+Bash:String Transl.=7,,,,,,,,,,---
+Bash:Variable=9,,,,,,,,,,---
+Modelines:Comment=8,,,,,,,,,,---
+Modelines:Keyword=1,,,,,,,,,,---
+Modelines:Number=3,,,,,,,,,,---
+Modelines:Option OFF=9,,,,,,,,,,---
+Modelines:Option ON=9,,,,,,,,,,---
+Modelines:String=7,,,,,,,,,,---
+Modelines:Value=9,,,,,,,,,,---
+Modelines:Variable=11,,,,,,,,,,---
+
+[Highlighting Bash - Schema kate - Normal]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Bash:Backquote=1,,,,,,,,,,---
+Bash:Builtin=1,ff880088,ff656565,1,,,,,,,---
+Bash:Command=1,ffcc00cc,ff656565,1,,,,,,,---
+Bash:Comment=8,,,,,,,,,,---
+Bash:Control=1,,,,,,,,,,---
+Bash:Error=13,,,,,,,,,,---
+Bash:Escape=2,,,,,,,,,,---
+Bash:Expression=9,,,,,,,,,,---
+Bash:Function=11,ffbda3ff,ff452886,1,,,,,,,---
+Bash:Keyword=1,,,,,,,,,,---
+Bash:Normal Text=0,,,,,,,,,,---
+Bash:Option=0,,,,,,,,,,---
+Bash:Path=0,,,,,,,,,,---
+Bash:Redirection=1,ff223388,ff656565,1,,,,,,,---
+Bash:String DoubleQ=7,ffffbcbc,ff9c0e0e,,,,,,,,---
+Bash:String Escape=2,ff9ba6c8,ff00316e,,,,,,,,---
+Bash:String SingleQ=7,ffffc5c1,ff9c0e0e,,,,,,,,---
+Bash:String Transl.=7,,,,,,,,,,---
+Bash:Variable=9,,,,,,,,,,---
+
+[Highlighting Bash - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+Bash:Backquote=1,ffc5bed5,ffc5bed5,0,,,1,,,---
+Bash:Builtin=1,ffcca3ca,ffcca3ca,1,,,1,,,---
+Bash:Command=1,ffcca3ca,ffe7b4ea,0,,,1,,,---
+Bash:Comment=8,,,,,,,,,---
+Bash:Control=1,fff0dfaf,fff0dfaf,,1,,1,,,---
+Bash:Escape=2,ffc3bf9f,ffc3bf9f,,,,,,,---
+Bash:Expression=9,,,,,,,,,---
+Bash:Function=6,ffcdbf90,ffcdbf90,1,,,,,,---
+Bash:Keyword=1,fff0dfaf,fff0dfaf,1,,,1,,,---
+Bash:Normal Text=0,,,,,,,,,---
+Bash:Option=0,,,,,,,,,---
+Bash:Path=0,,,,,,,,,---
+Bash:Redirection=1,ffe6e2e6,ffe6e2e6,1,,,1,,,---
+Bash:String DoubleQ=7,,,,,,,,,---
+Bash:String Escape=2,,,,,,,,,---
+Bash:String SingleQ=7,ffcc9393,ffdf9da1,,,,,,,---
+Bash:String Transl.=7,,,,,,,,,---
+Bash:Variable=9,ffbdc294,ffe2e8b1,,,,,,,---
+
+[Highlighting C - Schema Simon]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+C:Alert=10,,,,,,,,,,---
+C:Binary=18,,,,,,,,,,---
+C:Char=6,,,,,,,,,,---
+C:Comment=8,,,,,,,,,,---
+C:Control Flow=4,,,,,,,,,,---
+C:Data Type=2,,,,,,,,,,---
+C:Decimal=3,,,,,,,,,,---
+C:Error=13,,,,,,,,,,---
+C:Float=5,,,,,,,,,,---
+C:Hex=4,,,,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=4,,,,,,,,,,---
+C:Prep. Lib=9,,,,,,,,,,---
+C:Preprocessor=9,ffd692cd,ff244924,,,,,,,,---
+C:Region Marker=12,,,,,,,,,,---
+C:String=7,,,,,,,,,,---
+C:String Char=6,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+Doxygen:Attention=23,,,1,0,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,,---
+Doxygen:Custom Tags=0,ff458c61,,1,0,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Entities=29,ff4086c0,,1,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,,,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Note=26,,,1,0,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Todo=23,,,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Warning=27,,,1,0,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C - Schema darK]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Alert Level 1=10,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=10,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=10,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+C:Alert=10,,,,,,,,,,---
+C:Binary=4,,,,,,,,,,---
+C:Char=6,,,,,,,,,,---
+C:Comment=8,ff00b612,ff49c800,,1,,,,,,---
+C:Control Flow=4,ff408ddb,ffeff0f1,1,,,,,,,---
+C:Data Type=2,ff01e6ff,ff000000,,,,,,,,---
+C:Decimal=3,ffff47c5,ff00ffff,,,,,,,,---
+C:Error=13,,,,,,,,,,---
+C:Float=5,ffbabdb6,ffeff0f1,,,,,,,,---
+C:Hex=4,ff8f8f8f,ffeff0f1,1,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=4,ff979797,ffeff0f1,1,,,,,,,---
+C:Prep. Lib=9,,,,,,,,,,---
+C:Preprocessor=9,ffd692cd,ff244924,,,,,,,,---
+C:Region Marker=12,,,,,,,,,,---
+C:Standard Suffix=6,,,,,,,,,,---
+C:String=7,,,,,,,,,,---
+C:String Char=6,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+Doxygen:Attention=1,ffe85848,ffe85848,1,0,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0381ff,ffffffff,,1,,,,,,---
+Doxygen:Custom Tags=0,ff458c61,,1,0,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Entities=9,ff4086c0,,1,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ffce5c00,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,,,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Note=1,ff81ca2d,ff81ca2d,1,0,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Todo=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Warning=1,ffca9219,ffca9219,1,0,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C - Schema kasandra]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+C:Alert=10,,,,,,,,,,---
+C:Char=6,,,,,,,,,,---
+C:Comment=8,,,,,,,,,,---
+C:Data Type=2,,,,,,,,,,---
+C:Decimal=3,,,,,,,,,,---
+C:Error=13,,,,,,,,,,---
+C:Float=5,,,,,,,,,,---
+C:Hex=4,,,,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=4,,,,,,,,,,---
+C:Prep. Lib=9,,,,,,,,,,---
+C:Preprocessor=9,ffd692cd,ff244924,,,,,,,,---
+C:Region Marker=12,,,,,,,,,,---
+C:String=7,,,,,,,,,,---
+C:String Char=6,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,,,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C - Schema kate - Normal]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+C:Alert=10,,,,,,,,,,---
+C:Char=6,,,,,,,,,,---
+C:Comment=8,ff00b612,ff49c800,,1,,,,,,---
+C:Data Type=2,,,,,,,,,,---
+C:Decimal=3,ffff47c5,ff00ffff,,,,,,,,---
+C:Error=13,,,,,,,,,,---
+C:Float=5,,,,,,,,,,---
+C:Hex=4,,,,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=4,,,,,,,,,,---
+C:Prep. Lib=9,,,,,,,,,,---
+C:Preprocessor=9,ffd692cd,ff244924,,,,,,,,---
+C:Region Marker=12,,,,,,,,,,---
+C:String=7,,,,,,,,,,---
+C:String Char=6,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,,,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+C:Alert=10,,,,,,,,,,---
+C:Char=6,,,,,,,,,,---
+C:Comment=8,,,,,,,,,,---
+C:Data Type=2,,,,,,,,,,---
+C:Decimal=3,,,,,,,,,,---
+C:Error=13,,,,,,,,,,---
+C:Float=5,,,,,,,,,,---
+C:Hex=4,,,,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=4,,,,,,,,,,---
+C:Prep. Lib=9,,,,,,,,,,---
+C:Preprocessor=9,,,,,,,,,,---
+C:Region Marker=12,,,,,,,,,,---
+C:String=7,,,,,,,,,,---
+C:String Char=6,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,,,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C# - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+C#:Char=6,,,,,,,,,---
+C#:Comment=8,,,,,,,,,---
+C#:Data Type=2,,,,,,,,,---
+C#:Decimal=3,,,,,,,,,---
+C#:Float=5,,,,,,,,,---
+C#:Function=11,,,,,,,,,---
+C#:Hex=4,,,,,,,,,---
+C#:Keyword=1,,,,,,,,,---
+C#:Normal Text=0,,,,,,,,,---
+C#:Octal=4,,,,,,,,,---
+C#:String=7,,,,,,,,,---
+C#:String Char=6,,,,,,,,,---
+C#:Symbol=0,,,,,,,,,---
+Doxygen:Comment=8,ff7f9f7f,ffabd6ab,1,1,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,---
+Doxygen:HTML Tag=1,ff999999,ffcecece,1,0,,1,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,---
+Doxygen:Types=2,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,---
+
+[Highlighting C++ - Schema Simon]
+Alerts:Alert=10,ffffc5c5,ffffd4d4,1,,,,ff510000,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+C++:Char=6,,,,,,,,,,---
+C++:Comment=8,,,,,,,,,,---
+C++:Data Type=2,,,,,,,,,,---
+C++:Decimal=3,,,,,,,,,,---
+C++:Error=13,ffffcece,ff9c0e0e,,,,,ffdcdcdc,,,---
+C++:Extensions=1,ff0095ff,ffffffff,1,0,,,,,,---
+C++:Float=5,,,,,,,,,,---
+C++:Hex=4,,,,,,,,,,---
+C++:Keyword=1,,,,,,,,,,---
+C++:Normal Text=0,,,,,,,,,,---
+C++:Octal=4,,,,,,,,,,---
+C++:Prep. Lib=9,,,,,,,,,,---
+C++:Preprocessor=9,ffc788bf,ff79f479,,,,,,,,---
+C++:Region Marker=12,,,,,,,,,,---
+C++:String=7,,,,,,,,,,---
+C++:String Char=6,,,,,,,,,,---
+C++:Symbol=0,,,,,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff5bd4ff,ffffffff,,1,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ffffc0ff,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,ff8e6187,ff346834,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C++ - Schema darK]
+Alerts:Alert=10,ffffc5c5,ffffd4d4,1,,,,ff510000,,,---
+Alerts:Alert Level 1=10,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=10,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=10,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+C++:Attribute=1,,,0,1,,,,,,---
+C++:Binary=4,,,,,,,,,,---
+C++:Boost Stuff=0,ff23a45b,ff23a45b,,,,,,,,---
+C++:CONSTS/MACROS=0,,,,,,,,,,---
+C++:Char=6,,,,,,,,,,---
+C++:Comment=8,,,,,,,,,,---
+C++:Data Members (m_*)=0,,,,,,,,,,---
+C++:Data Type=2,,,,,,,,,,---
+C++:Decimal=3,ffe7ffd3,ff00ffff,,,,,,,,---
+C++:Error=13,ffffcece,ff9c0e0e,,,,,,,,---
+C++:Extensions=1,ff0095ff,ffffffff,1,0,,,,,,---
+C++:Float=5,,,,,,,,,,---
+C++:Globals (g_*)=0,,,,,,,,,,---
+C++:Hex=4,,,,,,,,,,---
+C++:Internals=0,ff808080,ff808080,,,,,,,,---
+C++:Keyword=1,,,,,,,,,,---
+C++:Normal Text=0,,,,,,,,,,---
+C++:Octal=4,,,,,,,,,,---
+C++:Prep. Lib=9,,,,,,,,,,---
+C++:Preprocessor=9,ffc788bf,ff79f479,,,,,,,,---
+C++:Qt Classes=7,,,,,,,,,,---
+C++:Qt Functions=2,,,,,,,,,,---
+C++:Qt Macros=7,,,1,0,,,,,,---
+C++:Qt Types=7,,,,,,,,,,---
+C++:Qt4 Classes=7,,,,,,,,,,---
+C++:Qt4 Functions=2,,,,,,,,,,---
+C++:Qt4 Macros=7,,,1,0,,,,,,---
+C++:Qt4 Types=7,,,,,,,,,,---
+C++:Region Marker=12,,,,,,,,,,---
+C++:Separator Symbol=0,,,,,,,,,,---
+C++:Standard Attribute=1,,,0,1,,,,,,---
+C++:Standard Classes=0,ff59ff00,ff59ff00,,,,,,,,---
+C++:Standard Macros=9,,,,,,,,,,---
+C++:Statics (s_*)=0,,,,,,,,,,---
+C++:String=7,,,,,,,,,,---
+C++:String Char=6,,,,,,,,,,---
+C++:Symbol=0,,,,,,,,,,---
+C++:Type Modifiers=2,,,,,,,,,,---
+C++:Types (*_t/*_type)=0,,,,,,,,,,---
+Doxygen:Attention=1,ffe85848,ffe85848,1,0,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff33ff00,ffffffff,,1,,,,,,---
+Doxygen:Custom Tags=0,ff458c61,,1,0,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Entities=9,ff4086c0,,1,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,fff2ff00,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,ff8e6187,ff346834,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Note=1,ff81ca2d,ff81ca2d,1,0,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Todo=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Warning=1,ffca9219,ffca9219,1,0,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+GCCExtensions:Error=30,,,,,,,,,,---
+GCCExtensions:GNU Extensions=9,,,,1,,,,,,---
+GCCExtensions:GNU Functions=9,,,,,,,,,,---
+GCCExtensions:GNU Macros=9,,,,,,,,,,---
+GCCExtensions:GNU Types=9,,,,,,,,,,---
+GCCExtensions:Normal Text=0,,,,,,,,,,---
+GCCExtensions:String=12,,,,,,,,,,---
+ISO C++:Attribute=9,,,0,1,,,,,,---
+ISO C++:Binary=18,,,,,,,,,,---
+ISO C++:Boost Stuff=7,,,,,,,,,,---
+ISO C++:CONSTS/MACROS=0,,,,,,,,,,---
+ISO C++:Char=10,,,,,,,,,,---
+ISO C++:Comment=21,,,,,,,,,,---
+ISO C++:Control Flow=4,ff5ea9f3,ffeff0f1,1,,,,,,,---
+ISO C++:Data Members (m_*)=3,,,,,,,,,,---
+ISO C++:Data Type=16,,,,,,,,,,---
+ISO C++:Decimal=17,,,,,,,,,,---
+ISO C++:Error=30,,,,,,,,,,---
+ISO C++:Float=19,,,,,,,,,,---
+ISO C++:Globals (g_*)=3,,,,,,,,,,---
+ISO C++:Hex=18,,,,,,,,,,---
+ISO C++:Internals=0,ff808080,ff808080,,,,,,,,---
+ISO C++:Keyword=1,,,,,,,,,,---
+ISO C++:Normal Text=0,,,,,,,,,,---
+ISO C++:Octal=18,,,,,,,,,,---
+ISO C++:Prep. Lib=15,,,,,,,,,,---
+ISO C++:Preprocessor=8,,,,,,,,,,---
+ISO C++:Region Marker=25,,,,,,,,,,---
+ISO C++:Separator Symbol=0,,,,,,,,,,---
+ISO C++:Standard Attribute=9,,,0,1,,,,,,---
+ISO C++:Standard Classes=6,,,,,,,,,,---
+ISO C++:Standard Macros=29,,,,,,,,,,---
+ISO C++:Standard Suffix=6,,,,,,,,,,---
+ISO C++:Statics (s_*)=3,,,,,,,,,,---
+ISO C++:String=12,,,,,,,,,,---
+ISO C++:String Char=11,,,,,,,,,,---
+ISO C++:Symbol=0,,,,,,,,,,---
+ISO C++:Type Modifiers=9,,,,,,,,,,---
+ISO C++:Types (*_t/*_type)=16,,,,,,,,,,---
+ISO C++:UDL Numeric Suffix=17,,,,,,,,,,---
+ISO C++:UDL String Suffix=12,,,,,,,,,,---
+Modelines:Comment=8,,,,,,,,,,---
+Modelines:Keyword=1,,,,,,,,,,---
+Modelines:Number=3,,,,,,,,,,---
+Modelines:Option OFF=9,,,,,,,,,,---
+Modelines:Option ON=9,,,,,,,,,,---
+Modelines:String=7,,,,,,,,,,---
+Modelines:Value=9,,,,,,,,,,---
+Modelines:Variable=11,,,,,,,,,,---
+
+[Highlighting C++ - Schema kate - Normal]
+Alerts:Alert=10,ffffc5c5,ffffd4d4,1,,,,ff510000,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+C++:Char=6,,,,,,,,,,---
+C++:Comment=8,,,,,,,,,,---
+C++:Data Type=2,,,,,,,,,,---
+C++:Decimal=3,,,,,,,,,,---
+C++:Error=13,ffffcece,ff9c0e0e,,,,,,,,---
+C++:Extensions=1,ff0095ff,ffffffff,1,0,,,,,,---
+C++:Float=5,,,,,,,,,,---
+C++:Hex=4,,,,,,,,,,---
+C++:Keyword=1,,,,,,,,,,---
+C++:Normal Text=0,,,,,,,,,,---
+C++:Octal=4,,,,,,,,,,---
+C++:Prep. Lib=9,,,,,,,,,,---
+C++:Preprocessor=9,ffc788bf,ff79f479,,,,,,,,---
+C++:Region Marker=12,,,,,,,,,,---
+C++:String=7,,,,,,,,,,---
+C++:String Char=6,,,,,,,,,,---
+C++:Symbol=0,,,,,,,,,,---
+Doxygen:Code=8,,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,,---
+Doxygen:Identifier=9,ff8e6187,ff346834,,,,,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Region=12,,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,,---
+Doxygen:Types=2,,,,,,,,,,---
+Doxygen:Verbatim=8,,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,,---
+
+[Highlighting C++ - Schema zenburn]
+Alerts:Alert=10,ff00eaff,ffff00fb,1,,,,ffff00fb,,---
+Alerts:Normal Text=0,,,,,,,,,---
+C++:Char=6,ff4dff00,ff4dff00,,,,,,,---
+C++:Comment=8,,,,,,,,,---
+C++:Data Type=2,ffffff00,ffeeed00,0,,,,,,---
+C++:Decimal=3,ffff7418,ffff7418,,,,,,,---
+C++:Extensions=1,ff0095ff,ffffffff,0,0,0,,,,---
+C++:Float=5,ffd0ff00,ffd0ff00,,,,,,,---
+C++:Function=11,ffffffff,ffb7fff9,0,0,,,,,---
+C++:Hex=4,ff00ffff,ff00ffff,,,,,,,---
+C++:Keyword=1,,,,,,,,,---
+C++:Normal Text=0,ffffffff,ffffffff,,,0,,,,---
+C++:Octal=4,ff0095ff,ffffffff,,,,,,,---
+C++:Prep. Lib=9,fff00004,fff00004,0,,,,,,---
+C++:Preprocessor=9,fff00004,fff00004,0,,,,,,---
+C++:Region Marker=12,,,,,,,,,---
+C++:String=7,ff00a400,ffffffff,,,,,,,---
+C++:String Char=6,ff4dff00,ff4dff00,,,,,,,---
+C++:Symbol=0,ff8a81e8,ff7b68ee,1,0,,,,,---
+Doxygen:Comment=8,ff808080,ffffffff,1,0,,,,,---
+Doxygen:Description=7,ffff0000,ffff0000,,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,---
+Doxygen:HTML Tag=1,ffffffff,ffffffff,1,0,,,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,---
+Doxygen:Types=2,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,---
+
+[Highlighting CMake - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+CMake:@Variable Substitution=18,,,,,,,,,,---
+CMake:Aliased Targets=18,,,,,,,,,,---
+CMake:Builtin CMake Variable=3,,,,,,,,,,---
+CMake:Builtin Variable=17,ffc09050,ffc09050,,,,,,,,---
+CMake:CMake Variable=3,,,,,,,,,,---
+CMake:Cache Variable Substitution=19,,,,,,,,,,---
+CMake:Command=1,,,,,,,,,,---
+CMake:Commands=1,,,,,,,,,,---
+CMake:Comment=21,,,,,,,,,,---
+CMake:Environment Variable=19,,,,,,,,,,---
+CMake:Environment Variable Substitution=19,,,,,,,,,,---
+CMake:Escapes=11,,,,,,,,,,---
+CMake:False Special Arg=29,ffe05050,ffe05050,,,,,,,,---
+CMake:Generator Expression=29,ffb86050,ffb86050,,,,,,,,---
+CMake:Generator Expression Keyword=1,ffb84040,ffb84040,,,,,,,,---
+CMake:Internal Name=17,ff303030,ff303030,,,,,,,,---
+CMake:Macros=2,,,,,,,,,,---
+CMake:Named Args=29,,,,,,,,,,---
+CMake:Normal Text=0,,,,,,,,,,---
+CMake:Properties=29,,,,,,,,,,---
+CMake:Property=29,,,,,,,,,,---
+CMake:Region Marker=25,,,,,,,,,,---
+CMake:Special Args=29,,,,,,,,,,---
+CMake:Standard Environment Variable=19,,,,,,,,,,---
+CMake:Strings=12,,,,,,,,,,---
+CMake:Third-Party Commands=7,,,,,,,,,,---
+CMake:True Special Arg=29,ff30a030,ff30a030,,,,,,,,---
+CMake:User Function/Macro=2,,,,,,,,,,---
+CMake:Variable Substitution=17,,,,,,,,,,---
+Modelines:Comment=21,,,,,,,,,,---
+Modelines:Keyword=23,,,,,,,,,,---
+Modelines:Number=17,,,,,,,,,,---
+Modelines:Option OFF=29,,,,,,,,,,---
+Modelines:Option ON=29,,,,,,,,,,---
+Modelines:String=12,,,,,,,,,,---
+Modelines:Value=29,,,,,,,,,,---
+Modelines:Variable=24,,,,,,,,,,---
+reStructuredText:Bold=0,,,1,,,,,,,---
+reStructuredText:Citation=16,,,,,,,,,,---
+reStructuredText:Code=16,,,,,,,,,,---
+reStructuredText:Comment=21,,,,,,,,,,---
+reStructuredText:DefaultRole=17,,,,,,,,,,---
+reStructuredText:Directive=16,,,,,,,,,,---
+reStructuredText:Field=2,,,,,,,,,,---
+reStructuredText:FieldBold=2,,,1,,,,,,,---
+reStructuredText:FieldItalic=2,,,,1,,,,,,---
+reStructuredText:Footnote=16,,,,,,,,,,---
+reStructuredText:FootnoteReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkTarget=16,,,,,,,,,,---
+reStructuredText:InlineInternalTarget=2,,,,,,,,,,---
+reStructuredText:InlineLiteral=16,,,,,,,,,,---
+reStructuredText:InterpretedText=17,,,,,,,,,,---
+reStructuredText:Italic=0,,,,1,,,,,,---
+reStructuredText:Normal=0,,,,,,,,,,---
+reStructuredText:Role=1,,,,,,,,,,---
+reStructuredText:StandaloneHyperlink=29,,,,,,,,,,---
+reStructuredText:SubstitutionDefinition=16,,,,,,,,,,---
+reStructuredText:SubstitutionReference=2,,,,,,,,,,---
+
+[Highlighting CSS - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS:Alert=10,,,,,,,,,---
+CSS:At Rule=3,,,,,,,,,---
+CSS:Comment=8,,,,,,,,,---
+CSS:Error=13,,,,,,,,,---
+CSS:Important=1,,,,,,,,,---
+CSS:Media=3,,,1,,,,,,---
+CSS:Normal Text=0,,,,,,,,,---
+CSS:Property=1,,,,,,,,,---
+CSS:Region Marker=12,,,,,,,,,---
+CSS:Selector Attr=6,,,,,,,,,---
+CSS:Selector Class=5,,,,,,,,,---
+CSS:Selector Id=5,,,1,,,,,,---
+CSS:Selector Pseudo=3,,,,,,,,,---
+CSS:String=7,,,,,,,,,---
+CSS:Unknown Property=1,,,,1,,,,,---
+CSS:Value=2,,,,,,,,,---
+
+[Highlighting CSS/PHP - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS/PHP:Alert=10,,,,,,,,,---
+CSS/PHP:At Rule=3,,,,,,,,,---
+CSS/PHP:Comment=8,,,,,,,,,---
+CSS/PHP:Error=13,,,,,,,,,---
+CSS/PHP:Important=1,,,,,,,,,---
+CSS/PHP:Media=3,,,1,,,,,,---
+CSS/PHP:Normal Text=0,,,,,,,,,---
+CSS/PHP:Property=1,,,,,,,,,---
+CSS/PHP:Region Marker=12,,,,,,,,,---
+CSS/PHP:Selector Attr=6,,,,,,,,,---
+CSS/PHP:Selector Class=5,,,,,,,,,---
+CSS/PHP:Selector Id=5,,,1,,,,,,---
+CSS/PHP:Selector Pseudo=3,,,,,,,,,---
+CSS/PHP:String=7,,,,,,,,,---
+CSS/PHP:Unknown Property=1,,,,1,,,,,---
+CSS/PHP:Value=2,,,,,,,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,,1,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,,,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,,,,,---
+Doxygen:Types=2,,,,,,,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,,,,,---
+PHP/PHP:Backslash Code=1,ff0f0f8f,ffffffff,1,0,,,,,---
+PHP/PHP:Comment=8,,,,,,,,,---
+PHP/PHP:Control Structures=1,ffa1a100,ffffffff,0,0,,,,,---
+PHP/PHP:Decimal=3,,,,,,,,,---
+PHP/PHP:Float=5,,,,,,,,,---
+PHP/PHP:Function=11,,,,,,,,,---
+PHP/PHP:HTML Comment=8,,,,,,,,,---
+PHP/PHP:HTML Tag=1,ff0f0000,ffffffff,1,0,,,,,---
+PHP/PHP:Hex=4,,,,,,,,,---
+PHP/PHP:Identifier=9,,,,,,,,,---
+PHP/PHP:Keyword=1,,,,,,,,,---
+PHP/PHP:Normal Text=0,,,,,,,,,---
+PHP/PHP:Octal=4,,,,,,,,,---
+PHP/PHP:Other=9,,,,,,,,,---
+PHP/PHP:PHP Text=0,,,,,,,,,---
+PHP/PHP:Special method=11,,,,,,,,,---
+PHP/PHP:String=7,,,,,,,,,---
+PHP/PHP:Symbol=0,,,,,,,,,---
+PHP/PHP:Types=2,,,,,,,,,---
+PHP/PHP:Variable=1,ff75ffb8,ffffffff,0,0,,1,,,---
+
+[Highlighting Cisco - Schema zenburn]
+Cisco:Char=6,,,,,,,,,---
+Cisco:Command=0,,,,,,,,,---
+Cisco:Comment=8,,,,,,,,,---
+Cisco:Decimal=3,ffcc9393,ffcc9393,,,,,,,---
+Cisco:Float=5,ffc0bed1,ffc0bed1,,,,,,,---
+Cisco:Keyword=1,,,,,,,,,---
+Cisco:Normal Text=0,,,,,,,,,---
+Cisco:Operator=9,fff0efd0,fff0efd0,,,,,,,---
+Cisco:Parameter=9,ffd5eed5,ffd5eed5,,,,,,,---
+Cisco:String=7,,,,,,,,,---
+Cisco:Substitution=9,,,,,,,,,---
+
+[Highlighting Clipper - Schema zenburn]
+Clipper:Command=2,,,,,,,,,---
+Clipper:Comment=8,,,,,,,,,---
+Clipper:Decimal=3,,,,,,,,,---
+Clipper:Eval Block=9,,,,,,,,,---
+Clipper:Function=11,,,,,,,,,---
+Clipper:Hex=4,,,,,,,,,---
+Clipper:Keyword=1,,,,,,,,,---
+Clipper:Normal Text=0,,,,,,,,,---
+Clipper:Prep. Lib=9,,,,,,,,,---
+Clipper:Preprocessor=9,,,,,,,,,---
+Clipper:Region Marker=12,,,,,,,,,---
+Clipper:String=7,,,,,,,,,---
+Clipper:String Char=6,,,,,,,,,---
+Clipper:Symbol=0,,,,,,,,,---
+
+[Highlighting ColdFusion - Schema zenburn]
+ColdFusion:Anchor Tags=0,ff008000,ffffffff,0,0,,,,,---
+ColdFusion:Attribute Values=0,ff0000ff,ffffffff,0,0,,,,,---
+ColdFusion:Brackets=0,ff000080,ffffffff,1,0,,,,,---
+ColdFusion:CF Comment=8,ffff9900,ff999999,0,0,,,,,---
+ColdFusion:CF Tags=0,ff800000,ffffffff,0,0,,,,,---
+ColdFusion:CFX Tags=0,ff008000,ffffffff,0,0,,,,,---
+ColdFusion:Custom Tags=0,ffcc6666,ffffffff,0,0,,,,,---
+ColdFusion:HTML Comment=8,ff008000,ff999999,0,0,,,,,---
+ColdFusion:HTML Entities=0,ff000000,ffffffff,1,0,,,,,---
+ColdFusion:Image Tags=0,ff800080,ffffffff,0,0,,,,,---
+ColdFusion:Normal Text=0,ff000000,ffffffff,0,0,,,,,---
+ColdFusion:Numbers=0,ff0000ff,ffffffff,0,0,,,,,---
+ColdFusion:Script Comment=8,ffff9900,ff999999,0,0,,,,,---
+ColdFusion:Script Functions=11,,,1,,,,,,---
+ColdFusion:Script Keywords=0,ff0000cc,ffffffff,1,0,,,,,---
+ColdFusion:Script Numbers=0,ffff00ff,ffffffff,0,0,,,,,---
+ColdFusion:Script Objects=0,ff0000cc,ffffffff,1,0,,,,,---
+ColdFusion:Script Operators=0,ff0000ff,ffffffff,0,0,,,,,---
+ColdFusion:Script Strings=0,ff008080,ffffffff,0,0,,,,,---
+ColdFusion:Script Tags=0,ff800000,ffffffff,0,0,,,,,---
+ColdFusion:Style Properties=0,ff000080,ffffffff,0,0,,,,,---
+ColdFusion:Style Selectors=0,ffff00ff,ffffffff,0,0,,,,,---
+ColdFusion:Style Tags=0,ff800080,ffffffff,0,0,,,,,---
+ColdFusion:Style Values=0,ffff0000,ffffffff,0,0,,,,,---
+ColdFusion:Table Tags=0,ff008080,ffffffff,0,0,,,,,---
+ColdFusion:Tags=0,ff000080,ffffffff,0,0,,,,,---
+
+[Highlighting Diff - Schema Simon]
+Diff:Added line=9,ffa9a3ff,ff244924,,,,,,,,---
+Diff:Changed line (new)=9,ff0000ff,,,,,,,,,---
+Diff:Changed line (old)=7,ffff0000,,,,,,,,,---
+Diff:File=1,,,,,,,,,,---
+Diff:Header=2,,,,,,,,,,---
+Diff:Normal Text=0,,,,,,,,,,---
+Diff:Removed line=7,ffff0000,,,,,,,,,---
+
+[Highlighting Diff - Schema darK]
+Diff:Added line=9,ff80ff00,ff00ff00,,,,,,,,---
+Diff:Changed line (new)=9,ff00d5ff,ff00ff00,,,,,,,,---
+Diff:Changed line (old)=7,ffff03fb,ffff0000,,,,,,,,---
+Diff:File=1,,,,,,,,,,---
+Diff:Header=2,,,,,,,,,,---
+Diff:Normal Text=0,,,,,,,,,,---
+Diff:Removed line=7,ffff0000,,,,,,,,,---
+
+[Highlighting Diff - Schema kate - Normal]
+Diff:Added line=9,ff0000ff,,,,,,,,,---
+Diff:Changed line (new)=9,ff0000ff,,,,,,,,,---
+Diff:Changed line (old)=7,ffff0000,,,,,,,,,---
+Diff:File=1,,,,,,,,,,---
+Diff:Header=2,,,,,,,,,,---
+Diff:Normal Text=0,,,,,,,,,,---
+Diff:Removed line=7,ffff0000,,,,,,,,,---
+
+[Highlighting E Language - Schema zenburn]
+E Language:Action=0,ffff8080,ff00ff00,1,0,,,,,---
+E Language:Bit=3,,,,,,,,,---
+E Language:Comment=8,,,,,,,,,---
+E Language:Data Type=2,,,,,,,,,---
+E Language:Function=11,,,1,,,,,,---
+E Language:Integer=3,,,,,,,,,---
+E Language:Keyword=1,,,,,,,,,---
+E Language:Normal Text=0,,,,,,,,,---
+E Language:Operators=0,ff404000,ff00ff00,0,0,,,,,---
+E Language:OutSide E code=8,,,,,,,,,---
+E Language:Statement=0,ff8080ff,ff00ff00,1,0,,,,,---
+E Language:Vector=7,,,,,,,,,---
+
+[Highlighting GNU Assembler - Schema Simon]
+GNU Assembler:Binary=4,,,,,,,,,,---
+GNU Assembler:Char=6,,,,,,,,,,---
+GNU Assembler:Comment=8,,,,,,,,,,---
+GNU Assembler:Decimal=3,,,,,,,,,,---
+GNU Assembler:Float=5,,,,,,,,,,---
+GNU Assembler:Hex=4,,,,,,,,,,---
+GNU Assembler:Keyword=1,,,,,,,,,,---
+GNU Assembler:Label=0,,,,,,,,,,---
+GNU Assembler:Normal Text=0,,,,,,,,,,---
+GNU Assembler:Octal=4,,,,,,,,,,---
+GNU Assembler:Preprocessor=9,,,,,,,,,,---
+GNU Assembler:String=7,,,,,,,,,,---
+GNU Assembler:String Char=6,,,,,,,,,,---
+GNU Assembler:Symbol=0,,,,,,,,,,---
+
+[Highlighting GNU Assembler - Schema darK]
+Alerts:Alert Level 1=10,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=10,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=10,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+GNU Assembler:Binary=4,,,,,,,,,,---
+GNU Assembler:Char=6,,,,,,,,,,---
+GNU Assembler:Comment=8,,,,,,,,,,---
+GNU Assembler:Decimal=3,,,,,,,,,,---
+GNU Assembler:Float=5,,,,,,,,,,---
+GNU Assembler:Hex=4,,,,,,,,,,---
+GNU Assembler:Keyword=1,,,,,,,,,,---
+GNU Assembler:Label=1,,,,,,,,,,---
+GNU Assembler:Normal Text=0,,,,,,,,,,---
+GNU Assembler:Octal=4,,,,,,,,,,---
+GNU Assembler:Preprocessor=9,,,,,,,,,,---
+GNU Assembler:String=7,,,,,,,,,,---
+GNU Assembler:String Char=6,,,,,,,,,,---
+GNU Assembler:Symbol=0,,,,,,,,,,---
+
+[Highlighting GNU Assembler - Schema kate - Normal]
+GNU Assembler:Binary=4,,,,,,,,,,---
+GNU Assembler:Char=6,,,,,,,,,,---
+GNU Assembler:Comment=8,,,,,,,,,,---
+GNU Assembler:Decimal=3,,,,,,,,,,---
+GNU Assembler:Float=5,,,,,,,,,,---
+GNU Assembler:Hex=4,,,,,,,,,,---
+GNU Assembler:Keyword=1,,,,,,,,,,---
+GNU Assembler:Label=0,,,,,,,,,,---
+GNU Assembler:Normal Text=0,,,,,,,,,,---
+GNU Assembler:Octal=4,,,,,,,,,,---
+GNU Assembler:Preprocessor=9,,,,,,,,,,---
+GNU Assembler:String=7,,,,,,,,,,---
+GNU Assembler:String Char=6,,,,,,,,,,---
+GNU Assembler:Symbol=0,,,,,,,,,,---
+
+[Highlighting HTML - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+CSS:Alert=28,,,,,,,,,,---
+CSS:Annotation=9,,,,,,,,,,---
+CSS:At Rule=15,,,,,,,,,,---
+CSS:Comment=21,,,,,,,,,,---
+CSS:Error=30,,,,,,,,,,---
+CSS:Function=2,,,,,,,,,,---
+CSS:Normal Text=0,,,,,,,,,,---
+CSS:Property=1,,,,,,,,,,---
+CSS:Region Marker=25,,,,,,,,,,---
+CSS:Selector Attribute=7,,,,,,,,,,---
+CSS:Selector Class=2,,,,,,,,,,---
+CSS:Selector Id=8,,,1,,,,,,,---
+CSS:Selector Pseudo=26,,,,1,,,,,,---
+CSS:String=12,,,,,,,,,,---
+CSS:Unknown Property=0,,,,,,,,,,---
+CSS:Value=17,,,,,,,,,,---
+Doxygen:Attention=23,,,1,0,,,,,,---
+Doxygen:Code=21,,,,,,,,,,---
+Doxygen:Comment=21,,,,,,,,,,---
+Doxygen:Custom Tags=23,,,,,,,,,,---
+Doxygen:Description=22,,,,,,,,,,---
+Doxygen:Dot Graph=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Entities=29,ff4086c0,,1,1,,,,,,---
+Doxygen:Formulas=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=21,,,,,,,,,,---
+Doxygen:HTML Tag=1,ff000000,,1,0,,,,,,---
+Doxygen:Identifier=29,,,,,,,,,,---
+Doxygen:Message Sequence Chart=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Note=26,,,1,0,,,,,,---
+Doxygen:Region=25,,,,,,,,,,---
+Doxygen:Tags=23,,,1,,,,,,,---
+Doxygen:Todo=23,,,1,0,,,,,,---
+Doxygen:Types=16,,,,,,,,,,---
+Doxygen:Verbatim=21,,,,,,,,,,---
+Doxygen:Warning=27,,,1,0,,,,,,---
+Doxygen:Word=24,,,1,0,,,,,,---
+HTML:Attribute=29,,,,,,,,,,---
+HTML:CDATA=18,,,1,,,,,,,---
+HTML:Comment=21,,,,,,,,,,---
+HTML:Doctype=16,,,1,,,,,,,---
+HTML:Element=1,,,,,,,,,,---
+HTML:EntityRef=17,,,,,,,,,,---
+HTML:Error=30,,,,,,,,,,---
+HTML:Normal Text=0,,,,,,,,,,---
+HTML:Other Text=0,,,,,,,,,,---
+HTML:PEntityRef=17,,,,,,,,,,---
+HTML:Processing Instruction=1,,,,,,,,,,---
+HTML:Value=12,,,,,,,,,,---
+JavaScript:Comment=21,,,,,,,,,,---
+JavaScript:ControlFlow=4,ff9fcfff,ffeff0f1,1,,,,,,,---
+JavaScript:Decimal=17,,,,,,,,,,---
+JavaScript:Escape=11,,,,,,,,,,---
+JavaScript:Float=19,,,,,,,,,,---
+JavaScript:Function=2,,,,,,,,,,---
+JavaScript:Hex=18,,,,,,,,,,---
+JavaScript:JSON=16,,,,,,,,,,---
+JavaScript:Keyword=1,,,,,,,,,,---
+JavaScript:Module=15,,,,,,,,,,---
+JavaScript:Normal Text=0,,,,,,,,,,---
+JavaScript:Object Member=9,,,,,,,,,,---
+JavaScript:Objects=3,,,,,,,,,,---
+JavaScript:Octal=18,,,,,,,,,,---
+JavaScript:Pattern Character Class=11,,,,,,,,,,---
+JavaScript:Pattern Internal Operator=11,,,,,,,,,,---
+JavaScript:Region Marker=25,,,,,,,,,,---
+JavaScript:Regular Expression=14,,,,,,,,,,---
+JavaScript:Reserved=1,,,,1,,,,,,---
+JavaScript:String=12,,,,,,,,,,---
+JavaScript:Substitution=11,,,,,,,,,,---
+JavaScript:Symbol=5,ffbbbbbc,ffeff0f1,,,,,,,,---
+JavaScript:Template=13,,,,,,,,,,---
+Modelines:Comment=21,,,,,,,,,,---
+Modelines:Keyword=23,,,,,,,,,,---
+Modelines:Number=17,,,,,,,,,,---
+Modelines:Option OFF=29,,,,,,,,,,---
+Modelines:Option ON=29,,,,,,,,,,---
+Modelines:String=12,,,,,,,,,,---
+Modelines:Value=29,,,,,,,,,,---
+Modelines:Variable=24,,,,,,,,,,---
+
+[Highlighting HTML - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS:Alert=10,,,,,,,,,---
+CSS:At Rule=3,ff8cd0d3,ff98e2e6,,,,0,,,---
+CSS:Comment=8,ff7f9f7f,ff8aac8a,1,1,,,,,---
+CSS:Error=13,,,,,,,,,---
+CSS:Important=1,,,,,,,,,---
+CSS:Media=3,ff8cd0d3,ff98e2e6,1,,,0,,,---
+CSS:Normal Text=0,ffbdcacd,ffd0dfe2,,,,0,,,---
+CSS:Property=1,,,,,,,,,---
+CSS:Region Marker=12,,,,,,,,,---
+CSS:Selector Attr=6,,,,,,,,,---
+CSS:Selector Class=5,,,,,,,,,---
+CSS:Selector Id=5,,,1,,,,,,---
+CSS:Selector Pseudo=3,ff8cd0d3,ff98e2e6,,,,0,,,---
+CSS:String=7,,,,,,,,,---
+CSS:Unknown Property=1,,,,1,,,,,---
+CSS:Value=2,,,,,,,,,---
+HTML:Attribute=9,ffdedebd,ffdedebd,1,,,0,,,---
+HTML:CDATA=4,ff009b9b,ff00c3c3,1,,,0,,,---
+HTML:Comment=8,,,,,,,,,---
+HTML:Doctype=2,ffffd2d2,ffffd2d2,1,,,,,,---
+HTML:Element=1,ffe6ceac,fff1d8b5,1,,,1,,,---
+HTML:EntityRef=3,ffdedecd,fff0f0dd,,,,0,,,---
+HTML:Error=13,,,,,,,,,---
+HTML:Normal Text=0,ffbdcacd,ffd0dfe2,,,,0,,,---
+HTML:PEntityRef=3,ff98e2e6,ff98e2e6,,,,0,,,---
+HTML:Processing Instruction=1,,,,,,,,,---
+HTML:Value=7,ffcd9194,ffdf9da1,,,,0,,,---
+JavaScript:Char=6,,,,,,,,,---
+JavaScript:Comment=8,ff7f9f7f,ff8aac8a,1,1,,,,,---
+JavaScript:Data Type=2,ffffcccc,ffffd2d2,,,,0,,,---
+JavaScript:Decimal=3,ff8cd0d3,ff98e2e6,,,,0,,,---
+JavaScript:Events=1,ffe6e2e6,ffe6e2e6,0,0,,1,,,---
+JavaScript:Float=5,ffc0bed1,ffc0bed1,,,,,,,---
+JavaScript:Function=11,ffefef8f,fff7f794,1,,,,,,---
+JavaScript:Keyword=1,fff0dfaf,ffeeed00,1,,,1,,,---
+JavaScript:Math=1,ffdba716,ffdba716,0,0,,1,,,---
+JavaScript:Normal Text=0,,,,,,,,,---
+JavaScript:Objects=1,ff008000,ffdba716,0,0,,1,,,---
+JavaScript:Pattern Character Class=4,ff009b9b,ff00c3c3,,,,0,,,---
+JavaScript:Pattern Internal Operator=5,,,,,,,,,---
+JavaScript:Region Marker=12,,,,,,,,,---
+JavaScript:Regular Expression=9,,,,,,,,,---
+JavaScript:String=7,ffcc9393,ffdf9da1,,,,,,,---
+JavaScript:String Char=6,,,,,,,,,---
+JavaScript:Symbol=0,ffbdcacd,ffd0dfe2,,,,0,,,---
+
+[Highlighting Intel x86 (NASM) - Schema zenburn]
+Intel x86 (NASM):BaseN=4,,,,,,,,,---
+Intel x86 (NASM):Char=6,,,,,,,,,---
+Intel x86 (NASM):Comment=8,,,,,,,,,---
+Intel x86 (NASM):Data=2,,,,,,,,,---
+Intel x86 (NASM):Float=5,,,,,,,,,---
+Intel x86 (NASM):Instructions=1,,,,,,,,,---
+Intel x86 (NASM):Label=11,,,,,,,,,---
+Intel x86 (NASM):NASM Keywords=1,,,,,,,,,---
+Intel x86 (NASM):Normal Text=0,,,,,,,,,---
+Intel x86 (NASM):Number=3,,,,,,,,,---
+Intel x86 (NASM):Preprocessor=9,,,,,,,,,---
+Intel x86 (NASM):Registers=1,,,,,,,,,---
+Intel x86 (NASM):String=7,,,,,,,,,---
+
+[Highlighting JavaScript/PHP - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+Doxygen:Comment=8,ff7f9f7f,ffffffff,1,1,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,---
+Doxygen:HTML Tag=1,ff979797,ffffffff,1,0,,,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffe89393,ffe89393,1,0,,1,,,---
+Doxygen:Types=2,,,,,,,,,---
+Doxygen:Word=1,ffcfbfaf,ffcfbfaf,1,0,,1,,,---
+JavaScript/PHP:Char=6,,,,,,,,,---
+JavaScript/PHP:Comment=8,,,,,,,,,---
+JavaScript/PHP:Data Type=2,,,,,,,,,---
+JavaScript/PHP:Decimal=3,,,,,,,,,---
+JavaScript/PHP:Events=1,fff766d5,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Float=5,,,,,,,,,---
+JavaScript/PHP:Function=11,,,,,,,,,---
+JavaScript/PHP:Keyword=1,,,,,,,,,---
+JavaScript/PHP:Math=1,ffdba716,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Normal Text=0,,,,,,,,,---
+JavaScript/PHP:Objects=1,ff008000,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Pattern Character Class=4,,,,,,,,,---
+JavaScript/PHP:Pattern Internal Operator=5,,,,,,,,,---
+JavaScript/PHP:Region Marker=12,,,,,,,,,---
+JavaScript/PHP:Regular Expression=9,,,,,,,,,---
+JavaScript/PHP:String=7,,,,,,,,,---
+JavaScript/PHP:String Char=6,,,,,,,,,---
+JavaScript/PHP:Symbol=0,,,,,,,,,---
+PHP/PHP:Backslash Code=1,ff17a4d7,ffffffff,1,0,,,,,---
+PHP/PHP:Comment=8,ff7f9f7f,ff8aac8a,1,1,,,,,---
+PHP/PHP:Control Structures=1,ffefefaf,ffefefaf,0,0,,1,,,---
+PHP/PHP:Decimal=3,ff8cd0d3,ff98e2e6,,,,0,,,---
+PHP/PHP:Float=5,,,,,,,,,---
+PHP/PHP:Function=11,,,,,,,,,---
+PHP/PHP:HTML Comment=8,,,,,,,,,---
+PHP/PHP:HTML Tag=1,ff979797,ffffffff,1,0,,,,,---
+PHP/PHP:Hex=4,,,,,,,,,---
+PHP/PHP:Identifier=9,,,,,,,,,---
+PHP/PHP:Keyword=1,,,,,,,,,---
+PHP/PHP:Normal Text=0,,,,,,,,,---
+PHP/PHP:Octal=4,,,,,,,,,---
+PHP/PHP:Other=9,,,,,,,,,---
+PHP/PHP:PHP Text=0,,,,,,,,,---
+PHP/PHP:Special method=11,ffefef8f,fff7f794,,,,,,,---
+PHP/PHP:String=7,ffcd9194,ffdf9da1,,,,,,,---
+PHP/PHP:Symbol=0,,,,,,,,,---
+PHP/PHP:Types=2,,,,,,,,,---
+PHP/PHP:Variable=1,ffbdc294,ffbdc294,0,0,,1,,,---
+
+[Highlighting Kate File Template - Schema zenburn]
+Kate File Template:Comment=8,,,,,,,ffeeeeee,,---
+Kate File Template:Error=13,,,,,,,,,---
+Kate File Template:Escape=9,,,,,,,,,---
+Kate File Template:Header Keyword=1,ffeee6ac,ffeeed00,1,,,1,,,---
+Kate File Template:Header Text=0,,,,,,,ffeeeeee,,---
+Kate File Template:Keyword=1,,,,,,,,,---
+Kate File Template:Macro=2,,,,,,,,,---
+Kate File Template:Normal Text=0,,,,,,,,,---
+Kate File Template:Property=3,ff8cd0d3,ff98e2e6,1,,,,ffeeeeee,,---
+Kate File Template:Property Value=7,,,,,,,ffeeeeee,,---
+
+[Highlighting Kconfig - Schema darK]
+Kconfig:badChar=28,,,,,,,,,,---
+Kconfig:badOptionEq=0,,,,1,,,,,,---
+Kconfig:badQuotedOptionValue=12,,,,1,,,,,,---
+Kconfig:badTristateConst=28,,,,,,,,,,---
+Kconfig:badType=28,,,,,,,,,,---
+Kconfig:badUnquotedOptionValue=12,,,,1,,,,,,---
+Kconfig:comment=21,,,,,,,,,,---
+Kconfig:error=30,,,,,,,,,,---
+Kconfig:exprOp=0,,,,,,,,,,---
+Kconfig:helpText=0,,,,,,,,,,---
+Kconfig:keyword=1,,,,,,,,,,---
+Kconfig:option=29,,,,,,,,,,---
+Kconfig:optionEq=0,,,,,,,,,,---
+Kconfig:plain=0,,,,,,,,,,---
+Kconfig:property=29,,,,,,,,,,---
+Kconfig:quotedMainmenuPrompt=12,,,,,,,,,,---
+Kconfig:quotedOptionValue=12,,,,,,,,,,---
+Kconfig:quotedPrompt=0,,,,,,,,,,---
+Kconfig:quotedSourceString=12,,,,,,,,,,---
+Kconfig:source=29,,,,,,,,,,---
+Kconfig:symbolConst=12,,,,,,,,,,---
+Kconfig:symbolVar=0,,,,,,,,,,---
+Kconfig:tristateConst=1,,,,,,,,,,---
+Kconfig:type=16,,,,,,,,,,---
+Kconfig:unknownOption=0,,,,1,,,,,,---
+Kconfig:unknownOptionEq=0,,,,1,,,,,,---
+Kconfig:unquotedMainmenuPrompt=12,,,,,,,,,,---
+Kconfig:unquotedOptionValue=12,,,,,,,,,,---
+Kconfig:unquotedPrompt=0,,,,,,,,,,---
+Kconfig:unquotedSourceString=12,,,,,,,,,,---
+
+[Highlighting Kommander - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+Kommander:Backquote=1,,,,,,,,,---
+Kommander:Builtin=1,ff880088,,,,,,,,---
+Kommander:Command=1,ffcc00cc,,,,,,,,---
+Kommander:Comment=8,,,,,,,,,---
+Kommander:Control=1,,,,,,,,,---
+Kommander:DCOPMethod=1,ff21e52b,,,1,,,,,---
+Kommander:Escape=2,,,,,,,,,---
+Kommander:Expression=9,,,,,,,,,---
+Kommander:Function=6,,,1,,,,,,---
+Kommander:Keyword=1,,,,,,,,,---
+Kommander:KmdrArray=1,ffc0c0ff,,,1,,,,,---
+Kommander:KmdrFile=1,ffff0000,,,1,,,,,---
+Kommander:KmdrInput=1,ffff8000,,,1,,,,,---
+Kommander:KmdrMessage=1,ff800000,,,1,,,,,---
+Kommander:KmdrMethod=1,ff008000,,,1,,,,,---
+Kommander:KmdrString=1,ffd0d000,,,1,,,,,---
+Kommander:Normal Text=0,,,,,,,,,---
+Kommander:Option=0,,,,,,,,,---
+Kommander:Path=0,,,,,,,,,---
+Kommander:Redirection=1,ff223388,,,,,,,,---
+Kommander:String DoubleQ=7,,,,,,,,,---
+Kommander:String Escape=2,,,,,,,,,---
+Kommander:String SingleQ=7,,,,,,,,,---
+Kommander:String Transl.=7,,,,,,,,,---
+Kommander:Variable=9,,,,,,,,,---
+
+[Highlighting Logtalk - Schema zenburn]
+Logtalk:Built-in=1,,,,,,,,,---
+Logtalk:Comment=8,,,,,,,,,---
+Logtalk:Directive=1,,,,,,,,,---
+Logtalk:Normal=0,,,,,,,,,---
+Logtalk:Number=3,,,,,,,,,---
+Logtalk:Operator=2,,,,,,,,,---
+Logtalk:String=7,,,,,,,,,---
+Logtalk:Variable=9,,,,,,,,,---
+
+[Highlighting Lua - Schema zenburn]
+Lua:Alert=10,,,,,,,,,---
+Lua:BaseFunc=0,ffefef8f,ffefef8f,1,0,,,,,---
+Lua:Comment=8,,,,,,,,,---
+Lua:Decimal=3,,,,,,,,,---
+Lua:Keyword=1,,,,,,,,,---
+Lua:Normal Text=0,,,,,,,,,---
+Lua:Number=4,,,,,,,,,---
+Lua:String=7,,,,,,,,,---
+Lua:Symbol=0,,,,,,,,,---
+
+[Highlighting MIPS Assembler - Schema zenburn]
+MIPS Assembler:Char=6,,,,,,,,,---
+MIPS Assembler:Comment=8,,,,,,,,,---
+MIPS Assembler:Decimal=3,,,,,,,,,---
+MIPS Assembler:Float=5,,,,,,,,,---
+MIPS Assembler:Floating Point Register=5,,,,,,,,,---
+MIPS Assembler:Hardware Instruction=1,,,,,,,,,---
+MIPS Assembler:Hex=4,,,,,,,,,---
+MIPS Assembler:Label=9,,,,,,,,,---
+MIPS Assembler:Main Register=2,,,,,,,,,---
+MIPS Assembler:Normal Text=0,,,,,,,,,---
+MIPS Assembler:Octal=4,,,,,,,,,---
+MIPS Assembler:Other Register=2,ff0000ff,,,,,,,,---
+MIPS Assembler:Pseudo Instruction=11,,,,,,,,,---
+MIPS Assembler:Region Marker=12,,,,,,,,,---
+MIPS Assembler:Section=2,,,,,,,,,---
+MIPS Assembler:String=7,,,,,,,,,---
+MIPS Assembler:Type=1,,,,,,,,,---
+
+[Highlighting Makefile - Schema Simon]
+Makefile:Commands=4,,,,,,,,,,---
+Makefile:Comment=8,ff9cc38a,ff556476,,1,,,,,,---
+Makefile:Keyword=1,,,,,,,,,,---
+Makefile:Normal Text=0,ffffffff,ff010000,,,,,,,,---
+Makefile:Operator=6,,,,,,,,,,---
+Makefile:Section=9,,,,,,,,,,---
+Makefile:Special=5,,,,,,,,,,---
+Makefile:String=7,,,,,,,,,,---
+Makefile:Target=3,ffb08000,ff2a2400,,,,,,,,---
+Makefile:Variable=2,,,,,,,,,,---
+
+[Highlighting Makefile - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Makefile:Builtin=6,ff73d216,ffbdc3c7,,,,,,,,---
+Makefile:Commands=4,,,,,,,,,,---
+Makefile:Comment=8,ff9cc38a,ff556476,,1,,,,,,---
+Makefile:ControlFlow=4,fffce94f,ffeff0f1,1,,,,,,,---
+Makefile:Error=30,,,,,,,,,,---
+Makefile:FuncParam=12,,,,,,,,,,---
+Makefile:Include=15,ff7f8c8d,ffbdc3c7,,,,,,,,---
+Makefile:Keyword=1,,,,,,,,,,---
+Makefile:Normal=0,,,,,,,,,,---
+Makefile:Normal Text=0,ffffffff,fffff5d4,,,,,,,,---
+Makefile:Number=17,,,,,,,,,,---
+Makefile:Operator=6,,,,,,,,,,---
+Makefile:Prereq=16,,,,,,,,,,---
+Makefile:RealOperator=1,,,,,,,,,,---
+Makefile:Section=9,,,,,,,,,,---
+Makefile:Silent=2,,,,,,,,,,---
+Makefile:Special=5,ffedd400,ffeff0f1,,,,,,,,---
+Makefile:SpecialPrereq=16,,,1,,,,,,,---
+Makefile:SpecialTarget=29,,,1,,,,,,,---
+Makefile:String=7,,,,,,,,,,---
+Makefile:Target=3,ff73ff00,ff00ffff,,,,,,,,---
+Makefile:VarModifier=14,,,,,,,,,,---
+Makefile:Variable=2,,,,,,,,,,---
+Modelines:Comment=21,,,,,,,,,,---
+Modelines:Keyword=23,,,,,,,,,,---
+Modelines:Number=17,,,,,,,,,,---
+Modelines:Option OFF=29,,,,,,,,,,---
+Modelines:Option ON=29,,,,,,,,,,---
+Modelines:String=12,,,,,,,,,,---
+Modelines:Value=29,,,,,,,,,,---
+Modelines:Variable=24,,,,,,,,,,---
+
+[Highlighting Makefile - Schema kate - Normal]
+Makefile:Commands=4,,,,,,,,,,---
+Makefile:Comment=8,ff9cc38a,ff556476,,1,,,,,,---
+Makefile:Keyword=1,,,,,,,,,,---
+Makefile:Normal Text=0,ffffffff,fffff5d4,,,,,,,,---
+Makefile:Operator=6,,,,,,,,,,---
+Makefile:Section=9,,,,,,,,,,---
+Makefile:Special=5,,,,,,,,,,---
+Makefile:String=7,,,,,,,,,,---
+Makefile:Target=3,,,,,,,,,,---
+Makefile:Variable=2,,,,,,,,,,---
+
+[Highlighting Markdown - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,ff000000,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,ff000000,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Bash:Backquote=1,,,,,,,,,,---
+Bash:Builtin=6,,,,,,,,,,---
+Bash:Command=2,,,,,,,,,,---
+Bash:Comment=21,,,,,,,,,,---
+Bash:Control=1,,,,,,,,,,---
+Bash:Error=30,,,,,,,,,,---
+Bash:Escape=16,,,,,,,,,,---
+Bash:Expression=29,,,,,,,,,,---
+Bash:Function=2,,,,,,,,,,---
+Bash:Keyword=1,,,,,,,,,,---
+Bash:Normal Text=0,,,,,,,,,,---
+Bash:Option=0,,,,,,,,,,---
+Bash:OtherCommand=7,,,,,,,,,,---
+Bash:Path=0,,,,,,,,,,---
+Bash:Redirection=5,,,,,,,,,,---
+Bash:String DoubleQ=12,,,,,,,,,,---
+Bash:String Escape=16,,,,,,,,,,---
+Bash:String SingleQ=12,,,,,,,,,,---
+Bash:String Transl.=12,,,,,,,,,,---
+Bash:Variable=3,,,,,,,,,,---
+C#:Char=10,,,,,,,,,,---
+C#:Comment=21,,,,,,,,,,---
+C#:Data Type=16,,,,,,,,,,---
+C#:Decimal=17,,,,,,,,,,---
+C#:Float=19,,,,,,,,,,---
+C#:Function=2,,,,,,,,,,---
+C#:Hex=18,,,,,,,,,,---
+C#:Keyword=1,,,,,,,,,,---
+C#:Normal Text=0,,,,,,,,,,---
+C#:Octal=18,,,,,,,,,,---
+C#:String=12,,,,,,,,,,---
+C#:String Char=11,,,,,,,,,,---
+C#:Symbol=0,,,,,,,,,,---
+C++:Normal Text=0,,,,,,,,,,---
+C++:Qt Classes=7,,,,,,,,,,---
+C++:Qt Functions=2,,,,,,,,,,---
+C++:Qt Macros=7,,,1,0,,,,,,---
+C++:Qt Types=7,,,,,,,,,,---
+C:Binary=18,,,,,,,,,,---
+C:Char=10,,,,,,,,,,---
+C:Comment=21,,,,,,,,,,---
+C:Control Flow=4,,,,,,,,,,---
+C:Data Type=16,,,,,,,,,,---
+C:Decimal=17,,,,,,,,,,---
+C:Error=30,,,,,,,,,,---
+C:Float=19,,,,,,,,,,---
+C:Hex=18,,,,,,,,,,---
+C:Keyword=1,,,,,,,,,,---
+C:Normal Text=0,,,,,,,,,,---
+C:Octal=18,,,,,,,,,,---
+C:Prep. Lib=15,,,,,,,,,,---
+C:Preprocessor=8,,,,,,,,,,---
+C:Region Marker=25,,,,,,,,,,---
+C:Standard Suffix=6,,,,,,,,,,---
+C:String=12,,,,,,,,,,---
+C:String Char=11,,,,,,,,,,---
+C:Symbol=0,,,,,,,,,,---
+CMake:@Variable Substitution=18,,,,,,,,,,---
+CMake:Aliased Targets=18,,,,,,,,,,---
+CMake:Builtin Variable=17,ffc09050,ffc09050,,,,,,,,---
+CMake:Cache Variable Substitution=19,,,,,,,,,,---
+CMake:Command=1,,,,,,,,,,---
+CMake:Comment=21,,,,,,,,,,---
+CMake:Environment Variable Substitution=19,,,,,,,,,,---
+CMake:Escapes=10,,,,,,,,,,---
+CMake:False Special Arg=29,ffe05050,ffe05050,,,,,,,,---
+CMake:Generator Expression=29,ffb86050,ffb86050,,,,,,,,---
+CMake:Generator Expression Keyword=1,ffb84040,ffb84040,,,,,,,,---
+CMake:Internal Name=17,ff303030,ff303030,,,,,,,,---
+CMake:Named Args=29,,,,,,,,,,---
+CMake:Normal Text=0,,,,,,,,,,---
+CMake:Property=29,,,,,,,,,,---
+CMake:Region Marker=25,,,,,,,,,,---
+CMake:Special Args=29,,,,,,,,,,---
+CMake:Standard Environment Variable=19,,,,,,,,,,---
+CMake:Strings=12,,,,,,,,,,---
+CMake:True Special Arg=29,ff30a030,ff30a030,,,,,,,,---
+CMake:User Function/Macro=2,,,,,,,,,,---
+CMake:Variable Substitution=17,,,,,,,,,,---
+CSS:Annotation=9,,,,,,,,,,---
+CSS:At Rule=15,,,,,,,,,,---
+CSS:Color=20,,,,,,,,,,---
+CSS:Comment=21,,,,,,,,,,---
+CSS:Error=30,,,,,,,,,,---
+CSS:Function=2,,,,,,,,,,---
+CSS:Keyword=1,,,,,,,,,,---
+CSS:Normal Text=0,,,,,,,,,,---
+CSS:Number=17,,,,,,,,,,---
+CSS:Operator=5,,,,,,,,,,---
+CSS:Property=1,,,,,,,,,,---
+CSS:Region Marker=25,,,,,,,,,,---
+CSS:Selector Attribute=7,,,,,,,,,,---
+CSS:Selector Class=2,,,,,,,,,,---
+CSS:Selector Id=8,,,1,,,,,,,---
+CSS:Selector Pseudo=26,,,,1,,,,,,---
+CSS:Selector Tag=0,,,,,,,,,,---
+CSS:Separator Symbol=5,,,,,,,,,,---
+CSS:SpecialChar=11,,,,,,,,,,---
+CSS:String=12,,,,,,,,,,---
+CSS:Unit=16,,,,,,,,,,---
+CSS:Unknown Property=0,,,,,,,,,,---
+CSS:Value=17,,,,,,,,,,---
+CSS:Value Keyword=6,,,,,,,,,,---
+CSS:Variable=3,,,,,,,,,,---
+Doxygen:Attention=23,,,1,0,,,,,,---
+Doxygen:Code=21,,,,,,,,,,---
+Doxygen:Comment=21,,,,,,,,,,---
+Doxygen:Custom Tags=23,,,,,,,,,,---
+Doxygen:Description=22,,,,,,,,,,---
+Doxygen:Dot Graph=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Entities=29,ff4086c0,ff000000,1,1,,,,,,---
+Doxygen:Formulas=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:HTML Comment=21,,,,,,,,,,---
+Doxygen:HTML Tag=1,,,1,0,,,,,,---
+Doxygen:Identifier=29,,,,,,,,,,---
+Doxygen:Message Sequence Chart=21,ff00a000,ffffffff,,1,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,,---
+Doxygen:Note=26,,,1,0,,,,,,---
+Doxygen:Region=25,,,,,,,,,,---
+Doxygen:Tags=23,,,1,,,,,,,---
+Doxygen:Todo=23,,,1,0,,,,,,---
+Doxygen:Types=16,,,,,,,,,,---
+Doxygen:Verbatim=21,,,,,,,,,,---
+Doxygen:Warning=27,,,1,0,,,,,,---
+Doxygen:Word=24,,,1,0,,,,,,---
+Email:Address=3,,,,,,,,,,---
+Email:Comment=21,,,,,,,,,,---
+Email:Common Header=6,,,,,,,,,,---
+Email:Content Boundary=25,,,,,,,,,,---
+Email:Normal Text=0,,,,,,,,,,---
+Email:Other Header=2,,,,,,,,,,---
+Email:String=12,,,,,,,,,,---
+GCCExtensions:Error=30,,,,,,,,,,---
+GCCExtensions:GNU Extensions=7,,,,1,,,,,,---
+GCCExtensions:GNU Functions=2,,,,,,,,,,---
+GCCExtensions:GNU Macros=29,,,,,,,,,,---
+GCCExtensions:GNU Types=16,,,,,,,,,,---
+GCCExtensions:Normal Text=0,,,,,,,,,,---
+GCCExtensions:String=12,,,,,,,,,,---
+Go:Builtin Function=6,,,,,,,,,,---
+Go:Char=10,,,,,,,,,,---
+Go:Comment=21,,,,,,,,,,---
+Go:Data Type=16,,,,,,,,,,---
+Go:Decimal=17,,,,,,,,,,---
+Go:Float=19,,,,,,,,,,---
+Go:Hex=18,,,,,,,,,,---
+Go:Keyword=1,,,,,,,,,,---
+Go:Normal Text=0,,,,,,,,,,---
+Go:Octal=18,,,,,,,,,,---
+Go:Predeclared Identifier=29,,,,,,,,,,---
+Go:String=12,,,,,,,,,,---
+Go:String Char=10,,,,,,,,,,---
+Go:Symbol=0,,,,,,,,,,---
+HTML:Attribute=29,,,,,,,,,,---
+HTML:CDATA=18,,,1,,,,,,,---
+HTML:Comment=21,,,,,,,,,,---
+HTML:Doctype=16,,,1,,,,,,,---
+HTML:Element=1,,,,,,,,,,---
+HTML:EntityRef=17,,,,,,,,,,---
+HTML:Error=30,,,,,,,,,,---
+HTML:Normal Text=0,,,,,,,,,,---
+HTML:Other Text=0,,,,,,,,,,---
+HTML:PEntityRef=17,,,,,,,,,,---
+HTML:Processing Instruction=1,,,,,,,,,,---
+HTML:Value=12,,,,,,,,,,---
+Hamlet:Assignment=29,,,,,,,,,,---
+Hamlet:Attribute=29,,,,,,,,,,---
+Hamlet:Class=12,,,,,,,,,,---
+Hamlet:Code=1,,,,,,,,,,---
+Hamlet:Element=1,,,,,,,,,,---
+Hamlet:Error=30,,,,,,,,,,---
+Hamlet:Logic=1,,,,,,,,,,---
+Hamlet:Normal Text=0,,,,,,,,,,---
+Hamlet:Value=12,,,,,,,,,,---
+Haskell:C Preprocessor=8,,,,,,,,,,---
+Haskell:C Preprocessor Keyword=8,,,,,,,,,,---
+Haskell:C2HS Directive=12,,,,,,,,,,---
+Haskell:Char=10,,,,,,,,,,---
+Haskell:Class Prelude=16,,,,,,,,,,---
+Haskell:Comment=21,,,,,,,,,,---
+Haskell:Data Prelude=16,,,,,,,,,,---
+Haskell:Decimal=17,,,,,,,,,,---
+Haskell:EnumFromTo=29,,,,,,,,,,---
+Haskell:Float=19,,,,,,,,,,---
+Haskell:Function=0,,,,,,,,,,---
+Haskell:Function Infix=29,,,,,,,,,,---
+Haskell:Function Prelude=2,,,,,,,,,,---
+Haskell:Haddock Bold=21,,,1,,,,,,,---
+Haskell:Haddock Emphasis=21,,,,1,,,,,,---
+Haskell:Haddock Hyperlink=21,,,,,,1,,,,---
+Haskell:Haddock Module=21,,,,,,1,,,,---
+Haskell:Hex=18,,,,,,,,,,---
+Haskell:Keyword=1,,,,,,,,,,---
+Haskell:Normal=0,,,,,,,,,,---
+Haskell:Octal=18,,,,,,,,,,---
+Haskell:Operator=5,,,,,,,,,,---
+Haskell:Pragma=29,,,,,,,,,,---
+Haskell:Signature=29,,,,,,,,,,---
+Haskell:Special=29,,,,,,,,,,---
+Haskell:String=12,,,,,,,,,,---
+Haskell:Type=16,,,,,,,,,,---
+Haskell:Type Prelude=16,,,,,,,,,,---
+ISO C++:Attribute=9,,,0,1,,,,,,---
+ISO C++:Binary=18,,,,,,,,,,---
+ISO C++:Boost Stuff=7,,,,,,,,,,---
+ISO C++:CONSTS/MACROS=0,,,,,,,,,,---
+ISO C++:Char=10,,,,,,,,,,---
+ISO C++:Comment=21,,,,,,,,,,---
+ISO C++:Control Flow=4,,,,,,,,,,---
+ISO C++:Data Members (m_*)=3,,,,,,,,,,---
+ISO C++:Data Type=16,,,,,,,,,,---
+ISO C++:Decimal=17,,,,,,,,,,---
+ISO C++:Error=30,,,,,,,,,,---
+ISO C++:Float=19,,,,,,,,,,---
+ISO C++:Globals (g_*)=3,,,,,,,,,,---
+ISO C++:Hex=18,,,,,,,,,,---
+ISO C++:Internals=0,ff808080,ff808080,,,,,,,,---
+ISO C++:Keyword=1,,,,,,,,,,---
+ISO C++:Normal Text=0,,,,,,,,,,---
+ISO C++:Octal=18,,,,,,,,,,---
+ISO C++:Prep. Lib=15,,,,,,,,,,---
+ISO C++:Preprocessor=8,,,,,,,,,,---
+ISO C++:Region Marker=25,,,,,,,,,,---
+ISO C++:Separator Symbol=0,,,,,,,,,,---
+ISO C++:Standard Attribute=9,,,0,1,,,,,,---
+ISO C++:Standard Classes=6,,,,,,,,,,---
+ISO C++:Standard Macros=29,,,,,,,,,,---
+ISO C++:Standard Suffix=6,,,,,,,,,,---
+ISO C++:Statics (s_*)=3,,,,,,,,,,---
+ISO C++:String=12,,,,,,,,,,---
+ISO C++:String Char=11,,,,,,,,,,---
+ISO C++:Symbol=0,,,,,,,,,,---
+ISO C++:Type Modifiers=9,,,,,,,,,,---
+ISO C++:Types (*_t/*_type)=16,,,,,,,,,,---
+ISO C++:UDL Numeric Suffix=17,,,,,,,,,,---
+ISO C++:UDL String Suffix=12,,,,,,,,,,---
+JSON:Style_Decimal=17,,,,,,,,,,---
+JSON:Style_Error=30,,,,,,,,,,---
+JSON:Style_Float=19,,,,,,,,,,---
+JSON:Style_Keyword=1,,,,,,,,,,---
+JSON:Style_Normal=0,,,,,,,,,,---
+JSON:Style_Seperator_Array=29,,,1,,,,,,,---
+JSON:Style_Seperator_Pair=2,,,1,,,,,,,---
+JSON:Style_String_Key=16,,,,,,,,,,---
+JSON:Style_String_Key_Char=10,,,,,,,,,,---
+JSON:Style_String_Value=12,,,,,,,,,,---
+JSON:Style_String_Value_Char=10,,,,,,,,,,---
+Java:Annotation=9,,,,,,,,,,---
+Java:Binary=18,,,,,,,,,,---
+Java:Char=10,,,,,,,,,,---
+Java:Comment=21,,,,,,,,,,---
+Java:Data Type=16,,,,,,,,,,---
+Java:Decimal=17,,,,,,,,,,---
+Java:Float=19,,,,,,,,,,---
+Java:Function=2,,,,,,,,,,---
+Java:Hex=18,,,,,,,,,,---
+Java:Imports=15,,,,,,,,,,---
+Java:Java15=6,,,,,,,,,,---
+Java:Keyword=1,,,,,,,,,,---
+Java:Normal Text=0,,,,,,,,,,---
+Java:Octal=18,,,,,,,,,,---
+Java:PrintfString=12,,,,,,,,,,---
+Java:StaticImports=15,,,,,,,,,,---
+Java:String=12,,,,,,,,,,---
+Java:String Char=11,,,,,,,,,,---
+Java:Symbol=0,,,,,,,,,,---
+JavaScript React (JSX):Attribute=29,,,,,,,,,,---
+JavaScript React (JSX):Code Brackets=3,,,,,,,,,,---
+JavaScript React (JSX):Comment=21,,,,,,,,,,---
+JavaScript React (JSX):Component Tag=2,,,1,,,,,,,---
+JavaScript React (JSX):ControlFlow=4,,,,,,,,,,---
+JavaScript React (JSX):Element Tag=1,,,,,,,,,,---
+JavaScript React (JSX):EntityRef=17,,,,,,,,,,---
+JavaScript React (JSX):Error=30,,,,,,,,,,---
+JavaScript React (JSX):Keyword=1,,,,,,,,,,---
+JavaScript React (JSX):Module=15,,,,,,,,,,---
+JavaScript React (JSX):Normal Text=0,,,,,,,,,,---
+JavaScript React (JSX):Reserved=1,,,,1,,,,,,---
+JavaScript React (JSX):Special Operators=1,,,,,,,,,,---
+JavaScript React (JSX):Substitution=11,,,,,,,,,,---
+JavaScript React (JSX):Symbol=5,,,,,,,,,,---
+JavaScript React (JSX):Tag Content Text=0,,,,,,,,,,---
+JavaScript React (JSX):Template=13,,,,,,,,,,---
+JavaScript React (JSX):Value=12,,,,,,,,,,---
+JavaScript:Binary=18,,,,,,,,,,---
+JavaScript:Built-in Objects=6,,,,,,,,,,---
+JavaScript:Comment=21,,,,,,,,,,---
+JavaScript:Constant=20,,,,,,,,,,---
+JavaScript:ControlFlow=4,,,,,,,,,,---
+JavaScript:Decimal=17,,,,,,,,,,---
+JavaScript:Error=30,,,,,,,,,,---
+JavaScript:Escape=11,,,,,,,,,,---
+JavaScript:Float=19,,,,,,,,,,---
+JavaScript:Function (Built-in)=8,,,,,,,,,,---
+JavaScript:Function Declaration=2,,,,,,,,,,---
+JavaScript:Function Name=2,,,,,,,,,,---
+JavaScript:Hex=18,,,,,,,,,,---
+JavaScript:JSON=16,,,0,,,,,,,---
+JavaScript:Keyword=1,,,,,,,,,,---
+JavaScript:Module=15,,,,,,,,,,---
+JavaScript:Normal Text=0,,,,,,,,,,---
+JavaScript:Object Member=9,,,,,,,,,,---
+JavaScript:Object Method (Built-in)=2,,,,1,,,,,,---
+JavaScript:Object Property (Built-in)=9,,,,1,,,,,,---
+JavaScript:Objects=0,,,,,,,,,,---
+JavaScript:Octal=18,,,,,,,,,,---
+JavaScript:Pattern Character Class=11,,,,,,,,,,---
+JavaScript:Pattern Internal Operator=11,,,,,,,,,,---
+JavaScript:Region Marker=25,,,,,,,,,,---
+JavaScript:Regular Expression=14,,,,,,,,,,---
+JavaScript:Reserved=1,,,,1,,,,,,---
+JavaScript:Reserved Char. Escape=11,,,1,,,,,,,---
+JavaScript:Special Operators=1,,,,,,,,,,---
+JavaScript:String=12,,,,,,,,,,---
+JavaScript:Substitution=11,,,,,,,,,,---
+JavaScript:Symbol=5,,,,,,,,,,---
+JavaScript:Template=13,,,,,,,,,,---
+Javadoc:BlockTag=23,,,1,0,,,,,,---
+Javadoc:InlineTag=23,,,0,0,,,,,,---
+Javadoc:Javadoc=21,,,,,,,,,,---
+Javadoc:JavadocFS=21,,,1,0,,,,,,---
+Javadoc:JavadocParam=23,,,0,1,,,,,,---
+Javadoc:Normal Text=0,,,,,,,,,,---
+Javadoc:SeeTag=23,,,0,1,,,,,,---
+Markdown:Auto-Link=29,,,,,,,,,,---
+Markdown:Backslash Escape=11,,,,,,,,,,---
+Markdown:Blockquote=9,,,,,,,,,,---
+Markdown:Blockquote: Emphasis Text=9,,,,1,,,,,,---
+Markdown:Blockquote: Link=9,,,,,,1,,,,---
+Markdown:Blockquote: Normal Text=9,,,,,,,,,,---
+Markdown:Blockquote: Strikethrough Text=9,,,,,1,,,,,---
+Markdown:Blockquote: Strong Text=9,,,1,,,,,,,---
+Markdown:Blockquote: Strong-Emphasis Text=9,,,1,1,,,,,,---
+Markdown:Code=26,,,,,,,,,,---
+Markdown:Comment=21,,,,,,,,,,---
+Markdown:Email=29,,,,1,,1,,,,---
+Markdown:Emphasis Text=0,,,,1,,,,,,---
+Markdown:EntityRef=17,,,,,,,,,,---
+Markdown:Fenced Code=26,,,,,,,,,,---
+Markdown:Footnote=29,,,,1,,,,,,---
+Markdown:Header H1=2,,,1,,,,,,,---
+Markdown:Header H2=2,,,1,,,,,,,---
+Markdown:Header H3=2,,,1,,,,,,,---
+Markdown:Header H4=2,,,1,,,,,,,---
+Markdown:Header H5=2,,,1,,,,,,,---
+Markdown:Header H6=2,,,1,,,,,,,---
+Markdown:Horizontal Rule=0,,,1,,,,,,,---
+Markdown:Inline Image=28,,,0,0,,,,,,---
+Markdown:Inline Image: Link=28,,,0,0,,1,,,,---
+Markdown:Line Break=0,ff999999,ff000000,,,,1,,,,---
+Markdown:Link=29,,,,,,1,,,,---
+Markdown:List=14,,,1,,,,,,,---
+Markdown:List: Checkbox=3,,,,,,,,,,---
+Markdown:List: Emphasis Text=0,,,,1,,,,,,---
+Markdown:List: Link=0,,,,,,1,,,,---
+Markdown:List: Normal Text=0,,,,,,,,,,---
+Markdown:List: Strikethrough Text=0,,,,,1,,,,,---
+Markdown:List: Strong Text=0,,,1,,,,,,,---
+Markdown:List: Strong-Emphasis Text=0,,,1,1,,,,,,---
+Markdown:Mailto-Link=29,,,,,,,,,,---
+Markdown:Metadata=21,,,,0,,,,,,---
+Markdown:Metadata Title=23,,,,,,,,,,---
+Markdown:Normal Text=0,,,,,,,,,,---
+Markdown:Normal Text: Link=0,,,,,,1,,,,---
+Markdown:Number List=14,,,,,,,,,,---
+Markdown:Reference Image=28,,,0,0,,,,,,---
+Markdown:Reference-Link=21,,,,0,,,,,,---
+Markdown:Reference-Link ID=21,,,,0,,,,,,---
+Markdown:Reference-Link Name=29,,,,0,,1,,,,---
+Markdown:Reference-Link Target=29,,,0,0,,,,,,---
+Markdown:Reference-Link Target: Link=29,,,,,,1,,,,---
+Markdown:Reference-Link: Email=21,,,,1,,1,,,,---
+Markdown:Reference-Link: Link=21,,,,0,,1,,,,---
+Markdown:Strikethrough Text=0,,,,,1,,,,,---
+Markdown:Strong Text=0,,,1,,,,,,,---
+Markdown:Strong-Emphasis Text=0,,,1,1,,,,,,---
+Matlab:CharVector=14,,,,,,,,,,---
+Matlab:Comment=21,,,,,,,,,,---
+Matlab:Delimiter=0,,,,,,,,,,---
+Matlab:Incomplete CharVector=30,,,,,,,,,,---
+Matlab:Incomplete String=30,,,,,,,,,,---
+Matlab:Keyword=1,,,,,,,,,,---
+Matlab:Normal Text=0,,,,,,,,,,---
+Matlab:Number=19,,,,,,,,,,---
+Matlab:Operator=5,,,,,,,,,,---
+Matlab:String=12,,,,,,,,,,---
+Matlab:System=18,,,,,,,,,,---
+Matlab:Variable=3,,,,,,,,,,---
+Modelines:Comment=21,,,,,,,,,,---
+Modelines:Keyword=23,,,,,,,,,,---
+Modelines:Number=17,,,,,,,,,,---
+Modelines:Option OFF=29,,,,,,,,,,---
+Modelines:Option ON=29,,,,,,,,,,---
+Modelines:String=12,,,,,,,,,,---
+Modelines:Value=29,,,,,,,,,,---
+Modelines:Variable=24,,,,,,,,,,---
+Mustache/Handlebars (HTML):Attribute=29,,,,,,,,,,---
+Mustache/Handlebars (HTML):CDATA=18,,,1,,,,,,,---
+Mustache/Handlebars (HTML):CSS: Selector Attribute=7,,,,,,,,,,---
+Mustache/Handlebars (HTML):Comment=21,,,,,,,,,,---
+Mustache/Handlebars (HTML):Doctype=16,,,1,,,,,,,---
+Mustache/Handlebars (HTML):Element Tag=1,,,,,,,,,,---
+Mustache/Handlebars (HTML):EntityRef=17,,,,,,,,,,---
+Mustache/Handlebars (HTML):Error=30,,,,,,,,,,---
+Mustache/Handlebars (HTML):Escape=11,,,,,,,,,,---
+Mustache/Handlebars (HTML):JS: Substitution=11,,,,,,,,,,---
+Mustache/Handlebars (HTML):JS: Template=13,,,,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Block=2,,,1,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Inside=0,,,,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Marker Set=3,,,,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Partial=10,,,,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Variable=3,,,,,,,,,,---
+Mustache/Handlebars (HTML):Mustache Variable Unescape=11,,,,,,,,,,---
+Mustache/Handlebars (HTML):Normal Text=0,,,,,,,,,,---
+Mustache/Handlebars (HTML):Number=17,,,,,,,,,,---
+Mustache/Handlebars (HTML):PEntityRef=17,,,,,,,,,,---
+Mustache/Handlebars (HTML):Processing Instruction=1,,,,,,,,,,---
+Mustache/Handlebars (HTML):String=12,,,,,,,,,,---
+Mustache/Handlebars (HTML):Symbol=5,,,,,,,,,,---
+Mustache/Handlebars (HTML):Value=12,,,,,,,,,,---
+PHP/PHP:Backslash Code=1,ff0f0f8f,ffffffff,1,0,,,,,,---
+PHP/PHP:Binary=18,,,,,,,,,,---
+PHP/PHP:Classes=1,,,,,,,,,,---
+PHP/PHP:Comment=21,,,,,,,,,,---
+PHP/PHP:Constant=1,,,0,,,,,,,---
+PHP/PHP:Control Structures=1,ffa1a100,ffffffff,0,0,,,,,,---
+PHP/PHP:Decimal=17,,,,,,,,,,---
+PHP/PHP:Error=30,,,,,,,,,,---
+PHP/PHP:Float=19,,,,,,,,,,---
+PHP/PHP:Function=2,,,,,,,,,,---
+PHP/PHP:Hex=18,,,,,,,,,,---
+PHP/PHP:Keyword=1,,,,,,,,,,---
+PHP/PHP:Library Constant=1,,,1,,,,,,,---
+PHP/PHP:Normal Text=0,,,,,,,,,,---
+PHP/PHP:Octal=18,,,,,,,,,,---
+PHP/PHP:Other=29,,,,,,,,,,---
+PHP/PHP:PHP Text=0,,,,,,,,,,---
+PHP/PHP:Special Variable=1,ff5555ff,ffffffff,1,0,,,,,,---
+PHP/PHP:Special method=2,,,,,,,,,,---
+PHP/PHP:String=12,,,,,,,,,,---
+PHP/PHP:Types=16,,,,,,,,,,---
+PHP/PHP:Variable=1,ff5555ff,ffffffff,0,0,,,,,,---
+Perl:Bin=18,,,,,,,,,,---
+Perl:Comment=21,,,,,,,,,,---
+Perl:Data=0,,,,,,,,,,---
+Perl:Data Type=16,,,,,,,,,,---
+Perl:Decimal=17,,,,,,,,,,---
+Perl:Float=19,,,,,,,,,,---
+Perl:Function=2,,,,,,,,,,---
+Perl:Hex=18,,,,,,,,,,---
+Perl:Keyword=1,,,,,,,,,,---
+Perl:Normal Text=0,,,,,,,,,,---
+Perl:Octal=18,,,,,,,,,,---
+Perl:Operator=1,ff008000,ff000000,,,,,,,,---
+Perl:Pattern=29,,,,,,,,,,---
+Perl:Pattern Character Class=18,,,,,,,,,,---
+Perl:Pattern Internal Operator=10,,,,,,,,,,---
+Perl:Pod=21,,,,,,,,,,---
+Perl:Pragma=1,,,,,,,,,,---
+Perl:Special Variable=16,ffc00000,ffc00000,0,0,,,,,,---
+Perl:String=12,ffff6c6c,ffff6c6c,0,0,,,,,,---
+Perl:String (interpolated)=12,,,,,,,,,,---
+Perl:String Special Character=10,,,,,,,,,,---
+Python:Binary=18,,,,,,,,,,---
+Python:Builtin Function=6,,,,,,,,,,---
+Python:Comment=21,,,,,,,,,,---
+Python:Complex=29,,,,,,,,,,---
+Python:Decorator=9,,,,,,,,,,---
+Python:Definition Keyword=1,,,,,,,,,,---
+Python:Error=30,,,,,,,,,,---
+Python:Exceptions=8,,,,,,,,,,---
+Python:Extensions=7,,,,,,,,,,---
+Python:F-String=14,,,,,,,,,,---
+Python:Float=19,,,,,,,,,,---
+Python:Flow Control Keyword=4,,,,,,,,,,---
+Python:Hex=18,,,,,,,,,,---
+Python:Import=15,,,,,,,,,,---
+Python:Int=17,,,,,,,,,,---
+Python:Normal Text=0,,,,,,,,,,---
+Python:Octal=18,,,,,,,,,,---
+Python:Operator=5,,,,,,,,,,---
+Python:Operator Keyword=1,,,,,,,,,,---
+Python:Overloaders=2,,,,,,,,,,---
+Python:Raw F-String=13,,,,,,,,,,---
+Python:Raw String=13,,,,,,,,,,---
+Python:Special Variable=3,,,,,,,,,,---
+Python:String=12,,,,,,,,,,---
+Python:String Char=10,,,,,,,,,,---
+Python:String Substitution=11,,,,,,,,,,---
+QML:Elements=1,ff008000,ff00ffff,0,0,,,,,,---
+QML:Import=1,,,,,,,,,,---
+QML:ImportValue=12,,,,,,,,,,---
+QML:Keywords=1,,,,,,,,,,---
+QML:Normal Text=0,,,,,,,,,,---
+QML:Objects=7,,,0,,,,,,,---
+QML:Property Type=16,,,,,,,,,,---
+QML:Signal=1,ff0095ff,ffffffff,,,,,,,,---
+QML:String=12,,,,,,,,,,---
+QML:Symbol=5,,,,,,,,,,---
+R Script:Assign=0,ff336366,ffccc099,1,0,,,,,,---
+R Script:Comment=21,,,,,,,,,,---
+R Script:Control Structure=4,,,,,,,,,,---
+R Script:Error=30,,,,,,,,,,---
+R Script:Float=19,,,,,,,,,,---
+R Script:Headline=21,ffb00000,ffb00000,1,0,,,,,,---
+R Script:Identifier=16,,,,,,,,,,---
+R Script:Int=17,,,,,,,,,,---
+R Script:Keyword=1,,,,,,,,,,---
+R Script:Normal Text=0,,,,,,,,,,---
+R Script:Operator=5,,,,,,,,,,---
+R Script:Reserved Words=29,,,,,,,,,,---
+R Script:String=12,,,,,,,,,,---
+R Script:String Char=10,,,,,,,,,,---
+R Script:Symbol=0,,,,,,,,,,---
+Ruby:Access Control=1,ff0000ff,ff000000,,,,,,,,---
+Ruby:Attribute Definition=29,,,,,,,,,,---
+Ruby:Bin=18,,,,,,,,,,---
+Ruby:Blockcomment=21,,,,,,,,,,---
+Ruby:Char=10,,,,,,,,,,---
+Ruby:Class Variable=29,,,,,,,,,,---
+Ruby:Command=12,ffaa3000,ff000000,,,,,,,,---
+Ruby:Comment=21,,,,,,,,,,---
+Ruby:Constant=16,,,,,,,,,,---
+Ruby:Constant Value=16,ffbb1188,ff000000,,,,,,,,---
+Ruby:Data=0,,,,,,,,,,---
+Ruby:Dec=17,,,,,,,,,,---
+Ruby:Default globals=16,ffc00000,ff000000,1,,,,,,,---
+Ruby:Definition=1,,,,,,,,,,---
+Ruby:Delimiter=0,ffff9fec,ff000000,,,,,,,,---
+Ruby:Float=19,,,,,,,,,,---
+Ruby:GDL input=29,,,,,,,,,,---
+Ruby:Global Constant=16,ffbb1188,ff000000,1,,,,,,,---
+Ruby:Global Variable=16,ffc00000,ff000000,,,,,,,,---
+Ruby:Here Document=29,,,,,,,,,,---
+Ruby:Hex=18,,,,,,,,,,---
+Ruby:Instance Variable=29,,,,,,,,,,---
+Ruby:Kernel methods=0,ff000080,ffffffff,,,,,,,,---
+Ruby:Keyword=1,,,,,,,,,,---
+Ruby:Member=0,,,,,,,,,,---
+Ruby:Message=0,ff4000a7,ff000000,,,,,,,,---
+Ruby:Module mixin methods=0,ff000080,ffffffff,,,,,,,,---
+Ruby:Normal Text=0,,,,,,,,,,---
+Ruby:Octal=18,,,,,,,,,,---
+Ruby:Operator=0,ffff9fec,ff000000,,,,,,,,---
+Ruby:Pseudo variable=17,,,,,,,,,,---
+Ruby:Raw String=12,ffdd4a4a,ffdd4a4a,,,,,,,,---
+Ruby:Regular Expression=29,ff4a5704,ff000000,,,,,,,,---
+Ruby:String=12,,,,,,,,,,---
+Ruby:Substitution=29,,,,,,,,,,---
+Ruby:Symbol=12,ffd40000,ff000000,,,,,,,,---
+Rust:Attribute=9,,,,,,,,,,---
+Rust:CConstant=20,,,,,,,,,,---
+Rust:CType=16,,,,,,,,,,---
+Rust:CharEscape=11,,,,,,,,,,---
+Rust:Character=10,,,,,,,,,,---
+Rust:Comment=21,,,,,,,,,,---
+Rust:Constant=20,,,,,,,,,,---
+Rust:Definition=0,,,,,,,,,,---
+Rust:Error=30,,,,,,,,,,---
+Rust:Keyword=1,,,,,,,,,,---
+Rust:Lifetime=29,,,,,,,,,,---
+Rust:Macro=8,,,,,,,,,,---
+Rust:Normal Text=0,,,,,,,,,,---
+Rust:Number=17,,,,,,,,,,---
+Rust:Raw Identifier=23,,,,,,,,,,---
+Rust:Scope=8,,,,,,,,,,---
+Rust:Self=1,,,,,,,,,,---
+Rust:String=12,,,,,,,,,,---
+Rust:Symbol=5,,,,,,,,,,---
+Rust:Trait=6,,,,,,,,,,---
+Rust:Type=16,,,,,,,,,,---
+SQL (MySQL):Comment=21,,,,,,,,,,---
+SQL (MySQL):ControlFlow=4,,,,,,,,,,---
+SQL (MySQL):Data Type=16,,,,,,,,,,---
+SQL (MySQL):Decimal=17,,,,,,,,,,---
+SQL (MySQL):Float=19,,,,,,,,,,---
+SQL (MySQL):Function=2,,,,,,,,,,---
+SQL (MySQL):Hex=18,,,,,,,,,,---
+SQL (MySQL):Keyword=1,,,,,,,,,,---
+SQL (MySQL):Name=12,ff008800,ff000000,,,,,,,,---
+SQL (MySQL):Normal Text=0,,,,,,,,,,---
+SQL (MySQL):Operator=5,,,,,,,,,,---
+SQL (MySQL):Operator Keyword=1,,,,,,,,,,---
+SQL (MySQL):Preprocessor=29,,,,,,,,,,---
+SQL (MySQL):String=12,,,,,,,,,,---
+SQL (MySQL):String Char=10,,,,,,,,,,---
+SQL (MySQL):Symbol=10,,,,,,,,,,---
+TypeScript:Binary=18,,,,,,,,,,---
+TypeScript:Built-in Objects=6,,,,,,,,,,---
+TypeScript:Comment=21,,,,,,,,,,---
+TypeScript:Constant=20,,,,,,,,,,---
+TypeScript:ControlFlow=4,,,,,,,,,,---
+TypeScript:Decimal=17,,,,,,,,,,---
+TypeScript:Float=19,,,,,,,,,,---
+TypeScript:Function (Built-in)=8,,,,,,,,,,---
+TypeScript:Function Declaration=2,,,,,,,,,,---
+TypeScript:Function Name=2,,,,,,,,,,---
+TypeScript:Hexadecimal=18,,,,,,,,,,---
+TypeScript:Keyword=1,,,,,,,,,,---
+TypeScript:Module=15,,,,,,,,,,---
+TypeScript:Normal Text=0,,,,,,,,,,---
+TypeScript:Object Member=9,,,,,,,,,,---
+TypeScript:Object Method (Built-in)=2,,,,1,,,,,,---
+TypeScript:Object Property (Built-in)=9,,,,1,,,,,,---
+TypeScript:Objects=0,,,,,,,,,,---
+TypeScript:Octal=18,,,,,,,,,,---
+TypeScript:Parameter=0,,,,,,,,,,---
+TypeScript:Reserved=1,,,,1,,,,,,---
+TypeScript:Substitution=11,,,,,,,,,,---
+TypeScript:Symbol=5,,,,,,,,,,---
+TypeScript:Template=13,,,,,,,,,,---
+TypeScript:Types=16,,,,,,,,,,---
+XML:Attribute=29,,,,,,,,,,---
+XML:CDATA=18,,,1,,,,,,,---
+XML:Comment=21,,,,,,,,,,---
+XML:Doctype=16,,,1,,,,,,,---
+XML:Element=1,,,,,,,,,,---
+XML:EntityRef=17,,,,,,,,,,---
+XML:Error=30,,,,,,,,,,---
+XML:Normal Text=0,,,,,,,,,,---
+XML:Other Text=0,,,,,,,,,,---
+XML:PEntityRef=17,,,,,,,,,,---
+XML:Processing Instruction=1,,,,,,,,,,---
+XML:Value=12,,,,,,,,,,---
+reStructuredText:Bold=0,,,1,,,,,,,---
+reStructuredText:Citation=16,,,,,,,,,,---
+reStructuredText:Code=16,,,,,,,,,,---
+reStructuredText:Comment=21,,,,,,,,,,---
+reStructuredText:DefaultRole=17,,,,,,,,,,---
+reStructuredText:Directive=16,,,,,,,,,,---
+reStructuredText:Field=2,,,,,,,,,,---
+reStructuredText:FieldBold=2,,,1,,,,,,,---
+reStructuredText:FieldItalic=2,,,,1,,,,,,---
+reStructuredText:Footnote=16,,,,,,,,,,---
+reStructuredText:FootnoteReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkTarget=16,,,,,,,,,,---
+reStructuredText:InlineInternalTarget=2,,,,,,,,,,---
+reStructuredText:InlineLiteral=16,,,,,,,,,,---
+reStructuredText:InterpretedText=17,,,,,,,,,,---
+reStructuredText:Italic=0,,,,1,,,,,,---
+reStructuredText:Normal=0,,,,,,,,,,---
+reStructuredText:Role=1,,,,,,,,,,---
+reStructuredText:StandaloneHyperlink=29,,,,,,,,,,---
+reStructuredText:SubstitutionDefinition=16,,,,,,,,,,---
+reStructuredText:SubstitutionReference=2,,,,,,,,,,---
+
+[Highlighting MediaWiki - Schema zenburn]
+MediaWiki:Comment=8,,,,,,,,,---
+MediaWiki:Error=13,,,,,,,,,---
+MediaWiki:HTML-Entity=3,,,,,,,,,---
+MediaWiki:HTML-Tag=1,,,,,,,,,---
+MediaWiki:Link=9,ff009200,ff00af00,,,,1,,,---
+MediaWiki:NoWiki=0,,,,,,,,,---
+MediaWiki:Normal=0,,,,,,,,,---
+MediaWiki:Section=1,,,,,,,,,---
+MediaWiki:URL=9,ff009200,ff00af00,,1,,1,,,---
+MediaWiki:Unformatted=0,,,,,,,,,---
+MediaWiki:Wiki-Tag=3,,,1,,,,,,---
+
+[Highlighting None - Schema Normal]
+Normal Text=0,,,,,,,,,,---
+
+[Highlighting None - Schema Simon]
+Normal Text=0,,,,,,,,,,---
+
+[Highlighting None - Schema darK]
+None:Normal=0,,,,,,,,,,---
+Normal Text=0,,,,,,,,,,---
+
+[Highlighting None - Schema kate - Normal]
+Normal Text=0,,,,,,,,,,---
+
+[Highlighting None - Schema zenburn]
+Normal Text=0,,,,,,,,,,---
+Normalny tekst=0,,,,,,,,,---
+
+[Highlighting PHP (HTML) - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS/PHP:Alert=10,,,,,,,,,---
+CSS/PHP:At Rule=3,,,,,,,,,---
+CSS/PHP:Comment=8,,,,,,,,,---
+CSS/PHP:Error=13,,,,,,,,,---
+CSS/PHP:Important=1,,,,,,,,,---
+CSS/PHP:Media=3,,,1,,,,,,---
+CSS/PHP:Normal Text=0,,,,,,,,,---
+CSS/PHP:Property=1,,,,,,,,,---
+CSS/PHP:Region Marker=12,,,,,,,,,---
+CSS/PHP:Selector Attr=6,,,,,,,,,---
+CSS/PHP:Selector Class=5,,,,,,,,,---
+CSS/PHP:Selector Id=5,,,1,,,,,,---
+CSS/PHP:Selector Pseudo=3,,,,,,,,,---
+CSS/PHP:String=7,,,,,,,,,---
+CSS/PHP:Unknown Property=1,,,,1,,,,,---
+CSS/PHP:Value=2,,,,,,,,,---
+Doxygen:Comment=8,ff548054,ffffffff,1,1,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,---
+Doxygen:HTML Comment=8,,,,,,,,,---
+Doxygen:HTML Tag=1,ff7e7c7e,ffffffff,1,0,,,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffe89393,ffe89393,1,0,,0,,,---
+Doxygen:Types=2,,,,,,,,,---
+Doxygen:Word=1,ffffffff,ffffffff,1,0,,0,,,---
+JavaScript/PHP:Char=6,,,,,,,,,---
+JavaScript/PHP:Comment=8,,,,,,,,,---
+JavaScript/PHP:Data Type=2,,,,,,,,,---
+JavaScript/PHP:Decimal=3,,,,,,,,,---
+JavaScript/PHP:Events=1,fff766d5,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Float=5,ffeeeeee,ffeeeeee,,,,,,,---
+JavaScript/PHP:Function=11,,,,,,,,,---
+JavaScript/PHP:Keyword=1,,,,,,,,,---
+JavaScript/PHP:Math=1,ffdba716,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Normal Text=0,,,,,,,,,---
+JavaScript/PHP:Objects=1,ff008000,ff00ffff,0,0,,,,,---
+JavaScript/PHP:Pattern Character Class=4,,,,,,,,,---
+JavaScript/PHP:Pattern Internal Operator=5,,,,,,,,,---
+JavaScript/PHP:Region Marker=12,,,,,,,,,---
+JavaScript/PHP:Regular Expression=9,ff009200,ff00af00,,1,,,,,---
+JavaScript/PHP:String=7,ffcc9393,ffdf9da1,,,,,,,---
+JavaScript/PHP:String Char=6,,,,,,,,,---
+JavaScript/PHP:Symbol=0,,,,,,,,,---
+PHP (HTML):Attribute=9,ffdedebd,ffededca,,,,,,,---
+PHP (HTML):CDATA=4,ff009b9b,ff00c3c3,1,,,0,,,---
+PHP (HTML):Comment=8,ff629562,ff87cd87,0,1,,,,,---
+PHP (HTML):Doctype=2,ffffcccc,ffffd2d2,1,,,,,,---
+PHP (HTML):Element=1,ffe6ceac,fff6dcb8,1,,,1,,,---
+PHP (HTML):EntityRef=3,ffdedecd,ffebebd9,,,,,,,---
+PHP (HTML):Error=13,,,,,,,,,---
+PHP (HTML):Normal Text=0,,,,,,,,,---
+PHP (HTML):PEntityRef=3,ffdedecd,ffebebd9,,,,,,,---
+PHP (HTML):Processing Instruction=1,ffffcfaf,ffffcfaf,,,,1,,,---
+PHP (HTML):Value=7,ff8cd0d3,ff8cd0d3,,,,,,,---
+PHP/PHP:Backslash Code=1,ffc5bed5,ffc5bed5,1,0,,1,,,---
+PHP/PHP:Comment=8,ff7f9f7f,ff8aac8a,1,1,,,,,---
+PHP/PHP:Control Structures=1,ffa1a100,ffffffff,0,0,,,,,---
+PHP/PHP:Decimal=3,,,,,,,,,---
+PHP/PHP:Float=5,ffeeeeee,ffeeeeee,,,,,,,---
+PHP/PHP:Function=11,ffefef8f,fff6f694,1,,,,,,---
+PHP/PHP:HTML Comment=8,ff7f9f7f,ff8aac8a,0,1,,,,,---
+PHP/PHP:HTML Tag=1,ffe89393,ffe89393,1,0,,,,,---
+PHP/PHP:Hex=4,ff9cb6ac,ff00ffff,,,,,,,---
+PHP/PHP:Identifier=9,,,,,,,,,---
+PHP/PHP:Keyword=1,fff0dfaf,fff0dfaf,,,,1,,,---
+PHP/PHP:Normal Text=0,,,,,,,,,---
+PHP/PHP:Octal=4,ff009b9b,ff00c3c3,,,,0,,,---
+PHP/PHP:Other=9,,,,,,,,,---
+PHP/PHP:PHP Text=0,ffbdcacd,ffd0dfe2,,,,0,,,---
+PHP/PHP:Special method=11,fff6be6a,fffac16c,,,,,,,---
+PHP/PHP:String=7,,,,,,,,,---
+PHP/PHP:Symbol=0,ffcfbfaf,ffcfbfaf,,,,,,,---
+PHP/PHP:Types=2,,,,,,,,,---
+PHP/PHP:Variable=1,ffbdc294,ffffffff,0,0,,,,,---
+
+[Highlighting PHP/PHP - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+Doxygen:Comment=8,ff7f9f7f,ffffffff,1,1,,,,,---
+Doxygen:Description=7,ffff0000,,,,,,,,---
+Doxygen:HTML Comment=8,ff82a282,ff82a282,1,1,,,,,---
+Doxygen:HTML Tag=1,ffe89393,ffe89393,1,0,,1,,,---
+Doxygen:Identifier=9,,,,,,,,,---
+Doxygen:Normal Text=0,,,,,,,,,---
+Doxygen:Tags=1,ffe89393,ffe89393,1,0,,0,,,---
+Doxygen:Types=2,ffffcccc,ffffd2d2,,,,,,,---
+Doxygen:Word=1,ffffffff,ffffffff,1,0,,1,,,---
+PHP/PHP:Backslash Code=1,ffc5bed5,ffc5bed5,1,0,,1,,,---
+PHP/PHP:Comment=8,ff7f9f7f,ff8aac8a,,1,,0,,,---
+PHP/PHP:Control Structures=1,ffa1a100,ffffffff,0,0,,,,,---
+PHP/PHP:Decimal=3,,,,,,,,,---
+PHP/PHP:Float=5,,,,,,,,,---
+PHP/PHP:Function=11,ffefef8f,ffefef8f,1,,,,,,---
+PHP/PHP:HTML Comment=8,ff82a282,ff82a282,0,1,,1,,,---
+PHP/PHP:HTML Tag=1,ffe89393,ffe89393,1,0,,1,,,---
+PHP/PHP:Hex=4,,,,,,,,,---
+PHP/PHP:Identifier=9,,,,,,,,,---
+PHP/PHP:Keyword=1,ffeee6ac,ffeeed00,1,,,1,,,---
+PHP/PHP:Normal Text=0,,,,,,,,,---
+PHP/PHP:Octal=4,,,,,,,,,---
+PHP/PHP:Other=9,,,,,,,,,---
+PHP/PHP:PHP Text=0,,,,,,,,,---
+PHP/PHP:Special method=11,ffdca3a3,ffdca3a3,1,,,,,,---
+PHP/PHP:String=7,,,,,,,,,---
+PHP/PHP:Symbol=0,ffdca3a3,ffdca3a3,,,,,,,---
+PHP/PHP:Types=2,,,,,,,,,---
+PHP/PHP:Variable=1,ffbdc294,ffd9dfab,1,0,,1,,,---
+
+[Highlighting Perl - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Perl:Bin=18,,,,,,,,,,---
+Perl:Comment=21,,,,,,,,,,---
+Perl:Data=0,,,,,,,,,,---
+Perl:Data Type=16,,,,,,,,,,---
+Perl:Decimal=17,,,,,,,,,,---
+Perl:Float=19,,,,,,,,,,---
+Perl:Function=2,,,,,,,,,,---
+Perl:Hex=18,,,,,,,,,,---
+Perl:Keyword=1,,,,,,,,,,---
+Perl:Normal Text=0,,,,,,,,,,---
+Perl:Octal=18,,,,,,,,,,---
+Perl:Operator=1,ff008000,,,,,,,,,---
+Perl:Pattern=29,,,,,,,,,,---
+Perl:Pattern Character Class=18,,,,,,,,,,---
+Perl:Pattern Internal Operator=10,,,,,,,,,,---
+Perl:Pod=21,,,,,,,,,,---
+Perl:Pragma=1,,,,,,,,,,---
+Perl:Special Variable=16,ffc00000,ffc00000,0,0,,,,,,---
+Perl:String=12,ffff6c6c,ffff6c6c,0,0,,,,,,---
+Perl:String (interpolated)=12,,,,,,,,,,---
+Perl:String Special Character=10,,,,,,,,,,---
+
+[Highlighting Perl - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+Perl:Comment=8,,,,,,,,,---
+Perl:Data=0,,,,,,,,,---
+Perl:Data Type=2,,,,,,,,,---
+Perl:Decimal=3,,,,,,,,,---
+Perl:Float=5,ffeeeeee,ffeeeeee,,,,,,,---
+Perl:Function=11,,,,,,,,,---
+Perl:Hex=4,,,,,,,,,---
+Perl:Keyword=1,,,,,,,,,---
+Perl:Normal Text=0,,,,,,,,,---
+Perl:Nothing=8,,,,,,,,,---
+Perl:Octal=4,,,,,,,,,---
+Perl:Operator=1,ff008000,,,,,,,,---
+Perl:Pattern=9,,,,,,,,,---
+Perl:Pattern Character Class=4,ffc5bed5,ffc5bed5,1,,,,,,---
+Perl:Pattern Internal Operator=6,,,,,,,,,---
+Perl:Pod=8,,,,,,,,,---
+Perl:Pragma=1,,,,,,,,,---
+Perl:Special Variable=2,ff9ece9e,ff9ece9e,0,0,,,,,---
+Perl:String=7,ffcc9393,ffcc9393,0,0,,,,,---
+Perl:String (interpolated)=7,fff3acaf,fff3acaf,,,,,,,---
+Perl:String Special Character=6,,,,,,,,,---
+
+[Highlighting Pike - Schema zenburn]
+Pike:Binary=4,,,,,,,,,---
+Pike:Builtin Function=11,,,,,,,,,---
+Pike:Char=6,,,,,,,,,---
+Pike:Comment=8,,,,,,,,,---
+Pike:Data Type=2,,,,,,,,,---
+Pike:Decimal=3,,,,,,,,,---
+Pike:Float=5,,,,,,,,,---
+Pike:Hex=4,,,,,,,,,---
+Pike:Keyword=1,,,,,,,,,---
+Pike:Normal Text=0,,,,,,,,,---
+Pike:Note=10,,,,,,,,,---
+Pike:Octal=4,,,,,,,,,---
+Pike:Preprocessor=9,,,,,,,,,---
+Pike:Preprocessor Lib=7,,,,,,,,,---
+Pike:String=7,,,,,,,,,---
+Pike:String Char=6,,,,,,,,,---
+
+[Highlighting Python - Schema Simon]
+Alerts_indent:Alert=10,,,,,,,,,,---
+Alerts_indent:Normal Text=0,,,,,,,,,,---
+Python:Builtin Function=2,,,,,,,,,,---
+Python:Command Keyword=1,,,,,,,,,,---
+Python:Comment=8,,,,,,,,,,---
+Python:Complex=9,,,,,,,,,,---
+Python:Decorator=9,ff8f6b32,ffffffff,,0,,,,,,---
+Python:Definition Keyword=1,,,,,,,,,,---
+Python:Exceptions=9,ff054d00,ffffffff,1,0,,,,,,---
+Python:Extensions=9,ff0095ff,ffffffff,1,0,,,,,,---
+Python:Float=5,,,,,,,,,,---
+Python:Flow Control Keyword=1,,,,,,,,,,---
+Python:Hex=4,,,,,,,,,,---
+Python:Int=3,,,,,,,,,,---
+Python:Normal Text=0,,,,,,,,,,---
+Python:Octal=4,,,,,,,,,,---
+Python:Operator=0,,,1,,,,,,,---
+Python:Overloaders=9,fffeffd9,ffffffff,1,0,,,,,,---
+Python:Preprocessor=6,,,,,,,,,,---
+Python:Raw String=7,,,,,,,,,,---
+Python:Special Variable=9,,,,,,,,,,---
+Python:String=7,,,,,,,,,,---
+Python:String Char=6,,,,,,,,,,---
+Python:String Substitution=9,ffa8e9d6,ffffffff,,,,,,,,---
+
+[Highlighting Python - Schema darK]
+Alerts:Alert Level 1=10,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=10,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=10,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Alerts_indent:Alert=10,,,,,,,,,,---
+Alerts_indent:Normal Text=0,,,,,,,,,,---
+Modelines:Comment=8,,,,,,,,,,---
+Modelines:Keyword=1,,,,,,,,,,---
+Modelines:Number=3,,,,,,,,,,---
+Modelines:Option OFF=9,,,,,,,,,,---
+Modelines:Option ON=9,,,,,,,,,,---
+Modelines:String=7,,,,,,,,,,---
+Modelines:Value=9,,,,,,,,,,---
+Modelines:Variable=11,,,,,,,,,,---
+Python:Binary=18,,,,,,,,,,---
+Python:Builtin Function=2,,,,,,,,,,---
+Python:Command Keyword=1,,,,,,,,,,---
+Python:Comment=8,,,,,,,,,,---
+Python:Complex=9,,,,,,,,,,---
+Python:Decorator=9,ff8f6b32,ffffffff,,0,,,,,,---
+Python:Definition Keyword=1,,,,,,,,,,---
+Python:Error=30,,,,,,,,,,---
+Python:Exceptions=9,ff054d00,ffffffff,1,0,,,,,,---
+Python:Extensions=9,ff0095ff,ffffffff,1,0,,,,,,---
+Python:F-String=14,,,,,,,,,,---
+Python:Float=5,,,,,,,,,,---
+Python:Flow Control Keyword=1,,,,,,,,,,---
+Python:Hex=9,ff008000,ff00ff00,,,,,,,,---
+Python:Import=15,,,,,,,,,,---
+Python:Int=3,,,,,,,,,,---
+Python:Keyword=1,,,,,,,,,---
+Python:Long=9,,,,,,,,,---
+Python:Normal Text=0,,,,,,,,,,---
+Python:Octal=9,,,,,,,,,,---
+Python:Operator=6,,,1,,,,,,,---
+Python:Operator Keyword=1,,,,,,,,,,---
+Python:Overloaders=9,ff005fdb,ffffffff,1,0,,,,,,---
+Python:Preprocessor=6,,,,,,,,,,---
+Python:Raw F-String=13,,,,,,,,,,---
+Python:Raw String=7,,,,,,,,,,---
+Python:Special Variable=9,ffff0000,ff2f4225,,,,,,,,---
+Python:String=7,,,,,,,,,,---
+Python:String Char=6,,,,,,,,,,---
+Python:String Substitution=9,ff00ae8b,ffffffff,,,,,,,,---
+
+[Highlighting Python - Schema kate - Normal]
+Alerts_indent:Alert=10,,,,,,,,,,---
+Alerts_indent:Normal Text=0,,,,,,,,,,---
+Python:Builtin Function=2,,,,,,,,,,---
+Python:Command Keyword=1,,,,,,,,,,---
+Python:Comment=8,,,,,,,,,,---
+Python:Complex=9,,,,,,,,,,---
+Python:Decorator=9,ff8f6b32,ffffffff,,0,,,,,,---
+Python:Definition Keyword=1,,,,,,,,,,---
+Python:Exceptions=9,ff054d00,ffffffff,1,0,,,,,,---
+Python:Extensions=9,ff0095ff,ffffffff,1,0,,,,,,---
+Python:Float=5,,,,,,,,,,---
+Python:Flow Control Keyword=1,,,,,,,,,,---
+Python:Hex=4,ff008000,ff00ff00,,,,,,,,---
+Python:Int=3,,,,,,,,,,---
+Python:Normal Text=0,,,,,,,,,,---
+Python:Octal=4,,,,,,,,,,---
+Python:Operator=0,,,1,,,,,,,---
+Python:Overloaders=9,ff000e52,ffffffff,1,0,,,,,,---
+Python:Preprocessor=6,,,,,,,,,,---
+Python:Raw String=7,,,,,,,,,,---
+Python:Special Variable=9,ffff0000,ff2f4225,,,,,,,,---
+Python:String=7,,,,,,,,,,---
+Python:String Char=6,,,,,,,,,,---
+Python:String Substitution=9,ff0057ae,ffffffff,,,,,,,,---
+
+[Highlighting Quake Script - Schema zenburn]
+Quake Script:Action=0,ffffcc00,ff00ff00,1,1,,,,,---
+Quake Script:Command=1,,,,,,,,,---
+Quake Script:Comment=8,,,,,,,,,---
+Quake Script:Float=5,,,,,,,,,---
+Quake Script:Hex=4,,,,,,,,,---
+Quake Script:Identifier=2,,,,,,,,,---
+Quake Script:Int=5,,,,,,,,,---
+Quake Script:Normal Text=0,,,,,,,,,---
+Quake Script:String=0,ffff0000,ff00ff00,0,1,,,,,---
+Quake Script:String Char=6,,,,,,,,,---
+Quake Script:Symbol=9,,,,,,,,,---
+Quake Script:Variable=0,ffbdc294,ffbdc294,1,0,,1,,,---
+
+[Highlighting RSI IDL - Schema darK]
+RSI IDL:Char=6,,,,,,,,,,---
+RSI IDL:Command=4,ff050505,ffffffff,1,,,,,,,---
+RSI IDL:Comment=8,ff2b7805,ff945ca4,,,,,,,,---
+RSI IDL:Data Type=2,,,,,,,,,,---
+RSI IDL:Decimal=3,ff000000,ffffffff,,,,,,,,---
+RSI IDL:Float=3,ff000000,ffffffff,,,,,,,,---
+RSI IDL:Hex=3,,,,,,,,,,---
+RSI IDL:IOCommand=2,ff050505,ffffffff,1,,,,,,,---
+RSI IDL:Keyword=1,ff09dde4,ffffd60b,1,,,,,,,---
+RSI IDL:Normal Text=0,,,,,,,,,,---
+RSI IDL:Octal=3,,,,,,,,,,---
+RSI IDL:String=7,ffff0000,ffff0000,,,,,,,,---
+RSI IDL:String Char=6,ffff0000,ffff0000,,,,,,,,---
+RSI IDL:bracketed=5,,,,,,,,,,---
+
+[Highlighting RSI IDL - Schema kate - Normal]
+RSI IDL:Char=6,,,,,,,,,,---
+RSI IDL:Command=4,ff050505,ffffffff,1,,,,,,,---
+RSI IDL:Comment=8,ff2b7805,ff945ca4,,,,,,,,---
+RSI IDL:Data Type=2,,,,,,,,,,---
+RSI IDL:Decimal=3,ff000000,ffffffff,,,,,,,,---
+RSI IDL:Float=3,ff000000,ffffffff,,,,,,,,---
+RSI IDL:Hex=3,,,,,,,,,,---
+RSI IDL:IOCommand=2,ff050505,ffffffff,1,,,,,,,---
+RSI IDL:Keyword=1,ff1414e4,ffffd60b,1,,,,,,,---
+RSI IDL:Normal Text=0,,,,,,,,,,---
+RSI IDL:Octal=3,,,,,,,,,,---
+RSI IDL:String=7,ffff0000,ffff0000,,,,,,,,---
+RSI IDL:String Char=6,ffff0000,ffff0000,,,,,,,,---
+RSI IDL:bracketed=5,,,,,,,,,,---
+
+[Highlighting Ruby - Schema darK]
+Ruby:Access Control=1,ff0000ff,,,,,,,,---
+Ruby:Alert=10,,,,,,,,,---
+Ruby:Attribute Definition=9,,,,,,,,,---
+Ruby:Bin=4,,,,,,,,,---
+Ruby:Blockcomment=8,,,,,,,,,---
+Ruby:Char=6,,,,,,,,,---
+Ruby:Class Variable=9,,,,,,,,,---
+Ruby:Command=7,ffaa3000,,,,,,,,---
+Ruby:Comment=8,,,,,,,,,---
+Ruby:Constant=2,,,,,,,,,---
+Ruby:Constant Value=2,ffbb1188,,,,,,,,---
+Ruby:Data=0,,,,,,,,,---
+Ruby:Dec=3,,,,,,,,,---
+Ruby:Default globals=2,ffc00000,,1,,,,,,---
+Ruby:Definition=1,,,,,,,,,---
+Ruby:Delimiter=6,,,,,,,,,---
+Ruby:Error=13,,,,,,,,,---
+Ruby:Expression=9,,,,,,,,,---
+Ruby:Float=5,,,,,,,,,---
+Ruby:GDL input=9,,,,,,,,,---
+Ruby:Global Constant=2,ffbb1188,,1,,,,,,---
+Ruby:Global Variable=2,ffc00000,,,,,,,,---
+Ruby:Hex=4,,,,,,,,,---
+Ruby:Instance Variable=9,,,,,,,,,---
+Ruby:Kernel methods=0,ffffff00,ffffffff,,,,,,,---
+Ruby:Keyword=1,ffff8400,ffffffff,1,,,,,,---
+Ruby:Member=0,,,,,,,,,---
+Ruby:Message=0,ff9d00ff,ffffffff,,,,,,,---
+Ruby:Normal Text=0,,,,,,,,,---
+Ruby:Octal=4,,,,,,,,,---
+Ruby:Operator=6,,,,,,,,,---
+Ruby:Pseudo variable=3,,,,,,,,,---
+Ruby:RDoc Value=9,,,,,,,,,---
+Ruby:Raw String=7,ffdd4a4a,ffdd4a4a,,,,,,,---
+Ruby:Region Marker=0,ff0000ff,,,,,,,,---
+Ruby:Regular Expression=9,ff4a5704,,,,,,,,---
+Ruby:String=7,,,,,,,,,---
+Ruby:Substitution=9,,,,,,,,,---
+Ruby:Symbol=7,ffd40000,,,,,,,,---
+
+[Highlighting Ruby/Rails/RHTML - Schema darK]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS:Alert=10,,,,,,,,,---
+CSS:At Rule=3,,,,,,,,,---
+CSS:Comment=8,,,,,,,,,---
+CSS:Error=13,,,,,,,,,---
+CSS:Important=1,,,,,,,,,---
+CSS:Media=3,,,1,,,,,,---
+CSS:Normal Text=0,,,,,,,,,---
+CSS:Property=1,,,,,,,,,---
+CSS:Region Marker=12,,,,,,,,,---
+CSS:Selector Attr=6,,,,,,,,,---
+CSS:Selector Class=5,,,,,,,,,---
+CSS:Selector Id=5,,,1,,,,,,---
+CSS:Selector Pseudo=3,,,,,,,,,---
+CSS:String=7,,,,,,,,,---
+CSS:Unknown Property=1,,,,1,,,,,---
+CSS:Value=2,,,,,,,,,---
+JavaScript:Char=6,,,,,,,,,---
+JavaScript:Comment=8,,,,,,,,,---
+JavaScript:Data Type=2,,,,,,,,,---
+JavaScript:Decimal=3,,,,,,,,,---
+JavaScript:Events=1,fff766d5,ff00ffff,0,0,,,,,---
+JavaScript:Float=5,,,,,,,,,---
+JavaScript:Function=11,,,,,,,,,---
+JavaScript:Keyword=1,,,,,,,,,---
+JavaScript:Math=1,ffdba716,ff00ffff,0,0,,,,,---
+JavaScript:Normal Text=0,,,,,,,,,---
+JavaScript:Objects=1,ff008000,ff00ffff,0,0,,,,,---
+JavaScript:Pattern Character Class=4,,,,,,,,,---
+JavaScript:Pattern Internal Operator=5,,,,,,,,,---
+JavaScript:Region Marker=12,,,,,,,,,---
+JavaScript:Regular Expression=9,,,,,,,,,---
+JavaScript:String=7,,,,,,,,,---
+JavaScript:String Char=6,,,,,,,,,---
+JavaScript:Symbol=0,,,,,,,,,---
+Ruby/Rails/RHTML:Access Control=1,ff0000ff,,,,,,,,---
+Ruby/Rails/RHTML:Alert=10,,,,,,,,,---
+Ruby/Rails/RHTML:Attribute=9,,,,,,,,,---
+Ruby/Rails/RHTML:Attribute Definition=9,,,,,,,,,---
+Ruby/Rails/RHTML:Bin=4,,,,,,,,,---
+Ruby/Rails/RHTML:Blockcomment=8,,,,,,,,,---
+Ruby/Rails/RHTML:CDATA=4,,,1,,,,,,---
+Ruby/Rails/RHTML:Char=6,,,,,,,,,---
+Ruby/Rails/RHTML:Class Variable=9,,,,,,,,,---
+Ruby/Rails/RHTML:Command=7,ffaa3000,,,,,,,,---
+Ruby/Rails/RHTML:Comment=8,,,,,,,,,---
+Ruby/Rails/RHTML:Constant=2,,,,,,,,,---
+Ruby/Rails/RHTML:Constant Value=2,ffbb1188,,,,,,,,---
+Ruby/Rails/RHTML:Data=0,,,,,,,,,---
+Ruby/Rails/RHTML:Dec=3,,,,,,,,,---
+Ruby/Rails/RHTML:Default globals=2,ffc00000,,1,,,,,,---
+Ruby/Rails/RHTML:Definition=1,,,,,,,,,---
+Ruby/Rails/RHTML:Delimiter=6,,,,,,,,,---
+Ruby/Rails/RHTML:Doctype=2,,,1,,,,,,---
+Ruby/Rails/RHTML:Element=1,,,,,,,,,---
+Ruby/Rails/RHTML:EntityRef=3,,,,,,,,,---
+Ruby/Rails/RHTML:Error=13,,,,,,,,,---
+Ruby/Rails/RHTML:Expression=9,,,,,,,,,---
+Ruby/Rails/RHTML:Float=5,,,,,,,,,---
+Ruby/Rails/RHTML:GDL input=9,,,,,,,,,---
+Ruby/Rails/RHTML:Global Constant=2,ffbb1188,,1,,,,,,---
+Ruby/Rails/RHTML:Global Variable=2,ffc00000,,,,,,,,---
+Ruby/Rails/RHTML:Hex=4,,,,,,,,,---
+Ruby/Rails/RHTML:Instance Variable=9,,,,,,,,,---
+Ruby/Rails/RHTML:Kernel methods=0,ffffff00,ffffffff,,,,,,,---
+Ruby/Rails/RHTML:Keyword=1,,,,,,,,,---
+Ruby/Rails/RHTML:Member=0,,,,,,,,,---
+Ruby/Rails/RHTML:Message=0,ff6200ff,ffffffff,,,,,,,---
+Ruby/Rails/RHTML:Normal Text=0,,,,,,,,,---
+Ruby/Rails/RHTML:Octal=4,,,,,,,,,---
+Ruby/Rails/RHTML:Operator=6,,,,,,,,,---
+Ruby/Rails/RHTML:PEntityRef=3,,,,,,,,,---
+Ruby/Rails/RHTML:Processing Instruction=1,,,,,,,,,---
+Ruby/Rails/RHTML:Pseudo variable=3,,,,,,,,,---
+Ruby/Rails/RHTML:RDoc Value=9,,,,,,,,,---
+Ruby/Rails/RHTML:Raw String=7,ffdd4a4a,ffdd4a4a,,,,,,,---
+Ruby/Rails/RHTML:Region Marker=0,ff0000ff,,,,,,,,---
+Ruby/Rails/RHTML:Regular Expression=9,ff4a5704,,,,,,,,---
+Ruby/Rails/RHTML:Ruby Comment=8,,,,,,,,,---
+Ruby/Rails/RHTML:Ruby Normal Text=0,,,,,,,,,---
+Ruby/Rails/RHTML:String=7,,,,,,,,,---
+Ruby/Rails/RHTML:Substitution=9,,,,,,,,,---
+Ruby/Rails/RHTML:Symbol=7,ffd40000,,,,,,,,---
+Ruby/Rails/RHTML:Value=7,ffaa0000,,,,,,,,---
+
+[Highlighting Ruby/Rails/RHTML - Schema zenburn]
+Alerts:Alert=10,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,---
+CSS:Alert=10,,,,,,,,,---
+CSS:At Rule=3,,,,,,,,,---
+CSS:Comment=8,,,,,,,,,---
+CSS:Error=13,,,,,,,,,---
+CSS:Important=1,,,,,,,,,---
+CSS:Media=3,,,1,,,,,,---
+CSS:Normal Text=0,,,,,,,,,---
+CSS:Property=1,,,,,,,,,---
+CSS:Region Marker=12,,,,,,,,,---
+CSS:Selector Attr=6,,,,,,,,,---
+CSS:Selector Class=5,,,,,,,,,---
+CSS:Selector Id=5,,,1,,,,,,---
+CSS:Selector Pseudo=3,,,,,,,,,---
+CSS:String=7,,,,,,,,,---
+CSS:Unknown Property=1,,,,1,,,,,---
+CSS:Value=2,,,,,,,,,---
+JavaScript:Char=6,,,,,,,,,---
+JavaScript:Comment=8,,,,,,,,,---
+JavaScript:Data Type=2,,,,,,,,,---
+JavaScript:Decimal=3,,,,,,,,,---
+JavaScript:Events=1,fff766d5,ff00ffff,0,0,,,,,---
+JavaScript:Float=5,,,,,,,,,---
+JavaScript:Function=11,,,,,,,,,---
+JavaScript:Keyword=1,,,,,,,,,---
+JavaScript:Math=1,ffdba716,ff00ffff,0,0,,,,,---
+JavaScript:Normal Text=0,,,,,,,,,---
+JavaScript:Objects=1,ff008000,ff00ffff,0,0,,,,,---
+JavaScript:Pattern Character Class=4,,,,,,,,,---
+JavaScript:Pattern Internal Operator=5,,,,,,,,,---
+JavaScript:Region Marker=12,,,,,,,,,---
+JavaScript:Regular Expression=9,,,,,,,,,---
+JavaScript:String=7,,,,,,,,,---
+JavaScript:String Char=6,,,,,,,,,---
+JavaScript:Symbol=0,,,,,,,,,---
+Ruby/Rails/RHTML:Access Control=1,ff0000ff,,,,,,,,---
+Ruby/Rails/RHTML:Alert=10,,,,,,,,,---
+Ruby/Rails/RHTML:Attribute=9,,,,,,,,,---
+Ruby/Rails/RHTML:Attribute Definition=9,,,,,,,,,---
+Ruby/Rails/RHTML:Bin=4,,,,,,,,,---
+Ruby/Rails/RHTML:Blockcomment=8,,,,,,,,,---
+Ruby/Rails/RHTML:CDATA=4,,,1,,,,,,---
+Ruby/Rails/RHTML:Char=6,,,,,,,,,---
+Ruby/Rails/RHTML:Class Variable=9,,,,,,,,,---
+Ruby/Rails/RHTML:Command=7,ffaa3000,,,,,,,,---
+Ruby/Rails/RHTML:Comment=8,,,,,,,,,---
+Ruby/Rails/RHTML:Constant=2,,,,,,,,,---
+Ruby/Rails/RHTML:Constant Value=2,ffbb1188,,,,,,,,---
+Ruby/Rails/RHTML:Data=0,,,,,,,,,---
+Ruby/Rails/RHTML:Dec=3,,,,,,,,,---
+Ruby/Rails/RHTML:Default globals=2,ffc00000,,1,,,,,,---
+Ruby/Rails/RHTML:Definition=1,,,,,,,,,---
+Ruby/Rails/RHTML:Delimiter=6,,,,,,,,,---
+Ruby/Rails/RHTML:Doctype=2,,,1,,,,,,---
+Ruby/Rails/RHTML:Element=1,,,,,,,,,---
+Ruby/Rails/RHTML:EntityRef=3,,,,,,,,,---
+Ruby/Rails/RHTML:Error=13,,,,,,,,,---
+Ruby/Rails/RHTML:Expression=9,,,,,,,,,---
+Ruby/Rails/RHTML:Float=5,,,,,,,,,---
+Ruby/Rails/RHTML:GDL input=9,,,,,,,,,---
+Ruby/Rails/RHTML:Global Constant=2,ffbb1188,,1,,,,,,---
+Ruby/Rails/RHTML:Global Variable=2,ffc00000,,,,,,,,---
+Ruby/Rails/RHTML:Hex=4,,,,,,,,,---
+Ruby/Rails/RHTML:Instance Variable=9,,,,,,,,,---
+Ruby/Rails/RHTML:Kernel methods=0,ff18bae6,ffffffff,,,,,,,---
+Ruby/Rails/RHTML:Keyword=1,,,,,,,,,---
+Ruby/Rails/RHTML:Member=0,,,,,,,,,---
+Ruby/Rails/RHTML:Message=0,ff18bae6,ffd0dfe2,,,,,,,---
+Ruby/Rails/RHTML:Normal Text=0,,,,,,,,,---
+Ruby/Rails/RHTML:Octal=4,,,,,,,,,---
+Ruby/Rails/RHTML:Operator=6,,,,,,,,,---
+Ruby/Rails/RHTML:PEntityRef=3,,,,,,,,,---
+Ruby/Rails/RHTML:Processing Instruction=1,,,,,,,,,---
+Ruby/Rails/RHTML:Pseudo variable=3,,,,,,,,,---
+Ruby/Rails/RHTML:RDoc Value=9,,,,,,,,,---
+Ruby/Rails/RHTML:Raw String=7,ffdd4a4a,ffdd4a4a,,,,,,,---
+Ruby/Rails/RHTML:Region Marker=0,ff18bae6,ffd0dfe2,,,,,,,---
+Ruby/Rails/RHTML:Regular Expression=9,ff9cb609,ff9cb609,,,,,,,---
+Ruby/Rails/RHTML:Ruby Comment=8,,,,,,,,,---
+Ruby/Rails/RHTML:Ruby Normal Text=0,,,,,,,,,---
+Ruby/Rails/RHTML:String=7,,,,,,,,,---
+Ruby/Rails/RHTML:Substitution=9,,,,,,,,,---
+Ruby/Rails/RHTML:Symbol=7,ffd40000,,,,,,,,---
+Ruby/Rails/RHTML:Value=7,ffaa0000,,,,,,,,---
+
+[Highlighting SQL (MySQL) - Schema zenburn]
+SQL (MySQL):Comment=8,ff7f9f7f,ff7f9f7f,1,1,,,,,---
+SQL (MySQL):Data Type=2,,,,,,,,,---
+SQL (MySQL):Decimal=3,,,,,,,,,---
+SQL (MySQL):Float=5,,,,,,,,,---
+SQL (MySQL):Function=11,,,,,,,,,---
+SQL (MySQL):Keyword=1,fff0dfaf,fffffa94,,,,1,,,---
+SQL (MySQL):Name=7,ffdfcfaf,ffdfcfaf,,,,,,,---
+SQL (MySQL):Normal Text=0,,,,,,,,,---
+SQL (MySQL):Operator=0,fff0efd0,ffd0dfe2,,,,,,,---
+SQL (MySQL):Preprocessor=9,ffffcfaf,ffffcfaf,1,,,,,,---
+SQL (MySQL):String=7,,,,,,,,,---
+SQL (MySQL):String Char=6,,,,,,,,,---
+SQL (MySQL):Symbol=6,,,,,,,,,---
+
+[Highlighting SQL (PostgreSQL) - Schema zenburn]
+SQL (PostgreSQL):Comment=8,,,,,,,,,---
+SQL (PostgreSQL):Data Type=2,,,,,,,,,---
+SQL (PostgreSQL):Decimal=3,,,,,,,,,---
+SQL (PostgreSQL):Float=5,,,,,,,,,---
+SQL (PostgreSQL):Function=11,,,,,,,,,---
+SQL (PostgreSQL):Identifier=9,,,,,,,,,---
+SQL (PostgreSQL):Keyword=1,,,,,,,,,---
+SQL (PostgreSQL):Normal Text=0,,,,,,,,,---
+SQL (PostgreSQL):Operator=0,,,,,,,,,---
+SQL (PostgreSQL):Preprocessor=9,,,,,,,,,---
+SQL (PostgreSQL):String=7,,,,,,,,,---
+SQL (PostgreSQL):String Char=6,,,,,,,,,---
+SQL (PostgreSQL):Symbol=6,,,,,,,,,---
+
+[Highlighting SQL - Schema zenburn]
+SQL:Comment=8,,,,,,,,,---
+SQL:Data Type=2,,,,,,,,,---
+SQL:Decimal=3,,,,,,,,,---
+SQL:External Variable=6,,,,,,,,,---
+SQL:Float=5,,,,,,,,,---
+SQL:Function=11,,,,,,,,,---
+SQL:Identifier=9,,,,,,,,,---
+SQL:Keyword=1,,,,,,,,,---
+SQL:Normal Text=0,,,,,,,,,---
+SQL:Operator=0,,,,,,,,,---
+SQL:Preprocessor=9,,,,,,,,,---
+SQL:String=7,,,,,,,,,---
+SQL:String Char=6,,,,,,,,,---
+SQL:Symbol=6,,,,,,,,,---
+
+[Highlighting Scheme - Schema zenburn]
+Scheme:BaseN=4,,,,,,,,,---
+Scheme:Brackets1=0,ffff0000,ff000000,1,0,,,,,---
+Scheme:Brackets2=0,ffff8800,ff000000,1,0,,,,,---
+Scheme:Brackets3=0,ff888800,ff000000,1,0,,,,,---
+Scheme:Brackets4=0,ff008800,ff000000,1,0,,,,,---
+Scheme:Brackets5=0,ffc5bed5,ff000000,1,0,,,,,---
+Scheme:Brackets6=0,ff9caeac,ff000000,1,0,,,,,---
+Scheme:Char=6,,,,,,,,,---
+Scheme:Comment=8,,,,,,,,,---
+Scheme:Data=2,,,,,,,,,---
+Scheme:Decimal=3,,,,,,,,,---
+Scheme:Definition=1,ffffcfaf,fff0dfaf,1,,,1,,,---
+Scheme:Float=5,,,,,,,,,---
+Scheme:Function=11,,,,,,,,,---
+Scheme:Keyword=1,,,,,,,,,---
+Scheme:Normal=0,,,,,,,,,---
+Scheme:Operator=1,fff0efd0,fff0efd0,,,,1,,,---
+Scheme:Region Marker=12,,,,,,,,,---
+Scheme:String=7,,,,,,,,,---
+
+[Highlighting Spice - Schema zenburn]
+Spice:Comment=8,,,,,,,,,---
+Spice:Keyword=1,,,,,,,,,---
+Spice:Normal Text=0,,,,,,,,,---
+Spice:Number=3,,,,,,,,,---
+Spice:String=7,,,,,,,,,---
+
+[Highlighting Tcl/Tk - Schema zenburn]
+Tcl/Tk:Char=6,,,,,,,,,---
+Tcl/Tk:Comment=8,,,,,,,,,---
+Tcl/Tk:Decimal=3,,,,,,,,,---
+Tcl/Tk:Float=5,,,,,,,,,---
+Tcl/Tk:Keyword=1,,,,,,,,,---
+Tcl/Tk:Normal Text=0,,,,,,,,,---
+Tcl/Tk:Parameter=9,,,,,,,,,---
+Tcl/Tk:Region Marker=12,,,,,,,,,---
+Tcl/Tk:String=7,,,,,,,,,---
+Tcl/Tk:Variable=2,,,,,,,,,---
+
+[Highlighting WINE Config - Schema zenburn]
+WINE Config:Comment=8,,,,,,,,,---
+WINE Config:Key=2,,,,,,,,,---
+WINE Config:Normal Text=0,,,,,,,,,---
+WINE Config:RegistryBeginEnd=0,ff00aaaa,ffffffff,1,0,,,,,---
+WINE Config:Section=1,,,,,,,,,---
+WINE Config:Value=0,ff1ac8f8,ffffffff,1,0,,,,,---
+WINE Config:ValueFilesystem1=0,ff00aa00,ffffffff,1,0,,,,,---
+WINE Config:ValueFilesystem2=0,ffff0000,ffffffff,1,0,,,,,---
+
+[Highlighting XML - Schema darK]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+XML:Attribute=9,,,,,,,,,,---
+XML:CDATA=4,,,1,,,,,,,---
+XML:Comment=8,,,,,,,,,,---
+XML:Doctype=2,,,1,,,,,,,---
+XML:Element=1,,,,,,,,,,---
+XML:EntityRef=3,,,,,,,,,,---
+XML:Error=13,,,,,,,,,,---
+XML:Normal Text=0,,,,,,,,,,---
+XML:Other Text=0,,,,,,,,,,---
+XML:PEntityRef=3,,,,,,,,,,---
+XML:Processing Instruction=1,,,,,,,,,,---
+XML:Value=7,fff6a925,ffffd036,,,,,,,,---
+
+[Highlighting XML - Schema kate - Normal]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+XML:Attribute=9,,,,,,,,,,---
+XML:CDATA=4,,,1,,,,,,,---
+XML:Comment=8,,,,,,,,,,---
+XML:Doctype=2,,,1,,,,,,,---
+XML:Element=1,,,,,,,,,,---
+XML:EntityRef=3,,,,,,,,,,---
+XML:Error=13,,,,,,,,,,---
+XML:Normal Text=0,,,,,,,,,,---
+XML:Other Text=0,,,,,,,,,,---
+XML:PEntityRef=3,,,,,,,,,,---
+XML:Processing Instruction=1,,,,,,,,,,---
+XML:Value=7,fff6a925,ffffd036,,,,,,,,---
+
+[Highlighting YAML - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+Modelines:Comment=21,,,,,,,,,,---
+Modelines:Keyword=23,,,,,,,,,,---
+Modelines:Number=17,,,,,,,,,,---
+Modelines:Option OFF=29,,,,,,,,,,---
+Modelines:Option ON=29,,,,,,,,,,---
+Modelines:String=12,,,,,,,,,,---
+Modelines:Value=29,,,,,,,,,,---
+Modelines:Variable=24,,,,,,,,,,---
+YAML:Alias=16,,,,,,,,,,---
+YAML:Attribute=9,,,,,,,,,,---
+YAML:Comment=21,,,,,,,,,,---
+YAML:Data Types=16,,,,,,,,,,---
+YAML:Directive=29,,,,,,,,,,---
+YAML:Document Header=29,,,,,,,,,,---
+YAML:End of Document=21,,,,,,,,,,---
+YAML:Error=30,,,,,,,,,,---
+YAML:Hash=0,,,,,,,,,,---
+YAML:Key=2,ffff00d1,ffffffff,,,,,,,,---
+YAML:List=0,,,,,,,,,,---
+YAML:Normal Text=0,,,,,,,,,,---
+YAML:Operator=1,,,,,,,,,,---
+YAML:Reference=16,,,,,,,,,,---
+YAML:String=12,,,,,,,,,,---
+
+[Highlighting fstab - Schema zenburn]
+fstab:Comment=8,,,,,,,,,---
+fstab:Device=1,,,,,,,,,---
+fstab:Dump=3,,,,,,,,,---
+fstab:Error=13,,,,,,,,,---
+fstab:Mount Point=2,,,,,,,,,---
+fstab:Normal=0,,,,,,,,,---
+fstab:Options=1,,,,,,,,,---
+fstab:Pass=3,,,,,,,,,---
+fstab:Type=11,,,,,,,,,---
+fstab:Valid FileSystem=2,,,,1,,,,,---
+
+[Highlighting reStructuredText - Schema darK]
+Alerts:Alert Level 1=28,ffe85848,ffe85848,,,,,ff451e1a,ff000000,,---
+Alerts:Alert Level 2=28,ffca9219,ffca9219,,,,,ff451e1a,ff000000,,---
+Alerts:Alert Level 3=28,ff81ca2d,ff81ca2d,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts:Region Marker=25,,,,,,,,,,---
+reStructuredText:Bold=0,,,1,,,,,,,---
+reStructuredText:Citation=16,,,,,,,,,,---
+reStructuredText:Code=16,,,,,,,,,,---
+reStructuredText:Comment=21,,,,,,,,,,---
+reStructuredText:DefaultRole=17,,,,,,,,,,---
+reStructuredText:Directive=16,,,,,,,,,,---
+reStructuredText:Field=2,,,,,,,,,,---
+reStructuredText:FieldBold=2,,,1,,,,,,,---
+reStructuredText:FieldItalic=2,,,,1,,,,,,---
+reStructuredText:Footnote=16,,,,,,,,,,---
+reStructuredText:FootnoteReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkReference=29,,,,,,,,,,---
+reStructuredText:HyperlinkTarget=16,,,,,,,,,,---
+reStructuredText:InlineInternalTarget=2,,,,,,,,,,---
+reStructuredText:InlineLiteral=16,,,,,,,,,,---
+reStructuredText:InterpretedText=17,,,,,,,,,,---
+reStructuredText:Italic=0,,,,1,,,,,,---
+reStructuredText:Normal=0,,,,,,,,,,---
+reStructuredText:Role=1,,,,,,,,,,---
+reStructuredText:StandaloneHyperlink=29,,,,,,,,,,---
+reStructuredText:SubstitutionDefinition=16,,,,,,,,,,---
+reStructuredText:SubstitutionReference=2,,,,,,,,,,---
+
+[Highlighting sed - Schema darK]
+sed:Brace=0,,,,,,,,,,---
+sed:Char List=7,,,,,,,,,,---
+sed:Char List Escape=6,,,,,,,,,,---
+sed:Command=1,,,,,,,,,,---
+sed:Comment=8,,,,,,,,,,---
+sed:Error=13,,,,,,,,,,---
+sed:Exit Code=3,,,,,,,,,,---
+sed:Filename=4,,,,,,,,,,---
+sed:Flag=2,,,,,,,,,,---
+sed:Label=11,,,,,,,,,,---
+sed:Last Line=9,ff880088,,1,,,,,,,---
+sed:Line Continue=9,ffd608fa,ff00ff00,1,,,,,,,---
+sed:Line Number=3,,,,,,,,,,---
+sed:Literal Escape=9,ff00aa00,,,1,,,,,,---
+sed:Literal Text=9,ff008800,,,1,,,,,,---
+sed:Negation=9,ff880088,,1,,,,,,,---
+sed:Normal=0,,,,,,,,,,---
+sed:Regex=7,,,,,,,,,,---
+sed:Regex Escape=6,,,,,,,,,,---
+sed:Repl Escape=6,,,,,,,,,,---
+sed:Repl Number=3,,,,,,,,,,---
+sed:Replacement=7,,,,,,,,,,---
+sed:Separator=7,ff2cff02,ffff0000,,,,,,,,---
+sed:Step=3,,,,,,,,,,---
+sed:Wrap Length=3,,,,,,,,,,---

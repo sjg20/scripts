@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# Boot a board with U-Boot by putting it in as altfw in an existing em100 images
+
+set -e
+
+TMP=/tmp/x
+CROS=~/cosarm
+
+write_u_boot() {
+
+	# Get the em100-compatible image
+	image="image-${model}${serial}.bin.new"
+	cp ${CROS}/chroot/build/${board}/firmware/${image} ${board}.bin
+
+	if [ -n "${opt_direct}" ]; then
+		# Make it boot straight into U-Boot
+		flags=0x20039
+	else
+		flags=0x39
+	fi
+	futility gbb -s --flags ${flags} ${board}.bin
+
+	# Add in the MRC cache data
+	if [ -f RW_MRC_CACHE.${board} ]; then
+		cbfstool ${board}.bin write -r RW_MRC_CACHE \
+			-f RW_MRC_CACHE.${board}
+	else
+		echo "No MRC cache, please create RW_MRC_CACHE.${board}"
+	fi
+
+	# Build U-Boot
+	crosfw coreboot
+
+	# Add U-Boot into the image
+	cbfstool ${board}.bin remove -r RW_LEGACY -n altfw/u-boot
+	cbfstool ${board}.bin add-flat-binary -r RW_LEGACY -n altfw/u-boot \
+		-c lzma -l 0x1110000 -e 0x1110000 -f /tmp/b/coreboot/u-boot.bin
+
+	# Write the image to em100
+	sudo em100 -s -c $flash -d ${board}.bin -p LOW -r
+
+	# Reset the board
+	cros_sdk dut-control warm_reset:on sleep:.2 warm_reset:off
+}
+
+gen_mrc() {
+	[ -d $TMP ] && rm -r $TMP
+	mkdir $TMP
+	cd $TMP
+	sudo em100 -c ${flash} -u rom_with_mrc.bin
+	sudo chown $USER rom_with_mrc.bin
+	dump_fmap -x rom_with_mrc.bin
+	cp -v RW_MRC_CACHE ~/u/RW_MRC_CACHE.${board}
+}
+
+usage() {
+	echo "Usage:"
+	echo "$0 [-dms] [model]  - write U-Boot to flash and reboot"
+	echo "Flags:"
+	echo "  -d    - skip Depthcharge"
+	echo "  -m    - generate MRC cache files from running image"
+	echo "  -s    - use the serial version of coreboot"
+	exit 1
+}
+
+while getopts "dms" o; do
+	case "${o}" in
+	d) # Direct to U-Boot
+		opt_direct=1
+		;;
+	m) # Generate MRC
+		opt_gen_mrc=1
+		;;
+	s) # Serial
+		opt_serial=".serial"
+		;;
+	*)
+		usage
+		;;
+	esac
+done
+
+shift $((OPTIND-1))
+
+model=${1:-felwinter}
+
+case "$model" in
+felwinter)
+	board=brya
+	flash=W25Q256JV
+	;;
+rex0)
+	board=rex
+	flash=W25Q256JW
+	;;
+esac
+
+if [ -z "$board" ]; then
+	echo "No board"
+	exit 1
+fi
+
+if [ -z "$flash" ]; then
+	echo "No flash"
+	exit 1
+fi
+
+if [ -n "${opt_gen_mrc}" ]; then
+	gen_mrc
+else
+	write_u_boot
+fi

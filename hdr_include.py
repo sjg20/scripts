@@ -11,7 +11,7 @@ import unittest
 
 sys.path.append('/home/sjg/u/tools')
 
-from patman import command
+from u_boot_pylib import command
 
 UBOOT = '__UBOOT__'
 ASM = '__ASSEMBLY__'
@@ -296,7 +296,7 @@ def process_file(fname, func, insert_hdr, to_check_hdr, ignore_fragments,
 
 def doit(func, insert_hdr, to_check_hdr, ignore_fragments, all_to_check,
          skip_if_hdrs):
-    fnames = command.Output('git', 'grep', '-l', func).splitlines()
+    fnames = command.output('git', 'grep', '-l', func).splitlines()
     for fname in fnames:
         if os.path.islink(fname):
             continue
@@ -1446,7 +1446,7 @@ def run_conversion():
     #display_options(hdr)
     #printk(hdr)
     #time(hdr)
-    #string(hdr)
+    string(hdr)
     #uboot(hdr)
     #stdio(hdr)
     #stdarg(hdr)
@@ -1480,8 +1480,9 @@ def run_conversion():
     kernel_types(hdr)
     hdr.run()
     '''
-    hdr = HdrConv()
-    global_data(hdr)
+    #hdr = HdrConv()
+    #time(hdr)
+    #global_data(hdr)
     hdr.run()
 
 

@@ -247,6 +247,7 @@ function rt() {
 	local suite name force rest
 	rt_get_suite_and_name $*
 
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox/persistent-data \
 	/tmp/b/$exec/u-boot -T $rest -c "ut $suite $force $name"
 }
 
@@ -256,6 +257,7 @@ function rtv() {
 	local suite name force rest
 	rt_get_suite_and_name $*
 
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox/persistent-data \
 	/tmp/b/$exec/u-boot -v -T $rest -c "ut $suite $force $name"
 }
 
@@ -265,6 +267,7 @@ function rtd() {
 	local suite name
 	rt_get_suite_and_name $1 $exec
 
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox/persistent-data \
 	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
 }
 
@@ -274,6 +277,7 @@ function rtdv() {
 	local suite name
 	rt_get_suite_and_name $1 $exec
 
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox/persistent-data \
 	gdb-multiarch --args /tmp/b/$exec/u-boot -T $2 -v -c "ut $suite $name"
 }
 
@@ -318,6 +322,26 @@ function rtdft() {
 	rt_get_suite_and_name $1 $exec
 
 	gdb --args /tmp/b/$exec/u-boot -T $2 -c "ut $suite $name"
+}
+
+# Run a test in sandbox64
+function rt64() {
+	local exec=sandbox64
+	local suite name force rest
+	rt_get_suite_and_name $*
+
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox64/persistent-data \
+	/tmp/b/$exec/u-boot -T $rest -c "ut $suite $force $name"
+}
+
+# Run a test in sandbox64 verbosely
+function rt64v() {
+	local exec=sandbox64
+	local suite name force rest
+	rt_get_suite_and_name $*
+
+	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox64/persistent-data \
+	/tmp/b/$exec/u-boot -v -T $rest -c "ut $suite $force $name"
 }
 
 alias ga='echo "Git Aliases v1"'
@@ -449,22 +473,35 @@ function list_not_applied() {
 alias st='git stash'
 alias ust='git stash apply'
 
-# exp <branch > [-f]
+# exp <branch > [-fC]
 # Send a branch to dm/<branch>-working
 # If it is already there, show the commits instead
 # Use -f to force
+# Use -C to skip running CI tests
 function exp() {
 	local branch
 	local force
+	local skipci
 
-	for arg in $@; do
-		if [ "$arg" = "-f" ]; then
-			force="-f"
-		else
-			branch="$arg"
-		fi
-		shift
+	OPTIND=0
+	while getopts "Cf" opt; do
+		case $opt in
+		C )
+		  skipci="-o ci.skip"
+		  ;;
+		f )
+		  force="-f"
+		  ;;
+		\? )
+		  echo "Invalid option: $OPTARG" 1>&2
+		  exit 1
+		  ;;
+		esac
 	done
+
+	shift $((OPTIND -1))
+
+	branch="$1"
 
 	if [ -z "${branch}" ]; then
 		branch=$(git rev-parse --abbrev-ref HEAD)
@@ -476,7 +513,7 @@ function exp() {
 	exp_branch=$(echo $branch |sed 's/[0-9].*//')
 
 	target="${exp_branch}-working"
-	if ! git push ${force} dm "HEAD:$target"; then
+	if ! git push ${force} ${skipci} dm "HEAD:$target"; then
 		gmb "dm/${target}"
 	fi
 }

@@ -234,7 +234,7 @@ function rt_get_suite_and_name() {
 		<(nm /tmp/b/$exec/u-boot |grep "list_2_ut.*$arg.*" \
 			| cut -d' ' -f3 \
 			| head -1 \
-			| sed -n 's/_u_boot_list_2_ut_\(.*\)_test_2_/\1 /p')
+			| sed -n 's/_u_boot_list_2_ut_\(.*\)_2_/\1 /p')
 	#echo suite $suite
 	#echo name $name
 	#name=${1#dm_test_}
@@ -246,6 +246,10 @@ function rt() {
 	local exec=sandbox
 	local suite name force rest
 	rt_get_suite_and_name $*
+	if [ -z "${suite}" ]; then
+		echo "Not found"
+		return;
+	fi
 
 	U_BOOT_PERSISTENT_DATA_DIR=/tmp/b/sandbox/persistent-data \
 	/tmp/b/$exec/u-boot -T $rest -c "ut $suite $force $name"

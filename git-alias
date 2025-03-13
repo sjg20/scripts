@@ -559,3 +559,9 @@ function imp() {
 		fi
 	fi
 }
+
+# Get the hex size of a file
+hs() {
+	printf %x $(stat -c %s $1)
+	echo
+}

@@ -135,7 +135,7 @@ def print_missing_commits(missing_commits):
     for commit in missing_commits:
         short_sha = commit.hex[:10]  # Get the first 10 characters of the SHA
         subject = commit.message.splitlines()[0] if commit.message else "(No Subject)"  # Handle empty commit messages
-        print(f"{short_sha:<12} {subject}")  # Use string formatting for aligned output
+        print(f"pick {short_sha:<12} {subject}")  # Use string formatting for aligned output
     print("-" * 80) #added separator
 
 def main():

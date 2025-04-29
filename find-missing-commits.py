@@ -122,12 +122,9 @@ def print_missing_commits(missing_commits):
 
     print("Missing commits:")
     for commit in missing_commits:
-        print("-" * 80)
-        print(f"Commit SHA:   {commit.hex}")
-        print(f"Author:       {commit.author.name} <{commit.author.email}>")
-        print(f"Commit Date:  {commit.commit_time}")
-        print(f"Summary:      {commit.message.splitlines()[0]}")  # Print the first line of the message
-        print("-" * 80)
+        short_sha = commit.hex[:10]  # Get the first 10 characters of the SHA
+        subject = commit.message.splitlines()[0]  # Get the first line of the commit message
+        print(f"{short_sha:<12} {subject}")  # Use string formatting for aligned output
 
 def main():
     """

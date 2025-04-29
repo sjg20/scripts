@@ -102,8 +102,11 @@ def find_missing_commits(repo_path, source_branch_name, target_branch_name, dire
     target_subjects = set()
     try:
         for commit in repo.walk(target_branch.target, pygit2.GIT_SORT_TOPOLOGICAL):
+            if commit.message:  # Add this check
+                target_subjects.add(commit.message.splitlines()[0])
+            else:
+                target_subjects.add("") #add empty string to set
             target_commits_set.add(commit.id)
-            target_subjects.add(commit.message.splitlines()[0])
     except pygit2.GitError as e:
         print(f"Error walking target branch: {e}")
         return []
@@ -115,7 +118,7 @@ def find_missing_commits(repo_path, source_branch_name, target_branch_name, dire
         missing_commits = find_commits_touching_path(repo, missing_commits, directory_path)
 
     if exclude_matching_subjects:
-        missing_commits = [commit for commit in missing_commits if commit.message.splitlines()[0] not in target_subjects]
+        missing_commits = [commit for commit in missing_commits if commit.message and commit.message.splitlines()[0] not in target_subjects] #added check for commit.message
 
     # Sort the missing commits by commit time (oldest to newest)
     missing_commits.sort(key=lambda c: c.commit_time, reverse=False)
@@ -131,7 +134,7 @@ def print_missing_commits(missing_commits):
     print("Missing commits:")
     for commit in missing_commits:
         short_sha = commit.hex[:10]  # Get the first 10 characters of the SHA
-        subject = commit.message.splitlines()[0]  # Get the first line of the commit message
+        subject = commit.message.splitlines()[0] if commit.message else "(No Subject)"  # Handle empty commit messages
         print(f"{short_sha:<12} {subject}")  # Use string formatting for aligned output
     print("-" * 80) #added separator
 

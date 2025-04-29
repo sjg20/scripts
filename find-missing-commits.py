@@ -41,7 +41,7 @@ def find_commits_touching_path(repo: pygit2.Repository, commit_list: List[pygit2
     return matching_commits
 
 
-def find_missing_commits(repo_path, source_branch_name, target_branch_name, directory_path=None, exclude_matching_subjects=False):
+def find_missing_commits(repo_path, source_branch_name, target_branch_name, directory_path=None, exclude_matching_subjects=False, exclude_merges=False):
     """
     Finds commits in the source branch that are not present in the target branch,
     optionally filtered by a directory path, and optionally excluding commits
@@ -57,6 +57,8 @@ def find_missing_commits(repo_path, source_branch_name, target_branch_name, dire
         exclude_matching_subjects (bool, optional): If True, exclude commits from the
             result if their subject lines (first line of commit message) match any
             commit's subject line in the target branch. Defaults to False.
+        exclude_merges (bool, optional): If True, exclude merge commits from the result.
+            Defaults to False.
 
     Returns:
         list: A list of pygit2.Commit objects that are in source_branch but not in target_branch.
@@ -120,6 +122,9 @@ def find_missing_commits(repo_path, source_branch_name, target_branch_name, dire
     if exclude_matching_subjects:
         missing_commits = [commit for commit in missing_commits if commit.message and commit.message.splitlines()[0] not in target_subjects] #added check for commit.message
 
+    if exclude_merges:
+        missing_commits = [commit for commit in missing_commits if len(commit.parents) <= 1]
+
     # Sort the missing commits by commit time (oldest to newest)
     missing_commits.sort(key=lambda c: c.commit_time, reverse=False)
     return missing_commits
@@ -154,6 +159,9 @@ def main():
     parser.add_argument("-x", "--exclude-subject", action='store_true', dest="exclude_matching_subjects",
                         help="Exclude commits whose subject lines match those in the target branch.",
                         default=False)
+    parser.add_argument("-m", "--exclude-merges", action='store_true', dest="exclude_merges",
+                        help="Exclude merge commits from the result.",
+                        default=False)
     args = parser.parse_args()
 
     repo_path = args.repo_path
@@ -161,12 +169,13 @@ def main():
     target_branch_name = args.target_branch
     directory_path = args.directory_path
     exclude_matching_subjects = args.exclude_matching_subjects
+    exclude_merges = args.exclude_merges
 
     if not os.path.exists(repo_path):
         print(f"Error: Repository path '{repo_path}' does not exist.")
         sys.exit(1)
 
-    missing_commits = find_missing_commits(repo_path, source_branch_name, target_branch_name, directory_path, exclude_matching_subjects)
+    missing_commits = find_missing_commits(repo_path, source_branch_name, target_branch_name, directory_path, exclude_matching_subjects, exclude_merges)
     print_missing_commits(missing_commits)
 
 

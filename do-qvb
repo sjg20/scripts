@@ -1,0 +1,10 @@
+#!/bin/sh
+
+qemu-img create try.img 20M
+mkfs.vfat try.img
+sudo mount -o loop try.img /mnt/x
+sudo cp /tmp/b/chromeos_efi-x86_payload/u-boot-payload.efi /mnt/x
+sudo cp /tmp/efi64/startup.nsh  /mnt/x
+#sudo cp /tmp/efi64/vmlinuz /mnt/x
+sudo cp /vid/software/devel/efi/reven-vmlinuz /mnt/x/vmlinuz
+sudo umount /mnt/x

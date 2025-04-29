@@ -1,0 +1,1 @@
+/vid/software/devel/ubtest/do-qemu-x86.sh

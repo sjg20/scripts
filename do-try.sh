@@ -1,0 +1,1 @@
+/vid/software/devel/ubtest/do-try.sh

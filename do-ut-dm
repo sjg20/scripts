@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if crosfw -L sandbox; then
+	if /tmp/b/sandbox/u-boot -T -c "ut dm"; then
+		tset
+		exit 1
+	fi
+else
+	exit 2
+fi

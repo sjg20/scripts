@@ -1,0 +1,1 @@
+/home/sglass/u/scripts/checkpatch.pl

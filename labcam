@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ totem rtsp://cam-lab:8554/live0.265

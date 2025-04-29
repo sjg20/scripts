@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ~
+cd u
+fix-ser2net
+exec "$SHELL"
+

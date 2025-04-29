@@ -1,0 +1,2 @@
+#!/bin/sh
+pylint3 -f parseable "$@" 1>&2

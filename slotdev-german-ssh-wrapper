@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -i /vol/twork/huricane/customer/Flamingo_Peru/slotdev-german-id_rsa.pub $1 $2

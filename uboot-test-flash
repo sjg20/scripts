@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo em100 -s -d b/chromebook_link/u-boot.rom -c W25Q64CV -r

@@ -1,0 +1,6 @@
+#! /bin/sh
+#
+# Run a command with ARCH=arm in the environment
+
+export ARCH; ARCH=arm
+exec "$@"

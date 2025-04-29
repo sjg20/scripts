@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cros_sdk -- dut-control -p 7777 cold_reset:on sleep:.2 cold_reset:off sleep:.5

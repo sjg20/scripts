@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ~
+cd u
+cros_sdk --no-ns-pid
+exec "$SHELL"
+

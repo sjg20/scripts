@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/ninja "$@" 1>&2

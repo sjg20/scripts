@@ -1,0 +1,6 @@
+#!/bin/tcsh
+
+riscos2unix `find . -name "*.s,f??"`   
+riscos2unix `find . -name "makefile,f??"`   
+riscos2unix `find . -name "*,[a-z]??"`   
+

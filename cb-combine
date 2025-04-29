@@ -1,0 +1,136 @@
+#!/bin/bash
+
+set -e
+
+chroot=~/cosarm/chroot
+src_tmp=tmp/coreboot/coral
+src_official=build/coral/firmware
+
+usage() {
+	echo Error: $1
+
+	echo "Usage: $0 [<board>]"
+	echo
+	echo "Adjusts a Chrome OS image by adding U-Boot to the atlfw section"
+	echo "Adds MRC data to speed up the boot"
+	echo
+	echo "Default board is $b (which you should set)"
+	echo
+	echo "-t	Get U-Boot from chroot's /tmp/coreboot"
+	echo "-s	Stage of coreboot to jump from (rom, ram, dc)"
+	exit 1
+}
+
+die() {
+	echo $@
+	exit 1
+}
+
+use_tmp=
+use_raw=
+
+while getopts "rts:" opt; do
+	case $opt in
+	s )
+	  stage=$OPTARG
+	  ;;
+	t )
+	  use_tmp=True
+	  ;;
+	r )
+	  use_raw=True
+	  ;;
+	\? )
+	  echo "Invalid option: $OPTARG" 1>&2
+	  ;;
+	esac
+done
+
+shift $((OPTIND -1))
+
+board=$1
+
+case $stage in
+dc)
+	use_raw=
+	;;
+ram)
+	use_raw=1
+
+	# Do these for early RAM stage, so vbt is not compressed
+	use_vbt=1
+	usa_acpi=1
+	;;
+rom)
+	use_raw=1
+	use_spl=1
+	use_vbt=1
+	usa_acpi=1
+	;;
+*)
+	usage
+	;;
+esac
+
+[[ -z "$board" ]] && board=$b
+[[ -z "$board" ]] && die "No board defined: try export b"
+
+if [[ -n "$use_tmp" ]]; then
+	srcdir=$chroot/$src_tmp
+else
+	srcdir=$chroot/$src_official
+fi
+
+if [[ -n "$use_raw" ]]; then
+	op="add -t raw"
+	mode=raw
+else
+	op="add-flat-binary -c lzma -l 0x1110000 -e 0x1110000"
+	mode=flat-binary
+fi
+crosb="${board#chromebook_}"
+
+echo "Board $board, Cros board $crosb, Mode $mode"
+
+cp $srcdir/image-$crosb.serial.bin cb.rom
+
+if [[ -n "$use_tmp" ]]; then
+	cbfstool cb.rom add-master-header -r RW_LEGACY
+fi
+
+if [[ -n "$use_spl" ]]; then
+	cbfstool cb.rom remove -n fallback/payload 2>/dev/null || true
+	cbfstool cb.rom $op -n fallback/payload \
+		-f /tmp/b/$board/spl/u-boot-spl.bin \
+
+	cbfstool cb.rom $op -n altfw/u-boot -r RW_LEGACY \
+		-f /tmp/b/$board/u-boot.bin
+
+else
+	cbfstool cb.rom remove -r RW_LEGACY -n altfw/u-boot 2>/dev/null || true
+	cbfstool cb.rom $op -n altfw/u-boot -r RW_LEGACY -f /tmp/b/$board/u-boot.bin
+fi
+
+if [[ -n "$usa_acpi" ]]; then
+	# Add golden ACPI tables
+	cbfstool cb.rom add -t raw -n acpi -r RW_LEGACY \
+		-f board/google/$board/acpi.bin
+	cbfstool cb.rom add -t raw -n gnvs -r RW_LEGACY \
+		-f board/google/$board/gnvs.bin
+	cbfstool cb.rom add -t raw -n f0000 -r RW_LEGACY \
+		-f board/google/$board/f0000.bin
+	cbfstool cb.rom add -t raw -n smbios -r RW_LEGACY \
+		-f board/google/$board/smbios.bin
+fi
+
+if [[ -n "$use_vbt" ]]; then
+	cbfstool cb.rom extract -n vbt.bin -f vbt.bin
+	cbfstool cb.rom remove -n vbt.bin
+	cbfstool cb.rom add -n vbt.bin -f vbt.bin -t raw
+fi
+
+# Make the boot faster by pre-loading the MRC cache
+cbfstool cb.rom write -r RW_MRC_CACHE -f board/google/$board/RW_MRC_CACHE
+cbfstool cb.rom write -r RW_VAR_MRC_CACHE -f board/google/$board/RW_VAR_MRC_CACHE
+
+em100 -s -c w25q128fw -d cb.rom -r |grep Started

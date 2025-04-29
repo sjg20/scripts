@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#PROF="--window-with-profile=hold"
+BIN=$HOME/bin
+gnome-terminal --geometry 80x25+937+1800 $PROF -e "$BIN/term-cros"
+gnome-terminal --geometry 80x25+2340+1800 $PROF -e "$BIN/term-ser2net"
+gnome-terminal --geometry 80x25+2902+1800
+gnome-terminal --geometry 80x25+375+1800
+gnome-terminal --geometry 120x40+1498+1558 $PROF -e "$BIN/term-open cd u"
+

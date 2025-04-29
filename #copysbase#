@@ -1,0 +1,16 @@
+#!/bin/sh
+#if test -z "$@" 
+#then
+#xterm -e ./CopySBase "dummy"
+#else
+echo Copying sbase binary... 
+#cp -a /home/public/projects/s-base/build/source/sbase /home-standalone/ssimatos/S-Base/linux/sbase.bin 
+unzip /home/public/projects/s-base/release/2_5a/linux86/nonprod.zip
+
+
+echo Copying library...
+cp /home/andre/s-base/gtkeditor/libgtkeditor.so ~/lib
+echo done.
+#echo Press enter to finish.
+#read Y
+#fi

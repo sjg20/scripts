@@ -1,0 +1,10 @@
+#!/bin/sh
+
+CONSOLEINIT=0x`grep "T console_init$" /scratch/rts/linux/System.map | awk '{print $1}'`
+STARTKERNEL=0x`grep "T start_kernel$" /scratch/rts/linux/System.map | awk '{print $1}'`
+
+bdi_command reset
+bdi_command load 0xa0008000 /tftpboot/work/rts/devel/bootpImage BIN
+bdi_command bi $CONSOLEINIT
+#bdi_command bi $STARTKERNEL
+bdi_command go 0xa0008000

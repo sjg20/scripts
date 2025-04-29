@@ -1,0 +1,3 @@
+# copy this file as C:\WINDOWS\lmhosts to assist in finding samba server
+
+192.168.3.1	bluewater	#PRE	#DOM:bluewater

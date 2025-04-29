@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+# print an a4 sheet on a3 printer
+
+$file = $ARGV[0];
+
+print "$file\n";
+
+#open (IN, "pstops 1:0\@1.43 $file |");
+open (IN, "psresize -pa3 $file |");
+open (OUT, "> /tmp/out$$.ps");
+while (<IN>)
+   {
+       next if (/PageSV restore/);
+   
+       next if (/PageSize \[595 842\]/);
+   if (/%%BeginProlog/)
+      {
+	print OUT "<<
+ /MediaClass (Paper)
+ /ManualFeed false
+ /MediaPosition 0
+ /TraySwitch false
+ /PageSize [842 1191]
+ /ImagingBBox null
+>> setpagedevice \n";
+      }
+   print OUT;
+   }
+
+close (IN);
+close (OUT);
+
+system ("lpr -Plp2 /tmp/out$$.ps");
+system ("rm /tmp/out$$.ps");
+
+#psset -n -SMediaClass:Paper -SManualFeed:false -SMediaPosition:0 -STraySwitch:false "-SPageSize:[842 1191]" -SImagingBBox:null /tmp/a3.$$ -o /tmp/out.ps
+#sed s/ /tmp/out.ps >/tmp/out2.ps
+
+

@@ -1,0 +1,50 @@
+#! /usr/bin/perl
+
+$list = "/tmp/asc";
+$dir = "/home/sglass/Maildir/.done.pre05/cur";
+
+system ("ls -lt --time-style=long-iso $dir >$list");
+#system ("ls -lS --time-style=long-iso $dir >$list");
+
+#exit;
+
+open (IN, $list);
+
+<IN>;
+
+$last = -1;
+$last_fname = "";
+
+$count = 0;
+$size_count = 0;
+$del_count = 0;
+
+while (<IN>)
+   {
+   @line = split;
+   $size = $line[4];
+   $fname = $line[7];
+   $count++;
+   if (abs ($size - $last) < 10)
+      {
+      $size_count++;
+      $del = $last_fname;
+      $del = $fname if ($size > $last);
+      $diff = `diff $dir/$last_fname $dir/$fname`;
+      $len = length ($diff);
+      next if ($len > 40);
+
+      $del_count++;
+#      print "$size $last $fname $del\n";
+#      print "   rm $del\n";
+#      system ("rm $dir/$del");
+#      print "   $len\n";
+      }
+   $last = $size;
+   $last_fname = $fname;
+   }
+
+close IN;
+
+print "count=$count, size_count=$size_count, del_count=$del_count\n";
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for f in $@; do
+   UNIXNAME=`echo $f | tr A-Z a-z`
+   if [[ $f != $UNIXNAME ]]; then
+      echo "$f --> $UNIXNAME"
+      mv $f $UNIXNAME
+   fi
+done

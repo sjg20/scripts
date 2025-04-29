@@ -1,0 +1,51 @@
+#! /usr/bin/perl
+
+$^I = "";
+
+while (<>)
+   {
+#   s#include "memlib.h"#include "mem.h"#g;
+#    s/ChildPropertyFromPath/PathProperty/;
+#    s/ChildNodeFromPath/PathNode/;
+#    s/GetSubmodelProp/SubmodelPathProperty/;
+#    s/([0-9]{2}_.*\.dts)/0\1/;
+#    s/\bload_addr\b/image_load_addr/;
+#    s/\bsave_addr\b/image_save_addr/;
+#    s/\bsave_size\b/image_save_size/;
+#    /#include <common.h>/d;
+
+#    #s/_auto_alloc_size /_auto\t/;
+#    #s/_auto_alloc_size\t/_auto\t/;
+
+#    s/platdata_auto/plat_auto/;
+#    s/parent_platdata/parent_plat/;
+#    s/uclass_platdata/uclass_plat/;
+
+#    s/\.platdata/\.plat/;
+#    s/platdata_size/plat_size/;
+
+#    s/dev_get_platdata/dev_get_plat/;
+
+#    s/ofdata_to_platdata/of_to_plat/;
+#    if (/of-platdata/) {
+#      print;
+#      next;
+#    }
+#    if (/#include/) {
+#      print;
+#      next;
+#    }
+#    s/\bplatdata\b/plat/g;
+
+#    s/_platdata/_plat/g;
+#    s!#include "tcpci.h"!#include "tcpm/tcpci.h"!;
+   #s/\bCONFIG_SYS_I2C\b/CONFIG_SYS_I2C_LEGACY/;
+   s/CONFIG_IS_ENABLED\(([A-Za-z0-9_]*)\)/IS_ENABLED(CONFIG_\1\2)/g;
+#    s/CONFIG_IS_ENABLED\(([A-Za-z0-9_]*)([,\)])/IS_ENABLED(CONFIG_\1\2/g;
+#   s/\bCONFIG_VAL\(([A-Za-z0-9_]*)\)/CONFIG_\1/g;
+#    s/u-boot,dm-pre-reloc/bootph-all/;
+#    s/u-boot,dm-spl/bootph-pre-ram/;
+
+   print;
+#   if (/require_once/)
+   }

@@ -1,0 +1,26 @@
+#! /bin/sh
+#
+# Execute a command in the csdd environment
+
+#
+# Enable debugging
+#
+debug=true
+
+#
+# Modify the path
+#
+export PATH=/scratch/sglass/nec/arm-elf-tools/bin:${PATH}
+
+#
+# Print debug info
+#
+${debug} PATH
+${debug} "== PATH ===================================================="
+${debug} ${PATH} | tr ':' '\n'
+${debug} "============================================================"
+
+#
+# Execute specified command
+#
+exec "$@"

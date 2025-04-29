@@ -1,0 +1,7 @@
+echo Copying sbase binary... 
+cd ~
+unzip /home/public/projects/s-base/release/2_5a/linux86/nonprod.zip
+
+echo Copying library...
+cp /home/andre/s-base/gtkeditor/libgtkeditor.so ~/lib
+echo done.

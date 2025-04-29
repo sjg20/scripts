@@ -1,0 +1,81 @@
+#! /usr/bin/perl
+
+($count, $line) = scan_it ();
+
+open (MAIL, "|mail simonsms");
+print MAIL "$count: $line\n";
+close (MAIL);
+
+
+sub scan_it
+   {
+   my ($count, $line);
+   
+   $count = 0;
+   $line = "";
+   
+   open (IN, "</var/spool/mail/simonpsion");
+   $ignore = 0;
+   $from = "";
+   $subject = "";
+   while (<IN>)
+      {
+      chop;
+      if (/^From: Mail System/)
+         {
+         $ignore = 1;
+         next;
+         }
+      if ($_ eq "" && !($from eq "" && $subject eq ""))
+         {
+         $line .= ", " if ($count);
+         $line .= "$from: $subject";
+         $from = "";
+         $subject = "";
+         $count++;
+         }
+      if (/From:/)
+         {
+         $ignore = 0;
+         $pos = index ($_, "<");
+         $pos2 = index ($_, ">");
+         if ($pos != -1 && $pos2 != -1)
+            {
+            $out = substr ($_, $pos + 1, $pos2 - $pos - 1);
+            } 
+         else
+            {
+            $out = substr ($_, 6);
+            }
+         $pos = index ($out, "@");
+         if ($pos > 10)
+            {
+            $out = substr ($out, 0, 10) . substr ($out, $pos);
+            $pos = index ($out, "@");
+            }
+         if ($pos == -1)
+            {
+            $out = ".";
+            }
+         else
+            {
+            $pos2 = index ($out, ".", $pos);
+            }
+         $out = substr ($out, 0, $pos2) if ($pos2 != -1);
+         $from = $out;
+         $from =~ s/ *$//;
+         }
+      
+      if (/^Subject:/)
+         {
+         next if ($ignore);
+         $subject = substr ($_, 9, 15);
+         $subject =~ s/ *$//;
+         }
+      }
+   
+   close IN;
+   return ($count, $line);
+   }
+
+

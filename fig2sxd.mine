@@ -1,0 +1,36 @@
+#!/bin/sh
+# script to convert fig to sxd
+# email: peter@niendo.de
+
+tempdir=./standard;
+
+if test "$1" != ""; then
+
+mkdir $tempdir
+
+name=`echo $1 | sed s/.fig//`
+
+#cp -R ./standard $name
+
+echo exporting $name.fig to $name.sxd
+
+fig2dev.mine -Lsxd $name.fig >dummy || echo Fehler bei: $name
+
+cat dummy | grep "^HEAD" | sed -e 's/HEAD//' >$tempdir/content.xml
+cat dummy | grep "^STYLE" | sed -e 's/STYLE//' >>$tempdir/content.xml
+cat dummy | grep "^MIDDLE" | sed -e 's/MIDDLE//' >>$tempdir/content.xml
+cat dummy | grep "^BODY" | sed -e 's/BODY//' >>$tempdir/content.xml
+cat dummy | grep "^END" | sed -e 's/END//' >>$tempdir/content.xml
+
+cd ./standard
+zip -r ../$name.sxd * >/dev/null
+cd ..
+else
+
+echo "use ./pack <filename.fig>"
+echo export filename.fig to filename.sxd
+echo
+echo you need a directory called $tempdir, which should be 
+echo empty or an uncompressed sxd file.
+echo
+fi

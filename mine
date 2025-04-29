@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export DISPLAY=:0.0
+export GPU_USE_SYNC_OBJECTS=1
+cd /vid/software/finance/cgminer-2.11.3
+
+./cgminer -o http://pit.deepbit.net:8332 -u imon.glass@gmail.com_fred -p 225588 --api-listen --api-network -I 9
+

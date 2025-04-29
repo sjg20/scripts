@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for f in $@; do
+   if [[ ! -d $f ]]; then
+      UNIXNAME=${f%%.s,fe4}
+      if [[ $f != $UNIXNAME ]]; then
+         echo "$f --> $UNIXNAME.S"
+         mv $f $UNIXNAME.S
+      else
+         UNIXNAME=${f/makefile,fe4/Makefile};
+         if [[ $f != $UNIXNAME ]]; then
+            echo "$f --> $UNIXNAME"
+            mv $f $UNIXNAME
+         else
+
+            UNIXNAME=${f%%,*}
+            if [[ $f != $UNIXNAME ]]; then
+               echo "$f --> $UNIXNAME"
+               mv $f $UNIXNAME
+            fi
+         fi
+      fi
+   fi
+done

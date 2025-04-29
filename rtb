@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Bisect a test
+function do_rtb() {
+	local name=${1#dm_test_}
+
+	crosfw sandbox
+	/tmp/b/sandbox/u-boot -T $2 -c "ut dm $name"
+}
+
+if do_rtb $@; then
+	exit 0
+fi
+exit 1
+

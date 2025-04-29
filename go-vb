@@ -1,0 +1,8 @@
+#!/bin/bash
+
+UB=/tmp/b/chromeos_sandbox
+CROS=~/cosarm
+IMG=$CROS/src/build/images/veyron/chromiumos_test_image.bin
+$UB/tpl/u-boot-tpl -d $UB/u-boot.dtb.out \
+     -L6 -c "host bind 0 $IMG; vboot go auto" \
+     -l -w -s state.dtb -r -n -m $UB/ram

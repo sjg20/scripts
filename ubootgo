@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ROOT=/work/rts/devel/u-boot
+MAP=$ROOT/System.map
+FUNC=start_armboot
+START_ADDR=0xa0400000
+BINARY=/tftpboot/$ROOT/u-boot.bin
+
+BREAK=0x`grep "T $FUNC\$" $MAP | awk '{print $1}'`
+
+bdi_command reset
+bdi_command load ${START_ADDR} $BINARY BIN
+bdi_command bi $BREAK
+bdi_command go ${START_ADDR}
+

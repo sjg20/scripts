@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+use Net::FTP;
+
+#use rename to move .forward file
+my ($host, $forward, $forward2, $handle, @listing);
+
+if (@ARGV != 1) 
+{
+  print STDERR "usage: $0  caverock | bluewater\n\n";
+  print STDERR "\tcaverock => forward mail to sglass\@caverock and remove .forward there\n";
+  print STDERR "\tbluewater => keep mail here and put .forward there\n";
+
+  exit 1;
+}
+$host = "ftp.caverock.net.nz";
+if ($ARGV[0] eq "caverock")
+  {
+    $oldfile = ".forward";
+    $newfile = ".forward2";
+    print "Setting up .forward from here to caverock";
+    system("echo sglass\@caverock.co.nz > /home/sglass/.forward");
+    print ".\n";
+  }
+else 
+  {
+    $oldfile = ".forward2";
+    $newfile = ".forward";
+    print "Removing /home/sglass/.forward";
+    unlink("/home/sglass/.forward");
+    print ".\n";
+  }
+$handle = Net::FTP->new($host) or
+  die "couldn't FTP to $host: $!";
+$handle->login("sglass","Cameron");
+print "Logged in to $host\n";
+print "moving $oldfile to $newfile:";
+@listing=$handle->ls($oldfile);
+if ($listing[0] !~ $oldfile)
+  {
+    print " No such file:$oldfile\n";
+  }
+else
+  {
+    $handle->rename($oldfile,$newfile);
+    print ".\n";
+  }
+$handle->quit;

@@ -110,7 +110,9 @@ def find_missing_commits(repo_path, source_branch_name, target_branch_name, dire
         missing_commits = find_commits_touching_path(repo, missing_commits, directory_path)
 
     # Sort the missing commits by commit time (most recent first)
-    missing_commits.sort(key=lambda c: c.commit_time, reverse=True)
+
+    # Sort the missing commits by commit time (most recent first)
+    missing_commits.sort(key=lambda c: c.commit_time, reverse=False) #changed to False
     return missing_commits
 
 

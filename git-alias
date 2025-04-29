@@ -380,7 +380,7 @@ function pyt {
 	echo $para $tests
 
 	shift
-	test/py/test.py -B sandbox --build-dir /tmp/b/sandbox ${para} ${tests:+"-k $tests"} $@
+	test/py/test.py -q -B sandbox --build-dir /tmp/b/sandbox ${para} ${tests:+"-k $tests"} $@
 }
 
 # Run a pytest on sandbox_flattree
@@ -439,6 +439,25 @@ function grep_branch_for_commits() {
 	echo "upstream ${upstream}"
 	git log -n${count} --format=%s ${branch} | while read c; do
 		if git log --oneline -n25000 ${upstream} | grep -q "$c"; then
+			echo -e "\e[92mFound: $c"
+		else
+			echo -e "\e[91mNot found: $c"
+		fi
+	done
+	echo -n -e "\e[0m"
+}
+
+function find_missing_commits() {
+	other=$1
+	count=$2
+	shift 2
+	echo "rest $*"
+	this=HEAD
+
+	echo "looking for ${count} commits from ${other} missing in {this}"
+	git log -n${count} --oneline --no-merges ${other} ^${this} $rest | \
+			while read c; do
+		if git log --oneline -n25000 ${this} | grep -q "$c"; then
 			echo -e "\e[92mFound: $c"
 		else
 			echo -e "\e[91mNot found: $c"

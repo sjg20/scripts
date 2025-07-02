@@ -633,3 +633,9 @@ hs() {
 	printf %x $(stat -c %s $1)
 	echo
 }
+
+# Get the size of a file in K
+sk() {
+	printf %d $(($(stat -c %s $1) / 1024))
+	echo
+}

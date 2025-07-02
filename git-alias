@@ -51,45 +51,52 @@ alias au='git add -u'
 rn() {
   # Ensure we are in a git repository
   if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    echo "Not in a git repository."
+    echo "Error: Not a git repository." >&2
     return 1
   fi
 
-  # Check if a rebase is in progress
+  # Determine the location of the rebase-in-progress files
   local rebase_dir
   if [ -d "$(git rev-parse --git-path rebase-merge)" ]; then
     rebase_dir="$(git rev-parse --git-path rebase-merge)"
   elif [ -d "$(git rev-parse --git-path rebase-apply)" ]; then
     rebase_dir="$(git rev-parse --git-path rebase-apply)"
   else
-    echo "Not in the middle of a rebase."
+    echo "Error: Not in the middle of a git rebase." >&2
     return 1
   fi
 
   local todo_file="$rebase_dir/git-rebase-todo"
-  local done_file="$rebase_dir/done"
 
-  if [ ! -f "$todo_file" ]; then
-    echo "Could not find git-rebase-todo file."
-    return 1
+  if [ ! -s "$todo_file" ]; then
+    echo "Rebase todo list is empty. Continuing..."
+    git rebase --continue
+    return 0
   fi
 
-  # Find the line number of the next command
-  local next_command_line_num
-  next_command_line_num=$(awk '/^e(dit)?/ {print NR+1; exit}' "$todo_file")
+  # Find the line number of the very next non-commented command
+  local line_num
+  line_num=$(grep -n -v -E "^#" "$todo_file" | head -n 1 | cut -d: -f1)
 
-  if [ -z "$next_command_line_num" ]; then
-      echo "No next commit to continue to."
-      return 1
+  # If a next command exists, change it to 'edit'
+  if [ -n "$line_num" ]; then
+    # Get the original command for the info message
+    local original_cmd
+    original_cmd=$(sed -n "${line_num}p" "$todo_file")
+
+    echo "Found next step: '$original_cmd'"
+    echo "Changing to 'edit' and continuing..."
+
+    # Replace the first word (the command) on that line with 'edit'
+    # Creates a backup file with .bak extension
+    sed -i.bak "${line_num}s/^[^[:space:]]*/edit/" "$todo_file"
+  else
+    echo "No more steps in todo list. Continuing..."
   fi
 
-  # Change the next 'pick' to 'edit'
-  sed -i.bak "${next_command_line_num}s/pick/edit/" "$todo_file"
-
-  # Continue the rebase
+  # Continue the rebase to the newly modified step
   git rebase --continue
 }
-
 git_log_oneline() {
 	if [ $# -eq 0 ]; then
 		git log --oneline --decorate $(get_branch).. $@

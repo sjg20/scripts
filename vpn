@@ -1,53 +1,235 @@
 #!/bin/bash
+#
+# A robust script to manage an OpenVPN connection and associated network mounts.
+#
+# Key Improvements:
+# - Uses functions for clarity and modularity.
+# - Manages the OpenVPN process via a PID file for precision.
+# - Waits for a successful connection instead of a fixed `sleep`.
+# - Provides more detailed status and better error handling.
+# - Configuration is centralized at the top for easy changes.
 
-pgrep ^openvpn >/dev/null && is_running=1
+# --- Configuration ---
+# Set the username this script is for. Used for file paths.
+TARGET_USER="sglass" # As seen in the original script
+
+# Path to your OpenVPN configuration file
+OVPN_CONFIG="/home/$TARGET_USER/.openvpn/client.conf"
+
+# Location for the PID file (must be writable by root)
+PID_FILE="/var/run/custom_vpn.pid"
+LOG_FILE="/tmp/openvpn_$(basename "$OVPN_CONFIG" .conf).log"
+
+# Network interface created by OpenVPN (check with `ip addr` after connecting)
+VPN_INTERFACE="tun0"
+
+# A reliable IP address on the VPN to ping for verifying connectivity.
+# E.g., the VPN gateway or a server you always need to access.
+VPN_TEST_HOST="10.8.0.1" # A common default OpenVPN server address
+
+# Define your mounts here for easy management
+# 1. SSHFS mount format: "source_host:/remote/path:/local/path"
+SSHFS_MOUNT="ellesmere:/scratch/sglass:/scratch"
+
+# 2. Mounts defined in /etc/fstab
+FSTAB_MOUNTS=(
+    "/vid"
+    "/home/sglass/files"
+)
+
+# --- Helper Functions ---
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check if the VPN process is currently running using the PID file
+is_running() {
+    # Check precisely using the PID file first
+    if [[ -f "$PID_FILE" ]] && sudo ps -p "$(cat "$PID_FILE")" > /dev/null; then
+        return 0 # 0 = true (success)
+    fi
+    # Fallback for messy situations
+    pgrep -x openvpn >/dev/null && return 0
+    return 1 # 1 = false (failure)
+}
+
+# --- Core Functions ---
+
+start_vpn() {
+    echo "🔄 Starting VPN..."
+    if is_running; then
+        echo "⚠️ VPN is already running." >&2
+        return 1
+    fi
+
+    # Prompt for sudo password upfront and cache it
+    sudo -v
+    if [[ $? -ne 0 ]]; then
+        echo "❌ sudo credentials required." >&2
+        exit 1
+    fi
+
+    echo "  - Launching OpenVPN daemon..."
+    sudo openvpn --config "$OVPN_CONFIG" --writepid "$PID_FILE" --log "$LOG_FILE" --daemon
+
+    echo -n "  - Waiting for connection..."
+    for i in {1..20}; do # 20-second timeout
+        # Check if interface is up AND we can ping a host
+        if ip -4 addr show "$VPN_INTERFACE" &>/dev/null && ping -c 1 -W 1 "$VPN_TEST_HOST" &>/dev/null; then
+            echo " ✅ Connected!"
+            return 0
+        fi
+        echo -n "."
+        sleep 1
+    done
+
+    echo -e "\n❌ Failed to establish connection. Check log for details: $LOG_FILE" >&2
+    stop_vpn # Attempt to clean up the failed process
+    return 1
+}
+
+stop_vpn() {
+    echo "🔄 Stopping VPN..."
+    if ! is_running; then
+        echo "🤷 VPN is not running."
+        return 0
+    fi
+
+    sudo -v # Refresh sudo cache
+    if [[ -f "$PID_FILE" ]]; then
+        echo "  - Stopping process $(cat "$PID_FILE") from PID file..."
+        sudo kill "$(cat "$PID_FILE")"
+        sleep 1
+        sudo rm -f "$PID_FILE"
+    else
+        echo "  - PID file not found. Using killall as a fallback..."
+        sudo killall openvpn
+    fi
+
+    if ! is_running; then
+        echo "✅ VPN stopped."
+    else
+        echo "⚠️ VPN failed to stop gracefully. You may need to kill it manually." >&2
+        return 1
+    fi
+}
+
+mount_shares() {
+    echo "🔄 Mounting shares..."
+
+    # 1. Mount via SSHFS (as the regular user)
+    if [[ -n "$SSHFS_MOUNT" ]]; then
+        if ! command_exists sshfs; then
+            echo "❌ 'sshfs' command not found. Please install it." >&2
+            return 1
+        fi
+        IFS=':' read -r source destination <<< "$SSHFS_MOUNT"
+        echo -n "  - Mounting $destination (sshfs)..."
+        if mountpoint -q "$destination"; then
+            echo " ✅ Already mounted."
+        elif sshfs "$source" "$destination"; then
+            echo " ✅ Done."
+        else
+            echo " ❌ Failed."
+            return 1
+        fi
+    fi
+
+    # 2. Mount from /etc/fstab (requires sudo)
+    sudo -v
+    for mount_point in "${FSTAB_MOUNTS[@]}"; do
+        echo -n "  - Mounting $mount_point (fstab)..."
+        if mountpoint -q "$mount_point"; then
+            echo " ✅ Already mounted."
+        elif sudo mount "$mount_point"; then
+            echo " ✅ Done."
+        else
+            echo " ❌ Failed."
+            return 1
+        fi
+    done
+}
+
+unmount_shares() {
+    echo "🔄 Unmounting shares..."
+    sudo -v
+
+    # Unmount in reverse order to handle dependencies
+    # First, the fstab mounts
+    for mount_point in "${FSTAB_MOUNTS[@]}"; do
+        echo -n "  - Unmounting $mount_point..."
+        if ! mountpoint -q "$mount_point"; then
+            echo " ✅ Already unmounted."
+        elif sudo umount "$mount_point"; then
+            echo " ✅ Done."
+        else
+            echo " ❌ Failed. Forcing with -l..." >&2
+            sudo umount -l "$mount_point"
+        fi
+    done
+
+    # Lastly, unmount the sshfs share
+    if [[ -n "$SSHFS_MOUNT" ]]; then
+        local destination="${SSHFS_MOUNT##*:}"
+        echo -n "  - Unmounting $destination..."
+        if ! mountpoint -q "$destination"; then
+            echo " ✅ Already unmounted."
+        elif sudo umount "$destination"; then # umount is fine here
+            echo " ✅ Done."
+        else
+            echo " ❌ Failed. Forcing with -l..." >&2
+            sudo umount -l "$destination"
+        fi
+    fi
+}
+
+show_status() {
+    echo "--- VPN Status ---"
+    if is_running; then
+        local ip_info
+        ip_info=$(ip -4 addr show "$VPN_INTERFACE" 2>/dev/null | grep 'inet' | awk '{print $2}')
+        echo "🟢 Status: UP"
+        [[ -n "$ip_info" ]] && echo "   IP Address: $ip_info"
+        [[ -f "$PID_FILE" ]] && echo "   PID: $(cat "$PID_FILE")"
+    else
+        echo "🔴 Status: DOWN"
+    fi
+
+    echo ""
+    echo "--- Mount Status ---"
+    local all_mounts=("${SSHFS_MOUNT##*:}" "${FSTAB_MOUNTS[@]}")
+    for mount_point in "${all_mounts[@]}"; do
+        [[ -z "$mount_point" ]] && continue
+        if mountpoint -q "$mount_point"; then
+            echo "  - $mount_point: ✅ Mounted"
+        else
+            echo "  - $mount_point: ❌ Not Mounted"
+        fi
+    done
+}
+
+# --- Main Logic ---
 
 case "$1" in
-down)
-	if [ -z "$is_running" ]; then
-		echo "Not running" >&2
-		exit 1
-	fi
-	
-	sudo umount /scratch
-	sudo umount /vid
-	sudo killall openvpn
-	echo "Shut down complete"
-	exit 0
-	;;
-status)
-	if [ -n "$is_running" ]; then
-		echo "up"
-	else
-		echo "down";
-	fi
-	exit 0
-	;;
-up)
-	if [ -n "$is_running" ]; then
-		echo "Already running" >&2
-		exit 1
-	fi
-	;;
-*)
-	echo "vpn [up/down/status]  - start (or stop) the vpn and mounts" >&2
-	exit 1
+    up)
+        start_vpn && mount_shares
+        ;;
+    down)
+        unmount_shares && stop_vpn
+        ;;
+    status)
+        show_status
+        ;;
+    restart)
+        "$0" down
+        echo "--------------------"
+        "$0" up
+        ;;
+    *)
+        echo "Usage: $0 [up|down|status|restart]" >&2
+        echo "Manages an OpenVPN connection and related mounts." >&2
+        exit 1
+        ;;
 esac
-
-sudo true
-sudo openvpn --config ~/.openvpn/client.conf >/tmp/openvpn.log &
-PID=$!
-
-sleep 2
-
-if ! kill -0 $PID; then
-	echo "Failed" >&2
-	exit 1
-fi
-
-sshfs ellesmere:/scratch/sglass /scratch
-#sshfs ellesmere:/vid /vid
-sudo mount /vid
-sudo mount /home/sglass/files
-echo "Started"
-

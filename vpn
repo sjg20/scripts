@@ -1,0 +1,53 @@
+#!/bin/bash
+
+pgrep ^openvpn >/dev/null && is_running=1
+
+case "$1" in
+down)
+	if [ -z "$is_running" ]; then
+		echo "Not running" >&2
+		exit 1
+	fi
+	
+	sudo umount /scratch
+	sudo umount /vid
+	sudo killall openvpn
+	echo "Shut down complete"
+	exit 0
+	;;
+status)
+	if [ -n "$is_running" ]; then
+		echo "up"
+	else
+		echo "down";
+	fi
+	exit 0
+	;;
+up)
+	if [ -n "$is_running" ]; then
+		echo "Already running" >&2
+		exit 1
+	fi
+	;;
+*)
+	echo "vpn [up/down/status]  - start (or stop) the vpn and mounts" >&2
+	exit 1
+esac
+
+sudo true
+sudo openvpn --config ~/.openvpn/client.conf >/tmp/openvpn.log &
+PID=$!
+
+sleep 2
+
+if ! kill -0 $PID; then
+	echo "Failed" >&2
+	exit 1
+fi
+
+sshfs ellesmere:/scratch/sglass /scratch
+#sshfs ellesmere:/vid /vid
+sudo mount /vid
+sudo mount /home/sglass/files
+echo "Started"
+

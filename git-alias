@@ -639,3 +639,7 @@ sk() {
 	printf %d $(($(stat -c %s $1) / 1024))
 	echo
 }
+
+fixline() {
+   git log -1 --abbrev=12 --format='Fixes: %h (\"%s\")%nCc: %aN <%ae>'
+} 

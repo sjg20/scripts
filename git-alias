@@ -251,6 +251,7 @@ alias rb='git rebase m/master'
 
 alias gm='git log --oneline us/master | grep $1'
 alias gmn='git log --oneline us/next | grep $1'
+alias gmc='git log --oneline ci/master | grep $1'
 
 # Grep the U-Boot map for board $b
 function mg() {
@@ -529,6 +530,14 @@ function gnb() {
 	count=${2:-20}
 
 	grep_branch_for_commits ${branch} ${count} us/next
+}
+
+# Check which of the top 5 commits in a branch are in co
+function gnc() {
+	branch=$1
+	count=${2:-20}
+
+	grep_branch_for_commits ${branch} ${count} ci/master
 }
 
 function list_not_applied() {

@@ -28,8 +28,8 @@ VPN_INTERFACE="tun0"
 VPN_TEST_HOST="10.8.0.1" # A common default OpenVPN server address
 
 # Define your mounts here for easy management
-# 1. SSHFS mount format: "source_host:/remote/path:/local/path"
-SSHFS_MOUNT="ellesmere:/scratch/sglass:/scratch"
+# 1. SSHFS mount format: "/remote/path:/local/path"
+SSHFS_MOUNT="/scratch/sglass:/scratch"
 
 # 2. Mounts defined in /etc/fstab
 FSTAB_MOUNTS=(
@@ -125,11 +125,13 @@ mount_shares() {
             echo "❌ 'sshfs' command not found. Please install it." >&2
             return 1
         fi
-        IFS=':' read -r source destination <<< "$SSHFS_MOUNT"
-        echo -n "  - Mounting $destination (sshfs)..."
-        if mountpoint -q "$destination"; then
+        IFS=':' read -r source dest <<< "$SSHFS_MOUNT"
+        echo "source $source"
+        echo "dest $dest"
+        echo -n "  - Mounting $dest (sshfs)..."
+        if mountpoint -q "$dest"; then
             echo " ✅ Already mounted."
-        elif sshfs "$source" "$destination"; then
+        elif sshfs "ellesmere:$source" "$dest"; then
             echo " ✅ Done."
         else
             echo " ❌ Failed."
@@ -172,15 +174,15 @@ unmount_shares() {
 
     # Lastly, unmount the sshfs share
     if [[ -n "$SSHFS_MOUNT" ]]; then
-        local destination="${SSHFS_MOUNT##*:}"
-        echo -n "  - Unmounting $destination..."
-        if ! mountpoint -q "$destination"; then
+        local dest="${SSHFS_MOUNT##*:}"
+        echo -n "  - Unmounting $dest..."
+        if ! mountpoint -q "$dest"; then
             echo " ✅ Already unmounted."
-        elif sudo umount "$destination"; then # umount is fine here
+        elif sudo umount "$dest"; then # umount is fine here
             echo " ✅ Done."
         else
             echo " ❌ Failed. Forcing with -l..." >&2
-            sudo umount -l "$destination"
+            sudo umount -l "$dest"
         fi
     fi
 }

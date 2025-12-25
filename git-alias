@@ -47,6 +47,18 @@ alias rs='git rebase --skip'
 # add all changed files
 alias au='git add -u'
 
+# rebase to the first commit in the branch (stop there for editing)
+rf() {
+  local upstream
+  upstream=$(get_branch)
+  if [ -z "$upstream" ]; then
+    echo "Error: Could not determine upstream branch" >&2
+    return 1
+  fi
+
+  GIT_SEQUENCE_EDITOR='sed -i "1s/^pick/edit/"' git rebase -i "$upstream"
+}
+
 # --continue to the next patch in the rebase
 rn() {
   # Ensure we are in a git repository

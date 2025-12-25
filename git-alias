@@ -48,19 +48,37 @@ alias rs='git rebase --skip'
 alias au='git add -u'
 
 # rebase to the first commit in the branch (stop there for editing)
+# rf [number] - if number provided, go back that many commits from HEAD
 rf() {
   local upstream
-  upstream=$(get_branch)
-  if [ -z "$upstream" ]; then
-    echo "Error: Could not determine upstream branch" >&2
-    return 1
+  local target
+  
+  if [ -n "$1" ] && [[ "$1" =~ ^[0-9]+$ ]]; then
+    # Number provided, use HEAD~N
+    target="HEAD~$1"
+  else
+    # No number provided, use upstream branch (original behavior)
+    upstream=$(get_branch)
+    if [ -z "$upstream" ]; then
+      echo "Error: Could not determine upstream branch" >&2
+      return 1
+    fi
+    target="$upstream"
   fi
 
-  GIT_SEQUENCE_EDITOR='sed -i "1s/^pick/edit/"' git rebase -i "$upstream"
+  GIT_SEQUENCE_EDITOR='sed -i "1s/^pick/edit/"' git rebase -i "$target"
 }
 
 # --continue to the next patch in the rebase
+# rn [number] - continue past N commits (default 1)
 rn() {
+  local skip_count=1
+  
+  # Check if a number parameter was provided
+  if [ -n "$1" ] && [[ "$1" =~ ^[0-9]+$ ]]; then
+    skip_count="$1"
+  fi
+
   # Ensure we are in a git repository
   if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     echo "Error: Not a git repository." >&2
@@ -86,22 +104,31 @@ rn() {
     return 0
   fi
 
-  # Find the line number of the very next non-commented command
-  local line_num
-  line_num=$(grep -n -v -E "^#" "$todo_file" | head -n 1 | cut -d: -f1)
+  # Find line numbers of the next N non-commented commands
+  local line_nums
+  line_nums=$(grep -n -v -E "^#" "$todo_file" | head -n "$skip_count" | cut -d: -f1)
 
-  # If a next command exists, change it to 'edit'
-  if [ -n "$line_num" ]; then
-    # Get the original command for the info message
-    local original_cmd
-    original_cmd=$(sed -n "${line_num}p" "$todo_file")
+  if [ -n "$line_nums" ]; then
+    # Process each line number to change commands to 'edit'
+    local count=0
+    for line_num in $line_nums; do
+      count=$((count + 1))
+      # Get the original command for the info message
+      local original_cmd
+      original_cmd=$(sed -n "${line_num}p" "$todo_file")
 
-    echo "Found next step: '$original_cmd'"
-    echo "Changing to 'edit' and continuing..."
-
-    # Replace the first word (the command) on that line with 'edit'
-    # Creates a backup file with .bak extension
-    sed -i.bak "${line_num}s/^[^[:space:]]*/edit/" "$todo_file"
+      echo "Found step $count: '$original_cmd'"
+      
+      # Only change the last one to 'edit', others can be 'pick' (no change needed for pick)
+      if [ "$count" -eq "$skip_count" ]; then
+        echo "Changing step $count to 'edit' and continuing..."
+        # Replace the first word (the command) on that line with 'edit'
+        # Creates a backup file with .bak extension
+        sed -i.bak "${line_num}s/^[^[:space:]]*/edit/" "$todo_file"
+      else
+        echo "Skipping step $count..."
+      fi
+    done
   else
     echo "No more steps in todo list. Continuing..."
   fi

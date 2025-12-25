@@ -13,5 +13,6 @@ if [ $? != 0 ] ; then
     . $SSH_AGENT_FILE
     ssh-add
     ssh-add $HOME/.ssh/chromium
+    ssh-add $HOME/.ssh/id_rsa_launchpad
 fi
 

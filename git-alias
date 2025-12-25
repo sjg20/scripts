@@ -48,16 +48,28 @@ alias rs='git rebase --skip'
 alias au='git add -u'
 
 # rebase to the first commit in the branch (stop there for editing)
-# rf [number] - if number provided, go back that many commits from HEAD
+# rf        - rebase to upstream, stop at patch 1
+# rf N      - rebase back N commits from HEAD, stop at first
+# rf pN     - rebase to upstream, stop at patch N
 rf() {
   local upstream
   local target
-  
-  if [ -n "$1" ] && [[ "$1" =~ ^[0-9]+$ ]]; then
+  local patch_num=1
+
+  if [ -n "$1" ] && [[ "$1" =~ ^p([0-9]+)$ ]]; then
+    # Patch number provided (e.g., p3), use upstream and edit patch N
+    patch_num="${BASH_REMATCH[1]}"
+    upstream=$(get_branch)
+    if [ -z "$upstream" ]; then
+      echo "Error: Could not determine upstream branch" >&2
+      return 1
+    fi
+    target="$upstream"
+  elif [ -n "$1" ] && [[ "$1" =~ ^[0-9]+$ ]]; then
     # Number provided, use HEAD~N
     target="HEAD~$1"
   else
-    # No number provided, use upstream branch (original behavior)
+    # No argument provided, use upstream branch (original behavior)
     upstream=$(get_branch)
     if [ -z "$upstream" ]; then
       echo "Error: Could not determine upstream branch" >&2
@@ -66,7 +78,7 @@ rf() {
     target="$upstream"
   fi
 
-  GIT_SEQUENCE_EDITOR='sed -i "1s/^pick/edit/"' git rebase -i "$target"
+  GIT_SEQUENCE_EDITOR="sed -i \"${patch_num}s/^pick/edit/\"" git rebase -i "$target"
 }
 
 # --continue to the next patch in the rebase
